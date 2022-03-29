@@ -1,3 +1,5 @@
+import numpy
+
 class Audio(object):
     """
     Handles Audio capabilities of Python Direct Platform.
