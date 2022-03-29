@@ -25,7 +25,11 @@ class Audio(object):
         """
         self._bitNumber = 16
         self._sampleRate = 44100
-        self._audioBuffer = None # TODO: Figure out the type. numpy array of ints?
+        self._audioBuffer = numpy.zeros((self._sampleRate, 2), dtype = numpy.int32) 
+                                    #assumes a 1 second duration; 
+                                    #32 bit int array handles 8, 16, or 32 for bit number; 
+                                    #support for other bit numbers pending
+                                    #2d for 2 channels
         self._audioDevice = 0
         self._volumeLevel = 0.75
 
