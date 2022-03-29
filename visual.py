@@ -1,6 +1,6 @@
 #Visual Buffer Team: Christopher Andrews
-#                    <insert your name here>
-#                    <insert your name here>
+#                    Ian Hurd
+#                    Angelo Tammaro
 
 import numpy as np
 
