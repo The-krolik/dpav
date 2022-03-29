@@ -2,4 +2,4 @@
 
 # placeholder
 def hfunc():
-   print("Hello from utility.py!")
+   return "Hello from utility.py!"
