@@ -1,11 +1,11 @@
-import audio
+import audio as aud
 
 def test_getBitNumber():
-  a = Audio()
+  a = aud.Audio()
   assert a.getBitNumber() == 16
   
 def test_setBitNumber():
-  a = Audio()
+  a = aud.Audio()
   a.setBitNumber(8)
   assert a.getBitNumber() == 8
   
