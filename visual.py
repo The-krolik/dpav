@@ -14,13 +14,19 @@ class Visual:
         # debugFlag: a boolean variable
         debugFlag = False
         
+        
+        
     # <insert definition of writePixel function here>; void function
     def writePixel():
         # TODO
         
+        
+        
     # <insert definition of getDimensions function here>; X and Y are int variables
     def getDimensions(X, Y):
         # TODO
+        
+        
         
     # <insert definition of clearBuffer function here>; void function
     def clearBuffer():
