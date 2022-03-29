@@ -19,15 +19,16 @@ class Visual:
     # <insert definition of writePixel function here>; void function
     def writePixel():
         # TODO
-        
+        temp_pixel = 0
         
         
     # <insert definition of getDimensions function here>; X and Y are int variables
     def getDimensions(X, Y):
         # TODO
-        
+        temp_dimensions = 0
         
         
     # <insert definition of clearBuffer function here>; void function
     def clearBuffer():
         # TODO
+        temp_buffer = 0
