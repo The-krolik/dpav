@@ -32,3 +32,4 @@ class Visual:
     def clearBuffer():
         # TODO
         temp_buffer = 0
+        
