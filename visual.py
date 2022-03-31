@@ -15,7 +15,7 @@ class VBuffer:
         self.dimensions = (xdim, ydim)
         
         # debugFlag: a boolean variable
-        debugFlag = False
+        self.debugFlag = False
         
         
         
