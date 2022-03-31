@@ -32,6 +32,6 @@ class Visual:
         
     # 
     def clearBuffer(self):
-        self.buffer[:,:] = 0
+        self.buffer[:] = 0
         
     
