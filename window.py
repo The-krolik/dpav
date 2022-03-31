@@ -30,14 +30,14 @@ class Window:
         if self.Open:
             self.Screen.blit(VB, (0, 0))
             pygame.display.flip()
-            
-        FRAME.blit(FRAME, (0, 0))
+    
     
     def Open(self):
         self.isOpen = True
         
         self.Screen = pygame.display.set_mode(self.VB.getDimensions())
         pygame.init()
+        pygame.display.flip()
         
     
     def Close(self):
