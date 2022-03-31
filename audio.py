@@ -148,23 +148,3 @@ class waveTable:
 
     def noise(self, inputFrequency, t):
         return random.random()*inputFrequency*t
-
-
-test = Audio()
-
-test.setBitNumber(8)
-gettest=test.getBitNumber()
-print("bit rate ok",gettest)
-
-
-gettest=test.getAudioBuffer()
-print("audio buff ok",gettest)
-
-gettest=test.getSampleRate()
-print("samp rate ok", gettest)
-
-test.setAudioDevice(1)
-gettest=test.getAudioDevice()
-print("audio device ok", gettest)
-
-test.playSound(262, 5)
