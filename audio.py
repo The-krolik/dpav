@@ -129,8 +129,8 @@ class Audio(object):
 
         for s in range(numberSamples):
             t = float(s)/sampleRate
-            audioBuffer[s][0] = int(round(volumeLevel*maxSample*self.waves.noise(inputFrequency,t)))
-            audioBuffer[s][1] = int(round(volumeLevel*maxSample*self.waves.noise(inputFrequency,t)))
+            audioBuffer[s][0] = int(round(volumeLevel*maxSample*self.waves.sin(inputFrequency,t)))
+            audioBuffer[s][1] = int(round(volumeLevel*maxSample*self.waves.sin(inputFrequency,t)))
 
         sound = pygame.sndarray.make_sound(audioBuffer)
         sound.play(loops = 0)
