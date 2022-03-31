@@ -1,4 +1,4 @@
 import window as win
 
-def testWindow():
+def test_window():
     print("Testing goes here")

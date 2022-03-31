@@ -1,6 +1,6 @@
 import audio as aud
 
-def TestAudio():
+def test_audio():
     a = aud.Audio()
 
 

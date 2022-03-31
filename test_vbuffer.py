@@ -1,4 +1,4 @@
 import vbuffer as vbuf
 
-def TestVBuffer():
+def test_vbuffer():
     print("testing goes here")
