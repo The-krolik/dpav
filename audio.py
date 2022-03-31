@@ -133,8 +133,9 @@ class Audio(object):
             audioBuffer[s][1] = int(round(volumeLevel*maxSample*self.waves.sin(inputFrequency,t)))
 
         sound = pygame.sndarray.make_sound(audioBuffer)
-        sound.play(loops = 0)
-        sleep(inputDuration)
+        pygame.mixer.find_channel().play(sound)
+        #sound.play(loops = 0)
+        #sleep(inputDuration)
 
 class waveTable:
     def __init__(self):
