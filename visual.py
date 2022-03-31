@@ -20,7 +20,7 @@ class Visual:
         
         
     # Sets pixel at coordinates coords in buffer to hex value val
-    def writePixel(coords, val):
+    def writePixel(self, coords, val):
         x, y = coords[0], coords[1]
         self.buffer[x, y] = val
         
