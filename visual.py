@@ -4,11 +4,12 @@
 
 import numpy as np
 
-class Visual:
+class VBuffer:
     
-    def __init__(self, xdim, ydim):
+    def __init__(self, dimensions):
         # TODO
         # imageArray: a numpy array that holds the pixel data of a picture
+        xdim, ydim = dimensions[0], dimensions[1]
         listGrid = [[0 for i in range(xdim)] for j in range(ydim)]
         self.buffer = np.array(listGrid)
         self.dimensions = (xdim, ydim)
