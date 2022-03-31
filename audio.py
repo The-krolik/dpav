@@ -4,7 +4,7 @@ import pygame
 from pygame.locals import *
 
 import math
-#import numpy
+import numpy
 from time import sleep
 
 class Audio(object):
