@@ -1,5 +1,12 @@
 import numpy
 
+import pygame
+from pygame.locals import *
+
+import math
+import numpy
+from time import sleep
+
 class Audio(object):
     """
     Handles Audio capabilities of Python Direct Platform.
@@ -15,7 +22,7 @@ class Audio(object):
 
         Getters:
             getBitNumber()->int
-            getSampleRate()->int 
+            getSampleRate()->int
             getAudioBuffer()->WHATEVER THIS IS
             getAudioDevice()->Returns int corresponding to audio device
 
@@ -27,15 +34,15 @@ class Audio(object):
         """
         self._bitNumber = 16
         self._sampleRate = 44100
-        self._audioBuffer = numpy.zeros((self._sampleRate, 2), dtype = numpy.int32) 
-                                    #assumes a 1 second duration; 
-                                    #32 bit int array handles 8, 16, or 32 for bit number; 
+        self._audioBuffer = numpy.zeros((self._sampleRate, 2), dtype = numpy.int32)
+                                    #assumes a 1 second duration;
+                                    #32 bit int array handles 8, 16, or 32 for bit number;
                                     #support for other bit numbers pending
                                     #2d for 2 channels
         self._audioDevice = 0
         self._volumeLevel = 0.75
 
-    # bit number    
+    # bit number
     def setBitNumber(self, bit: int) -> None :
         """
         Sets the bit rate of the Audio class.
@@ -43,7 +50,7 @@ class Audio(object):
         OUT: Returns None
         """
         self._bitNumber = bit
-        
+
     def getBitNumber(self) -> int :
         """
         Gets the bit rate of the Audio class.
@@ -103,18 +110,44 @@ class Audio(object):
         """
         return self._audioDevice
 
+    def playSound(self, inputFrequency, inputDuration)->None:
+        """
+        Primary sound playing method of the audio class.
+        IN: Takes an input frequency in Hz, and a duration in seconds
+        OUT: Plays sound, nothing returned
+        """
+        bitNumber = self.getBitNumber()
+        sampleRate = self.getSampleRate()
+        volumeLevel = 0.75
+        numberSamples = int(round(inputDuration*sampleRate))
+        audioBuffer = numpy.zeros((numberSamples, 2), dtype = numpy.int32)
+        maxSample = 2**(bitNumber - 1) - 1
+
+        pygame.mixer.pre_init(sampleRate, -bitNumber, 2)
+        pygame.mixer.init()
+
+
+        for s in range(numberSamples):
+            t = float(s)/sampleRate
+            audioBuffer[s][0] = int(round(volumeLevel*maxSample*math.sin(2*math.pi*inputFrequency*t)))
+            audioBuffer[s][1] = int(round(volumeLevel*maxSample*math.sin(2*math.pi*inputFrequency*t)))
+
+        sound = pygame.sndarray.make_sound(audioBuffer)
+        sound.play(loops = 0)
+        sleep(inputDuration)
+
+
 test = Audio()
 
-test.setBitNumber(24)
+test.setBitNumber(8)
 gettest=test.getBitNumber()
 print("bit rate ok",gettest)
 
-auBuf=[1,2,3,4]
+
 test.setAudioBuffer(auBuf)
 gettest=test.getAudioBuffer()
 print("audio buff ok",gettest)
 
-test.setSampleRate(24)
 gettest=test.getSampleRate()
 print("samp rate ok", gettest)
 
@@ -122,6 +155,4 @@ test.setAudioDevice(1)
 gettest=test.getAudioDevice()
 print("audio device ok", gettest)
 
-
-
-
+test.playSound(262, 5)
