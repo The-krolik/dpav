@@ -59,10 +59,10 @@ jobs:
       if: steps.check_audio.outputs.files_exists == 'true'
       run: pytest test_audio.py
 
-#    - name: Test vbuffer
-#      if: steps.check_vbuffer.outputs.files_exists == 'true'
-#      run: pytest test_vbuffer.py
+    - name: Test vbuffer
+      if: steps.check_vbuffer.outputs.files_exists == 'true'
+      run: pytest test_vbuffer.py
 
-#    - name: Test window
-#      if: steps.check_window.outputs.files_exists == 'true'
-#      run: pytest test_window.py
+    - name: Test window
+      if: steps.check_window.outputs.files_exists == 'true'
+      run: pytest test_window.py
