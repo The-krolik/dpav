@@ -6,30 +6,32 @@ import numpy as np
 
 class Visual:
     
-    def __init__(self):
+    def __init__(self, xdim, ydim):
         # TODO
         # imageArray: a numpy array that holds the pixel data of a picture
-        imageArray = np.array()
+        listGrid = [[0 for i in range(xdim)] for j in range(ydim)]
+        imageArray = np.array(listGrid)
+        self.buffer = imageArray
+        self.dimensions = (xdim, ydim)
         
         # debugFlag: a boolean variable
         debugFlag = False
         
         
         
-    # <insert definition of writePixel function here>; void function
-    def writePixel():
-        # TODO
-        temp_pixel = 0
+    # Sets pixel at coordinates coords in buffer to hex value val
+    def writePixel(coords, val):
+        x, y = coords[0], coords[1]
+        self.buffer[x, y] = val
         
         
     # <insert definition of getDimensions function here>; X and Y are int variables
-    def getDimensions(X, Y):
-        # TODO
-        temp_dimensions = 0
+    def getDimensions(self):
+        return self.dimensions
         
         
-    # <insert definition of clearBuffer function here>; void function
+    # 
     def clearBuffer():
-        # TODO
-        temp_buffer = 0
+        self.buffer[:,:] = 0
         
+    
