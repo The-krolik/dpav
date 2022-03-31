@@ -61,7 +61,8 @@ jobs:
 
     - name: Test vbuffer
 #      if: steps.check_vbuffer.outputs.files_exists == 'true'
-      run: pytest test_vbuffer.py
+      run: |
+        pytest test_vbuffer.py
 
     - name: Test window
       if: steps.check_window.outputs.files_exists == 'true'
