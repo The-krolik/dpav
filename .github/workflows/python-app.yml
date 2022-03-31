@@ -37,23 +37,23 @@ jobs:
         # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
 
-    - name: Check audio.py existence
-      id: check_audio
-      uses: andstor/file-existence-action@v1
-      with:
-        files: "audio.py"
+#    - name: Check audio.py existence
+#      id: check_audio
+#      uses: andstor/file-existence-action@v1
+#      with:
+#        files: "audio.py"
 
-    - name: Check vbuffer.py existence
-      id: check_vbuffer
-      uses: andstor/file-existence-action@v1
-      with:
-        files: "vbuffer.py"
+ #   - name: Check vbuffer.py existence
+ #     id: check_vbuffer
+ #     uses: andstor/file-existence-action@v1
+ #     with:
+ #       files: "vbuffer.py"
 
-    - name: Check window.py existence
-      id: check_window
-      uses: andstor/file-existence-action@v1
-      with:
-        files: "window.py"
+ #   - name: Check window.py existence
+ #     id: check_window
+ #     uses: andstor/file-existence-action@v1
+ #     with:
+ #       files: "window.py"
 
 #    - name: Test audio
 #      if: steps.check_audio.outputs.files_exists == 'true'
@@ -61,9 +61,8 @@ jobs:
 
     - name: Test vbuffer
 #      if: steps.check_vbuffer.outputs.files_exists == 'true'
-      run: |
-        pytest test_vbuffer.py
+      run: pytest test_vbuffer.py
 
-    - name: Test window
-      if: steps.check_window.outputs.files_exists == 'true'
-      run: pytest test_window.py
+#    - name: Test window
+#      if: steps.check_window.outputs.files_exists == 'true'
+#      run: pytest test_window.py
