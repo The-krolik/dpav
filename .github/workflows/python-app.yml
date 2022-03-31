@@ -60,7 +60,7 @@ jobs:
 #      run: pytest test_audio.py
 
     - name: Test vbuffer
-      if: steps.check_vbuffer.outputs.files_exists == 'true'
+#      if: steps.check_vbuffer.outputs.files_exists == 'true'
       run: pytest test_vbuffer.py
 
     - name: Test window
