@@ -1,4 +1,4 @@
-import numpy
+import numpy, random
 
 import pygame
 from pygame.locals import *
@@ -41,7 +41,7 @@ class Audio(object):
                                     #2d for 2 channels
         self._audioDevice = 0
         self._volumeLevel = 0.75
-
+        self.waves=waveTable()
     # bit number
     def setBitNumber(self, bit: int) -> None :
         """
@@ -118,7 +118,7 @@ class Audio(object):
         """
         bitNumber = self.getBitNumber()
         sampleRate = self.getSampleRate()
-        volumeLevel = 0.75
+        volumeLevel = self._volumeLevel
         numberSamples = int(round(inputDuration*sampleRate))
         audioBuffer = numpy.zeros((numberSamples, 2), dtype = numpy.int32)
         maxSample = 2**(bitNumber - 1) - 1
@@ -129,12 +129,25 @@ class Audio(object):
 
         for s in range(numberSamples):
             t = float(s)/sampleRate
-            audioBuffer[s][0] = int(round(volumeLevel*maxSample*math.sin(2*math.pi*inputFrequency*t)))
-            audioBuffer[s][1] = int(round(volumeLevel*maxSample*math.sin(2*math.pi*inputFrequency*t)))
+            audioBuffer[s][0] = int(round(volumeLevel*maxSample*self.waves.noise(inputFrequency,t)))
+            audioBuffer[s][1] = int(round(volumeLevel*maxSample*self.waves.noise(inputFrequency,t)))
 
         sound = pygame.sndarray.make_sound(audioBuffer)
         sound.play(loops = 0)
         sleep(inputDuration)
+
+class waveTable:
+    def __init__(self):
+        pass
+
+    def sin(self, inputFrequency, t):
+        return math.sin(2*math.pi*inputFrequency*t)
+
+    def square(self, inputFrequency, t):
+        return round(math.sin(2*math.pi*inputFrequency*t))
+
+    def noise(self, inputFrequency, t):
+        return random.random()*inputFrequency*t
 
 
 test = Audio()
@@ -144,7 +157,6 @@ gettest=test.getBitNumber()
 print("bit rate ok",gettest)
 
 
-test.setAudioBuffer(auBuf)
 gettest=test.getAudioBuffer()
 print("audio buff ok",gettest)
 
