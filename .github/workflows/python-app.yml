@@ -57,7 +57,7 @@ jobs:
 
     - name: Test audio
       if: steps.check_audio.outputs.files_exists == 'true'
-      run: pytest test_audio.py
+#      run: pytest test_audio.py
 
     - name: Test vbuffer
       if: steps.check_vbuffer.outputs.files_exists == 'true'
