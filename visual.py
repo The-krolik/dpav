@@ -10,8 +10,7 @@ class Visual:
         # TODO
         # imageArray: a numpy array that holds the pixel data of a picture
         listGrid = [[0 for i in range(xdim)] for j in range(ydim)]
-        imageArray = np.array(listGrid)
-        self.buffer = imageArray
+        self.buffer = np.array(listGrid)
         self.dimensions = (xdim, ydim)
         
         # debugFlag: a boolean variable
