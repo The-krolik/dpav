@@ -55,8 +55,8 @@ jobs:
       with:
         files: "window.py"
 
-    - name: Test audio
-      if: steps.check_audio.outputs.files_exists == 'true'
+#    - name: Test audio
+#      if: steps.check_audio.outputs.files_exists == 'true'
 #      run: pytest test_audio.py
 
     - name: Test vbuffer
