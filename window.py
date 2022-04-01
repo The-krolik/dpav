@@ -1,18 +1,26 @@
 import numpy as np
 import pygame
 from visual import Visual
+from datetime import datetime
+
+#import os #temp
+#os.environ["SDL_VIDEODRIVER"]="x11"#temp
 
 
-import os #temp
-os.environ["SDL_VIDEODRIVER"]="x11"#temp
+# WINDOW TODO:
+#   Method/Class comments
+
+#UTILITY FUNCTION TODO:
+#   Queue Events
+
 
 class Window:
     
     def __init__(self, vB=None):
-        
-        self.VB = vB
+        # create buffer if not provided
+        self.VB = Visual(800,600) if vB == None else vB
         self.EventDictionary = {}
-        self.DebugFlag = True
+        self.DebugFlag = False
         
         self.Screen = None
         self.isOpen = False
@@ -28,13 +36,16 @@ class Window:
             self.Screen.blit(VB, (0, 0))
             pygame.display.flip()
     
-    
     def Update(self):
-        
+        if self.isOpen == False:
+            debug = "Update() called before Open()"
+            self._debugOut(debug)
+            return
+            
         for event in pygame.event.get():
-            # if window claose button is pressed (X)
+            # if window close button is pressed (X)
             if event.type == pygame.QUIT:
-                window.Close()
+                self.Close()
                 
             self._updateEventDictionary(event)
     
@@ -50,6 +61,7 @@ class Window:
     
     def Close(self):
         self.isOpen = False
+        self.Screen = None
         pygame.quit()
 
 
@@ -63,16 +75,21 @@ class Window:
             if intkey in self._keydict:
                 strkey = self._keydict[intkey] #temp
             else:
-                print(intkey)
+                debug = "key pressed does not contain viable key mapping" #debug out
+                self._debugOut(debug)
+                
                 strkey = 'None'
         else:
             strkey = chr(intkey)
             
 
         if strkey != 'None' and strkey in self.EventDictionary:
-                
             # if key state is True, set to False if False set to True
             self.EventDictionary[strkey] = True if self.EventDictionary[strkey] == False else False
+            
+            debug = "key '{}' set to {}".format(strkey, self.EventDictionary[strkey]) #debug out
+            self._debugOut(debug)
+            
     
     def _buildEventDictionary(self):
         
@@ -97,24 +114,16 @@ class Window:
         # add non-ASCII keys to event dictionary
         for key, value in self._keydict.items():
             self.EventDictionary[value] = pygame.key.get_pressed()[key]
+            
+            
+    def _debugOut(self, msg):
         
-        
+        if self.DebugFlag:
+            date_time = datetime.now()
+            date = date_time.strftime("%Y%m%d")
+            time = date_time.strftime("%H:%M:%S")
 
-## Open Window Example w/ Event Dictionary
-
-buffer = Visual(600,600)
-window = Window(buffer)
-
-window.Open()
-while window.isOpen:
-    window.Update()
-    
-    if window.EventDictionary['a']:
-        print("'A' Key Pressed")
-
-
-
-# TODO: Debug Log
-
-#UTILITY FUNCTION TODO:
-#   Queue Events
+            msg = "{} | {}\n".format(time, msg) 
+            filename = "./logs/{}.txt".format(date)
+            with open(filename, 'a') as file:
+                file.write(msg)
