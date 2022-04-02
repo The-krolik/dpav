@@ -17,7 +17,8 @@ class VBuffer:
         # debugFlag: a boolean variable
         self.debugFlag = False
         
-        
+    
+    # get value of pixel
         
     # Sets pixel at coordinates coords in buffer to hex value val
     def writePixel(self, coords, val):
