@@ -48,10 +48,13 @@ class Audio(object):
     def setBitNumber(self, bit: int) -> None :
         """
         Sets the bit rate of the Audio class.
-        IN: Bit rate (Integer) < 16
+        IN: Bit rate (Integer) <= 32
         OUT: Returns None
         """
-        self._bitNumber = bit
+        if(bit in range(1,32)):
+            self._bitNumber = bit
+        else:
+            print("Value must be a whole number greater than zero, less than 16")
 
     def getBitNumber(self) -> int :
         """
@@ -68,7 +71,10 @@ class Audio(object):
         IN: Sample rate (Integer). 44100 is default value
         OUT: Returns None
         """
-        self._sampleRate = sample
+        if(sample>0):
+            self._sampleRate = sample
+        else:
+            print("Sample rate has to be an integer greater than zero.")
 
     def getSampleRate(self) -> int:
         """
@@ -134,7 +140,7 @@ class Audio(object):
         audioBuffer = numpy.zeros((numberSamples, 2), dtype = numpy.int32)
         maxSample = 2**(bitNumber - 1) - 1
 
-        pygame.mixer.pre_init(sampleRate, -bitNumber, 2)
+        pygame.mixer.pre_init(sampleRate, -bitNumber, 6)
         pygame.mixer.init()
 
 
@@ -144,9 +150,22 @@ class Audio(object):
             audioBuffer[s][1] = int(round(volumeLevel*maxSample*self.waveform(inputFrequency,t)))
         try:
             sound = pygame.sndarray.make_sound(audioBuffer)
-            pygame.mixer.find_channel(force=True).play(sound)
+            pygame.mixer.find_channel(force=False).play(sound)
         except AttributeError:
             print("Out of Channels")
+
+    # pitch is semitones to transpose
+    def playSample(self, sampleName: str)->None:
+        bitNumber = self.getBitNumber()
+        sampleRate = self.getSampleRate()
+        volumeLevel = self._volumeLevel
+
+        pygame.mixer.pre_init(sampleRate, -bitNumber, 6)
+        pygame.mixer.init()
+
+        sound = pygame.mixer.Sound(sampleName)
+        pygame.mixer.Sound.play(sound)
+
 
 class waveTable:
     def __init__(self):
