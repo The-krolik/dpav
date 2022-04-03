@@ -42,6 +42,8 @@ class Audio(object):
         self._audioDevice = 0
         self._volumeLevel = 0.75
         self.waves=waveTable()
+        self.waveform = self.waves.sin # this is what the kids would call some bs
+
     # bit number
     def setBitNumber(self, bit: int) -> None :
         """
@@ -110,6 +112,15 @@ class Audio(object):
         """
         return self._audioDevice
 
+    def setWaveForm(self, wave)->None:
+        """
+        Sets the expression governing the wave form playing. Uses this in buffer generation
+        IN: takes a mathematical expression function 'pointer' in the form of f(inputfreq, timestep)
+        OUT: none
+        """
+        self.waveform = wave
+        pass
+
     def playSound(self, inputFrequency, inputDuration)->None:
         """
         Primary sound playing method of the audio class.
@@ -129,13 +140,13 @@ class Audio(object):
 
         for s in range(numberSamples):
             t = float(s)/sampleRate
-            audioBuffer[s][0] = int(round(volumeLevel*maxSample*self.waves.sin(inputFrequency,t)))
-            audioBuffer[s][1] = int(round(volumeLevel*maxSample*self.waves.sin(inputFrequency,t)))
-
-        sound = pygame.sndarray.make_sound(audioBuffer)
-        pygame.mixer.find_channel().play(sound)
-        #sound.play(loops = 0)
-        #sleep(inputDuration)
+            audioBuffer[s][0] = int(round(volumeLevel*maxSample*self.waveform(inputFrequency,t)))
+            audioBuffer[s][1] = int(round(volumeLevel*maxSample*self.waveform(inputFrequency,t)))
+        try:
+            sound = pygame.sndarray.make_sound(audioBuffer)
+            pygame.mixer.find_channel(force=True).play(sound)
+        except AttributeError:
+            print("Out of Channels")
 
 class waveTable:
     def __init__(self):
@@ -149,3 +160,9 @@ class waveTable:
 
     def noise(self, inputFrequency, t):
         return random.random()*inputFrequency*t
+
+    def saw(self, inputFrequency, t):
+        return (t*inputFrequency-math.floor(t*inputFrequency))
+
+    def triangle(self,inputFrequency, t):
+        return 2*abs( (t*inputFrequency)/1 - math.floor( ((t*inputFrequency)/1)+0.5 ))
