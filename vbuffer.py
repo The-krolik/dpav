@@ -9,6 +9,14 @@ class VBuffer:
     def __init__(self, dimensions):
         # TODO
         # imageArray: a numpy array that holds the pixel data of a picture
+        if type(dimensions) is not list or type(dimensions) is not tuple:
+            raise TypeError("Error! Dimensions is supposed to be a list or tuple!")
+        elif len(dimensions) != 2:
+            raise ValueError("Error! Dimensions are only meant to be 2 values!")
+        elif type(dimensions[0]) is not int and type(dimensions[1]) is not int:
+            raise TypeError("Error! Dimensions are meant to be integer values! ")
+
+
         xdim, ydim = dimensions[0], dimensions[1]
         listGrid = [[0 for i in range(xdim)] for j in range(ydim)]
         self._buffer = np.array(listGrid)
@@ -16,14 +24,14 @@ class VBuffer:
         
         # debugFlag: a boolean variable
         self.debugFlag = False
-        
+
         
     # Sets pixel at coordinates coords in buffer to hex value val
     def writePixel(self, coords, val):
         x, y = coords[0], coords[1]
         self._buffer[x, y] = val
 
-    def getPixel(self, coords, isHex=False):
+    def getPixel(self, coords):
         x, y = coords[0], coords[1]
         return self._buffer[x, y]
         
