@@ -11,8 +11,8 @@ class VBuffer:
         # imageArray: a numpy array that holds the pixel data of a picture
         xdim, ydim = dimensions[0], dimensions[1]
         listGrid = [[0 for i in range(xdim)] for j in range(ydim)]
-        self.buffer = np.array(listGrid)
-        self.dimensions = (xdim, ydim)
+        self._buffer = np.array(listGrid)
+        self._dimensions = (xdim, ydim)
         
         # debugFlag: a boolean variable
         self.debugFlag = False
@@ -21,16 +21,22 @@ class VBuffer:
     # Sets pixel at coordinates coords in buffer to hex value val
     def writePixel(self, coords, val):
         x, y = coords[0], coords[1]
-        self.buffer[x, y] = val
-        
+        self._buffer[x, y] = val
+
+    def getPixel(self, coords, isHex=False):
+        x, y = coords[0], coords[1]
+        return self._buffer[x, y]
         
     # <insert definition of getDimensions function here>; X and Y are int variables
     def getDimensions(self):
-        return self.dimensions
+        return self._dimensions
         
         
     # 
     def clearBuffer(self):
-        self.buffer[:] = 0
+        self._buffer[:] = 0
+
+    def getBuffer(self):
+        return self._buffer
         
     
