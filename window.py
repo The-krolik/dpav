@@ -1,10 +1,8 @@
 import numpy as np
 import pygame
+import utility as util
 from vbuffer import VBuffer
-from datetime import datetime
 
-#import os #temp
-#os.environ["SDL_VIDEODRIVER"]="x11"#temp
 
 
 # WINDOW TODO:
@@ -17,17 +15,25 @@ from datetime import datetime
 class Window:
     
     def __init__(self, vB=None):
-        # create buffer if not provided
-        self.VB = VBuffer(800,600) if vB == None else vB
-        self.EventDictionary = {}
-        self.DebugFlag = False
         
+        
+        if vB != None and type(vB) is not VBuffer:
+            raise TypeError("Argument must be of type VBuffer")
+        
+        # create buffer if not provided
+        self.VB = VBuffer((800,600)) if vB == None else vB
+        
+        self.Events = {}
+        self.ActiveEvents = []
+        
+        self.DebugFlag = False
         self.Screen = None
         self.isOpen = False
         
 
     def GetMousePosition(self):
         return pygame.mouse.get_pos()
+    
     
     def SetVisualBuffer(self, vB):
         self.VB = vB
@@ -39,15 +45,17 @@ class Window:
     def Update(self):
         if self.isOpen == False:
             debug = "Update() called before Open()"
-            self._debugOut(debug)
+            if self.DebugFlag:
+                util._debugOut(debug)
             return
-            
+        
+        self.ActiveEvents.clear()
         for event in pygame.event.get():
             # if window close button is pressed (X)
             if event.type == pygame.QUIT:
                 self.Close()
                 
-            self._updateEventDictionary(event)
+            self._updateEvents(event)
     
     def Open(self):
         self.isOpen = True
@@ -56,7 +64,7 @@ class Window:
         pygame.init()
         pygame.display.flip()
         
-        self._buildEventDictionary()
+        self._buildEvents()
         
     
     def Close(self):
@@ -65,7 +73,7 @@ class Window:
         pygame.quit()
 
 
-    def _updateEventDictionary(self, event):
+    def _updateEvents(self, event):
         
         intkey = event.dict.get('key')
             
@@ -74,24 +82,28 @@ class Window:
         elif intkey > 127 or intkey < 0:
             if intkey in self._keydict:
                 strkey = self._keydict[intkey] #temp
-            else:
+            elif self.DebugFlag:
                 debug = "key pressed does not contain viable key mapping" #debug out
-                self._debugOut(debug)
+                util._debugOut(debug)
                 
                 strkey = 'None'
         else:
             strkey = chr(intkey)
             
 
-        if strkey != 'None' and strkey in self.EventDictionary:
+        if strkey != 'None' and strkey in self.Events:
             # if key state is True, set to False if False set to True
-            self.EventDictionary[strkey] = True if self.EventDictionary[strkey] == False else False
+            self.Events[strkey] = True if self.Events[strkey] == False else False
             
-            debug = "key '{}' set to {}".format(strkey, self.EventDictionary[strkey]) #debug out
-            self._debugOut(debug)
+            if self.Events[strkey]:
+                self.ActiveEvents.append(strkey)
+            
+            if self.DebugFlag:
+                debug = "key '{}' set to {}".format(strkey, self.Events[strkey]) #debug out
+                util._debugOut(debug)
             
     
-    def _buildEventDictionary(self):
+    def _buildEvents(self):
         
         # used for mapping of pygame keys when key isnt an ASCII character
         self._keydict = {pygame.K_F1 : 'f1', pygame.K_F2 : 'f2', pygame.K_F3 : 'f3', pygame.K_F4 : 'f4',
@@ -105,25 +117,12 @@ class Window:
         
         # add [a-z] to dictionary
         for code in range(ord('a'), ord('z') + 1):
-            self.EventDictionary[chr(code)] = pygame.key.get_pressed()[int(code)]
+            self.Events[chr(code)] = pygame.key.get_pressed()[int(code)]
             
         # add [, - . /] and [0-9] to dictionary
         for code in range(ord(','), ord('9') + 1):
-            self.EventDictionary[chr(code)] = pygame.key.get_pressed()[int(code)]
+            self.Events[chr(code)] = pygame.key.get_pressed()[int(code)]
         
         # add non-ASCII keys to event dictionary
         for key, value in self._keydict.items():
-            self.EventDictionary[value] = pygame.key.get_pressed()[key]
-            
-            
-    def _debugOut(self, msg):
-        
-        if self.DebugFlag:
-            date_time = datetime.now()
-            date = date_time.strftime("%Y%m%d")
-            time = date_time.strftime("%H:%M:%S")
-
-            msg = "{} | {}\n".format(time, msg) 
-            filename = "./logs/{}.txt".format(date)
-            with open(filename, 'a') as file:
-                file.write(msg)
+            self.Events[value] = pygame.key.get_pressed()[key]
