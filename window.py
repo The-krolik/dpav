@@ -1,6 +1,6 @@
 import numpy as np
 import pygame
-from visual import Visual
+from vbuffer import VBuffer
 from datetime import datetime
 
 #import os #temp
@@ -18,7 +18,7 @@ class Window:
     
     def __init__(self, vB=None):
         # create buffer if not provided
-        self.VB = Visual(800,600) if vB == None else vB
+        self.VB = VBuffer(800,600) if vB == None else vB
         self.EventDictionary = {}
         self.DebugFlag = False
         
