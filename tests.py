@@ -1,7 +1,7 @@
 import directpythonplatform as dpp
 
 def test_audio():
-    a = audio.Audio()
+    a = dpp.Audio()
 
 
     # bit number tests
@@ -41,7 +41,7 @@ def test_audio():
     
 
 def test_vbuffer():
-    vb = vbufer.VBuffer()
+    vb = dpp.VBuffer()
     x, y = vb.getDimensions()
     assert x > 0
     assert y > 0
