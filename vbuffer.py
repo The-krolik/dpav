@@ -14,13 +14,22 @@ class VBuffer:
         self._checkDoubleIntVal(dimensions, "dimensions", "__init__")
         xdim, ydim = dimensions[0], dimensions[1]
         if xdim <= 0 or ydim <= 0:
-            
+            raise ValueError("Buffer dimensions in vBuffer must exceed 0!")
         listGrid = [[0 for i in range(xdim)] for j in range(ydim)]
         self._buffer = np.array(listGrid)
         self._dimensions = (xdim, ydim)
         
         # debugFlag: a boolean variable
         self.debugFlag = False
+
+
+    def _checkDoubleIntVal(self, val, argName, methodName):
+        if not(type(val) is list or type(val) is tuple):
+            raise TypeError(f"{argName} argument to vBuffer. {methodName} should be a list or a tuple!")
+        elif len(val) != 2:
+            raise TypeError(f"{argName} argument to vBuffer. {methodName} requires exactly 2 values!")
+        elif not (type(val[0]) is int and type(val[1]) is int):
+            raise TypeError((f"{argName} argument to vBuffer. {methodName} can only have integer values!")
 
         
     # Sets pixel at coordinates coords in buffer to hex value val
@@ -36,12 +45,7 @@ class VBuffer:
         
     # <insert definition of getDimensions function here>; X and Y are int variables
     def getDimensions(self):
-        try:
-            return self._dimensions
-        except TypeError:
-            raise TypeError("Error! x and y are meant to be integer values!")
-        except ValueError:
-            raise ValueError("Error! The values of x and y are meant to be integer values!")
+        return self._dimensions
 
     # 
     def clearBuffer(self):
