@@ -33,7 +33,7 @@ class Window:
         self.VB = vB
         
         if self.isOpen:
-            self.Screen.blit(VB, (0, 0))
+            self.Screen.blit(vB, (0, 0))
             pygame.display.flip()
     
     def Update(self):
