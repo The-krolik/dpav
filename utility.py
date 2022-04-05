@@ -1,12 +1,5 @@
 from datetime import datetime
 
-# Whatever utility functions go here
-
-# placeholder
-def hfunc():
-   return "Hello from utility.py!"
-
-
 def _debugOut(msg):
 
     date_time = datetime.now()
