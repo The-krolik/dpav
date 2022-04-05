@@ -1,10 +1,8 @@
 import numpy as np
 import pygame
+import utility as util
 from vbuffer import VBuffer
-from datetime import datetime
 
-#import os #temp
-#os.environ["SDL_VIDEODRIVER"]="x11"#temp
 
 
 # WINDOW TODO:
@@ -18,9 +16,9 @@ class Window:
     
     def __init__(self, vB=None):
         # create buffer if not provided
-        self.VB = VBuffer(800,600) if vB == None else vB
+        self.VB = VBuffer((800,600)) if vB == None else vB
         self.EventDictionary = {}
-        self.DebugFlag = False
+        self.DebugFlag = True
         
         self.Screen = None
         self.isOpen = False
@@ -39,7 +37,8 @@ class Window:
     def Update(self):
         if self.isOpen == False:
             debug = "Update() called before Open()"
-            self._debugOut(debug)
+            if self.DebugFlag:
+                util._debugOut(debug)
             return
             
         for event in pygame.event.get():
@@ -74,9 +73,9 @@ class Window:
         elif intkey > 127 or intkey < 0:
             if intkey in self._keydict:
                 strkey = self._keydict[intkey] #temp
-            else:
+            elif self.DebugFlag:
                 debug = "key pressed does not contain viable key mapping" #debug out
-                self._debugOut(debug)
+                util._debugOut(debug)
                 
                 strkey = 'None'
         else:
@@ -87,8 +86,9 @@ class Window:
             # if key state is True, set to False if False set to True
             self.EventDictionary[strkey] = True if self.EventDictionary[strkey] == False else False
             
-            debug = "key '{}' set to {}".format(strkey, self.EventDictionary[strkey]) #debug out
-            self._debugOut(debug)
+            if self.DebugFlag:
+                debug = "key '{}' set to {}".format(strkey, self.EventDictionary[strkey]) #debug out
+                util._debugOut(debug)
             
     
     def _buildEventDictionary(self):
@@ -114,16 +114,3 @@ class Window:
         # add non-ASCII keys to event dictionary
         for key, value in self._keydict.items():
             self.EventDictionary[value] = pygame.key.get_pressed()[key]
-            
-            
-    def _debugOut(self, msg):
-        
-        if self.DebugFlag:
-            date_time = datetime.now()
-            date = date_time.strftime("%Y%m%d")
-            time = date_time.strftime("%H:%M:%S")
-
-            msg = "{} | {}\n".format(time, msg) 
-            filename = "./logs/{}.txt".format(date)
-            with open(filename, 'a') as file:
-                file.write(msg)
