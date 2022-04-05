@@ -9,11 +9,11 @@ class VBuffer:
     def __init__(self, dimensions):
         # TODO
         # imageArray: a numpy array that holds the pixel data of a picture
-        if type(dimensions) is not list or type(dimensions) is not tuple:
+        if type(dimensions) is not list and type(dimensions) is not tuple:
             raise TypeError("Error! Dimensions is supposed to be a list or tuple!")
         elif len(dimensions) != 2:
             raise ValueError("Error! Dimensions are only meant to be 2 values!")
-        elif type(dimensions[0]) is not int and type(dimensions[1]) is not int:
+        elif type(dimensions[0]) is not int or type(dimensions[1]) is not int:
             raise TypeError("Error! Dimensions are meant to be integer values! ")
 
 
