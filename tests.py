@@ -46,11 +46,11 @@ def test_vbuffer():
     assert x > 0
     assert y > 0
 
-    vb = vbuf.VBuffer([-100, -100])
+    vb = dpp.VBuffer([-100, -100])
     assert x > 0
     assert y > 0
 
-    vb = vbuf.VBuffer([800, 600])
+    vb = dpp.VBuffer([800, 600])
     x, y = vb.getDimensions()
     assert x == 800
     assert y == 600
