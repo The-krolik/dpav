@@ -29,7 +29,7 @@ class VBuffer:
         elif len(val) != 2:
             raise TypeError(f"{argName} argument to vBuffer. {methodName} requires exactly 2 values!")
         elif not (type(val[0]) is int and type(val[1]) is int):
-            raise TypeError((f"{argName} argument to vBuffer. {methodName} can only have integer values!")
+            raise TypeError(f"{argName} argument to vBuffer. {methodName} can only have integer values!")
 
         
     # Sets pixel at coordinates coords in buffer to hex value val
