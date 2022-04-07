@@ -40,7 +40,7 @@ class Audio(object):
                                     #support for other bit numbers pending
                                     #2d for 2 channels
         self._audioDevice = 0
-        self._volumeLevel = 0.75
+        self.volumeLevel = 0.75
         self.waves=waveTable()
         self.waveform = self.waves.sin # this is what the kids would call some bs
 
@@ -54,7 +54,7 @@ class Audio(object):
         if(bit in range(1,32)):
             self._bitNumber = bit
         else:
-            print("Value must be a whole number greater than zero, less than or equal to 32")
+            raise ValueError("Value must be a whole number greater than zero, less than or equal to 32")
 
     def getBitNumber(self) -> int :
         """
@@ -74,7 +74,7 @@ class Audio(object):
         if(sample>0):
             self._sampleRate = sample
         else:
-            print("Sample rate has to be an integer greater than zero.")
+            raise ValueError("Sample rate has to be an integer greater than zero.")
 
     def getSampleRate(self) -> int:
         """
@@ -133,8 +133,11 @@ class Audio(object):
         IN: Takes an input frequency in Hz, and a duration in seconds
         OUT: Plays sound, nothing returned
         """
-        if inputDuration < 0:
+        if type(inputDuration) is not int and type(inputDuration) is not float:
+            raise TypeError("The duration must be a number")
+        elif inputDuration < 0:
             raise ValueError("The duration must be non-negative")
+        
         bitNumber = self.getBitNumber()
         sampleRate = self.getSampleRate()
         volumeLevel = self._volumeLevel
