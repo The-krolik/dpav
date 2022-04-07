@@ -51,7 +51,7 @@ class Audio(object):
         IN: Bit rate (Integer) <= 32
         OUT: Returns None
         """
-        if(bit in range(1,32)):
+        if(bit>=1 and bit<=32):
             self._bitNumber = bit
         else:
             raise ValueError("Value must be a whole number greater than zero, less than or equal to 32")
