@@ -54,7 +54,7 @@ class Audio(object):
         if(bit in range(1,32)):
             self._bitNumber = bit
         else:
-            print("Value must be a whole number greater than zero, less than 16")
+            print("Value must be a whole number greater than zero, less than or equal to 32")
 
     def getBitNumber(self) -> int :
         """
@@ -133,6 +133,9 @@ class Audio(object):
         IN: Takes an input frequency in Hz, and a duration in seconds
         OUT: Plays sound, nothing returned
         """
+        if(inputDuration<0):
+            print("Input duration must be positive")
+            break
         bitNumber = self.getBitNumber()
         sampleRate = self.getSampleRate()
         volumeLevel = self._volumeLevel
