@@ -5,10 +5,10 @@ from typing import Type
 def test_audio():
     a = dpp.Audio()
 
-
-    # bit number tests
     assert a.getBitNumber() == 16
+    assert a.getSampleRate() == 44100
 
+    """
     a.setBitNumber(8)
     assert a.getBitNumber() == 8
 
@@ -22,16 +22,7 @@ def test_audio():
     with pytest.raises(Exception) as e_info:
         a.setBitNumber(-1)
     assert a.getBitNumber() == 32
-
-
-    # sample rate tests
-    assert a.getSampleRate() == 44100
-
-    # Are other sample rates supported?
-
-
-    # audio buffer tests
-
+    """
 
     a.setAudioDevice(1)
     assert a.getAudioDevice == 1
