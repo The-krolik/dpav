@@ -18,7 +18,7 @@ class VBuffer:
 
 
         xdim, ydim = dimensions[0], dimensions[1]
-        self._buffer = np.zeros((xdim, ydim, 3))
+        self._buffer = np.zeros((xdim, ydim, 3), dtype=int)
         self._dimensions = (xdim, ydim, 3)
         
         # debugFlag: a boolean variable
