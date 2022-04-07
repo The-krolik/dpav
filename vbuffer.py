@@ -33,8 +33,6 @@ class VBuffer:
 
         
     # Sets pixel at coordinates coords in buffer to hex value val
-    #error check correct color value is at least 0 and less than 2^24 
-    #error check if int
     def writePixel(self, coords, val):
         self._checkDoubleIntVal(coords, "coords", "writePixel")
         if type(val) is not int:
