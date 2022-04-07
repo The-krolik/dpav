@@ -15,8 +15,10 @@ class VBuffer:
         xdim, ydim = dimensions[0], dimensions[1]
         if xdim <= 0 or ydim <= 0:
             raise ValueError("Buffer dimensions in vBuffer must exceed 0!")
-        listGrid = [[0 for i in range(ydim)] for j in range(xdim)]
-        self._buffer = np.array(listGrid)
+
+        #listGrid = [[0 for i in range(ydim)] for j in range(xdim)]
+        #self._buffer = np.array(listGrid)
+        self._buffer = np.zeros((xdim, ydim), dtype=int)
         self._dimensions = (xdim, ydim)
         
         # debugFlag: a boolean variable
@@ -32,9 +34,11 @@ class VBuffer:
             raise TypeError(f"{argName} argument to vBuffer. {methodName} can only have integer values!")
 
     def _checkCoordVals(self, x, y, methodName):
-        if x < 0 or x >= self._dimensions[0] or y < 0 or y >= self.dimensions[1]:
-            raise ValueError(f"Coordinate args to VBuffer.{methodName} are outside of buffer dimensions")
-
+        if x <= 0 or y <= 0:
+            raise ValueError(f"Coordinate args to VBuffer.{methodName} should be greater than zero.")
+        elif x >= self._dimensions[0] or y >= self.dimensions[1]:
+            raise ValueError(f"Coordinate args to VBuffer.{methodName} are out of bounds."
+        
     # Sets pixel at coordinates coords in buffer to hex value val
     #error check correct color value greater than 0 less than 2^24 
     #error check if int
@@ -57,12 +61,10 @@ class VBuffer:
     # <insert definition of getDimensions function here>; X and Y are int variables
     def getDimensions(self):
         return self._dimensions
-    
+
     # 
     def clearBuffer(self):
         self._buffer[:] = 0
 
     def getBuffer(self):
         return self._buffer
-        
-    
