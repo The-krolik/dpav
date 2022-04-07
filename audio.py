@@ -44,8 +44,6 @@ class Audio(object):
         self.waves=waveTable()
         self.waveform = self.waves.sin # this is what the kids would call some bs
 
-
-
     # bit number
     def setBitNumber(self, bit: int) -> None :
         """
@@ -153,7 +151,6 @@ class Audio(object):
         try:
             sound = pygame.sndarray.make_sound(audioBuffer)
             pygame.mixer.find_channel(force=False).play(sound)
-            print("after?")
         except AttributeError:
             print("Out of Channels")
 
