@@ -17,16 +17,18 @@ class Audio(object):
         Setters:
             setBitNumber(int)
             setSampleRate(int)
-            setAudioBuffer(TODO:TYPE)
+            setAudioBuffer()
             setAudioDevice(int)
 
         Getters:
             getBitNumber()->int
             getSampleRate()->int
-            getAudioBuffer()->WHATEVER THIS IS
+            getAudioBuffer()
             getAudioDevice()->Returns int corresponding to audio device
 
         Misc Variables:
+            self.waves is the wavetable
+            self.waveform is the current wave generator for sound
     """
     def __init__(self): #TODO inheritance? if we inherited from a parent class, we could save what imports we would need here.
         """
@@ -54,7 +56,7 @@ class Audio(object):
         if(bit in range(1,32)):
             self._bitNumber = bit
         else:
-            print("Value must be a whole number greater than zero, less than 16")
+            print("Value must be a whole number greater than zero, less than 32")
 
     def getBitNumber(self) -> int :
         """
@@ -155,11 +157,22 @@ class Audio(object):
             print("Out of Channels")
 
     def waitForSoundEnd(self):
+        """
+        Function call that is placed at the end of scripts to keep processes going
+        so that way sounds play to their full duration without a pygame window instance
+        In: None
+        Return: None
+        """
         while(pygame.mixer.get_busy()):
             pass
 
     # pitch is semitones to transpose
     def playSample(self, sampleName: str)->None:
+        """
+        Plays sounds that are wav, ogg or mp3 files.
+        In: String path or name of sound
+        Out: None
+        """
         bitNumber = self.getBitNumber()
         sampleRate = self.getSampleRate()
         volumeLevel = self._volumeLevel
