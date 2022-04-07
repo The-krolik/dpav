@@ -90,7 +90,7 @@ class Window:
     '''
     def open(self):
         self.isOpen = True
-        self.screen = pygame.display.set_mode(self.vBuffer.getDimensions())
+        self.screen = pygame.display.set_mode(self.vBuffer.getDimensions()[0:-1])
         pygame.init()
         pygame.display.flip()
         self._buildEvents()
