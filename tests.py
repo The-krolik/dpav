@@ -43,6 +43,15 @@ def test_audio():
     with pytest.raises(Exception) as e_info:
         a.setAudioDevice(1.5)
     assert a.getAudioDevice == 1
+    
+    assert a.waveform == a.waves.sin
+    
+    a.setWaveForm(a.waves.square)
+    assert a.waveform == a.waves.square
+    
+    with pytest.raises(Exception) as e_info:
+        a.setWaveForm(a.waves.cos)   
+    assert a.waveform == a.waves.square
 
 
     # playSound tests
