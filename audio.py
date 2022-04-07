@@ -43,13 +43,14 @@ class Audio(object):
         self.volumeLevel = 0.75
         self.waves=waveTable()
         self.waveform = self.waves.sin # this is what the kids would call some bs
-
+    """
+    Locked to 16
     # bit number
     def setBitNumber(self, bit: int) -> None :
         """
-        Sets the bit rate of the Audio class.
-        IN: Bit rate (Integer) <= 32
-        OUT: Returns None
+        #Sets the bit rate of the Audio class.
+        #IN: Bit rate (Integer) <= 32
+        #OUT: Returns None
         """
         if(bit>=1 and bit<=32):
             self._bitNumber = bit
@@ -58,18 +59,20 @@ class Audio(object):
 
     def getBitNumber(self) -> int :
         """
-        Gets the bit rate of the Audio class.
-        IN: Nothing
-        OUT: Returns Bit rate as an integer
+        #Gets the bit rate of the Audio class.
+        #IN: Nothing
+        #OUT: Returns Bit rate as an integer
         """
         return self._bitNumber
-
+    """
+    """
+    Locked to 44100
     # sample rate
     def setSampleRate(self, sample: int) -> None:
         """
-        Sets the sample rate of the Audio class.
-        IN: Sample rate (Integer). 44100 is default value
-        OUT: Returns None
+        #Sets the sample rate of the Audio class.
+        #IN: Sample rate (Integer). 44100 is default value
+        #OUT: Returns None
         """
         if(sample>0):
             self._sampleRate = sample
@@ -78,11 +81,12 @@ class Audio(object):
 
     def getSampleRate(self) -> int:
         """
-        Gets the sample rate of the Audio class.
-        IN: None
-        OUT: Returns Sample rate (Integer). 44100 is default value
+        #Gets the sample rate of the Audio class.
+        #IN: None
+        #OUT: Returns Sample rate (Integer). 44100 is default value
         """
         return self._sampleRate
+    """
 
     # audio buffer
     def setAudioBuffer(self, ab) -> None:
