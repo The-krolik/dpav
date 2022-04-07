@@ -24,18 +24,23 @@ class VBuffer:
 
 
     def _checkDoubleIntVal(self, val, argName, methodName):
-        if not(type(val) is list or type(val) is tuple):
+        if type(val) is not list and type(val) is not tuple:
             raise TypeError(f"{argName} argument to vBuffer. {methodName} should be a list or a tuple!")
         elif len(val) != 2:
             raise TypeError(f"{argName} argument to vBuffer. {methodName} requires exactly 2 values!")
-        elif not (type(val[0]) is int and type(val[1]) is int):
+        elif type(val[0]) is not int or type(val[1]) is not int:
             raise TypeError(f"{argName} argument to vBuffer. {methodName} can only have integer values!")
 
         
     # Sets pixel at coordinates coords in buffer to hex value val
-    #error check correct color value greater than 0 less than 2^32 
-    #error check if unsigned int
+    #error check correct color value greater than 0 less than 2^24 
+    #error check if int
     def writePixel(self, coords, val):
+        self._checkDoubleIntVal(coords, "coords", "writePixel")
+        if type(val) is not int:
+            raise TypeError("Color value must be an integer value!")
+        elif val < 0 or val > 2**24:
+            raise ValueError("Color value must remain an integer between 0 and 2^24!")
         x, y = coords[0], coords[1]
         self._buffer[x, y] = val
 
