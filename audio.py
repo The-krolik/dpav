@@ -133,9 +133,8 @@ class Audio(object):
         IN: Takes an input frequency in Hz, and a duration in seconds
         OUT: Plays sound, nothing returned
         """
-        if(inputDuration<0):
-            print("Input duration must be positive")
-            break
+        if inputDuration < 0:
+            raise ValueError("The duration must be non-negative")
         bitNumber = self.getBitNumber()
         sampleRate = self.getSampleRate()
         volumeLevel = self._volumeLevel
