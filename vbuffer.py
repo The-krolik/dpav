@@ -34,7 +34,7 @@ class VBuffer:
             raise TypeError(f"{argName} argument to vBuffer. {methodName} can only have integer values!")
 
     def _checkCoordVals(self, x, y, methodName):
-        if x <= 0 or y <= 0:
+        if x < 0 or y < 0:
             raise ValueError(f"Coordinate args to VBuffer.{methodName} should be greater than zero.")
         elif x >= self._dimensions[0] or y >= self.dimensions[1]:
             raise ValueError(f"Coordinate args to VBuffer.{methodName} are out of bounds.")
