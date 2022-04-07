@@ -47,11 +47,9 @@ class Audio(object):
     Locked to 16
     # bit number
     def setBitNumber(self, bit: int) -> None :
-        """
         #Sets the bit rate of the Audio class.
         #IN: Bit rate (Integer) <= 32
         #OUT: Returns None
-        """
         if(bit>=1 and bit<=32):
             self._bitNumber = bit
         else:
@@ -69,11 +67,11 @@ class Audio(object):
     Locked to 44100
     # sample rate
     def setSampleRate(self, sample: int) -> None:
-        """
+        
         #Sets the sample rate of the Audio class.
         #IN: Sample rate (Integer). 44100 is default value
         #OUT: Returns None
-        """
+        
         if(sample>0):
             self._sampleRate = sample
         else:
