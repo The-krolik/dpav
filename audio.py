@@ -141,7 +141,7 @@ class Audio(object):
         maxSample = 2**(bitNumber - 1) - 1
 
         pygame.mixer.pre_init(sampleRate, -bitNumber, 6)
-        pygame.mixer.init()
+        pygame.mixer.init(sampleRate, -bitNumber, 6)
 
 
         for s in range(numberSamples):
@@ -153,6 +153,10 @@ class Audio(object):
             pygame.mixer.find_channel(force=False).play(sound)
         except AttributeError:
             print("Out of Channels")
+
+    def waitForSoundEnd(self):
+        while(pygame.mixer.get_busy()):
+            pass
 
     # pitch is semitones to transpose
     def playSample(self, sampleName: str)->None:
@@ -166,6 +170,9 @@ class Audio(object):
         sound = pygame.mixer.Sound(sampleName)
         pygame.mixer.Sound.play(sound)
 
+
+    def __del__(self):
+        pass
 
 class waveTable:
     def __init__(self):
