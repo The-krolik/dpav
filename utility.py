@@ -1,6 +1,11 @@
 from datetime import datetime
 
-def getNote(string, octave):
+def getNoteFromString(string, octave):
+    """
+    Given a string representing a note, this will return a hz
+    IN: string representing the note e.g. Ab, C, E#
+    OUT: returns hz
+    """
     notes = {'A':-3,'B':-1,'C':0,'D':2,'E':4, 'F':5,'G':7}
     tone=None
     if len(string)>0:
@@ -19,8 +24,7 @@ def getNote(string, octave):
     octavedisc=octave-4
     tone = octavedisc*12 + tone
     hz = 261.625565 * 2 ** (tone/12)
-
-    print(hz)
+    return hz
 def _debugOut(msg):
 
     date_time = datetime.now()
