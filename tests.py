@@ -15,8 +15,13 @@ def test_audio():
     a.setBitNumber(32)
     assert a.getBitNumber() == 32
 
-    a.setBitNumber(33)
-    assert a.getBitNumber() == 8
+    with pytest.raises(Exception) as e_info:
+        a.setBitNumber(33)
+    assert a.getBitNumber() == 32
+        
+    with pytest.raises(Exception) as e_info:
+        a.setBitNumber(-1)
+    assert a.getBitNumber() == 32
 
 
     # sample rate tests
@@ -28,14 +33,15 @@ def test_audio():
     # audio buffer tests
 
 
-    # audio device tests
     a.setAudioDevice(1)
     assert a.getAudioDevice == 1
 
-    a.setAudioDevice(-1)
+    with pytest.raises(Exception) as e_info:
+        a.setAudioDevice(-1)
     assert a.getAudioDevice == 1
-
-    a.setAudioDevice(9999)
+    
+    with pytest.raises(Exception) as e_info:
+        a.setAudioDevice(1.5)
     assert a.getAudioDevice == 1
 
 
@@ -92,7 +98,7 @@ def test_vbuffer():
     vb.writePixel([0,0], 16777215)
     assert vb.getPixel([0, 0]) == 16777215
     
-    vb.writePixel([599, 799], dpp.htoi("0xFFFFFF"))
+    vb.writePixel([599, 799], 0xffffff)
     assert vb.getPixel([0, 0]) == 16777215
     
     vb.clearBuffer()
