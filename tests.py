@@ -57,6 +57,12 @@ def test_vbuffer():
     assert type(y) is int
 
     with pytest.raises(Exception) as e_info:
+        vb = dpp.VBuffer([0, 0])
+        
+    with pytest.raises(Exception) as e_info:
+        vb = dpp.VBuffer([9999, 9999])
+    
+    with pytest.raises(Exception) as e_info:
         vb = dpp.VBuffer([-100, -100])
         
     with pytest.raises(Exception) as e_info:
