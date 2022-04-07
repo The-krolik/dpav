@@ -1,11 +1,18 @@
 from window import Window
+from vbuffer import VBuffer
 
-window = Window()
-window.DebugFlag = True
+buf = VBuffer((600,400))
+window = Window(buf)
+window.debugFlag = True
 
-window.Open()
+window.open()
+
+color = 127
 while window.isOpen:
-    window.Update()
     
-    if window.EventDictionary['a']:
-        print("'A' Key Pressed")
+    window.update()
+    
+    if 'mouse_down' in window.activeEvents:
+        pos = window.getMousePosition()
+        window.vBuffer.writePixel(pos,color)
+        
