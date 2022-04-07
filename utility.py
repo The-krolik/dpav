@@ -1,5 +1,8 @@
 from datetime import datetime
 
+def htoi (hex):
+    return int(hex, 0)
+
 def _debugOut(msg):
 
     date_time = datetime.now()
