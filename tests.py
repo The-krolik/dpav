@@ -25,15 +25,15 @@ def test_audio():
     """
 
     a.setAudioDevice(1)
-    assert a.getAudioDevice == 1
+    assert a.getAudioDevice() == 1
 
     with pytest.raises(Exception) as e_info:
         a.setAudioDevice(-1)
-    assert a.getAudioDevice == 1
+    assert a.getAudioDevice() == 1
     
     with pytest.raises(Exception) as e_info:
         a.setAudioDevice(1.5)
-    assert a.getAudioDevice == 1
+    assert a.getAudioDevice() == 1
     
     assert a.waveform == a.waves.sin
     
