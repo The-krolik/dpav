@@ -56,7 +56,7 @@ class Audio(object):
             self._bitNumber = bit
         else:
             raise ValueError("Value must be a whole number greater than zero, less than or equal to 32")
-
+    """
     def getBitNumber(self) -> int :
         """
         #Gets the bit rate of the Audio class.
@@ -64,7 +64,7 @@ class Audio(object):
         #OUT: Returns Bit rate as an integer
         """
         return self._bitNumber
-    """
+    
     """
     Locked to 44100
     # sample rate
@@ -78,7 +78,7 @@ class Audio(object):
             self._sampleRate = sample
         else:
             raise ValueError("Sample rate has to be an integer greater than zero.")
-
+    """
     def getSampleRate(self) -> int:
         """
         #Gets the sample rate of the Audio class.
@@ -86,7 +86,7 @@ class Audio(object):
         #OUT: Returns Sample rate (Integer). 44100 is default value
         """
         return self._sampleRate
-    """
+    
 
     # audio buffer
     def setAudioBuffer(self, ab) -> None:
