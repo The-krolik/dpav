@@ -37,7 +37,7 @@ class VBuffer:
         if x <= 0 or y <= 0:
             raise ValueError(f"Coordinate args to VBuffer.{methodName} should be greater than zero.")
         elif x >= self._dimensions[0] or y >= self.dimensions[1]:
-            raise ValueError(f"Coordinate args to VBuffer.{methodName} are out of bounds."
+            raise ValueError(f"Coordinate args to VBuffer.{methodName} are out of bounds.")
         
     # Sets pixel at coordinates coords in buffer to hex value val
     #error check correct color value greater than 0 less than 2^24 
