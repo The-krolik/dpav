@@ -12,6 +12,8 @@ class Window:
         
         # create buffer if not provided
         self.vBuffer = VBuffer((800,600)) if vB == None else vB
+        
+        
         self.surfaces = {"active" : pygame.Surface(self.vBuffer.getDimensions()), 
                          "inactive" : pygame.Surface(self.vBuffer.getDimensions())}
         
@@ -19,6 +21,7 @@ class Window:
         self.events = {}
         self.activeEvents = []
         
+
         self.debugFlag = False
         self.screen = None
         self.isOpen = False
@@ -54,6 +57,7 @@ class Window:
         
         self.vBuffer = vB
         self.writeToScreen()
+
             
     '''
     Description:
@@ -63,6 +67,7 @@ class Window:
     '''
     def update(self):
         self.writeToScreen()
+
         pygame.display.flip()
         
         if self.isOpen == False:
@@ -97,11 +102,11 @@ class Window:
         opens an instance of a pygame window
     '''
     def open(self):
-        
         pygame.display.init()
         self.isOpen = True
         self.writeToScreen()
         self.screen = pygame.display.set_mode(self.vBuffer.getDimensions())
+
         self._buildEvents()
 
     '''
