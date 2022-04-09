@@ -12,6 +12,9 @@ class Window:
         
         # create buffer if not provided
         self.vBuffer = VBuffer((800,600)) if vB == None else vB
+        self.surfaces = {"active" : pygame.Surface(self.vBuffer.getDimensions()), 
+                         "inactive" : pygame.Surface(self.vBuffer.getDimensions())}
+        
         
         self.events = {}
         self.activeEvents = []
@@ -50,12 +53,7 @@ class Window:
             raise TypeError("Argument must be of type VBuffer")
         
         self.vBuffer = vB
-        
-        if self.isOpen:
-            surf = pygame.surfarray.make_surface(self.vBuffer.getBuffer())
-            self.screen.blit(surf, (0, 0))
-            pygame.display.update()
-            pygame.display.flip()
+        self.writeToScreen()
             
     '''
     Description:
@@ -64,9 +62,7 @@ class Window:
         Runtime Error: no active pygame window instances exists
     '''
     def update(self):
-        surf = pygame.surfarray.make_surface(self.vBuffer.getBuffer())
-        
-        self.screen.blit(surf, (0, 0))
+        self.writeToScreen()
         pygame.display.flip()
         
         if self.isOpen == False:
@@ -83,16 +79,29 @@ class Window:
                     self.close()
 
                 self._updateEvents(event)
+                
+                
+    def writeToScreen(self):
+        
+        surf = self.surfaces['inactive']
+        self.surfaces['inactive'] = self.surfaces['active']
+        self.surfaces['active'] = surf
+        
+        pygame.surfarray.blit_array(surf, self.vBuffer.getBuffer())
+        
+        if self.screen != None:
+            self.screen.blit(surf, (0, 0))
     
     '''
     Description:
         opens an instance of a pygame window
     '''
     def open(self):
+        
         pygame.display.init()
         self.isOpen = True
-        self.screen = pygame.display.set_mode(self.vBuffer.getDimensions()[0:-1])
-        pygame.display.flip()
+        self.writeToScreen()
+        self.screen = pygame.display.set_mode(self.vBuffer.getDimensions())
         self._buildEvents()
 
     '''
@@ -113,6 +122,8 @@ class Window:
         self.Screen = None
         pygame.quit()
 
+        
+    
         
     '''
     Description:
