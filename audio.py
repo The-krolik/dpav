@@ -17,16 +17,18 @@ class Audio(object):
         Setters:
             setBitNumber(int)
             setSampleRate(int)
-            setAudioBuffer(TODO:TYPE)
+            setAudioBuffer()
             setAudioDevice(int)
 
         Getters:
             getBitNumber()->int
             getSampleRate()->int
-            getAudioBuffer()->WHATEVER THIS IS
+            getAudioBuffer()
             getAudioDevice()->Returns int corresponding to audio device
 
         Misc Variables:
+            self.waves is the wavetable
+            self.waveform is the current wave generator for sound
     """
     def __init__(self): #TODO inheritance? if we inherited from a parent class, we could save what imports we would need here.
         """
@@ -40,49 +42,52 @@ class Audio(object):
                                     #support for other bit numbers pending
                                     #2d for 2 channels
         self._audioDevice = 0
-        self._volumeLevel = 0.75
+        self.volumeLevel = 0.75
         self.waves=waveTable()
         self.waveform = self.waves.sin # this is what the kids would call some bs
-
+    """
+    Locked to 16
     # bit number
     def setBitNumber(self, bit: int) -> None :
-        """
-        Sets the bit rate of the Audio class.
-        IN: Bit rate (Integer) <= 32
-        OUT: Returns None
-        """
-        if(bit in range(1,32)):
+        #Sets the bit rate of the Audio class.
+        #IN: Bit rate (Integer) <= 32
+        #OUT: Returns None
+        if(bit>=1 and bit<=32):
             self._bitNumber = bit
         else:
-            print("Value must be a whole number greater than zero, less than 16")
+            raise ValueError("Value must be a whole number greater than zero, less than or equal to 32")
+    """
 
     def getBitNumber(self) -> int :
         """
-        Gets the bit rate of the Audio class.
-        IN: Nothing
-        OUT: Returns Bit rate as an integer
+        #Gets the bit rate of the Audio class.
+        #IN: Nothing
+        #OUT: Returns Bit rate as an integer
         """
         return self._bitNumber
-
+    
+    """
+    Locked to 44100
     # sample rate
     def setSampleRate(self, sample: int) -> None:
-        """
-        Sets the sample rate of the Audio class.
-        IN: Sample rate (Integer). 44100 is default value
-        OUT: Returns None
-        """
+        
+        #Sets the sample rate of the Audio class.
+        #IN: Sample rate (Integer). 44100 is default value
+        #OUT: Returns None
+        
         if(sample>0):
             self._sampleRate = sample
         else:
-            print("Sample rate has to be an integer greater than zero.")
-
+            raise ValueError("Sample rate has to be an integer greater than zero.")
+    """
     def getSampleRate(self) -> int:
         """
-        Gets the sample rate of the Audio class.
-        IN: None
-        OUT: Returns Sample rate (Integer). 44100 is default value
+        #Gets the sample rate of the Audio class.
+        #IN: None
+        #OUT: Returns Sample rate (Integer). 44100 is default value
         """
         return self._sampleRate
+    
 
     # audio buffer
     def setAudioBuffer(self, ab) -> None:
@@ -133,6 +138,11 @@ class Audio(object):
         IN: Takes an input frequency in Hz, and a duration in seconds
         OUT: Plays sound, nothing returned
         """
+        if type(inputDuration) is not int and type(inputDuration) is not float:
+            raise TypeError("The duration must be a number")
+        elif inputDuration < 0:
+            raise ValueError("The duration must be non-negative")
+        
         bitNumber = self.getBitNumber()
         sampleRate = self.getSampleRate()
         volumeLevel = self._volumeLevel
@@ -155,11 +165,22 @@ class Audio(object):
             print("Out of Channels")
 
     def waitForSoundEnd(self):
+        """
+        Function call that is placed at the end of scripts to keep processes going
+        so that way sounds play to their full duration without a pygame window instance
+        In: None
+        Return: None
+        """
         while(pygame.mixer.get_busy()):
             pass
 
     # pitch is semitones to transpose
     def playSample(self, sampleName: str)->None:
+        """
+        Plays sounds that are wav, ogg or mp3 files.
+        In: String path or name of sound
+        Out: None
+        """
         bitNumber = self.getBitNumber()
         sampleRate = self.getSampleRate()
         volumeLevel = self._volumeLevel

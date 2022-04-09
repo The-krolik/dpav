@@ -63,7 +63,7 @@ class Window:
     '''
     def update(self):
         self.writeToScreen()
-        pygame.display.flip()
+        #pygame.display.flip()
         
         if self.isOpen == False:
             debug = "No window currently open"
@@ -89,19 +89,19 @@ class Window:
         
         pygame.surfarray.blit_array(surf, self.vBuffer.getBuffer())
         
-        if self.screen != None:
+        if self.screen != None and self.isOpen:
             self.screen.blit(surf, (0, 0))
+            pygame.display.flip()
     
     '''
     Description:
         opens an instance of a pygame window
     '''
     def open(self):
-        
+        self.screen = pygame.display.set_mode(self.vBuffer.getDimensions())
         pygame.display.init()
         self.isOpen = True
         self.writeToScreen()
-        self.screen = pygame.display.set_mode(self.vBuffer.getDimensions())
         self._buildEvents()
 
     '''
