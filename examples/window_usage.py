@@ -12,7 +12,8 @@ window.debugFlag = True
 
 window.open()
 
-color = (0,255,0)
+color = 0x00ff00
+
 while window.isOpen:
     
     window.update()
@@ -20,6 +21,3 @@ while window.isOpen:
     if 'mouse_down' in window.activeEvents:
         pos = window.getMousePosition()
         window.vBuffer.writePixel(pos,color)
-        
-    
-        
