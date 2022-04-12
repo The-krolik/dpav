@@ -1,4 +1,7 @@
-from typing import Type
+# Visual Buffer Team: Christopher Andrews
+#                     Ian Hurd
+#                     Angelo Tammaro
+
 import numpy as np
 
 # TODO: color depth arg?
@@ -27,8 +30,7 @@ class VBuffer:
         clearBuffer(self)
     """
     
-    
-    def __init__(self, arg1 = (600, 800)):  
+    def __init__(self, arg1 = (600, 800)):
         """
         Constructor for the VBuffer class.
         ERR CHECK:  if arg1 is not a numpy array; if the dimensions are greater than 1080x1920
@@ -46,13 +48,13 @@ class VBuffer:
         
         self.buffer = arg1 if type(arg1) is np.ndarray else np.zeros(dimensions, dtype=int)
         self.debugFlag = False
-    
-                        
+           
+            
     def _checkNumpyArr(self,arg1,argName,methodName):
         """
         Error checks for the following:
             - if arg1 is not a numpy array or a 2-element list/tuple
-            - if arg1 doesn't fall within the range of 0-16777215
+            - if arg1 doesn't fall within the range of 0-2^24
             - if arg1 isn't 2-dimensional
             - if arg1 tries to support resolutions higher than 1080x1920
         """
@@ -64,8 +66,8 @@ class VBuffer:
             raise TypeError(f"{argName} argument to VBuffer. {methodName} must be 2-dimensional numpy.ndarray")
         if arg1.shape[0] > 1920 or arg1.shape[1] > 1080:
             raise ValueError(f"{argName} argument to VBuffer. {methodName} np.ndarray is of size: {arg1.shape} highest supported resolution is (1920,1080)")
-    
-    
+        
+
     def _checkCoordType(self, coords, argName, methodName):
         """
         Error checks for the following:
@@ -79,8 +81,8 @@ class VBuffer:
             raise TypeError(f"{argName} argument to VBuffer. {methodName} requires exactly 2 values!")
         elif type(coords[0]) is not int or type(coords[1]) is not int:
             raise TypeError(f"{argName} argument to VBuffer. {methodName} can only have integer values!")
-    
-    
+        
+        
     def _checkCoordVal(self, coords, methodName):
         """
         Error checks for the following:
@@ -92,8 +94,9 @@ class VBuffer:
             raise ValueError(f"Coordinate args to VBuffer.{methodName} should be greater than zero.")
         elif x >= self.buffer.shape[0] or y >= self.buffer.shape[1]:
             raise ValueError(f"Coordinate args to VBuffer.{methodName} are out of bounds.")
-    
-    
+        
+        
+    # Sets pixel at coordinates coords in buffer to hex value val
     def writePixel(self, coords, val):
         """
         Sets pixel at coordinates coords in buffer to hex value val
@@ -110,22 +113,22 @@ class VBuffer:
             
         x, y = coords[0], coords[1]
         self.buffer[x, y] = val
-    
-    
+
+        
     def getPixel(self, coords):
         x, y = coords[0], coords[1]
         return self.buffer[x, y]
-      
-      
+        
+        
+    # <insert definition of getDimensions function here>; X and Y are int variables
     def getDimensions(self):
         return self.buffer.shape
     
     
     def setBuffer(self, buf):
         self._checkNumpyArr(buf,"buf", "setBuffer")
-        self.buffer = buf
-     
-    
+        self.buffer = buf      
+        
+        
     def clearBuffer(self):
         self.buffer[:] = 0
-    
