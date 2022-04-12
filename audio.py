@@ -48,10 +48,8 @@ class Audio(object):
         self.waveform = self.waves.sin # this is what the kids would call some bs
         self.name=0
 
-        pygame.mixer.init()
-        self._devices=sdl2.get_audio_device_names(False)
         self._audioDevice=None
-        pygame.mixer.quit()
+        
     """
     Locked to 16
     # bit number
