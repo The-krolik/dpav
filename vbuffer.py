@@ -28,11 +28,11 @@ class VBuffer:
         _checkCoordVals(self, x, y, methodName)
     """
     
-    def __init__(self, arg1 = (600, 800)):
+    def __init__(self, arg1 = (800, 600)):
         """
         Constructor for the VBuffer class.
-        ERR CHECK:  if arg1 is not a numpy array; if the dimensions are greater than 1080x1920
-        IN: a tuple/list of dimensions (600x800 default resolution)
+        ERR CHECK:  if arg1 is not a numpy array; if the dimensions are greater than 1920x1080
+        IN: a tuple/list of dimensions (800x600 default resolution)
         OUT: n/a
         """
         if type(arg1) is np.ndarray:
@@ -55,11 +55,11 @@ class VBuffer:
             - if arg1 is not a numpy array or a 2-element list/tuple
             - if arg1 doesn't fall within the range of 0-2^24
             - if arg1 isn't 2-dimensional
-            - if arg1 tries to support resolutions higher than 1080x1920
+            - if arg1 tries to support resolutions higher than 1920x1080
         """
         if not np.issubdtype(arg1.dtype, int) and not np.issubdtype(arg1.dtype,float):
             raise TypeError(f"{argName} argument to VBuffer. {methodName} must be of type numpy.ndarray dtype=int, or a 2 element dimension list/tuple!")
-        if np.any((arg1<0)|(arg1>16777215)):
+        if np.any((arg1 < 0)|(arg1 > 16777215)):
             raise ValueError(f"{argName} argument to VBuffer. {methodName} must contain values in range 0 to 16777215")
         if arg1.ndim != 2:
             raise TypeError(f"{argName} argument to VBuffer. {methodName} must be 2-dimensional numpy.ndarray")
