@@ -18,9 +18,8 @@ class VBuffer:
 
 
         xdim, ydim = dimensions[0], dimensions[1]
-        listGrid = [[0 for i in range(xdim)] for j in range(ydim)]
-        self._buffer = np.array(listGrid)
-        self._dimensions = (xdim, ydim)
+        self._buffer = np.zeros((xdim, ydim, 3), dtype=int)
+        self._dimensions = (xdim, ydim, 3)
         
         # debugFlag: a boolean variable
         self.debugFlag = False
@@ -30,7 +29,8 @@ class VBuffer:
     def writePixel(self, coords, val):
         x, y = coords[0], coords[1]
         self._buffer[x, y] = val
-
+        
+        
     def getPixel(self, coords):
         x, y = coords[0], coords[1]
         return self._buffer[x, y]

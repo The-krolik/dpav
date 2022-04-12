@@ -12,6 +12,9 @@ class Window:
         
         # create buffer if not provided
         self.vBuffer = VBuffer((800,600)) if vB == None else vB
+        self.surfaces = {"active" : pygame.Surface(self.vBuffer.getDimensions()), 
+                         "inactive" : pygame.Surface(self.vBuffer.getDimensions())}
+        
         
         self.events = {}
         self.activeEvents = []
@@ -29,9 +32,7 @@ class Window:
     '''
     def getMousePosition(self):
         if self.isOpen == False:
-            debug = "No window currently open"
-            if self.debugFlag:
-                util._debugOut(debug)
+            if self.debugFlag: util._debugOut("No window currently open")
             raise RuntimeError("No window currently open")
         
         
@@ -45,17 +46,12 @@ class Window:
     Raises:
         Type Error: vB must be of type VBuffer
     '''
-    def setVisualBuffer(self, vB):
+    def setVBuffer(self, vB):
         if vB != None and type(vB) is not VBuffer:
             raise TypeError("Argument must be of type VBuffer")
         
         self.vBuffer = vB
-        
-        if self.isOpen:
-            surf = pygame.surfarray.make_surface(self.vBuffer.getBuffer())
-            self.screen.blit(surf, (0, 0))
-            pygame.display.update()
-            pygame.display.flip()
+        self.writeToScreen()
             
     '''
     Description:
@@ -64,38 +60,39 @@ class Window:
         Runtime Error: no active pygame window instances exists
     '''
     def update(self):
-        surf = pygame.surfarray.make_surface(self.vBuffer.getBuffer())
-        
-        self.screen.blit(surf, (0, 0))
-        pygame.display.flip()
+        self.writeToScreen()
         
         if self.isOpen == False:
-            debug = "No window currently open"
-            if self.debugFlag:
-                util._debugOut(debug)
+            if self.debugFlag: util._debugOut("No window currently open")
             raise RuntimeError("No window currently open")
         else:
             self.activeEvents.clear()
             for event in pygame.event.get():
-
-                # if window close button is pressed (X)
-                if event.type == pygame.QUIT:
-                    self.close()
+                if event.type == pygame.QUIT: self.close()
 
                 self._updateEvents(event)
+                
+            
+    def writeToScreen(self):
+        #swap surfaces
+        self.surfaces['active'], self.surfaces['inactive'] = self.surfaces['inactive'], self.surfaces['active']
+        pygame.surfarray.blit_array(self.surfaces['active'], self.vBuffer.getBuffer())
+        
+        if self.screen != None and self.isOpen:
+            self.screen.blit(self.surfaces['active'], (0, 0))
+            pygame.display.flip()
     
     '''
     Description:
         opens an instance of a pygame window
     '''
     def open(self):
+        self.screen = pygame.display.set_mode(self.vBuffer.getDimensions())
+        pygame.display.init()
         self.isOpen = True
-        self.screen = pygame.display.set_mode(self.vBuffer.getDimensions()[0:-1])
-        pygame.init()
-        pygame.display.flip()
-        self._buildEvents()
-        
-    
+        self.writeToScreen()
+        self._buildEventsDict()
+
     '''
     Description:
         Closes the active instance of a pygame window   
@@ -104,16 +101,13 @@ class Window:
     '''
     def close(self):
         if not self.isOpen:
-            if self.debugFlag:
-                debug = "close() window called with no open window detected"
-                util._debugOut(debug)
-                
+            if self.debugFlag: util._debugOut("No window currently open")
             raise RuntimeError("No window currently open")
         
-        self.isOpen = False
-        self.Screen = None
+        self.isOpen, self.Screen = False, None
         pygame.quit()
 
+        
         
     '''
     Description:
@@ -123,65 +117,46 @@ class Window:
          event : current event to update
     '''
     def _updateEvents(self, event):
-        
         strkey = 'None'
         
-        if event.type in [768,769]:
-            intkey = event.dict.get('key')
-        else:
-            intkey = event.type
+        #if mouse, intkey = event.type, else set to pygame key value
+        intkey = event.dict.get('key') if event.type in [768,769] else event.type
         
-        if intkey == None:
-            strkey = 'None'
-        elif intkey > 127 or intkey < 0:
-            if intkey in self._keydict: 
-                strkey = self._keydict[intkey]
-            elif self.debugFlag:
-                debug = "key pressed does not contain viable key mapping"
-                util._debugOut(debug)
-                
-                strkey = 'None'
-        else:
-            strkey = chr(intkey)
+        if intkey == None: strkey = 'None'
+        elif intkey in self._keydict: strkey = self._keydict[intkey]
             
-
+        
         if strkey != 'None' and strkey in self.events:
             self.events[strkey] = True if self.events[strkey] == False else False
             
-            if self.events[strkey]:
-                self.activeEvents.append(strkey)
-            
-            if self.debugFlag:
-                debug = "key '{}' set to {}".format(strkey, self.events[strkey])
-                util._debugOut(debug)
-            
+            if self.events[strkey]: self.activeEvents.append(strkey)
+            if self.debugFlag: util._debugOut("key '{}' set to {}".format(strkey, self.events[strkey]))
+        
+        
     
     ''' 
     Description:
         creates the events dictionary
         is called once by open() each time a window is opened.
     '''
-    def _buildEvents(self):
+    def _buildEventsDict(self):
         
-        # used for mapping of pygame keys when key isnt an ASCII character
+        # used for mapping of pygame key int identifiers to string identifiers
         self._keydict = {pygame.K_F1 : 'f1', pygame.K_F2 : 'f2', pygame.K_F3 : 'f3', pygame.K_F4 : 'f4',
                         pygame.K_F5 : 'f5', pygame.K_F6 : 'f6', pygame.K_F7 : 'f7', pygame.K_F8 : 'f8',
                         pygame.K_F9 : 'f9', pygame.K_F10 : 'f10', pygame.K_F11 : 'f11', pygame.K_F12 : 'f12',
-                        pygame.MOUSEBUTTONDOWN : 'mouse_down', pygame.MOUSEBUTTONUP: 'mouse_up',
+                        pygame.MOUSEBUTTONDOWN : 'mouse', pygame.MOUSEBUTTONUP: 'mouse',
                         1073742049  : 'l_shift', 1073742053 : 'r_shift', 1073742048 : 'l_ctr', 1073742052: 'r_ctrl',
                         1073742050  : 'l_alt'  , 1073742054 : 'r_alt',   1073741881 : 'caps_lock', 
                         1073741904  : 'l_arrow', 1073741903 : 'r_arrow', 1073741905 : 'd_arrow',
                         1073741906  : 'u_arrow'
                        }
         
-        # add [a-z] to dictionary
-        for code in range(ord('a'), ord('z') + 1):
-            self.events[chr(code)] = pygame.key.get_pressed()[int(code)]
+        # add [a-z] to dict
+        for code in range(ord('a'), ord('z') + 1): self._keydict[code] = chr(code)
             
-        # add [, - . /] and [0-9] to dictionary
-        for code in range(ord(','), ord('9') + 1):
-            self.events[chr(code)] = pygame.key.get_pressed()[int(code)]
+        # add [, - . /] and [0-9] to dict
+        for code in range(ord(','), ord('9') + 1): self._keydict[code] = chr(code)
         
-        # add non-ASCII keys to event dictionary
-        for key, value in self._keydict.items():
-            self.events[value] = pygame.key.get_pressed()[key]
+        # create events dict from _keydict string mappings
+        for key, value in self._keydict.items(): self.events[value] = pygame.key.get_pressed()[key]
