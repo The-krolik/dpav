@@ -15,17 +15,17 @@ class VBuffer:
     Setter:
         writePixel(self, coords, val)
         setBuffer(self, buf)
+        clearBuffer(self)   
         
     Getters:
         getPixel(self, coords)
         getDimensions(self)
         getBuffer(self)     
     
-    Misc:
+    Error Checking:
         _checkNumpyArr(self,arg1,argName,methodName)
         _checkCoordType(self, coords, argName, methodName)
         _checkCoordVals(self, x, y, methodName)
-        clearBuffer(self)
     """
     
     def __init__(self, arg1 = (600, 800)):
@@ -41,13 +41,14 @@ class VBuffer:
         else:
             self._checkCoordType(arg1, "arg1", "__init__")
             dimensions = arg1
-            if dimensions[0] > 1920 or dimensions[1] > 1080:
+            if dimensions[0] <= 0 or dimensions[1] <= 0:
+                raise ValueError(f"dimensions must be greater than 0")
+            elif dimensions[0] > 1920 or dimensions[1] > 1080:
                 raise ValueError(f"dimensions provided of size: {dimensions}, highest supported resolution is (1920,1080)")
         
         self.buffer = arg1 if type(arg1) is np.ndarray else np.zeros(dimensions, dtype=int)
         self.debugFlag = False
-           
-            
+                
     def _checkNumpyArr(self,arg1,argName,methodName):
         """
         Error checks for the following:
@@ -65,7 +66,6 @@ class VBuffer:
         if arg1.shape[0] > 1920 or arg1.shape[1] > 1080:
             raise ValueError(f"{argName} argument to VBuffer. {methodName} np.ndarray is of size: {arg1.shape} highest supported resolution is (1920,1080)")
         
-
     def _checkCoordType(self, coords, argName, methodName):
         """
         Error checks for the following:
@@ -80,7 +80,6 @@ class VBuffer:
         elif type(coords[0]) is not int or type(coords[1]) is not int:
             raise TypeError(f"{argName} argument to VBuffer. {methodName} can only have integer values!")
         
-        
     def _checkCoordVal(self, coords, methodName):
         """
         Error checks for the following:
@@ -93,8 +92,6 @@ class VBuffer:
         elif x >= self.buffer.shape[0] or y >= self.buffer.shape[1]:
             raise ValueError(f"Coordinate args to VBuffer.{methodName} are out of bounds.")
         
-        
-    # Sets pixel at coordinates coords in buffer to hex value val
     def writePixel(self, coords, val):
         """
         Sets pixel at coordinates coords in buffer to hex value val
@@ -102,8 +99,8 @@ class VBuffer:
         IN: pixel coordinates (an X and a Y); the hex value of the desired color to change the pixel with
         OUT: n/a
         """
-        self._checkCoordType(coords, "coords", "writePixel")
-        self._checkCoordVal(coords, "coords", "writePixel")
+        self._checkCoordType(coords, "coods", "writePixel")
+        self._checkCoordVal(coords, "writePixel")
         if type(val) is not int:
             raise TypeError("Color value must be an integer value!")
         elif val < 0 or val > 0xffffff:
@@ -111,22 +108,18 @@ class VBuffer:
             
         x, y = coords[0], coords[1]
         self.buffer[x, y] = val
-
-        
+      
     def getPixel(self, coords):
         x, y = coords[0], coords[1]
         return self.buffer[x, y]
-        
         
     # <insert definition of getDimensions function here>; X and Y are int variables
     def getDimensions(self):
         return self.buffer.shape
     
-    
     def setBuffer(self, buf):
-        self._checkNumpyArr(buf,"buf", "setBuffer")
+        self._checkNumpyArr(buf, "buf", "setBuffer")
         self.buffer = buf      
-        
         
     def clearBuffer(self):
         self.buffer[:] = 0
