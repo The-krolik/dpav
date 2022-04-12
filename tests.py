@@ -112,5 +112,4 @@ def test_vbuffer():
     assert vb.getPixel([0, 0]) == 16777215
     
     vb.clearBuffer()
-    buf = vb.getBuffer()
-    assert buf.sum() == 0
+    assert vb.buffer.sum() == 0
