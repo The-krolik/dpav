@@ -8,6 +8,7 @@ class Window:
     
     def __init__(self, vB=None):
         if vB != None and type(vB) is not VBuffer:
+            if self.debugFlag: util._debugOut("Argument must be of type VBuffer")
             raise TypeError("Argument must be of type VBuffer")
         
         # create buffer if not provided
@@ -44,11 +45,12 @@ class Window:
     Arguments:
         vB: VBuffer object
     Raises:
-        Type Error: vB must be of type VBuffer
+        TypeError: vB must be of type VBuffer
     '''
     def setVBuffer(self, vB):
         if vB != None and type(vB) is not VBuffer:
-            raise TypeError("Argument must be of type VBuffer")
+            if self.debugFlag: util._debugOut("Arg to setVBuffer must be of type VBuffer")
+            raise TypeError("Arg to setVBuffer must be of type VBuffer")
         
         self.vBuffer = vB
         self.writeToScreen()
@@ -57,10 +59,11 @@ class Window:
     Description:
         Primary pygame event abstraction, must be called after open() in a process loop
     Raises:
-        Runtime Error: no active pygame window instances exists
+        RuntimeError: no active pygame window instances exists
     '''
     def update(self):
-        self.writeToScreen()
+        #self.writeToScreen()
+        
         
         if self.isOpen == False:
             if self.debugFlag: util._debugOut("No window currently open")
@@ -76,7 +79,7 @@ class Window:
     def writeToScreen(self):
         #swap surfaces
         self.surfaces['active'], self.surfaces['inactive'] = self.surfaces['inactive'], self.surfaces['active']
-        pygame.surfarray.blit_array(self.surfaces['active'], self.vBuffer.getBuffer())
+        pygame.surfarray.blit_array(self.surfaces['active'], self.vBuffer.buffer)
         
         if self.screen != None and self.isOpen:
             self.screen.blit(self.surfaces['active'], (0, 0))
