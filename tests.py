@@ -82,7 +82,7 @@ def test_vbuffer():
     assert vb.getPixel([400, 300]) == 0
     
     with pytest.raises(ValueError) as e_info:
-        vb.writePixel([-300, 9], 255)
+        vb.writePixel([-300, 9], 16777215)
     
     with pytest.raises(ValueError) as e_info:
         vb.writePixel([300, -200], 16777215)
