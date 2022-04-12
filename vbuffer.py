@@ -31,27 +31,23 @@ class VBuffer:
     def __init__(self, arg1 = (600, 800)):  
         """
         Constructor for the VBuffer class.
-        ERR CHECK: if arg1 is a list or a tuple; if the dimensions are greater than 1080x1920; if arg1 is not a numpy array
+        ERR CHECK:  if arg1 is not a numpy array; if the dimensions are greater than 1080x1920
         IN: a tuple/list of dimensions (600x800 default resolution)
         OUT: n/a
         """
-        if type(arg1) is tuple or type(arg1) is list:
-            dimensions = arg1
-            if dimensions[0] > 1920 or dimensions[1] > 1080:
-                raise ValueError(f"dimensions provided of size: {dimensions}, highest supported resolution is (1920,1080)")
-                
-            self._checkCoordType(arg1,"arg1", "__init__")
-        elif type(arg1) is np.ndarray:
+        if type(arg1) is np.ndarray:
             dimensions = arg1.shape
             self._checkNumpyArr(arg1,"arg1","__init__")
         else:
-            raise TypeError(f"{argName} argument to VBuffer. {methodName} must be of type numpy.ndarray dtype=int, or a 2 element dimension list/tuple!")
-
+            self._checkCoordType(arg1, "arg1", "__init__")
+            dimensions = arg1
+            if dimensions[0] > 1920 or dimensions[1] > 1080:
+                raise ValueError(f"dimensions provided of size: {dimensions}, highest supported resolution is (1920,1080)")
         
         self.buffer = arg1 if type(arg1) is np.ndarray else np.zeros(dimensions, dtype=int)
         self.debugFlag = False
-
-                                
+    
+                        
     def _checkNumpyArr(self,arg1,argName,methodName):
         """
         Error checks for the following:
@@ -68,8 +64,8 @@ class VBuffer:
             raise TypeError(f"{argName} argument to VBuffer. {methodName} must be 2-dimensional numpy.ndarray")
         if arg1.shape[0] > 1920 or arg1.shape[1] > 1080:
             raise ValueError(f"{argName} argument to VBuffer. {methodName} np.ndarray is of size: {arg1.shape} highest supported resolution is (1920,1080)")
-        
-
+    
+    
     def _checkCoordType(self, coords, argName, methodName):
         """
         Error checks for the following:
@@ -96,12 +92,12 @@ class VBuffer:
             raise ValueError(f"Coordinate args to VBuffer.{methodName} should be greater than zero.")
         elif x >= self.buffer.shape[0] or y >= self.buffer.shape[1]:
             raise ValueError(f"Coordinate args to VBuffer.{methodName} are out of bounds.")
-        
-
+    
+    
     def writePixel(self, coords, val):
         """
         Sets pixel at coordinates coords in buffer to hex value val
-        ERR CHECK: if the color value is an integer; if the color value falls within the range of 0-16777215
+        ERR CHECK: if the color value is an integer; if the color value falls within the range of 0-2^24
         IN: pixel coordinates (an X and a Y); the hex value of the desired color to change the pixel with
         OUT: n/a
         """
@@ -114,13 +110,13 @@ class VBuffer:
             
         x, y = coords[0], coords[1]
         self.buffer[x, y] = val
-
-        
+    
+    
     def getPixel(self, coords):
         x, y = coords[0], coords[1]
         return self.buffer[x, y]
-        
-        
+      
+      
     def getDimensions(self):
         return self.buffer.shape
     
@@ -128,11 +124,12 @@ class VBuffer:
     def setBuffer(self, buf):
         self._checkNumpyArr(buf,"buf", "setBuffer")
         self.buffer = buf
-        
-        
+     
+    
     def clearBuffer(self):
         self.buffer[:] = 0
 
+    
     def getBuffer(self):
         return self.buffer
     
