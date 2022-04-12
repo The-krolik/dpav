@@ -2,7 +2,6 @@
 #                     Ian Hurd
 #                     Angelo Tammaro
 
-from typing import Type
 import numpy as np
 
 # TODO: color depth arg?
@@ -21,8 +20,7 @@ class VBuffer:
         
         self.buffer = arg1 if type(arg1) is np.ndarray else np.zeros(dimensions, dtype=int)
         self.debugFlag = False
-
-                                
+                
     def _checkNumpyArr(self,arg1,argName,methodName):
         if not np.issubdtype(arg1.dtype, int) and not np.issubdtype(arg1.dtype,float):
             raise TypeError(f"{argName} argument to VBuffer. {methodName} must be of type numpy.ndarray dtype=int, or a 2 element dimension list/tuple!")
@@ -50,8 +48,6 @@ class VBuffer:
             raise ValueError(f"Coordinate args to VBuffer.{methodName} are out of bounds.")
         
     # Sets pixel at coordinates coords in buffer to hex value val
-    #error check correct color value greater than 0 less than 2^24 
-    #error check if int
     def writePixel(self, coords, val):
         self._checkCoordType(coords, "coords", "writePixel")
         self._checkCoordVal(coords, "coords", "writePixel")
@@ -73,12 +69,8 @@ class VBuffer:
     
     def setBuffer(self, buf):
         self._checkNumpyArr(buf,"buf", "setBuffer")
-        self.buffer = buf
-        
+        self.buffer = buf      
         
     # 
     def clearBuffer(self):
         self.buffer[:] = 0
-
-    def getBuffer(self):
-        return self.buffer
