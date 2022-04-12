@@ -77,7 +77,7 @@ def test_vbuffer():
     with pytest.raises(TypeError) as e_info:
         vb = dpp.VBuffer([200, 200.5])
      
-    vb = dpp.Vbuffer([1920, 1080])
+    vb = dpp.VBuffer([1920, 1080])
     x, y = vb.getDimensions()
     assert type(x) is int
     assert type(y) is int
