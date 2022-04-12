@@ -14,7 +14,7 @@ class VBuffer:
             dimensions = arg1.shape
             self._checkNumpyArr(arg1,"arg1","__init__")
         else:
-            self._checkCoordType(arg1, "arg1", "__init__)
+            self._checkCoordType(arg1, "arg1", "__init__")
             dimensions = arg1
             if dimensions[0] > 1920 or dimensions[1] > 1080:
                 raise ValueError(f"dimensions provided of size: {dimensions}, highest supported resolution is (1920,1080)")
