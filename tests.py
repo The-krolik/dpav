@@ -105,8 +105,11 @@ def test_vbuffer():
         vb.writePixel([399, 299], 100.5)
     assert vb.getPixel([399, 299]) == 0
 
-    vb.writePixel([0,0], 255)
-    assert vb.getPixel([0, 0]) == 255
+    vb.writePixel([0,0], 16777215)
+    assert vb.getPixel([0, 0]) == 16777215
+    
+    vb.writePixel([599, 799], 0xffffff)
+    assert vb.getPixel([0, 0]) == 16777215
     
     vb.clearBuffer()
     buf = vb.getBuffer()
