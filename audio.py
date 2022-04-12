@@ -138,7 +138,7 @@ class Audio(object):
         if(device>len(self._devices)):
             raise ValueError("Device number exceeds known devices.")
         else:
-            self._devices = device
+            self._audioDevice = device
         pygame.mixer.quit()
 
     def getAudioDevice(self) -> int:
