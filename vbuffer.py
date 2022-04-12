@@ -117,43 +117,22 @@ class VBuffer:
 
         
     def getPixel(self, coords):
-        """
-        Gets a pixel through the use of specified coordinates passed to the function as an array
-        IN: array containing two coordinates (an X and a Y)
-        OUT: returns the pixel at the specified coords
-        """
         x, y = coords[0], coords[1]
         return self.buffer[x, y]
         
         
     def getDimensions(self):
-        """
-        Gets the dimensions of the current image data
-        IN: n/a
-        OUT: returns the dimensions of the image data
-        """
         return self.buffer.shape
     
     
     def setBuffer(self, buf):
-        """
-        Does some error checking and then sets the Buffer
-        """
         self._checkNumpyArr(buf,"buf", "setBuffer")
         self.buffer = buf
         
         
     def clearBuffer(self):
-        """
-        Clears the visual buffer by setting all elements to zero
-        """
         self.buffer[:] = 0
 
     def getBuffer(self):
-        """
-        Gets the current visual buffer
-        IN: n/a
-        OUT: returns the visual buffer
-        """
         return self.buffer
     
