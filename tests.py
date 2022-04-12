@@ -24,14 +24,14 @@ def test_audio():
     assert a.getBitNumber() == 32
     """
 
-    a.setAudioDevice(1)
-    assert a.getAudioDevice() == 1
+    #a.setAudioDevice(1)
+    #assert a.getAudioDevice() == 1
 
     with pytest.raises(ValueError) as e_info:
         a.setAudioDevice(-1)
     assert a.getAudioDevice() == 1
     
-    with pytest.raises(ValueError) as e_info:
+    with pytest.raises(TypeError) as e_info:
         a.setAudioDevice(1.5)
     assert a.getAudioDevice() == 1
     
@@ -60,6 +60,12 @@ def test_vbuffer():
         vb = dpp.VBuffer([0, 0])
         
     with pytest.raises(ValueError) as e_info:
+        vb = dpp.VBuffer([0, 600])
+        
+    with pytest.raises(ValueError) as e_info:
+        vb = dpp.VBuffer([800, 0])
+        
+    with pytest.raises(ValueError) as e_info:
         vb = dpp.VBuffer([9999, 9999])
     
     with pytest.raises(ValueError) as e_info:
@@ -70,8 +76,15 @@ def test_vbuffer():
         
     with pytest.raises(TypeError) as e_info:
         vb = dpp.VBuffer([200, 200.5])
-        
-    vb = dpp.VBuffer([800, 600])
+     
+    vb = dpp.VBuffer([1920, 1080])
+    x, y = vb.getDimensions()
+    assert type(x) is int
+    assert type(y) is int
+    assert x == 1920
+    assert y == 1080
+    
+    vb = dpp.VBuffer()
     x, y = vb.getDimensions()
     assert type(x) is int
     assert type(y) is int

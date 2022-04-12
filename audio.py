@@ -1,4 +1,5 @@
 import numpy, random
+import pygame._sdl2 as sdl2
 
 import pygame
 from pygame.locals import *
@@ -45,6 +46,10 @@ class Audio(object):
         self.volumeLevel = 0.75
         self.waves=waveTable()
         self.waveform = self.waves.sin # this is what the kids would call some bs
+        self.name=0
+
+        self._audioDevice=None
+        
     """
     Locked to 16
     # bit number
@@ -107,13 +112,40 @@ class Audio(object):
         return self._audioBuffer
 
     # audio device
-    def setAudioDevice(self, device: int) -> None:
+    def listAudioDevices(self) -> None:
         """
         Sets the current audio device of the Audio class.
         IN: Device Number (Integer).
         OUT: Returns None
         """
-        self._audioDevice = device
+        pygame.mixer.init()
+        print("Specify one of these devices' indices using setAudioDevice")
+        self._devices = sdl2.get_audio_device_names(False)
+        for i,test in enumerate(self._devices):
+            print(i,test)
+        pygame.mixer.quit()
+
+    def setAudioDevice(self, device: int) -> int:
+        """
+        Sets the current audio device of the Audio class. 
+        NOTE: This can only be set ONCE per instance. To change devices, del the current instance
+        set the new device, and continue
+        IN: Audio device corresponding to array index of audio devices
+        OUT: None
+        """
+        try:
+            pygame.mixer.init()
+            self._devices = sdl2.get_audio_device_names(False)
+        except:
+            self._audioDevice = device
+            # this is probably because of the environment not having audio devices.
+            raise SystemError("No audio devices detected")
+
+        if(device>len(self._devices)):
+            raise ValueError("Device number exceeds known devices.")
+        else:
+            self._audioDevice = device
+        pygame.mixer.quit()
 
     def getAudioDevice(self) -> int:
         """
@@ -145,14 +177,20 @@ class Audio(object):
         
         bitNumber = self.getBitNumber()
         sampleRate = self.getSampleRate()
-        volumeLevel = self._volumeLevel
+        volumeLevel = self.volumeLevel
         numberSamples = int(round(inputDuration*sampleRate))
         audioBuffer = numpy.zeros((numberSamples, 2), dtype = numpy.int32)
         maxSample = 2**(bitNumber - 1) - 1
 
-        pygame.mixer.pre_init(sampleRate, -bitNumber, 6)
-        pygame.mixer.init(sampleRate, -bitNumber, 6)
+        #pygame.mixer.pre_init(sampleRate, -bitNumber, 6)
 
+        if(self._audioDevice==None): # if the user hasn't specified an audio device they want to use, let pygame figure it out
+            pygame.mixer.init(sampleRate, -bitNumber, 6)
+        else: # otherwise, pull from the list of our devices using the index specified
+            try:
+                pygame.mixer.init(sampleRate,-bitNumber,6, devicename=self._devices[self._audioDevice])
+            except:
+                pygame.mixer.init(sampleRate, -bitNumber, 6)
 
         for s in range(numberSamples):
             t = float(s)/sampleRate
@@ -185,8 +223,13 @@ class Audio(object):
         sampleRate = self.getSampleRate()
         volumeLevel = self._volumeLevel
 
-        pygame.mixer.pre_init(sampleRate, -bitNumber, 6)
-        pygame.mixer.init()
+        if(self._audioDevice==None): # if the user hasn't specified an audio device they want to use, let pygame figure it out
+            pygame.mixer.init(sampleRate, -bitNumber, 6)
+        else: # otherwise, pull from the list of our devices using the index specified
+            try:
+                pygame.mixer.init(sampleRate,-bitNumber,6, devicename=self._devices[self._audioDevice])
+            except:
+                pygame.mixer.init(sampleRate, -bitNumber, 6)
 
         sound = pygame.mixer.Sound(sampleName)
         pygame.mixer.Sound.play(sound)
