@@ -65,10 +65,10 @@ def test_vbuffer():
     with pytest.raises(ValueError) as e_info:
         vb = dpp.VBuffer([-100, -100])
         
-    with pytest.raises(ValueError) as e_info:
+    with pytest.raises(TypeError) as e_info:
         vb = dpp.VBuffer([100.9, 200])
         
-    with pytest.raises(ValueError) as e_info:
+    with pytest.raises(TypeError) as e_info:
         vb = dpp.VBuffer([200, 200.5])
         
     vb = dpp.VBuffer([800, 600])
@@ -87,14 +87,14 @@ def test_vbuffer():
     with pytest.raises(ValueError) as e_info:
         vb.writePixel([300, -200], 16777215)
         
-    with pytest.raises(ValueError) as e_info:
+    with pytest.raises(TypeError) as e_info:
         vb.writePixel([300.1, 200], 16777215)
         
-    with pytest.raises(ValueError) as e_info:
+    with pytest.raises(TypeError) as e_info:
         vb.writePixel([20, 799.5], 16777215)
     
     with pytest.raises(ValueError) as e_info:
-        vb.writePixel([399, 299], 256)
+        vb.writePixel([399, 299], 16777216)
     assert vb.getPixel([399, 299]) == 0
     
     with pytest.raises(ValueError) as e_info:
