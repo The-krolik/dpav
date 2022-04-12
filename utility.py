@@ -1,32 +1,7 @@
 from datetime import datetime
 import numpy as np
-from PIL import Image
+import pygame
 
-def getNoteFromString(string, octave):
-    """
-    Given a string representing a note, this will return a hz
-    IN: string representing the note e.g. Ab, C, E#
-    OUT: returns hz
-    """
-    notes = {'A':-3,'B':-1,'C':0,'D':2,'E':4, 'F':5,'G':7}
-    tone=None
-    if len(string)>0:
-        if string[0].upper() in notes:
-            tone=notes[string[0]]
-        for each in string:
-            if each =='b': tone-=1
-            elif each=='#': tone+=1
-        # 60 is midi middle C
-        # If we want HZ of note, we take notedistance=midiread-60
-        # then do 261.625565 * 2 ** (notedistance/12)
-        # see this for tunings: http://techlib.com/reference/musical_note_frequencies.htm#:~:text=Starting%20at%20any%20note%20the,away%20from%20the%20starting%20note.
-        # C4 is middle C
-
-    #tone needs to be distance from C
-    octavedisc=octave-4
-    tone = octavedisc*12 + tone
-    hz = 261.625565 * 2 ** (tone/12)
-    return hz
 def _debugOut(msg):
 
     date_time = datetime.now()
@@ -44,9 +19,9 @@ Description:
     Takes the file path of an image and returns an np.ndarray in hex
 '''
 def loadImage(filepath) -> np.ndarray:
-    image = Image.open(filepath)
-    image_array = np.array(image)
-    return rgb2hex(image_array).T
+    imagesurf = pygame.image.load(filepath)
+    image_array = pygame.surfarray.array3d(imagesurf)
+    return rgb2hex(image_array)
 
 '''
 Description:
