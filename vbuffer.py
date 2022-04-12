@@ -15,7 +15,9 @@ class VBuffer:
         else:
             self._checkCoordType(arg1, "arg1", "__init__")
             dimensions = arg1
-            if dimensions[0] > 1920 or dimensions[1] > 1080:
+            if dimensions[0] <= 0 or dimensions[1] <= 0:
+                raise ValueError(f"dimensions must be greater than 0")
+            elif dimensions[0] > 1920 or dimensions[1] > 1080:
                 raise ValueError(f"dimensions provided of size: {dimensions}, highest supported resolution is (1920,1080)")
         
         self.buffer = arg1 if type(arg1) is np.ndarray else np.zeros(dimensions, dtype=int)
