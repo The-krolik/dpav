@@ -51,8 +51,8 @@ class VBuffer:
         
     # Sets pixel at coordinates coords in buffer to hex value val
     def writePixel(self, coords, val):
-        self._checkCoordType(coords, "coords", "writePixel")
-        self._checkCoordVal(coords, "coords", "writePixel")
+        self._checkCoordType(coords, "writePixel")
+        self._checkCoordVal(coords, "writePixel")
         if type(val) is not int:
             raise TypeError("Color value must be an integer value!")
         elif val < 0 or val > 0xffffff:
