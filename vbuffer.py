@@ -14,14 +14,12 @@ class VBuffer:
     
     Setter:
         writePixel(self, coords, val)
-    
+        setBuffer(self, buf)
+        
     Getters:
         getPixel(self, coords)
         getDimensions(self)
-        getBuffer(self)
-        
-    Setter:
-        setBuffer(self, buf)
+        getBuffer(self)     
     
     Misc:
         _checkNumpyArr(self,arg1,argName,methodName)
