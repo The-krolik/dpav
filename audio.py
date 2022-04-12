@@ -133,7 +133,13 @@ class Audio(object):
         IN: Audio device corresponding to array index of audio devices
         OUT: None
         """
-        self._audioDevice = device
+        pygame.mixer.init()
+        self._devices = sdl2.get_audio_device_names(False)
+        if(device>len(self._devices):
+            raise ValueError("Device number exceeds known devices.")
+        else:
+            self._devices = device
+        pygame.mixer.quit()
 
     def getAudioDevice(self) -> int:
         """
