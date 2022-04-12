@@ -128,8 +128,4 @@ class VBuffer:
     
     def clearBuffer(self):
         self.buffer[:] = 0
-
-    
-    def getBuffer(self):
-        return self.buffer
     
