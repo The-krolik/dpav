@@ -9,20 +9,15 @@ import numpy as np
 
 class VBuffer:
     
-    
-    def __init__(self, arg1 = (600, 800)):       
-        if type(arg1) is tuple or type(arg1) is list:
-            dimensions = arg1
-            if dimensions[0] > 1920 or dimensions[1] > 1080:
-                raise ValueError(f"dimensions provided of size: {dimensions}, highest supported resolution is (1920,1080)")
-                
-            self._checkCoordType(arg1,"arg1", "__init__")
-        elif type(arg1) is np.ndarray:
+    def __init__(self, arg1 = (600, 800)):
+        if type(arg1) is np.ndarray:
             dimensions = arg1.shape
             self._checkNumpyArr(arg1,"arg1","__init__")
         else:
-            raise TypeError(f"{argName} argument to VBuffer. {methodName} must be of type numpy.ndarray dtype=int, or a 2 element dimension list/tuple!")
-
+            self._checkCoordType(arg1, "arg1", "__init__)
+            dimensions = arg1
+            if dimensions[0] > 1920 or dimensions[1] > 1080:
+                raise ValueError(f"dimensions provided of size: {dimensions}, highest supported resolution is (1920,1080)")
         
         self.buffer = arg1 if type(arg1) is np.ndarray else np.zeros(dimensions, dtype=int)
         self.debugFlag = False
