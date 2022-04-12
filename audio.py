@@ -135,7 +135,7 @@ class Audio(object):
         """
         pygame.mixer.init()
         self._devices = sdl2.get_audio_device_names(False)
-        if(device>len(self._devices):
+        if(device>len(self._devices)):
             raise ValueError("Device number exceeds known devices.")
         else:
             self._devices = device
