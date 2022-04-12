@@ -133,8 +133,14 @@ class Audio(object):
         IN: Audio device corresponding to array index of audio devices
         OUT: None
         """
-        pygame.mixer.init()
-        self._devices = sdl2.get_audio_device_names(False)
+        try:
+            pygame.mixer.init()
+            self._devices = sdl2.get_audio_device_names(False)
+        except:
+            self._audioDevice = device
+            # this is probably because of the environment not having audio devices.
+            raise SystemError("No audio devices detected")
+
         if(device>len(self._devices)):
             raise ValueError("Device number exceeds known devices.")
         else:
