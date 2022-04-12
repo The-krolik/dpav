@@ -2,32 +2,27 @@
 #                     Ian Hurd
 #                     Angelo Tammaro
 
-from typing import Type
 import numpy as np
 
 # TODO: color depth arg?
 
 class VBuffer:
     
-    
-    def __init__(self, arg1 = (600, 800)):       
-        if type(arg1) is tuple or type(arg1) is list:
-            dimensions = arg1
-            if dimensions[0] > 1920 or dimensions[1] > 1080:
-                raise ValueError(f"dimensions provided of size: {dimensions}, highest supported resolution is (1920,1080)")
-                
-            self._checkCoordType(arg1,"arg1", "__init__")
-        elif type(arg1) is np.ndarray:
+    def __init__(self, arg1 = (600, 800)):
+        if type(arg1) is np.ndarray:
             dimensions = arg1.shape
             self._checkNumpyArr(arg1,"arg1","__init__")
         else:
-            raise TypeError(f"{argName} argument to VBuffer. {methodName} must be of type numpy.ndarray dtype=int, or a 2 element dimension list/tuple!")
-
+            self._checkCoordType(arg1, "arg1", "__init__")
+            dimensions = arg1
+            if dimensions[0] <= 0 or dimensions[1] <= 0:
+                raise ValueError(f"dimensions must be greater than 0")
+            elif dimensions[0] > 1920 or dimensions[1] > 1080:
+                raise ValueError(f"dimensions provided of size: {dimensions}, highest supported resolution is (1920,1080)")
         
         self.buffer = arg1 if type(arg1) is np.ndarray else np.zeros(dimensions, dtype=int)
         self.debugFlag = False
-
-                                
+                
     def _checkNumpyArr(self,arg1,argName,methodName):
         if not np.issubdtype(arg1.dtype, int) and not np.issubdtype(arg1.dtype,float):
             raise TypeError(f"{argName} argument to VBuffer. {methodName} must be of type numpy.ndarray dtype=int, or a 2 element dimension list/tuple!")
@@ -55,11 +50,9 @@ class VBuffer:
             raise ValueError(f"Coordinate args to VBuffer.{methodName} are out of bounds.")
         
     # Sets pixel at coordinates coords in buffer to hex value val
-    #error check correct color value greater than 0 less than 2^24 
-    #error check if int
     def writePixel(self, coords, val):
-        self._checkCoordType(coords, "coords", "writePixel")
-        self._checkCoordVal(coords, "coords", "writePixel")
+        self._checkCoordType(coords, "coods", "writePixel")
+        self._checkCoordVal(coords, "writePixel")
         if type(val) is not int:
             raise TypeError("Color value must be an integer value!")
         elif val < 0 or val > 0xffffff:
@@ -78,12 +71,8 @@ class VBuffer:
     
     def setBuffer(self, buf):
         self._checkNumpyArr(buf,"buf", "setBuffer")
-        self.buffer = buf
-        
+        self.buffer = buf      
         
     # 
     def clearBuffer(self):
         self.buffer[:] = 0
-
-    def getBuffer(self):
-        return self.buffer
