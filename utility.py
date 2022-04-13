@@ -1,6 +1,8 @@
 from datetime import datetime
+from vbuffer import VBuffer
 import numpy as np
 import pygame
+
 
 def _debugOut(msg):
 
@@ -13,6 +15,35 @@ def _debugOut(msg):
     with open(filename, 'a') as file:
         file.write(msg)
 
+def drawRect(vbuffer, color, pt1, pt2):
+    
+    pts = [pt1,pt2]
+    
+    # error checking
+    if type(vbuffer) != VBuffer and type(vbuffer) != np.ndarray:
+        raise TypeError("arg1 must be of type vbuffer or numpy.ndarray")
+        
+    if type(color) != int or color < 0 or color > 16777215:
+        raise ValueError("arg2 must be of type integer in range 0-16777215")
+    
+    for pt in pts:
+        if (((type(pt) != tuple) and (type(pt) != list)) or (len(pt) > 2) or (len(pt) < 2)):
+            raise TypeError("arg3 & arg4 must be a tuple or list of 2 int elements")
+        for val in pt:
+            if type(val) != int:
+                raise TypeError("arg3 & arg4 must be a tuple or list of 2 int elements")
+                
+    
+    if type(vbuffer) == VBuffer:
+        buf = vbuffer.buffer
+    elif type(vbuffer) == np.ndarray:
+        buf = vbuffer
+    
+    
+    lowx,highx = min(pt1[0],pt2[0]), max(pt1[0],pt2[0])
+    lowy,highy = min(pt1[1],pt2[1]), max(pt1[1],pt2[1])
+    
+    buf[lowx:highx, lowy:highy] = color
         
 '''
 Description:
