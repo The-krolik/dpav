@@ -186,12 +186,12 @@ class Audio(object):
         #pygame.mixer.pre_init(sampleRate, -bitNumber, 6)
 
         if(self._audioDevice==None): # if the user hasn't specified an audio device they want to use, let pygame figure it out
-            pygame.mixer.init(sampleRate, -bitNumber, 6)
+            pygame.mixer.init(sampleRate, -bitNumber, 2)
         else: # otherwise, pull from the list of our devices using the index specified
             try:
-                pygame.mixer.init(sampleRate,-bitNumber,6, devicename=self._devices[self._audioDevice])
+                pygame.mixer.init(sampleRate,-bitNumber,2 , devicename=self._devices[self._audioDevice])
             except:
-                pygame.mixer.init(sampleRate, -bitNumber, 6)
+                pygame.mixer.init(sampleRate, -bitNumber, 2)
 
         audioBuffer = self.getAudioBuffer() # check if the user has specified their own audio buffer
         if(isinstance(audioBuffer,type(None))):
