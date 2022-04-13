@@ -51,7 +51,7 @@ def load_image(filepath) -> np.ndarray:
     """
     imagesurf = pygame.image.load(filepath)
     image_array = pygame.surfarray.array3d(imagesurf)
-    return rgb2hex(image_array)
+    return rgb_to_hex(image_array)
 
 
 def rgb_to_hex(arr):
