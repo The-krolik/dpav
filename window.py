@@ -53,17 +53,17 @@ class Window:
     Arguments:
         vB: VBuffer object
     Raises:
-        TypeError: vB must be of type VBuffer
+        Type Error: vB must be of type VBuffer
     '''
     def setVBuffer(self, arg1, scale=1):
         
-        if (vB == None or (type(arg1) is not np.ndarray and type(arg1) is not VBuffer)):
+        if (arg1 == None or (type(arg1) is not np.ndarray and type(arg1) is not VBuffer)):
             raise TypeError("Argument must be of type VBuffer or np.ndarray")
         
                 
         if type(scale) is not int and type(scale) is not float:
             raise TypeError("arg2 must be of type Int")
-   
+        
         
         self.vBuffer = arg1 if type(self.vBuffer) is VBuffer else VBuffer(arg1)
         self.scale = scale
@@ -73,11 +73,10 @@ class Window:
     Description:
         Primary pygame event abstraction, must be called after open() in a process loop
     Raises:
-        RuntimeError: no active pygame window instances exists
+        Runtime Error: no active pygame window instances exists
     '''
     def update(self):
-        #self.writeToScreen()
-        
+        self.writeToScreen()
         
         if self.isOpen == False:
             if self.debugFlag: util._debugOut("No window currently open")
