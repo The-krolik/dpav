@@ -6,12 +6,21 @@ from vbuffer import VBuffer
 
 class Window:
     
-    def __init__(self, vB=None):
-        if vB != None and type(vB) is not VBuffer:
-            raise TypeError("Argument must be of type VBuffer")
+    def __init__(self, arg1=None, scale=1):
+        if arg1 != None and (type(arg1) is not VBuffer and type(arg1) is not np.ndarray):
+            raise TypeError("arg1 must be of type VBuffer or np.ndarray")
+        if type(scale) is not int and type(scale) is not float:
+            raise TypeError("arg2 must be of type Int")
+        
+        
+        self.scale = scale
         
         # create buffer if not provided
-        self.vBuffer = VBuffer((800,600)) if vB == None else vB
+        if arg1 == None: self.vBuffer = VBuffer((800,600))
+        elif type(arg1) == VBuffer: self.vBuffer = arg1
+        elif type(arg1) == np.ndarray: self.vBuffer = VBuffer(arg1)
+        
+        self.vBuffer = VBuffer((800,600)) if arg1 == None else arg1
         self.surfaces = {"active" : pygame.Surface(self.vBuffer.getDimensions()), 
                          "inactive" : pygame.Surface(self.vBuffer.getDimensions())}
         
@@ -36,7 +45,7 @@ class Window:
             raise RuntimeError("No window currently open")
         
         
-        return pygame.mouse.get_pos()
+        return (int(pygame.mouse.get_pos()[0]/self.scale), int(pygame.mouse.get_pos()[1]/self.scale))
     
     '''
     Description:
@@ -46,11 +55,18 @@ class Window:
     Raises:
         Type Error: vB must be of type VBuffer
     '''
-    def setVBuffer(self, vB):
-        if vB != None and type(vB) is not VBuffer:
-            raise TypeError("Argument must be of type VBuffer")
+    def setVBuffer(self, arg1, scale=1):
         
-        self.vBuffer = vB
+        if (vB == None or (type(arg1) is not np.ndarray and type(arg1) is not VBuffer)):
+            raise TypeError("Argument must be of type VBuffer or np.ndarray")
+        
+                
+        if type(scale) is not int and type(scale) is not float:
+            raise TypeError("arg2 must be of type Int")
+        
+        
+        self.vBuffer = arg1 if type(self.vBuffer) is VBuffer else VBuffer(arg1)
+        self.scale = scale
         self.writeToScreen()
             
     '''
@@ -76,10 +92,11 @@ class Window:
     def writeToScreen(self):
         #swap surfaces
         self.surfaces['active'], self.surfaces['inactive'] = self.surfaces['inactive'], self.surfaces['active']
-        pygame.surfarray.blit_array(self.surfaces['active'], self.vBuffer.getBuffer())
+        pygame.surfarray.blit_array(self.surfaces['active'], self.vBuffer.buffer)
         
         if self.screen != None and self.isOpen:
-            self.screen.blit(self.surfaces['active'], (0, 0))
+            #self.screen.blit(self.surfaces['active'], (0, 0))
+            self.screen.blit(pygame.transform.scale(self.surfaces['active'], (self.vBuffer.getDimensions()[0] * self.scale, self.vBuffer.getDimensions()[1] * self.scale)), (0, 0))
             pygame.display.flip()
     
     '''
@@ -87,7 +104,7 @@ class Window:
         opens an instance of a pygame window
     '''
     def open(self):
-        self.screen = pygame.display.set_mode(self.vBuffer.getDimensions())
+        self.screen = pygame.display.set_mode((self.vBuffer.getDimensions()[0] * self.scale, self.vBuffer.getDimensions()[1] * self.scale))
         pygame.display.init()
         self.isOpen = True
         self.writeToScreen()
