@@ -106,5 +106,6 @@ def waveToRawData(wavefile):
     with wave.open(wavefile) as f:
         buffer = f.readframes(f.getnframes())
         interleaved=np.frombuffer(buffer, dtype=f'int{f.getsampwidth()*8}')
+        print(f.__dict__)
         data = np.reshape(interleaved, (-1, 2))
     return data
