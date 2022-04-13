@@ -8,7 +8,6 @@ from vbuffer import VBuffer
 import utility as util
 
 class Key:
-    
     def __init__(self, loc, keytype, note):
         self.loc = loc
         self.type = keytype
@@ -31,7 +30,6 @@ def playKey(pos, wsize, bKeys, wKeys):
     
 
 def drawWhiteKeys(buf, numKeys, keySize, keySpacing):
-    
     drawkey = True
     x = 0
     wKeys = []
@@ -82,12 +80,20 @@ wkey_spacing = 3
 
 xdim = (wkey_size * white_keys) + ((white_keys - 1) * wkey_spacing)
 buf = VBuffer((xdim,300))
-window = Window(buf)
 
-        
 wKeys = drawWhiteKeys(buf,white_keys,wkey_size,wkey_spacing)
 bKeys = drawBlackKeys(buf,white_keys,wkey_size,wkey_spacing)
 
+#wNotes = getWhiteNotes()  return type: list of notes
+#bNotes = getBlackNotes()  return type: list of notes
+# for i in range(len(wNotes)):
+#     wKeys[i].note = wNotes[i]
+# # for i in range(len(bNotes)):
+#     bKeys[i].note = bNotes[i]
+
+
+
+window = Window(buf)
 window.open()
 while window.isOpen:
     
