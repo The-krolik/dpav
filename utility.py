@@ -3,7 +3,7 @@ from vbuffer import VBuffer
 import numpy as np
 import pygame
 import wave
-
+from scipy.io import wavfile
 def _debugOut(msg):
 
     date_time = datetime.now()
@@ -99,13 +99,9 @@ def getNoteFromString(string, octave):
     hz = 261.625565 * 2 ** (tone/12)
     return hz
 
-def waveToRawData(wavefile):
+def sixteenWavtoRawData(wavefile):
     """
     takes in a string path/name of a wav file, converts it to numpy array
     """
-    with wave.open(wavefile) as f:
-        buffer = f.readframes(f.getnframes())
-        interleaved=np.frombuffer(buffer, dtype=f'int{f.getsampwidth()*8}')
-        print(f.__dict__)
-        data = np.reshape(interleaved, (-1, 2))
-    return data
+    samplerate, data=wavfile.read(wavefile)
+    return samplerate, data
