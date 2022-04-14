@@ -14,7 +14,7 @@ def _debug_out(msg):
     with open(filename, 'a') as file:
         file.write(msg)
 
-def draw_rect(vbuffer, color, pt1, pt2):
+def draw_rectangle(vbuffer, color, pt1, pt2):
     
     pts = [pt1,pt2]
     
@@ -71,12 +71,101 @@ def rgb_to_hex(arr):
     return ret
 
 
-def draw_circle(buf, center, r, color):
+def replace_color(vb: VBuffer, replaced_color: int, new_color: int):
+    """
+    Replace all pixels of value replaced_color with new_color in a visual
+    buffer vb.
+    """
+    vb.buffer = np.where(vb.buffer == replaced_color, new_color, vb.buffer)
+
+
+def draw_line(vb: VBuffer, p0: list, p1: list, color: int):
+    """
+    Draws a line on a visual buffer from p0 to p1 using Bresenham's algorithm
+    """
+    (x0, y0) = p0
+    (x1, y1) = p1
+    dx = abs(x1 - x0)
+    sx = 1 if x0 < x1 else -1
+    dy = -abs(y1 - y0)
+    sy = 1 if y0 < y1 else -1
+    err = dx + dy
+
+    while True:
+        vb.buffer[x0,y0] = color
+        if (x0 == x1) and (y0 == y1):
+            break
+        e2 = 2 * err
+
+        if e2 >= dy:
+            if x0 == x1:
+                break
+            err = err + dy
+            x0 = x0 + sx
+
+        if e2 <= dx:
+            if y0 == y1:
+                break
+            err = err + dx
+            y0 = y0 + sy
+
+
+def draw_polygon(vb: VBuffer, vertices: list, color: int):
+    """
+    Draws a polygon in a visual buffer with the given vertices utilizing the
+    order in which they are given.
+    """
+    for i in range(0,len(vertices)-1):
+        draw_line(vb, vertices[i], vertices[i+1], color)
+    draw_line(vb, vertices[-1], vertices[0], color)
+
+
+def draw_circle(vb: VBuffer, center: list, r: float, color: int):
+    """
+    Draws a circle onto a visual buffer of a specified color and radius 
+    around a given center point using Bresenham's algorithm.
+    """
+    center_x = center[0]
+    center_y = center[1]
+    x = 0
+    y = r
+    d = 3 - 2*r
+
+    vb.buffer[center_x+x][center_y+y] = color
+    vb.buffer[center_x-x][center_y+y] = color
+    vb.buffer[center_x+x][center_y-y] = color
+    vb.buffer[center_x-x][center_y-y] = color
+    vb.buffer[center_x+y][center_y+x] = color
+    vb.buffer[center_x-y][center_y+x] = color
+    vb.buffer[center_x+y][center_y-x] = color
+    vb.buffer[center_x-y][center_y-x] = color
+
+    while y >= x:
+        x += 1
+        if d > 0:
+            y -= 1
+            d = d + 4*(x-y) + 10
+        else:
+            d = d + 4*x + 6
+
+        vb.buffer[center_x+x][center_y+y] = color
+        vb.buffer[center_x-x][center_y+y] = color
+        vb.buffer[center_x+x][center_y-y] = color
+        vb.buffer[center_x-x][center_y-y] = color
+        vb.buffer[center_x+y][center_y+x] = color
+        vb.buffer[center_x-y][center_y+x] = color
+        vb.buffer[center_x+y][center_y-x] = color
+        vb.buffer[center_x-y][center_y-x] = color
+
+
     """
     Description:
-        Draws a circle at a given center of radius r on a visual buffer buf
+        Draws a circle at a given center of radius r on a visual buffer vb
         colored color
     """
+"""
+def draw_circle(vb: VBuffer, center: list, r: float, color: int):
+    buf = vb.buffer
     center_x = center[0]
     center_y = center[1]
     x = r
@@ -110,3 +199,4 @@ def draw_circle(buf, center, r, color):
             buf[-y+center_x][x+center_y] = color
             buf[y+center_x][-x+center_y] = color
             buf[-y+center_x][-x+center_y] = color
+"""
