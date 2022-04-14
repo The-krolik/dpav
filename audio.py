@@ -202,7 +202,7 @@ class audio(object):
         except AttributeError:
             print("Out of Channels")
 
-    def waitForSoundEnd(self):
+    def wait_for_sound_end(self):
         """
         Function call that is placed at the end of scripts to keep processes going
         so that way sounds play to their full duration without a pygame window instance
