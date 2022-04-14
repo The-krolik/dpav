@@ -19,7 +19,7 @@ class Key:
 def playKey(pos, wsize, bKeys, wKeys):
     
     x,y = pos[0],pos[1]
-    bInd = math.floor(x/wsize * 5/7)
+    bInd = min(math.floor(x/wsize * 5/7), len(bKeys)-1)
     wInd = math.floor(x/wsize)
     bKey = bKeys[bInd]
     wKey = wKeys[wInd]
@@ -110,10 +110,27 @@ for i in range(len(bNotes)):
      bKeys[i].octave = math.ceil((i+2)/5+2)
 
 
+wevents = ['1','2','3','4','5','6','7','8','9','0','-','=',
+                'q','w','e','r','t','y','u','i','o','p']
+bevents = ['a','s','d','f','g','h','j','k','l','z',
+           'x','c','v','b','n']
 
 window = Window(buf)
 window.open()
+mySound = Audio()
 while window.isOpen:
+    
+    for i,event in enumerate(wevents):
+        if event in window.activeEvents:
+            key = wKeys[i]
+            frequency = math.ceil(util.getNoteFromString(key.note, key.octave))
+            mySound.playSound(frequency, .25)
+            
+    for i,event in enumerate(bevents):
+        if event in window.activeEvents:
+            key = wKeys[i]
+            frequency = math.ceil(util.getNoteFromString(key.note, key.octave))
+            mySound.playSound(frequency, .25)
     
     if 'mouse' in window.activeEvents:
         pos = window.getMousePosition()
