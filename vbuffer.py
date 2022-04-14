@@ -49,7 +49,7 @@ class VBuffer:
         self.buffer = arg1 if type(arg1) is np.ndarray else np.zeros(dimensions, dtype=int)
         self.debug_flag = False
                 
-    def _check_numpy_arr(self,arg1,a rg_name, method_name):
+    def _check_numpy_arr(self,arg1,arg_name, method_name):
         """
         Error checks for the following:
             - if arg1 is not a numpy array or a 2-element list/tuple
