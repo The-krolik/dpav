@@ -9,7 +9,7 @@ import numpy
 from time import sleep
 
 
-class audio(object):
+class Audio(object):
     """
     Handles Audio capabilities of Python Direct Platform.
     Here are the functions:
