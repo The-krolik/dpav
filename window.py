@@ -80,7 +80,7 @@ class Window:
             TypeError -- arg1 VBuffer/np.ndarray type check
             TypeError -- scale int/float type check 
         """
-        
+
         if arg1 != None and (
             type(arg1) is not VBuffer and type(arg1) is not np.ndarray
         ):
@@ -124,7 +124,8 @@ class Window:
 
         x = int(pygame.mouse.get_pos()[0] / self.scale)
         y = int(pygame.mouse.get_pos()[1] / self.scale)
-        return (x,y)
+        return (x, y)
+
     def set_vbuffer(self, arg1, scale=1) -> None:
         """
         Sets the vbuffer object to display on screen
@@ -138,9 +139,7 @@ class Window:
             TypeError: scale int/float type check
         """
 
-        if arg1 == None or (
-            type(arg1) is not np.ndarray and type(arg1) is not VBuffer
-        ):
+        if arg1 == None or (type(arg1) is not np.ndarray and type(arg1) is not VBuffer):
             raise TypeError("Argument must be of type VBuffer or np.ndarray")
 
         if type(scale) is not int and type(scale) is not float:
@@ -180,7 +179,10 @@ class Window:
         """
 
         # swap surfaces
-        self._surfaces["active"], self._surfaces["inactive"] = self._surfaces["inactive"], self._surfaces["active"]
+        self._surfaces["active"], self._surfaces["inactive"] = (
+            self._surfaces["inactive"],
+            self._surfaces["active"],
+        )
 
         pygame.surfarray.blit_array(self._surfaces["active"], self.vbuffer.buffer)
 
@@ -200,7 +202,7 @@ class Window:
             func -- function   -- function to trigger
             args -- tuple/list -- arguments to func
         """
-        
+
         self._check_valid_action("a", func, args)
 
         function = None
@@ -267,7 +269,7 @@ class Window:
         newx = self.vbuffer.get_dimensions()[0] * self.scale
         newy = self.vbuffer.get_dimensions()[1] * self.scale
         self._screen = pygame.display.set_mode(newx, newy)
-        
+
         pygame.display.init()
         self._isopen = True
         self.write_to_screen()
