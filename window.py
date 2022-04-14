@@ -2,60 +2,139 @@ import numpy as np
 import pygame
 import utility as util
 from vbuffer import VBuffer
+import threading
+
+class Action:
+    """
+    Data Structure to hold key/function pairs
+    
+    Members:
+        key      -- string   -- key to trigger function
+        function -- function -- function to trigger
+    """
+    
+    def __init__(self, key, function):
+        self.key = key
+        self.function = function
 
 
 class Window:
+    """
+    Handles Window capabilites of Python Direct Platform
+    Functions:
+        Constructor:
+            __init__()
+            
+        Setters:
+            set_vbuffer(VBuffer/np.ndarray,optional:int)
+
+        Getters:
+            get_mousepos()
+            
+        Misc Methods:
+            open()
+            close()
+        
+            new_action(function,optional:tuple/list)
+            new_press_action(str,function,optional:tuple/list)
+            new_hold_action(str,funcion,optional:tuple/list)
+            
+            write_to_screen()
+            
+        Private Methods:
+            _update()
+            _start()
+            _check_valid_action(str,function,string)
+            _update_events(pygame.event)
+            _build_events_dict()
+
+    Members:
+        Public:
+            vbuffer        -- VBuffer          -- active VBuffer object
+            scale          -- int/float        -- scales up/down size of screen
+            events         -- {string:bool}    -- dictionary of string:bool event pairs
+            eventq         -- [event]          -- queue of events since last update cycle
+            debugflag      -- Boolean          -- debug logging on/off
+            
+        Private:
+            _keydict       -- {int:string}     -- Mapping of pygame int event idenitifiers to strings
+            _actions       -- [Action]         -- Actions always triggered in event loop
+            _press_actions -- [Action]         -- Actions triggered on key press in event loop
+            _hold_actions  -- [Action]         -- Actions triggered on key hold in event loop
+            _surfaces      -- {pygame.Surface} -- Two surfaces for swapping to reflect vbuffer changes
+            _screen        -- pygame.display   -- pygame window
+            _isopen        -- Boolean          -- flag for if the window is active
+
+    """
     
     def __init__(self, arg1=None, scale=1):
+        """
+        Constructor for the Window class.
+        
+        Positional arguments:
+            arg1  -- VBuffer/np.ndarray (default None)
+            scale -- float/int (default 1)
+        
+        Raises:
+            TypeError -- arg1 VBuffer/np.ndarray type check
+            TypeError -- scale int/float type check 
+        """
+           
         if arg1 != None and (type(arg1) is not VBuffer and type(arg1) is not np.ndarray):
             raise TypeError("arg1 must be of type VBuffer or np.ndarray")
         if type(scale) is not int and type(scale) is not float:
             raise TypeError("arg2 must be of type Int")
+           
+        if arg1 == None: arg1 = VBuffer((800,600))
+        elif type(arg1) == np.ndarray: arg1 = VBuffer(arg1)
         
         
+        ### Public Members ###
+        self.vbuffer = arg1
         self.scale = scale
-        
-        # create buffer if not provided
-        if arg1 == None: self.vBuffer = VBuffer((800,600))
-        elif type(arg1) == VBuffer: self.vBuffer = arg1
-        elif type(arg1) == np.ndarray: self.vBuffer = VBuffer(arg1)
-        
-        self.vBuffer = VBuffer((800,600)) if arg1 == None else arg1
-        self.surfaces = {"active" : pygame.Surface(self.vBuffer.getDimensions()), 
-                         "inactive" : pygame.Surface(self.vBuffer.getDimensions())}
-        
-        
         self.events = {}
-        self.activeEvents = []
+        self.eventq = []
+        self.debug_flag = False
         
-        self.debugFlag = False
-        self.screen = None
-        self.isOpen = False
+        ### Private Members ###
+        self._actions, self._press_actions, self._hold_actions = [],[],[]
+        self._surfaces = {"active" : pygame.Surface(self.vbuffer.get_dimensions()),
+                         "inactive" : pygame.Surface(self.vbuffer.get_dimensions())}
+        self._keydict = {}
+        self._screen = None
+        self._isopen = False
         
-
-    '''
-    Description:
+        
+    
+    def get_mouse_pos(self) -> (int,int):
+        """
         Returns the current mouse location with respect to the pygame window instance
-    Raises:
-        Runtime Error: no active pygame window instances exists
-    '''
-    def getMousePosition(self):
-        if self.isOpen == False:
-            if self.debugFlag: util._debugOut("No window currently open")
+            
+        Raises:
+            Runtime Error: no active pygame window instances exists
+        """
+        if self._isopen == False:
+            if self.debug_flag: util._debugOut("No window currently open")
             raise RuntimeError("No window currently open")
         
         
         return (int(pygame.mouse.get_pos()[0]/self.scale), int(pygame.mouse.get_pos()[1]/self.scale))
     
-    '''
-    Description:
-        Sets the VBuffer object to display
-    Arguments:
-        vB: VBuffer object
-    Raises:
-        Type Error: vB must be of type VBuffer
-    '''
-    def setVBuffer(self, arg1, scale=1):
+
+
+    def set_vbuffer(self, arg1, scale=1) -> None:
+        """
+        Sets the vbuffer object to display on screen
+        
+        Positional Arguments:
+            arg1  -- VBuffer/np.ndarray
+            scale -- int/float
+        
+        Raises:
+            TypeError: arg1 VBuffer/np.ndarray type check
+            TypeError: scale int/float type check
+        """
+        
         
         if (arg1 == None or (type(arg1) is not np.ndarray and type(arg1) is not VBuffer)):
             raise TypeError("Argument must be of type VBuffer or np.ndarray")
@@ -65,75 +144,172 @@ class Window:
             raise TypeError("arg2 must be of type Int")
         
         
-        self.vBuffer = arg1 if type(self.vBuffer) is VBuffer else VBuffer(arg1)
+        self.vbuffer = arg1 if type(self.vbuffer) is VBuffer else VBuffer(arg1)
         self.scale = scale
-        self.writeToScreen()
+        self.write_to_screen()
             
-    '''
-    Description:
-        Primary pygame event abstraction, must be called after open() in a process loop
-    Raises:
-        Runtime Error: no active pygame window instances exists
-    '''
-    def update(self):
-        self.writeToScreen()
+
+    def open(self) -> None:
+        """
+        Creates and runs pygame window in a new thread
+        """
+            
+        thread = threading.Thread(target=self._start)
+        thread.start()
         
-        if self.isOpen == False:
-            if self.debugFlag: util._debugOut("No window currently open")
+        
+    def close(self) -> None:
+        """
+        Closes the active instance of a pygame window  
+        
+        Raises:
+            RuntimeError: no active pygame window instances exists
+        """
+        
+        if not self._isopen:
+            if self.debug_flag: util._debugOut("No window currently open")
+            raise RuntimeError("No window currently open")
+        
+        self._isopen, self._screen = False, None
+        pygame.quit()
+        
+    
+    def write_to_screen(self) -> None:
+        """
+        Updates the screen with changes from stored vbuffer object
+        """
+         
+        #swap surfaces
+        self._surfaces['active'], self._surfaces['inactive'] = self._surfaces['inactive'], self._surfaces['active']
+        pygame.surfarray.blit_array(self._surfaces['active'], self.vbuffer.buffer)
+        
+        if self._screen != None and self._isopen:
+            self._screen.blit(pygame.transform.scale(self._surfaces['active'], (self.vbuffer.get_dimensions()[0] * self.scale, self.vbuffer.get_dimensions()[1] * self.scale)), (0, 0))
+            pygame.display.flip()
+        
+        
+    def new_action(self, func, args = None) -> None:
+        """
+        Creates an Action object for func to be triggered every iteration of event loop
+        
+        Positional Arguments:
+            func -- function   -- function to trigger
+            args -- tuple/list -- arguments to func
+        """
+        
+        self._check_valid_action('a', func, args)
+        
+        function = None
+        if args is not None:
+            if args is not type(tuple) and args is not type(list):
+                args = [args]
+                
+            function = lambda : func(*args)
+        
+        if function == None: function = func
+        self._actions.append(Action(None,function))
+        
+        
+    def new_press_action(self, key, func, args=None) -> None: 
+        """
+        Creates an Action object for func to be triggered on each key press
+        
+        Positional Arguments:
+            key  -- string     -- key event to trigger func
+            func -- function   -- function to trigger
+            args -- tuple/list -- arguments to func
+        """
+        
+        self._check_valid_action(key,func,"on_press")
+        
+        function = None
+        if args is not None:
+            if args is not type(tuple) and args is not type(list):
+                args = [args]
+            
+            function = lambda : func(*args)
+        
+        if function == None: function = func
+        self._press_actions.append(Action(key,function))
+        
+        
+    def new_hold_action(self, key,func, args=None) -> None:
+        """
+        Creates an Action object for func to be triggered when key is down
+        
+        Positional Arguments:
+            key  -- string     -- key event to trigger func
+            func -- function   -- function to trigger
+            args -- tuple/list -- arguments to func
+        """
+        
+        
+        self._check_valid_action(key,func,"on_hold")    
+            
+        function = None
+        if args is not None:
+            if args is not type(tuple) and args is not type(list):
+                args = [args]
+                
+            function = lambda : func(*args)
+        
+        if function == None: function = func
+        self._hold_actions.append(Action(key,function))
+        
+        
+    def _start(self) -> None:
+        """
+        Primary pygame window event abstraction. Opens a window and manages event loop
+        """
+        
+        self._screen = pygame.display.set_mode((self.vbuffer.get_dimensions()[0] * self.scale, self.vbuffer.get_dimensions()[1] * self.scale))
+        pygame.display.init()
+        self._isopen = True
+        self.write_to_screen()
+        self._build_events_dict()
+        
+        while self._isopen:
+            
+            for action in self._actions:
+                action.function()
+            
+            for action in self._press_actions:
+                if action.key in self.eventq:
+                    action.function()
+            
+            for action in self._hold_actions:
+                if self.events[action.key]:
+                    action.function()
+            
+            self._update()
+        
+
+    def _update(self) -> None:
+        """
+        Pygame event abstraction, called at end of pygame loop
+        
+        Raises:
+            Runtime Error: No active pygame window
+        """
+        if self._isopen == False:
+            if self.debug_flag: util._debugOut("No window currently open")
             raise RuntimeError("No window currently open")
         else:
-            self.activeEvents.clear()
+            self.eventq.clear()
             for event in pygame.event.get():
                 if event.type == pygame.QUIT: self.close()
 
-                self._updateEvents(event)
+                self._update_events(event)
                 
-            
-    def writeToScreen(self):
-        #swap surfaces
-        self.surfaces['active'], self.surfaces['inactive'] = self.surfaces['inactive'], self.surfaces['active']
-        pygame.surfarray.blit_array(self.surfaces['active'], self.vBuffer.buffer)
-        
-        if self.screen != None and self.isOpen:
-            #self.screen.blit(self.surfaces['active'], (0, 0))
-            self.screen.blit(pygame.transform.scale(self.surfaces['active'], (self.vBuffer.getDimensions()[0] * self.scale, self.vBuffer.getDimensions()[1] * self.scale)), (0, 0))
-            pygame.display.flip()
-    
-    '''
-    Description:
-        opens an instance of a pygame window
-    '''
-    def open(self):
-        self.screen = pygame.display.set_mode((self.vBuffer.getDimensions()[0] * self.scale, self.vBuffer.getDimensions()[1] * self.scale))
-        pygame.display.init()
-        self.isOpen = True
-        self.writeToScreen()
-        self._buildEventsDict()
 
-    '''
-    Description:
-        Closes the active instance of a pygame window   
-    Raises:
-        RuntimeError: no active pygame window instances exists
-    '''
-    def close(self):
-        if not self.isOpen:
-            if self.debugFlag: util._debugOut("No window currently open")
-            raise RuntimeError("No window currently open")
+    def _update_events(self, event) -> None:
+        """
+        Updates the Window class event dictionary to maintain continuity with pygame events
         
-        self.isOpen, self.Screen = False, None
-        pygame.quit()
-
+        Positional Arguments:
+            event -- current event to update
+        """
         
-        
-    '''
-    Description:
-        updates the Window class Event dictionary to maintain continuity with pygame events
-        is called for every event in the pygame events queue
-    Arguments:
-         event : current event to update
-    '''
-    def _updateEvents(self, event):
         strkey = 'None'
         
         #if mouse, intkey = event.type, else set to pygame key value
@@ -146,17 +322,15 @@ class Window:
         if strkey != 'None' and strkey in self.events:
             self.events[strkey] = True if self.events[strkey] == False else False
             
-            if self.events[strkey]: self.activeEvents.append(strkey)
-            if self.debugFlag: util._debugOut("key '{}' set to {}".format(strkey, self.events[strkey]))
-        
+            if self.events[strkey]: self.eventq.append(strkey)
+            if self.debug_flag: util._debugOut("key '{}' set to {}".format(strkey, self.events[strkey]))
         
     
-    ''' 
-    Description:
-        creates the events dictionary
-        is called once by open() each time a window is opened.
-    '''
-    def _buildEventsDict(self):
+    def _build_events_dict(self) -> None:
+        """
+        creates the events dictionary, called once by _start
+        """
+        
         
         # used for mapping of pygame key int identifiers to string identifiers
         self._keydict = {pygame.K_F1 : 'f1', pygame.K_F2 : 'f2', pygame.K_F3 : 'f3', pygame.K_F4 : 'f4',
@@ -177,3 +351,26 @@ class Window:
         
         # create events dict from _keydict string mappings
         for key, value in self._keydict.items(): self.events[value] = pygame.key.get_pressed()[key]
+        
+        
+    def _check_valid_action(self,key,func,argname) -> None: 
+        """
+        Typechecking before creating a new Action object
+        
+        Positional Arguments:
+            key     -- string   -- key event to trigger func
+            func    -- function -- function to trigger
+            argname -- string   -- method name that called _check_valid_action
+        
+        
+        Raises:
+            TypeError:  key string type check
+            ValueError: key supported event type
+            TypeError:  func is a valid callable function
+        """
+        if type(key) != str:
+            raise TypeError(f"{argname} | arg1 must be of type string not {type(key)}")
+        if key not in self.events:
+            raise ValueError(f"{argname} | arg1 is not a valid key")
+        if not callable(func):
+            raise TypeError(f"{argname} | arg2 must be function not {type(func)}")
