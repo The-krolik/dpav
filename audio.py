@@ -45,6 +45,8 @@ class Audio(object):
         self._audioDevice = 0
         self.volumeLevel = 0.75
         self.waves=waveTable()
+
+        self._audioBuffer=None
         self.waveform = self.waves.sin # this is what the kids would call some bs
         self.name=0
 
@@ -164,7 +166,7 @@ class Audio(object):
         self.waveform = wave
         pass
 
-    def playSound(self, inputFrequency, inputDuration)->None:
+    def playSound(self, inputFrequency=0, inputDuration=0)->None:
         """
         Primary sound playing method of the audio class.
         IN: Takes an input frequency in Hz, and a duration in seconds
@@ -179,23 +181,26 @@ class Audio(object):
         sampleRate = self.getSampleRate()
         volumeLevel = self.volumeLevel
         numberSamples = int(round(inputDuration*sampleRate))
-        audioBuffer = numpy.zeros((numberSamples, 2), dtype = numpy.int32)
         maxSample = 2**(bitNumber - 1) - 1
 
         #pygame.mixer.pre_init(sampleRate, -bitNumber, 6)
 
         if(self._audioDevice==None): # if the user hasn't specified an audio device they want to use, let pygame figure it out
-            pygame.mixer.init(sampleRate, -bitNumber, 6)
+            pygame.mixer.init(sampleRate, -bitNumber, 2)
         else: # otherwise, pull from the list of our devices using the index specified
             try:
-                pygame.mixer.init(sampleRate,-bitNumber,6, devicename=self._devices[self._audioDevice])
+                pygame.mixer.init(sampleRate,-bitNumber,2 , devicename=self._devices[self._audioDevice])
             except:
-                pygame.mixer.init(sampleRate, -bitNumber, 6)
+                pygame.mixer.init(sampleRate, -bitNumber, 2)
 
-        for s in range(numberSamples):
-            t = float(s)/sampleRate
-            audioBuffer[s][0] = int(round(volumeLevel*maxSample*self.waveform(inputFrequency,t)))
-            audioBuffer[s][1] = int(round(volumeLevel*maxSample*self.waveform(inputFrequency,t)))
+        audioBuffer = self.getAudioBuffer() # check if the user has specified their own audio buffer
+        if(isinstance(audioBuffer,type(None))):
+            audioBuffer = numpy.zeros((numberSamples, 2), dtype = numpy.int32)
+            for s in range(numberSamples):
+                t = float(s)/sampleRate
+                audioBuffer[s][0] = int(round(volumeLevel*maxSample*self.waveform(inputFrequency,t)))
+                audioBuffer[s][1] = int(round(volumeLevel*maxSample*self.waveform(inputFrequency,t)))
+
         try:
             sound = pygame.sndarray.make_sound(audioBuffer)
             pygame.mixer.find_channel(force=False).play(sound)
