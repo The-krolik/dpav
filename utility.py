@@ -2,7 +2,10 @@ from datetime import datetime
 from vbuffer import VBuffer
 import numpy as np
 import pygame
-
+try:
+    from scipy.io import wavfile
+except(ModuleNotFoundError):
+    pass
 
 def _debug_out(msg):
     date_time = datetime.now()
@@ -66,9 +69,43 @@ def rgb_to_hex(arr):
             red = arr[i,j,0] << 16
             green = arr[i,j,1] << 8
             blue = arr[i,j,2]
-            ret[i,j] = red + green + blue
-                       
+            ret[i,j] = red + green + blue                                       
     return ret
+
+
+
+def getNoteFromString(string, octave):
+    """
+    Given a string representing a note, this will return a hz
+    IN: string representing the note e.g. Ab, C, E#
+    OUT: returns hz
+    """
+    notes = {'A':-3,'B':-1,'C':0,'D':2,'E':4, 'F':5,'G':7}
+    tone=None
+    if len(string)>0:
+        if string[0].upper() in notes:
+            tone=notes[string[0]]
+        for each in string:
+            if each =='b': tone-=1
+            elif each=='#': tone+=1
+        # 60 is midi middle C
+        # If we want HZ of note, we take notedistance=midiread-60
+        # then do 261.625565 * 2 ** (notedistance/12)
+        # see this for tunings: http://techlib.com/reference/musical_note_frequencies.htm#:~:text=Starting%20at%20any%20note%20the,away%20from%20the%20starting%20note.
+        # C4 is middle C
+
+    #tone needs to be distance from C
+    octavedisc=octave-4
+    tone = octavedisc*12 + tone
+    hz = 261.625565 * 2 ** (tone/12)
+    return hz
+
+def sixteenWavtoRawData(wavefile):
+    """
+    takes in a string path/name of a wav file, converts it to numpy array
+    """
+    samplerate, data=wavfile.read(wavefile)
+    return samplerate, data
 
 
 def replace_color(vb: VBuffer, replaced_color: int, new_color: int):
