@@ -7,7 +7,7 @@ def test_audio():
     a = dpp.Audio()
 
     assert a.getBitNumber() == 16
-    assert a.getSampleRate() == 44100   
+    assert a.getSampleRate() == 44100
     assert a.waveform == a.waves.sin
 
     a.setWaveForm(a.waves.square)
@@ -91,7 +91,7 @@ def test_vbuffer():
     vb.writePixel([0, 0], 16777215)
     assert vb.getPixel([0, 0]) == 16777215
 
-    vb.writePixel([799, 599], 0xffffff)
+    vb.writePixel([799, 599], 0xFFFFFF)
     assert vb.getPixel([0, 0]) == 16777215
 
     vb.clearBuffer()
