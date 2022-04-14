@@ -2,12 +2,12 @@
 import audio
 import pygame, pygame.midi
 
-test=audio.Audio()
+test=audio.audio()
 pygame.init()
 pygame.midi.init()
 for x in range( 0, pygame.midi.get_count() ):
     print(pygame.midi.get_device_info(x)[1], pygame.midi.get_device_info(x)[2] )
-test.setWaveForm(test.waves.sin)
+test.set_wave_form(test.waves.sin)
 inp = pygame.midi.Input(1)
 _running = True
 while _running:
@@ -26,5 +26,5 @@ while _running:
         if(data[0]!=128):
             noteDistance = data[1]-60
             hz = 261.625565 * 2 ** (noteDistance/12)
-            test.playSound(hz, 0.5)
+            test.play_sound(hz, 0.5)
 pygame.quit()
