@@ -5,13 +5,15 @@ import math
 
 from window import Window
 from vbuffer import VBuffer
+from audio import Audio
 import utility as util
 
 class Key:
-    def __init__(self, loc, keytype, note):
+    def __init__(self, loc, keytype, note, octave):
         self.loc = loc
         self.type = keytype
-        self.note = note   
+        self.note = note  
+        self.octave = octave
         
         
 def playKey(pos, wsize, bKeys, wKeys):
@@ -27,6 +29,10 @@ def playKey(pos, wsize, bKeys, wKeys):
         key = bKey
         
     #PLAY NOTE stored in key variable
+    frequency = util.getNoteFromString(key.note, key.octave)
+    print(frequency)
+    mySound = Audio()
+    mySound.playSound(frequency, .5)
     
 
 def drawWhiteKeys(buf, numKeys, keySize, keySpacing):
@@ -39,7 +45,7 @@ def drawWhiteKeys(buf, numKeys, keySize, keySpacing):
             start = (x,0)
             end = (x+keySize,dim[1])
             util.draw_rect(buf,0xffffff,start,end)
-            wKeys.append(Key([start,end],"white",None))
+            wKeys.append(Key([start,end],"white",None,None))
             x += keySize
         else:
             start = (x,0)
@@ -64,7 +70,7 @@ def drawBlackKeys(buf, numWKeys, wkeySize, wkeySpacing):
         start = (x,0)
         end = (x+bkeySize,round(dim[1] * 2/3))
         util.draw_rect(buf,0x000000,start,end)
-        bKeys.append(Key([start,end],"black",None))
+        bKeys.append(Key([start,end],"black",None,None))
 
         x += wkeySize + wkeySpacing
         if (i % 5 in [0,2]):
@@ -72,7 +78,16 @@ def drawBlackKeys(buf, numWKeys, wkeySize, wkeySpacing):
             
     return bKeys
             
-        
+
+def getWhiteNotes():
+    return ['C', 'D', 'E', 'F', 'G', 'A', 'B', 
+            'C', 'D', 'E', 'F', 'G', 'A', 'B', 
+            'C', 'D', 'E', 'F', 'G', 'A', 'B', 'C']
+
+def getBlackNotes():
+    return ['C#', 'D#', 'F#', 'G#', 'A#', 
+            'C#', 'D#', 'F#', 'G#', 'A#', 
+            'C#', 'D#', 'F#', 'G#', 'A#']
 
 white_keys = 22
 wkey_size = 35
@@ -84,12 +99,16 @@ buf = VBuffer((xdim,300))
 wKeys = drawWhiteKeys(buf,white_keys,wkey_size,wkey_spacing)
 bKeys = drawBlackKeys(buf,white_keys,wkey_size,wkey_spacing)
 
-#wNotes = getWhiteNotes()  return type: list of notes
-#bNotes = getBlackNotes()  return type: list of notes
-# for i in range(len(wNotes)):
-#     wKeys[i].note = wNotes[i]
-# # for i in range(len(bNotes)):
-#     bKeys[i].note = bNotes[i]
+wNotes = getWhiteNotes()  
+bNotes = getBlackNotes()  
+for i in range(len(wNotes)):
+     wKeys[i].note = wNotes[i]
+for i in range(len(bNotes)):
+     bKeys[i].note = bNotes[i]
+for i in range(len(wNotes)):
+     wKeys[i].octave = math.ceil(i/7+2)
+for i in range(len(bNotes)):
+     bKeys[i].octave = math.ceil(i/5+2)
 
 
 
