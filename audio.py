@@ -161,7 +161,7 @@ class Audio(object):
         """
         return self._audio_device
 
-    def set_wave_form(self, wave) -> None:
+    def set_waveform(self, wave) -> None:
         """
         Sets the expression governing the wave form playing. Uses this in buffer generation
         IN: takes a mathematical expression function 'pointer' in the form of f(inputfreq, timestep)
@@ -235,7 +235,7 @@ class Audio(object):
             pass
 
     # pitch is semitones to transpose
-    def playSample(self, sample_name: str) -> None:
+    def play_sample(self, sample_name: str) -> None:
         """
         Plays sounds that are wav, ogg or mp3 files.
         In: String path or name of sound
