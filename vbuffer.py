@@ -32,7 +32,7 @@ class VBuffer:
         """
         if type(arg1) is np.ndarray:
             dimensions = arg1.shape
-            self._check_numpy_arr(arg1, "arg1","__init__")
+            self._check_numpy_arr(arg1, "arg1", "__init__")
         else:
             self._check_coord_type(arg1, "arg1", "__init__")
             dimensions = arg1
@@ -72,7 +72,7 @@ class VBuffer:
             raise ValueError(
                 f"{arg_name} argument to VBuffer. {method_name} np.ndarray is of size: {arg1.shape} highest supported resolution is (1920,1080)"
             )
-        
+
     def _check_coord_type(self, coords, arg_name, method_name):
         """
         Error checks for the following:
@@ -122,7 +122,7 @@ class VBuffer:
             raise TypeError("Color value must be an integer value!")
         elif val < 0 or val > 0xFFFFFF:
             raise ValueError(f"Color value must be an integer between 0 and 16777215!")
-  
+
         x, y = coords[0], coords[1]
         self.buffer[x, y] = val
 
@@ -132,10 +132,10 @@ class VBuffer:
 
     def get_dimensions(self):
         return self.buffer.shape
-    
+
     def set_buffer(self, buf):
         self._check_numpy_arr(buf, "buf", "setBuffer")
-        self.buffer = buf      
+        self.buffer = buf
 
     def clear(self):
         self.buffer[:] = 0
