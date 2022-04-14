@@ -74,7 +74,7 @@ def rgb_to_hex(arr):
 
 
 
-def getNoteFromString(string, octave):
+def get_note_from_string(string, octave):
     """
     Given a string representing a note, this will return a hz
     IN: string representing the note e.g. Ab, C, E#
@@ -100,7 +100,7 @@ def getNoteFromString(string, octave):
     hz = 261.625565 * 2 ** (tone/12)
     return hz
 
-def sixteenWavtoRawData(wavefile):
+def sixteen_wav_to_raw_data(wavefile):
     """
     takes in a string path/name of a wav file, converts it to numpy array
     """
