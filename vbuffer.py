@@ -122,5 +122,5 @@ class VBuffer:
         self._check_numpy_arr(buf, "buf", "setBuffer")
         self.buffer = buf      
         
-    def clear_buffer(self):
+    def clear(self):
         self.buffer[:] = 0
