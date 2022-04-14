@@ -8,6 +8,7 @@ import math
 import numpy
 from time import sleep
 
+
 class audio(object):
     """
     Handles Audio capabilities of Python Direct Platform.
@@ -31,25 +32,28 @@ class audio(object):
             self.waves is the wavetable
             self.waveform is the current wave generator for sound
     """
-    def __init__(self): #TODO inheritance? if we inherited from a parent class, we could save what imports we would need here.
+
+    def __init__(
+        self,
+    ):  # TODO inheritance? if we inherited from a parent class, we could save what imports we would need here.
         """
         Constructor for the Audio class. Takes in TODO: Do we take in?
         """
         self._bit_number = 16
         self._sample_rate = 44100
-        self._audio_buffer = numpy.zeros((self._sample_rate, 2), dtype = numpy.int32)
-                                    #assumes a 1 second duration;
-                                    #32 bit int array handles 8, 16, or 32 for bit number;
-                                    #support for other bit numbers pending
-                                    #2d for 2 channels
+        self._audio_buffer = numpy.zeros((self._sample_rate, 2), dtype=numpy.int32)
+        # assumes a 1 second duration;
+        # 32 bit int array handles 8, 16, or 32 for bit number;
+        # support for other bit numbers pending
+        # 2d for 2 channels
         self._audio_device = 0
         self.volume_level = 0.75
-        self.waves=wave_table()
-        self.waveform = self.waves.sin # this is what the kids would call some bs
-        self.name=0
+        self.waves = wave_table()
+        self.waveform = self.waves.sin  # this is what the kids would call some bs
+        self.name = 0
 
-        self._audio_device=None
-        
+        self._audio_device = None
+
     """
     Locked to 16
     # bit number
@@ -63,14 +67,14 @@ class audio(object):
             raise ValueError("Value must be a whole number greater than zero, less than or equal to 32")
     """
 
-    def get_bit_number(self) -> int :
+    def get_bit_number(self) -> int:
         """
         #Gets the bit rate of the Audio class.
         #IN: Nothing
         #OUT: Returns Bit rate as an integer
         """
         return self._bit_number
-    
+
     """
     Locked to 44100
     # sample rate
@@ -85,6 +89,7 @@ class audio(object):
         else:
             raise ValueError("Sample rate has to be an integer greater than zero.")
     """
+
     def get_sample_rate(self) -> int:
         """
         #Gets the sample rate of the Audio class.
@@ -92,7 +97,6 @@ class audio(object):
         #OUT: Returns Sample rate (Integer). 44100 is default value
         """
         return self._sample_rate
-    
 
     # audio buffer
     def set_audio_buffer(self, ab) -> None:
@@ -103,7 +107,7 @@ class audio(object):
         """
         self._audio_buffer = ab
 
-    def get_audio_buffer(self) : # TODO: need audio buffer type for return annotation
+    def get_audio_buffer(self):  # TODO: need audio buffer type for return annotation
         """
         Returns the audio buffer of the Audio class
         IN: None
@@ -121,13 +125,13 @@ class audio(object):
         pygame.mixer.init()
         print("Specify one of these devices' indices using set_audio_device")
         self._devices = sdl2.get_audio_device_names(False)
-        for i,test in enumerate(self._devices):
-            print(i,test)
+        for i, test in enumerate(self._devices):
+            print(i, test)
         pygame.mixer.quit()
 
     def set_audio_device(self, device: int) -> int:
         """
-        Sets the current audio device of the Audio class. 
+        Sets the current audio device of the Audio class.
         NOTE: This can only be set ONCE per instance. To change devices, del the current instance
         set the new device, and continue
         IN: Audio device corresponding to array index of audio devices
@@ -141,7 +145,7 @@ class audio(object):
             # this is probably because of the environment not having audio devices.
             raise SystemError("No audio devices detected")
 
-        if(device>len(self._devices)):
+        if device > len(self._devices):
             raise ValueError("Device number exceeds known devices.")
         else:
             self._audio_device = device
@@ -155,7 +159,7 @@ class audio(object):
         """
         return self._audio_device
 
-    def set_wave_form(self, wave)->None:
+    def set_wave_form(self, wave) -> None:
         """
         Sets the expression governing the wave form playing. Uses this in buffer generation
         IN: takes a mathematical expression function 'pointer' in the form of f(inputfreq, timestep)
@@ -164,7 +168,7 @@ class audio(object):
         self.waveform = wave
         pass
 
-    def play_sound(self, input_frequency, input_duration)->None:
+    def play_sound(self, input_frequency, input_duration) -> None:
         """
         Primary sound playing method of the audio class.
         IN: Takes an input frequency in Hz, and a duration in seconds
@@ -174,30 +178,41 @@ class audio(object):
             raise TypeError("The duration must be a number")
         elif input_duration < 0:
             raise ValueError("The duration must be non-negative")
-        
+
         bit_number = self.get_bit_number()
-        sample_rate  = self.get_sample_rate()
+        sample_rate = self.get_sample_rate()
         volume_level = self.volume_level
-        number_samples = int(round(input_duration*sample_rate ))
-        audio_buffer  = numpy.zeros((number_samples, 2), dtype = numpy.int32)
-        max_sample = 2**(bit_number - 1) - 1
+        number_samples = int(round(input_duration * sample_rate))
+        audio_buffer = numpy.zeros((number_samples, 2), dtype=numpy.int32)
+        max_sample = 2 ** (bit_number - 1) - 1
 
-        #pygame.mixer.pre_init(sample_rate , -bit_number, 6)
+        # pygame.mixer.pre_init(sample_rate , -bit_number, 6)
 
-        if(self._audio_device==None): # if the user hasn't specified an audio device they want to use, let pygame figure it out
-            pygame.mixer.init(sample_rate , -bit_number, 6)
-        else: # otherwise, pull from the list of our devices using the index specified
+        if (
+            self._audio_device == None
+        ):  # if the user hasn't specified an audio device they want to use, let pygame figure it out
+            pygame.mixer.init(sample_rate, -bit_number, 6)
+        else:  # otherwise, pull from the list of our devices using the index specified
             try:
-                pygame.mixer.init(sample_rate ,-bit_number,6, device_name=self._devices[self._audio_device])
+                pygame.mixer.init(
+                    sample_rate,
+                    -bit_number,
+                    6,
+                    device_name=self._devices[self._audio_device],
+                )
             except:
-                pygame.mixer.init(sample_rate , -bit_number, 6)
+                pygame.mixer.init(sample_rate, -bit_number, 6)
 
         for s in range(number_samples):
-            t = float(s)/sample_rate 
-            audio_buffer [s][0] = int(round(volume_level*max_sample*self.waveform(input_frequency,t)))
-            audio_buffer [s][1] = int(round(volume_level*max_sample*self.waveform(input_frequency,t)))
+            t = float(s) / sample_rate
+            audio_buffer[s][0] = int(
+                round(volume_level * max_sample * self.waveform(input_frequency, t))
+            )
+            audio_buffer[s][1] = int(
+                round(volume_level * max_sample * self.waveform(input_frequency, t))
+            )
         try:
-            sound = pygame.sndarray.make_sound(audio_buffer )
+            sound = pygame.sndarray.make_sound(audio_buffer)
             pygame.mixer.find_channel(force=False).play(sound)
         except AttributeError:
             print("Out of Channels")
@@ -209,50 +224,59 @@ class audio(object):
         In: None
         Return: None
         """
-        while(pygame.mixer.get_busy()):
+        while pygame.mixer.get_busy():
             pass
 
     # pitch is semitones to transpose
-    def playSample(self, sample_name: str)->None:
+    def playSample(self, sample_name: str) -> None:
         """
         Plays sounds that are wav, ogg or mp3 files.
         In: String path or name of sound
         Out: None
         """
         bit_number = self.get_bit_number()
-        sample_rate  = self.get_sample_rate()
+        sample_rate = self.get_sample_rate()
         volume_level = self._volume_level
 
-        if(self._audio_device==None): # if the user hasn't specified an audio device they want to use, let pygame figure it out
-            pygame.mixer.init(sample_rate , -bit_number, 6)
-        else: # otherwise, pull from the list of our devices using the index specified
+        if (
+            self._audio_device == None
+        ):  # if the user hasn't specified an audio device they want to use, let pygame figure it out
+            pygame.mixer.init(sample_rate, -bit_number, 6)
+        else:  # otherwise, pull from the list of our devices using the index specified
             try:
-                pygame.mixer.init(sample_rate ,-bit_number,6, device_name=self._devices[self._audio_device])
+                pygame.mixer.init(
+                    sample_rate,
+                    -bit_number,
+                    6,
+                    device_name=self._devices[self._audio_device],
+                )
             except:
-                pygame.mixer.init(sample_rate , -bit_number, 6)
+                pygame.mixer.init(sample_rate, -bit_number, 6)
 
         sound = pygame.mixer.Sound(sample_name)
         pygame.mixer.Sound.play(sound)
 
-
     def __del__(self):
         pass
+
 
 class wave_table:
     def __init__(self):
         pass
 
     def sin(self, input_frequency, t):
-        return math.sin(2*math.pi*input_frequency*t)
+        return math.sin(2 * math.pi * input_frequency * t)
 
     def square(self, input_frequency, t):
-        return round(math.sin(2*math.pi*input_frequency*t))
+        return round(math.sin(2 * math.pi * input_frequency * t))
 
     def noise(self, input_frequency, t):
-        return random.random()*input_frequency*t
+        return random.random() * input_frequency * t
 
     def saw(self, input_frequency, t):
-        return (t*input_frequency-math.floor(t*input_frequency))
+        return t * input_frequency - math.floor(t * input_frequency)
 
-    def triangle(self,input_frequency, t):
-        return 2*abs( (t*input_frequency)/1 - math.floor( ((t*input_frequency)/1)+0.5 ))
+    def triangle(self, input_frequency, t):
+        return 2 * abs(
+            (t * input_frequency) / 1 - math.floor(((t * input_frequency) / 1) + 0.5)
+        )
