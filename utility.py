@@ -102,7 +102,7 @@ def get_note_from_string(string, octave):
 
     # tone needs to be distance from C
     octavedisc = octave - 4
-    tone = 12*octavedisc + tone #  fmt: skip
+    tone = 12*octavedisc + tone  #  fmt: skip
     hz = 261.625565 * 2 ** (tone / 12)
     return hz
 
@@ -174,7 +174,7 @@ def draw_circle(vb: VBuffer, center: list, r: float, color: int):
     center_y = center[1]
     x = 0
     y = r
-    d = 3 - 2*r #  fmt: skip
+    d = 3 - 2*r  #  fmt: skip
 
     vb.buffer[center_x + x][center_y + y] = color
     vb.buffer[center_x - x][center_y + y] = color
@@ -189,9 +189,9 @@ def draw_circle(vb: VBuffer, center: list, r: float, color: int):
         x += 1
         if d > 0:
             y -= 1
-            d = d + 4*(x - y) + 10 #  fmt: skip
+            d = d + 4*(x - y) + 10  #  fmt: skip
         else:
-            d = d + 4*x + 6 #  fmt: skip
+            d = d + 4*x + 6  #  fmt: skip
 
         vb.buffer[center_x + x][center_y + y] = color
         vb.buffer[center_x - x][center_y + y] = color
