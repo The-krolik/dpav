@@ -16,8 +16,8 @@ class Key:
         self.octave = octave
         
         
-def playKey(pos, wsize, bKeys, wKeys):
-    
+def playKey(wsize, bKeys, wKeys):
+    pos = window.get_mouse_pos()
     x,y = pos[0],pos[1]
     bInd = min(math.floor(x/wsize * 5/7), len(bKeys)-1)
     wInd = math.floor(x/wsize)
@@ -28,17 +28,15 @@ def playKey(pos, wsize, bKeys, wKeys):
     if x >= bKey.loc[0][0] and x <= bKey.loc[1][0] and y >= bKey.loc[0][1] and y <= bKey.loc[1][1]:
         key = bKey
         
-    #PLAY NOTE stored in key variable
     frequency = math.ceil(util.getNoteFromString(key.note, key.octave))
-    mySound = Audio()
-    mySound.playSound(frequency, .5)
+    mySound.playSound(frequency, .25)
     
 
 def drawWhiteKeys(buf, numKeys, keySize, keySpacing):
     drawkey = True
     x = 0
     wKeys = []
-    dim = buf.getDimensions()
+    dim = buf.get_dimensions()
     for i in range(numKeys*2 - 1):
         if drawkey:
             start = (x,0)
@@ -62,7 +60,7 @@ def drawBlackKeys(buf, numWKeys, wkeySize, wkeySpacing):
     bkeySize = round(wkeySize * 2 /3)
     if (bkeySize % 2==0): bkeySize += 1
     
-    dim = buf.getDimensions()
+    dim = buf.get_dimensions()
     bKeys = []
     x = wkeySize - round(bkeySize/2)
     for i in range(1,round(numWKeys*5/7)):
@@ -87,6 +85,9 @@ def getBlackNotes():
     return ['C#', 'D#', 'F#', 'G#', 'A#', 
             'C#', 'D#', 'F#', 'G#', 'A#', 
             'C#', 'D#', 'F#', 'G#', 'A#']
+    
+    
+
 
 white_keys = 22
 wkey_size = 35
@@ -115,9 +116,23 @@ wevents = ['1','2','3','4','5','6','7','8','9','0','-','=',
 bevents = ['a','s','d','f','g','h','j','k','l','z',
            'x','c','v','b','n']
 
+
 window = Window(buf)
+
+#for event in wevents:
+#    window.new_press_action(event)
+#for event in bevents:
+#    window.new_press_action(event)
+    
+
 window.open()
-mySound = Audio()
+#window.new_press_action('mouse',playKey,(window.get_mouse_pos,wkey_size,bKeys,wKeys))
+#window.new_hold_action('mouse',playKey,args=(wkey_size,bKeys,wKeys))
+
+#mySound = Audio()
+
+
+'''
 while window.isOpen:
     
     for i,event in enumerate(wevents):
@@ -137,3 +152,4 @@ while window.isOpen:
         playKey(pos,wkey_size+wkey_spacing,bKeys,wKeys)
     
     window.update()
+'''
