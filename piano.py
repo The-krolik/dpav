@@ -29,8 +29,7 @@ def playKey(pos, wsize, bKeys, wKeys):
         key = bKey
         
     #PLAY NOTE stored in key variable
-    frequency = util.getNoteFromString(key.note, key.octave)
-    print(frequency)
+    frequency = math.ceil(util.getNoteFromString(key.note, key.octave))
     mySound = Audio()
     mySound.playSound(frequency, .5)
     
