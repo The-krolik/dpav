@@ -5,7 +5,7 @@ import pygame
 
 try:
     from scipy.io import wavfile
-except(ModuleNotFoundError):
+except ModuleNotFoundError:
     pass
 
 
@@ -20,9 +20,9 @@ def _debug_out(msg):
         file.write(msg)
 
 
-def draw_rectangle(vbuffer, color, pt1, pt2):    
+def draw_rectangle(vbuffer, color, pt1, pt2):
     pts = [pt1, pt2]
-    
+
     # error checking
     if type(vbuffer) != VBuffer and type(vbuffer) != np.ndarray:
         raise TypeError("arg1 must be of type vbuffer or numpy.ndarray")
@@ -32,8 +32,8 @@ def draw_rectangle(vbuffer, color, pt1, pt2):
 
     for pt in pts:
         if (
-            ((type(pt) != tuple) and (type(pt) != list)) 
-            or (len(pt) > 2) 
+            ((type(pt) != tuple) and (type(pt) != list))
+            or (len(pt) > 2)
             or (len(pt) < 2)
         ):
             raise TypeError("arg3 & arg4 must be a tuple or list of 2 int elements")
@@ -46,8 +46,8 @@ def draw_rectangle(vbuffer, color, pt1, pt2):
     elif type(vbuffer) == np.ndarray:
         buf = vbuffer
 
-    lowx,highx = min(pt1[0],pt2[0]), max(pt1[0],pt2[0])
-    lowy,highy = min(pt1[1],pt2[1]), max(pt1[1],pt2[1])
+    lowx, highx = min(pt1[0], pt2[0]), max(pt1[0], pt2[0])
+    lowy, highy = min(pt1[1], pt2[1]), max(pt1[1], pt2[1])
 
     buf[lowx:highx, lowy:highy] = color
 
@@ -102,11 +102,12 @@ def get_note_from_string(string, octave):
 
     # tone needs to be distance from C
     octavedisc = octave - 4
-    tone = 12*octavedisc + tone
+    tone = 12 * octavedisc + tone
     hz = 261.625565 * 2 ** (tone / 12)
     return hz
 
 
+# Please fucking god find a better name
 def sixteenWavtoRawData(wavefile):
     """
     takes in a string path/name of a wav file, converts it to numpy array
@@ -173,7 +174,7 @@ def draw_circle(vb: VBuffer, center: list, r: float, color: int):
     center_y = center[1]
     x = 0
     y = r
-    d = 3 - 2*r
+    d = 3 - 2*r # fmt: skip
 
     vb.buffer[center_x + x][center_y + y] = color
     vb.buffer[center_x - x][center_y + y] = color
@@ -188,9 +189,9 @@ def draw_circle(vb: VBuffer, center: list, r: float, color: int):
         x += 1
         if d > 0:
             y -= 1
-            d = d + 4*(x - y) + 10
+            d = d + 4*(x - y) + 10 # fmt: skip
         else:
-            d = d + 4*x + 6
+            d = d + 4*x + 6 # fmt: skip
 
         vb.buffer[center_x + x][center_y + y] = color
         vb.buffer[center_x - x][center_y + y] = color
