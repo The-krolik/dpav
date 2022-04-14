@@ -268,7 +268,7 @@ class Window:
         """
         newx = self.vbuffer.get_dimensions()[0] * self.scale
         newy = self.vbuffer.get_dimensions()[1] * self.scale
-        self._screen = pygame.display.set_mode(newx, newy)
+        self._screen = pygame.display.set_mode((newx, newy))
 
         pygame.display.init()
         self._isopen = True
