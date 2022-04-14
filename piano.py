@@ -44,13 +44,13 @@ def drawWhiteKeys(buf, numKeys, keySize, keySpacing):
         if drawkey:
             start = (x,0)
             end = (x+keySize,dim[1])
-            util.draw_rect(buf,0xffffff,start,end)
+            util.draw_rectangle(buf,0xffffff,start,end)
             wKeys.append(Key([start,end],"white",None,None))
             x += keySize
         else:
             start = (x,0)
             end = (x+keySpacing,dim[1])
-            util.draw_rect(buf,0x000000,start,end)
+            util.draw_rectangle(buf,0x000000,start,end)
             x += keySpacing
 
         drawkey = True if drawkey == False else False
@@ -69,7 +69,7 @@ def drawBlackKeys(buf, numWKeys, wkeySize, wkeySpacing):
     for i in range(1,round(numWKeys*5/7)):
         start = (x,0)
         end = (x+bkeySize,round(dim[1] * 2/3))
-        util.draw_rect(buf,0x000000,start,end)
+        util.draw_rectangle(buf,0x000000,start,end)
         bKeys.append(Key([start,end],"black",None,None))
 
         x += wkeySize + wkeySpacing
@@ -106,9 +106,9 @@ for i in range(len(wNotes)):
 for i in range(len(bNotes)):
      bKeys[i].note = bNotes[i]
 for i in range(len(wNotes)):
-     wKeys[i].octave = math.ceil(i/7+2)
+     wKeys[i].octave = math.ceil((i+3)/7+2)
 for i in range(len(bNotes)):
-     bKeys[i].octave = math.ceil(i/5+2)
+     bKeys[i].octave = math.ceil((i+2)/5+2)
 
 
 
