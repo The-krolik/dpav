@@ -2,9 +2,10 @@ from datetime import datetime
 from vbuffer import VBuffer
 import numpy as np
 import pygame
-
-from scipy.io import wavfile
-
+try:
+    from scipy.io import wavfile
+except(ModuleNotFoundError):
+    pass
 
 def _debug_out(msg):
     date_time = datetime.now()
