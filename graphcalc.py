@@ -29,10 +29,10 @@ class dppgraph:
         vlinecount=self.bounds[0][1]-self.bounds[0][0]
         hlinecount=self.bounds[1][1]-self.bounds[1][0]
         print(vlinecount, hlinecount)
-        for i in range(x0,self.dimensions[0], vlinecount):
+        for i in range(x0,self.dimensions[0], self.dimensions[0]//vlinecount):
             utility.draw_line(vb, [i,y0],[i,y1], 0x000000) # Vertical
  
-        for i in range(x0,self.dimensions[1], hlinecount):
+        for i in range(y0,self.dimensions[1], self.dimensions[1]//hlinecount):
             utility.draw_line(vb, [x0,i], [x1,i],0x000000) # horizontal
   
 
