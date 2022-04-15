@@ -1,5 +1,7 @@
-from datetime import datetime
 from vbuffer import VBuffer
+from datetime import datetime
+from scipy.ndimage.interpolation import rotate
+from math import sin, cos
 import numpy as np
 import pygame
 
@@ -76,6 +78,13 @@ def rgb_to_hex(arr):
             blue = arr[i, j, 2]
             ret[i, j] = red + green + blue
     return ret
+
+
+def rotate_vbuffer(vb: VBuffer, degrees: int):
+    """
+    Rotates a visual buffer a given number of degrees counterclockwise.
+    """
+    vb.buffer = rotate(vb.buffer, degrees)
 
 
 def get_note_from_string(string, octave):
@@ -155,7 +164,7 @@ def draw_line(vb: VBuffer, p0: list, p1: list, color: int):
             y0 = y0 + sy
 
 
-def draw_polygon(vb: VBuffer, vertices: list, color: int):
+def draw_polygon(vb: VBuffer, color: int, vertices):
     """
     Draws a polygon in a visual buffer with the given vertices utilizing the
     order in which they are given.
@@ -201,3 +210,39 @@ def draw_circle(vb: VBuffer, center: list, r: float, color: int):
         vb.buffer[center_x - y][center_y + x] = color
         vb.buffer[center_x + y][center_y - x] = color
         vb.buffer[center_x - y][center_y - x] = color
+
+
+def fill(vb: VBuffer, color: int, vertices):
+    """
+    Fills a polygon defined by a set of vertices with a color.
+    """
+    (dimx, dimy) = vb.get_dimensions()
+    for i in range(dimx):
+        for j in range(dimy):
+            if point_in_polygon(i, j, vertices):
+                vb.buffer[i][j] = color
+
+
+def point_in_polygon(x: int, y: int, vertices) -> bool:
+    """
+    Uses the Even-Odd Rule to determine whether or not the pixel at coordinate
+    (x,y) is inside the polygon defined by a set of vertices.
+    """
+    num = len(vertices)
+    j = num - 1
+    c = False
+    for i in range(num):
+        if (x == vertices[i][0]) and (y == vertices[i][1]):
+            return True
+        if ((vertices[i][1] > y) != (vertices[j][1] > y)):
+            slope = ((x - vertices[i][0]) 
+                * (vertices[j][1] - vertices[i][1]) 
+                - (vertices[j][0] - vertices[i][0]) 
+                * (y-vertices[i][1])
+            )
+            if slope == 0:
+                return True
+            if (slope < 0) != (vertices[j][1] < vertices[i][1]):
+                c = not c
+        j = i
+    return c
