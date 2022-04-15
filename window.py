@@ -113,7 +113,6 @@ class Window:
         self._keydict = {}
         self._screen = None
 
-
     def get_mouse_pos(self) -> (int, int):
         """
         Returns the current mouse location with respect to the pygame window instance
@@ -270,7 +269,7 @@ class Window:
             function = func
         self._hold_actions.append(Action(key, function))
 
-    def _start(self,terminal_mode) -> None:
+    def _start(self, terminal_mode) -> None:
         """
         Primary pygame window event abstraction. Opens a window and manages event loop
         """
