@@ -56,6 +56,7 @@ class Window:
             events         -- {string:bool}    -- dictionary of string:bool event pairs
             eventq         -- [event]          -- queue of events since last update cycle
             debugflag      -- Boolean          -- debug logging on/off
+            is_open        -- Boolean          -- flag for if the window is active
 
         Private:
             _keydict       -- {int:string}     -- Mapping of pygame int event idenitifiers to strings
@@ -64,7 +65,7 @@ class Window:
             _hold_actions  -- [Action]         -- Actions triggered on key hold in event loop
             _surfaces      -- {pygame.Surface} -- Two surfaces for swapping to reflect vbuffer changes
             _screen        -- pygame.display   -- pygame window
-            _isopen        -- Boolean          -- flag for if the window is active
+
 
     """
 
@@ -99,6 +100,8 @@ class Window:
         self.events = {}
         self.eventq = []
         self.debug_flag = False
+        self.is_open = False
+        self.terminal_mode = False
 
         ### Private Members ###
         self._actions, self._press_actions, self._hold_actions = [], [], []
@@ -108,7 +111,7 @@ class Window:
         }
         self._keydict = {}
         self._screen = None
-        self._isopen = False
+
 
     def get_mouse_pos(self) -> (int, int):
         """
@@ -117,7 +120,7 @@ class Window:
         Raises:
             Runtime Error: no active pygame window instances exists
         """
-        if self._isopen == False:
+        if self.is_open == False:
             if self.debug_flag:
                 util._debugOut("No window currently open")
             raise RuntimeError("No window currently open")
@@ -153,6 +156,8 @@ class Window:
         """
         Creates and runs pygame window in a new thread
         """
+        self.terminal_mode = terminal_mode
+
         if terminal_mode:
             thread = threading.Thread(target=self._start, args=(True,))
             thread.start()
@@ -167,12 +172,12 @@ class Window:
             RuntimeError: no active pygame window instances exists
         """
 
-        if not self._isopen:
+        if not self.is_open:
             if self.debug_flag:
                 util._debugOut("No window currently open")
             raise RuntimeError("No window currently open")
 
-        self._isopen, self._screen = False, None
+        self.is_open, self._screen = False, None
         pygame.quit()
 
     def write_to_screen(self) -> None:
@@ -188,7 +193,7 @@ class Window:
 
         pygame.surfarray.blit_array(self._surfaces["active"], self.vbuffer.buffer)
 
-        if self._screen != None and self._isopen:
+        if self._screen != None and self.is_open:
             x = self.vbuffer.get_dimensions()[0] * self.scale
             y = self.vbuffer.get_dimensions()[1] * self.scale
             scaled = pygame.transform.scale(self._surfaces["active"], (x, y))
@@ -273,11 +278,11 @@ class Window:
         self._screen = pygame.display.set_mode((newx, newy))
 
         pygame.display.init()
-        self._isopen = True
+        self.is_open = True
         self._build_events_dict()
 
         if terminal_mode:
-            while self._isopen:
+            while self.is_open:
 
                 for action in self._actions:
                     action.function()
@@ -299,7 +304,7 @@ class Window:
         Raises:
             Runtime Error: No active pygame window
         """
-        if self._isopen == False:
+        if self.is_open == False:
             if self.debug_flag:
                 util._debugOut("No window currently open")
             raise RuntimeError("No window currently open")
