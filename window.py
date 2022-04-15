@@ -35,6 +35,7 @@ class Window:
         Misc Methods:
             open()
             close()
+            update()
 
             new_action(function,optional:tuple/list)
             new_press_action(str,function,optional:tuple/list)
@@ -43,7 +44,7 @@ class Window:
             write_to_screen()
 
         Private Methods:
-            _update()
+
             _start()
             _check_valid_action(str,function,string)
             _update_events(pygame.event)
@@ -295,9 +296,9 @@ class Window:
                     if self.events[action.key]:
                         action.function()
 
-                self._update()
+                self.update()
 
-    def _update(self) -> None:
+    def update(self) -> None:
         """
         Pygame event abstraction, called at end of pygame loop
 
@@ -399,10 +400,13 @@ class Window:
 
 
         Raises:
-            TypeError:  key string type check
-            ValueError: key supported event type
-            TypeError:  func is a valid callable function
+            RuntimeError: terminal_mode check
+            TypeError:    key string type check
+            ValueError:   key supported event type
+            TypeError:    func is a valid callable function
         """
+        if not terminal_mode:
+            raise RuntimeError("Must be in terminal mode to create actions")
         if type(key) != str:
             raise TypeError(f"{argname} | arg1 must be of type string not {type(key)}")
         if key not in self.events:
