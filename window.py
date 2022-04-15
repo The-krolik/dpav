@@ -64,7 +64,7 @@ class Window:
             _hold_actions  -- [Action]         -- Actions triggered on key hold in event loop
             _surfaces      -- {pygame.Surface} -- Two surfaces for swapping to reflect vbuffer changes
             _screen        -- pygame.display   -- pygame window
-            _isopen        -- Boolean          -- flag for if the window is active
+            _is_open        -- Boolean          -- flag for if the window is active
 
     """
 
