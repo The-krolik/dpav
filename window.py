@@ -108,7 +108,7 @@ class Window:
         }
         self._keydict = {}
         self._screen = None
-        self._isopen = False
+        self._is_open = False
 
     def get_mouse_pos(self) -> (int, int):
         """
@@ -117,7 +117,7 @@ class Window:
         Raises:
             Runtime Error: no active pygame window instances exists
         """
-        if self._isopen == False:
+        if self._is_open == False:
             if self.debug_flag:
                 util._debugOut("No window currently open")
             raise RuntimeError("No window currently open")
@@ -165,12 +165,12 @@ class Window:
             RuntimeError: no active pygame window instances exists
         """
 
-        if not self._isopen:
+        if not self._is_open:
             if self.debug_flag:
                 util._debugOut("No window currently open")
             raise RuntimeError("No window currently open")
 
-        self._isopen, self._screen = False, None
+        self._is_open, self._screen = False, None
         pygame.quit()
 
     def write_to_screen(self) -> None:
@@ -186,7 +186,7 @@ class Window:
 
         pygame.surfarray.blit_array(self._surfaces["active"], self.vbuffer.buffer)
 
-        if self._screen != None and self._isopen:
+        if self._screen != None and self._is_open:
             x = self.vbuffer.get_dimensions()[0] * self.scale
             y = self.vbuffer.get_dimensions()[1] * self.scale
             scaled = pygame.transform.scale(self._surfaces["active"], (x, y))
@@ -271,11 +271,11 @@ class Window:
         self._screen = pygame.display.set_mode((newx, newy))
 
         pygame.display.init()
-        self._isopen = True
+        self._is_open = True
         self.write_to_screen()
         self._build_events_dict()
 
-        while self._isopen:
+        while self._is_open:
 
             for action in self._actions:
                 action.function()
