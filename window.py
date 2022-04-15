@@ -8,7 +8,7 @@ import threading
 class Action:
     """
     Data Structure to hold key/function pairs
-    
+
     Members:
         key      -- string   -- key to trigger function
         function -- function -- function to trigger
@@ -25,23 +25,23 @@ class Window:
     Functions:
         Constructor:
             __init__()
-            
+
         Setters:
             set_vbuffer(VBuffer/np.ndarray,optional:int)
 
         Getters:
-            get_mousepos()
-            
+            get_mouse_pos()
+
         Misc Methods:
             open()
             close()
-        
+
             new_action(function,optional:tuple/list)
             new_press_action(str,function,optional:tuple/list)
             new_hold_action(str,funcion,optional:tuple/list)
-            
+
             write_to_screen()
-            
+
         Private Methods:
             _update()
             _start()
@@ -56,7 +56,7 @@ class Window:
             events         -- {string:bool}    -- dictionary of string:bool event pairs
             eventq         -- [event]          -- queue of events since last update cycle
             debugflag      -- Boolean          -- debug logging on/off
-            
+
         Private:
             _keydict       -- {int:string}     -- Mapping of pygame int event idenitifiers to strings
             _actions       -- [Action]         -- Actions always triggered in event loop
@@ -71,14 +71,14 @@ class Window:
     def __init__(self, arg1=None, scale=1):
         """
         Constructor for the Window class.
-        
+
         Positional arguments:
             arg1  -- VBuffer/np.ndarray (default None)
             scale -- float/int (default 1)
-        
+
         Raises:
             TypeError -- arg1 VBuffer/np.ndarray type check
-            TypeError -- scale int/float type check 
+            TypeError -- scale int/float type check
         """
 
         if arg1 != None and (
@@ -113,7 +113,7 @@ class Window:
     def get_mouse_pos(self) -> (int, int):
         """
         Returns the current mouse location with respect to the pygame window instance
-            
+
         Raises:
             Runtime Error: no active pygame window instances exists
         """
@@ -129,11 +129,11 @@ class Window:
     def set_vbuffer(self, arg1, scale=1) -> None:
         """
         Sets the vbuffer object to display on screen
-        
+
         Positional Arguments:
             arg1  -- VBuffer/np.ndarray
             scale -- int/float
-        
+
         Raises:
             TypeError: arg1 VBuffer/np.ndarray type check
             TypeError: scale int/float type check
@@ -149,18 +149,20 @@ class Window:
         self.scale = scale
         self.write_to_screen()
 
-    def open(self) -> None:
+    def open(self, terminal_mode=False) -> None:
         """
         Creates and runs pygame window in a new thread
         """
-
-        thread = threading.Thread(target=self._start)
-        thread.start()
+        if terminal_mode:
+            thread = threading.Thread(target=self._start, args=(True,))
+            thread.start()
+        else:
+            self._start(False)
 
     def close(self) -> None:
         """
-        Closes the active instance of a pygame window  
-        
+        Closes the active instance of a pygame window
+
         Raises:
             RuntimeError: no active pygame window instances exists
         """
@@ -197,7 +199,7 @@ class Window:
     def new_action(self, func, args=None) -> None:
         """
         Creates an Action object for func to be triggered every iteration of event loop
-        
+
         Positional Arguments:
             func -- function   -- function to trigger
             args -- tuple/list -- arguments to func
@@ -219,7 +221,7 @@ class Window:
     def new_press_action(self, key, func, args=None) -> None:
         """
         Creates an Action object for func to be triggered on each key press
-        
+
         Positional Arguments:
             key  -- string     -- key event to trigger func
             func -- function   -- function to trigger
@@ -242,7 +244,7 @@ class Window:
     def new_hold_action(self, key, func, args=None) -> None:
         """
         Creates an Action object for func to be triggered when key is down
-        
+
         Positional Arguments:
             key  -- string     -- key event to trigger func
             func -- function   -- function to trigger
@@ -262,7 +264,7 @@ class Window:
             function = func
         self._hold_actions.append(Action(key, function))
 
-    def _start(self) -> None:
+    def _start(self,terminal_mode) -> None:
         """
         Primary pygame window event abstraction. Opens a window and manages event loop
         """
@@ -272,28 +274,28 @@ class Window:
 
         pygame.display.init()
         self._isopen = True
-        self.write_to_screen()
         self._build_events_dict()
 
-        while self._isopen:
+        if terminal_mode:
+            while self._isopen:
 
-            for action in self._actions:
-                action.function()
-
-            for action in self._press_actions:
-                if action.key in self.eventq:
+                for action in self._actions:
                     action.function()
 
-            for action in self._hold_actions:
-                if self.events[action.key]:
-                    action.function()
+                for action in self._press_actions:
+                    if action.key in self.eventq:
+                        action.function()
 
-            self._update()
+                for action in self._hold_actions:
+                    if self.events[action.key]:
+                        action.function()
+
+                self._update()
 
     def _update(self) -> None:
         """
         Pygame event abstraction, called at end of pygame loop
-        
+
         Raises:
             Runtime Error: No active pygame window
         """
@@ -312,7 +314,7 @@ class Window:
     def _update_events(self, event) -> None:
         """
         Updates the Window class event dictionary to maintain continuity with pygame events
-        
+
         Positional Arguments:
             event -- current event to update
         """
@@ -384,13 +386,13 @@ class Window:
     def _check_valid_action(self, key, func, argname) -> None:
         """
         Typechecking before creating a new Action object
-        
+
         Positional Arguments:
             key     -- string   -- key event to trigger func
             func    -- function -- function to trigger
             argname -- string   -- method name that called _check_valid_action
-        
-        
+
+
         Raises:
             TypeError:  key string type check
             ValueError: key supported event type
