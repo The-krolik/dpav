@@ -1,4 +1,4 @@
-from vbuffer import VBuffer
-from window import Window
-from audio import Audio
+from vbuffer import *
+from window import *
+from audio import *
 from utility import *
