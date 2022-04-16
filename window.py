@@ -174,15 +174,14 @@ class Window:
 
             self._screen.blit(scaled, (0, 0))
             pygame.display.flip()
-            
+
     def is_open(self) -> bool:
         """
         Updates events on every call & returns window open status
         """
-        
+
         self.update()
         return self.open_flag
-        
 
     def update(self) -> None:
         """
