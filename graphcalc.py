@@ -94,13 +94,17 @@ class dppgraphee:
 def main():
     dimensions = (600, 600)
     calc = dppgraph(dimensions)
-    graphed=dppgraphee("x**2 -1")
+    graphed=dppgraphee("sin(x**2) -1")
 
     menu=dppgraphmenu(calc)
     calc.draw(graphed, calc.bounds)
+    
     while calc.window.isOpen:
-
-        pass
+        print(calc.eventq)
+        print("test")
+        if 'q' in calc.eventq:
+            calc.window.close()
+        calc.window.update()
 
 if __name__ == "__main__":
     main()
