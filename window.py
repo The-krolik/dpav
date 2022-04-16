@@ -86,7 +86,6 @@ class Window:
         self._keydict = {}
         self._screen = None
 
-
     def get_mouse_pos(self) -> (int, int):
         """
         Returns the current mouse location with respect to the pygame window instance
