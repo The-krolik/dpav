@@ -12,21 +12,20 @@ class GameOfLife:
         self.next_gen = dpp.VBuffer(dimensions)
         self.window = dpp.Window(self.cells, scale)
 
-
     def start(self, points):
         for (x, y) in points:
             self.cells[x][y] = self.alive
         self.window.open()
 
-
     def _get_cell_bin(self, x, y):
-        if (x >= len(self.cells)) or (y >= len(self.cells[x])):
+        if (x < 0) or (y < 0):
+            return 0
+        elif (x >= len(self.cells)) or (y >= len(self.cells[x])):
             return 0
         if self.cells[x][y] == self.alive:
             return 1
         else:
             return 0
-
 
     def _sum_neighbors(self, x, y):
         return (self._get_cell_bin(x - 1, y + 1)
@@ -39,7 +38,6 @@ class GameOfLife:
             + self._get_cell_bin(x - 1, y)
         )
 
-
     def step(self):
         self.next_gen.fill(self.dead)
         for i in range(len(self.cells)):
@@ -49,12 +47,9 @@ class GameOfLife:
                     self.next_gen[i][j] = self.alive
                 elif (self.cells[i][j] == self.dead) and (sum == 3):
                     self.next_gen[i][j] = self.alive
-        self.cells, self.next_gen = self.next_gen, self.cells
+        self.window.set_vbuffer(self.next_gen)
         self.window.write_to_screen()
-
-
-    def stop():
-        self.window.close()
+        self.cells, self.next_gen = self.next_gen, self.cells
 
 
 def main():
@@ -62,8 +57,8 @@ def main():
     game = GameOfLife(dimensions, 7)
     initial_points = [(49,50), (50,50), (51,50)]
     game.start(initial_points)
-    while game.window._isopen:
-        time.sleep(1)
+    while game.window.is_open:
+        game.window.update()
         game.step()
 
 if __name__ == "__main__":
