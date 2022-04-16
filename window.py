@@ -5,20 +5,6 @@ from vbuffer import VBuffer
 import threading
 
 
-class Action:
-    """
-    Data Structure to hold key/function pairs
-
-    Members:
-        key      -- string   -- key to trigger function
-        function -- function -- function to trigger
-    """
-
-    def __init__(self, key, function):
-        self.key = key
-        self.function = function
-
-
 class Window:
     """
     Handles Window capabilites of Python Direct Platform
@@ -36,17 +22,9 @@ class Window:
             open()
             close()
             update()
-
-            new_action(function,optional:tuple/list)
-            new_press_action(str,function,optional:tuple/list)
-            new_hold_action(str,funcion,optional:tuple/list)
-
             write_to_screen()
 
         Private Methods:
-
-            _start()
-            _check_valid_action(str,function,string)
             _update_events(pygame.event)
             _build_events_dict()
 
@@ -61,9 +39,6 @@ class Window:
 
         Private:
             _keydict       -- {int:string}     -- Mapping of pygame int event idenitifiers to strings
-            _actions       -- [Action]         -- Actions always triggered in event loop
-            _press_actions -- [Action]         -- Actions triggered on key press in event loop
-            _hold_actions  -- [Action]         -- Actions triggered on key hold in event loop
             _surfaces      -- {pygame.Surface} -- Two surfaces for swapping to reflect vbuffer changes
             _screen        -- pygame.display   -- pygame window
 
@@ -102,10 +77,8 @@ class Window:
         self.eventq = []
         self.debug_flag = False
         self.is_open = False
-        self.terminal_mode = False
 
         ### Private Members ###
-        self._actions, self._press_actions, self._hold_actions = [], [], []
         self._surfaces = {
             "active": pygame.Surface(self.vbuffer.get_dimensions()),
             "inactive": pygame.Surface(self.vbuffer.get_dimensions()),
@@ -130,7 +103,7 @@ class Window:
         y = int(pygame.mouse.get_pos()[1] / self.scale)
         return (x, y)
 
-    def set_vbuffer(self, arg1, scale=1) -> None:
+    def set_vbuffer(self, arg1) -> None:
         """
         Sets the vbuffer object to display on screen
 
@@ -151,19 +124,18 @@ class Window:
 
         self.vbuffer = arg1 if type(self.vbuffer) is VBuffer else VBuffer(arg1)
         self.scale = scale
-        self.write_to_screen()
 
-    def open(self, terminal_mode=False) -> None:
+    def open(self) -> None:
         """
         Creates and runs pygame window in a new thread
         """
-        self.terminal_mode = terminal_mode
+        newx = self.vbuffer.get_dimensions()[0] * self.scale
+        newy = self.vbuffer.get_dimensions()[1] * self.scale
+        self._screen = pygame.display.set_mode((newx, newy))
 
-        if terminal_mode:
-            thread = threading.Thread(target=self._start, args=(True,))
-            thread.start()
-        else:
-            self._start(False)
+        pygame.display.init()
+        self.is_open = True
+        self._build_events_dict()
 
     def close(self) -> None:
         """
@@ -202,101 +174,6 @@ class Window:
             self._screen.blit(scaled, (0, 0))
             pygame.display.flip()
 
-    def new_action(self, func, args=None) -> None:
-        """
-        Creates an Action object for func to be triggered every iteration of event loop
-
-        Positional Arguments:
-            func -- function   -- function to trigger
-            args -- tuple/list -- arguments to func
-        """
-
-        self._check_valid_action("a", func, args)
-
-        function = None
-        if args is not None:
-            if args is not type(tuple) and args is not type(list):
-                args = [args]
-
-            function = lambda: func(*args)
-
-        if function == None:
-            function = func
-        self._actions.append(Action(None, function))
-
-    def new_press_action(self, key, func, args=None) -> None:
-        """
-        Creates an Action object for func to be triggered on each key press
-
-        Positional Arguments:
-            key  -- string     -- key event to trigger func
-            func -- function   -- function to trigger
-            args -- tuple/list -- arguments to func
-        """
-
-        self._check_valid_action(key, func, "on_press")
-
-        function = None
-        if args is not None:
-            if args is not type(tuple) and args is not type(list):
-                args = [args]
-
-            function = lambda: func(*args)
-
-        if function == None:
-            function = func
-        self._press_actions.append(Action(key, function))
-
-    def new_hold_action(self, key, func, args=None) -> None:
-        """
-        Creates an Action object for func to be triggered when key is down
-
-        Positional Arguments:
-            key  -- string     -- key event to trigger func
-            func -- function   -- function to trigger
-            args -- tuple/list -- arguments to func
-        """
-
-        self._check_valid_action(key, func, "on_hold")
-
-        function = None
-        if args is not None:
-            if args is not type(tuple) and args is not type(list):
-                args = [args]
-
-            function = lambda: func(*args)
-
-        if function == None:
-            function = func
-        self._hold_actions.append(Action(key, function))
-
-    def _start(self,terminal_mode) -> None:
-        """
-        Primary pygame window event abstraction. Opens a window and manages event loop
-        """
-        newx = self.vbuffer.get_dimensions()[0] * self.scale
-        newy = self.vbuffer.get_dimensions()[1] * self.scale
-        self._screen = pygame.display.set_mode((newx, newy))
-
-        pygame.display.init()
-        self.is_open = True
-        self._build_events_dict()
-
-        if terminal_mode:
-            while self.is_open:
-
-                for action in self._actions:
-                    action.function()
-
-                for action in self._press_actions:
-                    if action.key in self.eventq:
-                        action.function()
-
-                for action in self._hold_actions:
-                    if self.events[action.key]:
-                        action.function()
-
-                self.update()
 
     def update(self) -> None:
         """
@@ -364,6 +241,7 @@ class Window:
             pygame.K_F12: "f12",
             pygame.MOUSEBUTTONDOWN: "mouse",
             pygame.MOUSEBUTTONUP: "mouse",
+            pygame.K_PAUSE: "space",
             1073742049: "l_shift",
             1073742053: "r_shift",
             1073742048: "l_ctrl",
@@ -388,28 +266,3 @@ class Window:
         # create events dict from _keydict string mappings
         for key, value in self._keydict.items():
             self.events[value] = pygame.key.get_pressed()[key]
-
-    def _check_valid_action(self, key, func, argname) -> None:
-        """
-        Typechecking before creating a new Action object
-
-        Positional Arguments:
-            key     -- string   -- key event to trigger func
-            func    -- function -- function to trigger
-            argname -- string   -- method name that called _check_valid_action
-
-
-        Raises:
-            RuntimeError: terminal_mode check
-            TypeError:    key string type check
-            ValueError:   key supported event type
-            TypeError:    func is a valid callable function
-        """
-        if not terminal_mode:
-            raise RuntimeError("Must be in terminal mode to create actions")
-        if type(key) != str:
-            raise TypeError(f"{argname} | arg1 must be of type string not {type(key)}")
-        if key not in self.events:
-            raise ValueError(f"{argname} | arg1 is not a valid key")
-        if not callable(func):
-            raise TypeError(f"{argname} | arg2 must be function not {type(func)}")
