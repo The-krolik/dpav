@@ -119,7 +119,7 @@ class Window:
 
         self.vbuffer = arg1 if type(self.vbuffer) is VBuffer else VBuffer(arg1)
 
-    def set_scale(scale) -> None:
+    def set_scale(self, scale) -> None:
         """
         Sets the window scale
         """
