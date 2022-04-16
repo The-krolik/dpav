@@ -1,6 +1,6 @@
 from vbuffer import VBuffer
 from datetime import datetime
-from scipy.ndimage.interpolation import rotate
+#from scipy.ndimage.interpolation import rotate
 from math import sin, cos
 import numpy as np
 import pygame
@@ -80,11 +80,13 @@ def rgb_to_hex(arr):
     return ret
 
 
-def rotate_vbuffer(vb: VBuffer, degrees: int):
+
+# def rotate_vbuffer(vb: VBuffer, degrees: int):
     """
     Rotates a visual buffer a given number of degrees counterclockwise.
     """
-    vb.buffer = rotate(vb.buffer, degrees)
+#    vb.buffer = rotate(vb.buffer, degrees)
+
 
 
 def get_note_from_string(string, octave):
