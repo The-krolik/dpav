@@ -10,12 +10,16 @@ on:
     branches: [ main ]
 
 jobs:
-  build:
-
+  build_and_test:
     runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v3
+#    - uses: psf/black@stable
+#      with:
+#        options: "--check --diff"
+#        src: "./"
+#        version: "22.3.0"
 
     - name: Set up Python 3.10
       uses: actions/setup-python@v3
@@ -39,3 +43,13 @@ jobs:
 
     - name: Tests
       run: pytest tests.py
+      
+  check_style:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - uses: psf/black@stable
+      with:
+        options: "--check --diff"
+        src: "./"
+        version: "22.3.0"

@@ -12,25 +12,26 @@ class Key:
     def __init__(self, loc, keytype, note, octave):
         self.loc = loc
         self.type = keytype
-        self.note = note  
+        self.note = note
         self.octave = octave
-        
-        
-def playKey(wsize, bKeys, wKeys):
-    pos = window.get_mouse_pos()
+
+
+def playKey(pos, wsize, bKeys, wKeys):
+
     x,y = pos[0],pos[1]
     bInd = min(math.floor(x/wsize * 5/7), len(bKeys)-1)
     wInd = math.floor(x/wsize)
     bKey = bKeys[bInd]
     wKey = wKeys[wInd]
-    
+
     key = wKey
     if x >= bKey.loc[0][0] and x <= bKey.loc[1][0] and y >= bKey.loc[0][1] and y <= bKey.loc[1][1]:
         key = bKey
         
-    frequency = math.ceil(util.getNoteFromString(key.note, key.octave))
-    mySound.playSound(frequency, .25)
-    
+    frequency = math.ceil(util.get_note_from_string(key.note, key.octave))
+    mySound = Audio()
+    mySound.play_sound(frequency, .25)
+
 
 def drawWhiteKeys(buf, numKeys, keySize, keySpacing):
     drawkey = True
@@ -51,15 +52,15 @@ def drawWhiteKeys(buf, numKeys, keySize, keySpacing):
             x += keySpacing
 
         drawkey = True if drawkey == False else False
-        
+
     return wKeys
-        
+
 def drawBlackKeys(buf, numWKeys, wkeySize, wkeySpacing):
-    
+
     drawkey = True
     bkeySize = round(wkeySize * 2 /3)
     if (bkeySize % 2==0): bkeySize += 1
-    
+
     dim = buf.get_dimensions()
     bKeys = []
     x = wkeySize - round(bkeySize/2)
@@ -72,18 +73,18 @@ def drawBlackKeys(buf, numWKeys, wkeySize, wkeySpacing):
         x += wkeySize + wkeySpacing
         if (i % 5 in [0,2]):
             x += wkeySize + wkeySpacing
-            
+
     return bKeys
-            
+
 
 def getWhiteNotes():
-    return ['C', 'D', 'E', 'F', 'G', 'A', 'B', 
-            'C', 'D', 'E', 'F', 'G', 'A', 'B', 
+    return ['C', 'D', 'E', 'F', 'G', 'A', 'B',
+            'C', 'D', 'E', 'F', 'G', 'A', 'B',
             'C', 'D', 'E', 'F', 'G', 'A', 'B', 'C']
 
 def getBlackNotes():
-    return ['C#', 'D#', 'F#', 'G#', 'A#', 
-            'C#', 'D#', 'F#', 'G#', 'A#', 
+    return ['C#', 'D#', 'F#', 'G#', 'A#',
+            'C#', 'D#', 'F#', 'G#', 'A#',
             'C#', 'D#', 'F#', 'G#', 'A#']
     
     
@@ -99,8 +100,8 @@ buf = VBuffer((xdim,300))
 wKeys = drawWhiteKeys(buf,white_keys,wkey_size,wkey_spacing)
 bKeys = drawBlackKeys(buf,white_keys,wkey_size,wkey_spacing)
 
-wNotes = getWhiteNotes()  
-bNotes = getBlackNotes()  
+wNotes = getWhiteNotes()
+bNotes = getBlackNotes()
 for i in range(len(wNotes)):
      wKeys[i].note = wNotes[i]
 for i in range(len(bNotes)):
@@ -119,37 +120,26 @@ bevents = ['a','s','d','f','g','h','j','k','l','z',
 
 window = Window(buf)
 
-#for event in wevents:
-#    window.new_press_action(event)
-#for event in bevents:
-#    window.new_press_action(event)
     
-
+mySound = Audio()
 window.open()
-#window.new_press_action('mouse',playKey,(window.get_mouse_pos,wkey_size,bKeys,wKeys))
-#window.new_hold_action('mouse',playKey,args=(wkey_size,bKeys,wKeys))
+while window.is_open:
 
-#mySound = Audio()
-
-
-'''
-while window.isOpen:
-    
     for i,event in enumerate(wevents):
-        if event in window.activeEvents:
+        if event in window.eventq:
             key = wKeys[i]
-            frequency = math.ceil(util.getNoteFromString(key.note, key.octave))
-            mySound.playSound(frequency, .25)
-            
+            frequency = math.ceil(util.get_note_from_string(key.note, key.octave))
+            mySound.play_sound(frequency, .25)
+
     for i,event in enumerate(bevents):
-        if event in window.activeEvents:
+        if event in window.eventq:
             key = wKeys[i]
-            frequency = math.ceil(util.getNoteFromString(key.note, key.octave))
-            mySound.playSound(frequency, .25)
-    
-    if 'mouse' in window.activeEvents:
-        pos = window.getMousePosition()
+            frequency = math.ceil(util.get_note_from_string(key.note, key.octave))
+            mySound.play_sound(frequency, .25)
+
+    if 'mouse' in window.eventq:
+        pos = window.get_mouse_pos()
         playKey(pos,wkey_size+wkey_spacing,bKeys,wKeys)
     
     window.update()
-'''
+
