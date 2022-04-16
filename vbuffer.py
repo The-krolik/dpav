@@ -48,6 +48,15 @@ class VBuffer:
         )
         self.debug_flag = False
 
+    def __getitem__(self, idx):
+        return self.buffer[idx]
+
+    def __setitem__(self, idx, val):
+        self.buffer[idx] = val
+
+    def __len__(self):
+        return len(self.buffer)
+
     def _check_numpy_arr(self, arg1, arg_name, method_name):
         """
         Error checks for the following:
@@ -136,6 +145,9 @@ class VBuffer:
     def set_buffer(self, buf):
         self._check_numpy_arr(buf, "buf", "setBuffer")
         self.buffer = buf
+
+    def fill(self, color: int):
+        self.buffer[:] = color
 
     def clear(self):
         self.buffer[:] = 0
