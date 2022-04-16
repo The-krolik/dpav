@@ -116,7 +116,6 @@ class Window:
         if arg1 == None or (type(arg1) is not np.ndarray and type(arg1) is not VBuffer):
             raise TypeError("Argument must be of type VBuffer or np.ndarray")
 
-
         self.vbuffer = arg1 if type(self.vbuffer) is VBuffer else VBuffer(arg1)
 
     def set_scale(self, scale) -> None:
@@ -174,7 +173,6 @@ class Window:
 
             self._screen.blit(scaled, (0, 0))
             pygame.display.flip()
-
 
     def update(self) -> None:
         """
