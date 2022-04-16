@@ -23,7 +23,7 @@ class Window:
             is_open()
             close()
             update()
-                 
+
         Private Methods:
             _update_events(pygame.event)
             _build_events_dict()
