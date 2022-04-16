@@ -34,10 +34,12 @@ def playKey(pos, wsize, bKeys, wKeys):
 
 
 def drawWhiteKeys(buf, numKeys, keySize, keySpacing):
-    drawkey = True
+   
     x = 0
     wKeys = []
     dim = buf.get_dimensions()
+    
+    drawkey = True
     for i in range(numKeys*2 - 1):
         if drawkey:
             start = (x,0)
@@ -51,6 +53,9 @@ def drawWhiteKeys(buf, numKeys, keySize, keySpacing):
             util.draw_rectangle(buf,0x000000,start,end)
             x += keySpacing
 
+            
+        print(start)
+        print(end)
         drawkey = True if drawkey == False else False
 
     return wKeys
@@ -69,6 +74,7 @@ def drawBlackKeys(buf, numWKeys, wkeySize, wkeySpacing):
         end = (x+bkeySize,round(dim[1] * 2/3))
         util.draw_rectangle(buf,0x000000,start,end)
         bKeys.append(Key([start,end],"black",None,None))
+
 
         x += wkeySize + wkeySpacing
         if (i % 5 in [0,2]):
@@ -119,11 +125,17 @@ bevents = ['a','s','d','f','g','h','j','k','l','z',
 
 
 window = Window(buf)
+window.open()
+#buf[:] = 0x00ff00
+window.write_to_screen()
 
     
 mySound = Audio()
-window.open()
+
+
+
 while window.is_open:
+    window.write_to_screen()
 
     for i,event in enumerate(wevents):
         if event in window.eventq:
@@ -141,5 +153,6 @@ while window.is_open:
         pos = window.get_mouse_pos()
         playKey(pos,wkey_size+wkey_spacing,bKeys,wKeys)
     
+
     window.update()
 
