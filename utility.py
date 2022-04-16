@@ -174,7 +174,7 @@ def draw_circle(vb: VBuffer, center: list, r: float, color: int):
     center_y = center[1]
     x = 0
     y = r
-    d = 3 - 2*r # fmt: skip
+    d = 3 - (2 * r)
 
     vb.buffer[center_x + x][center_y + y] = color
     vb.buffer[center_x - x][center_y + y] = color
@@ -191,7 +191,7 @@ def draw_circle(vb: VBuffer, center: list, r: float, color: int):
             y -= 1
             d = d + 4*(x - y) + 10 # fmt: skip
         else:
-            d = d + 4*x + 6 # fmt: skip
+            d = d + 4 * x + 6
 
         vb.buffer[center_x + x][center_y + y] = color
         vb.buffer[center_x - x][center_y + y] = color
