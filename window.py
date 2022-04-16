@@ -173,7 +173,6 @@ class Window:
             self._screen.blit(scaled, (0, 0))
             pygame.display.flip()
 
-
     def update(self) -> None:
         """
         Pygame event abstraction, called at end of pygame loop
