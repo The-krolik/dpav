@@ -2,7 +2,6 @@ import numpy as np
 import pygame
 import utility as util
 from vbuffer import VBuffer
-import threading
 
 
 class Window:
@@ -13,6 +12,7 @@ class Window:
             __init__()
 
         Setters:
+            set_scale(int/float)
             set_vbuffer(VBuffer/np.ndarray,optional:int)
 
         Getters:
@@ -41,8 +41,6 @@ class Window:
             _keydict       -- {int:string}     -- Mapping of pygame int event idenitifiers to strings
             _surfaces      -- {pygame.Surface} -- Two surfaces for swapping to reflect vbuffer changes
             _screen        -- pygame.display   -- pygame window
-
-
     """
 
     def __init__(self, arg1=None, scale=1):
@@ -118,10 +116,14 @@ class Window:
         if arg1 == None or (type(arg1) is not np.ndarray and type(arg1) is not VBuffer):
             raise TypeError("Argument must be of type VBuffer or np.ndarray")
 
-        if type(scale) is not int and type(scale) is not float:
-            raise TypeError("arg2 must be of type Int")
 
         self.vbuffer = arg1 if type(self.vbuffer) is VBuffer else VBuffer(arg1)
+
+    def set_scale(scale) -> None:
+        """
+        Sets the window scale
+        """
+
         self.scale = scale
 
     def open(self) -> None:
@@ -172,6 +174,7 @@ class Window:
 
             self._screen.blit(scaled, (0, 0))
             pygame.display.flip()
+
 
     def update(self) -> None:
         """
