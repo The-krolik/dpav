@@ -189,7 +189,7 @@ def draw_circle(vb: VBuffer, center: list, r: float, color: int):
         x += 1
         if d > 0:
             y -= 1
-            d = d + 4*(x - y) + 10 # fmt: skip
+            d = d + 4 * (x - y) + 10
         else:
             d = d + 4 * x + 6
 
