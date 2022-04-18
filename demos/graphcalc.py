@@ -1,7 +1,6 @@
 import directpythonplatform as dp
 import utility
 import numpy as np
-import parser
 import math
 from math import sin, cos, tan, e, pi, log
 import argparse
@@ -18,6 +17,7 @@ class dppgraph:
         self.linecolor = 0xFF0000  # red
         self.gridcolor = 0x111111  # lighter black
         self.bgcolor = 0xFFFFFF  # white
+
         self.window = dp.Window(self.bg)
         self.windowopen = False
         self.cont = True
@@ -92,7 +92,7 @@ class dppgraph:
 
 class dppgraphee:
     def __init__(self, function):
-        self.func = parser.expr(function).compile()
+        self.func = function
         self.xtble = None
         self.ytble = None
         pass
@@ -156,7 +156,14 @@ def main():
         const=True,
         help="For functions with rapid changes in direction, it may help to show graph as points instead of continuous lines.",
     )
-
+    parser.add_argument(
+        "--scale",
+        dest="scale",
+        metavar="scale",
+        type=float,
+        default=1,
+        help="This will affect the scale of the visual buffer. Essentially the zoom function",
+    )
     args = parser.parse_args()
     if args.go:
         graph(args)
@@ -181,7 +188,8 @@ def graph(args):
 
     if args.points:
         calc.cont = False
-
+    if args.scale != 1:
+        calc.window.set_scale(args.scale)
     calc.draw(graphed, calc.bounds)
     while calc.window.is_open():
         if "q" in calc.window.eventq:
