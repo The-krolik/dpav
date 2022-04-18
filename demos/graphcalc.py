@@ -102,7 +102,7 @@ def main():
     parser.add_argument(
         "--function=",
         dest="func",
-        metavar="func",
+        metavar='"func"',
         type=str,
         default="x**2",
         help="Python parseable expression in terms of x. Trig supported: sin, cos, and tan",
@@ -110,7 +110,7 @@ def main():
     parser.add_argument(
         "--bounds=",
         dest="bounds",
-        metavar="x0 x1 y0 y1",
+        metavar='"x0 x1 y0 y1"',
         default="-10 10 -10 10",
         type=str,
         help="Mathematical [inclusive] range for the graph, needs to be ints",
@@ -126,13 +126,13 @@ def main():
     parser.add_argument(
         "--dimensions=",
         dest="dims",
-        metavar="l by w",
+        metavar='"l by w"',
         type=str,
         default="800 800",
         help="Dimensions for specifiying the window pixel dimensions.",
     )
     parser.add_argument(
-        "--darkmode=",
+        "--darkmode",
         dest="darkmode",
         metavar="Darkmode",
         action="store_const",
@@ -154,9 +154,9 @@ def main():
         help="For functions with rapid changes in direction, it may help to show graph as points instead of continuous lines.",
     )
     parser.add_argument(
-        "--scale",
+        "--scale=",
         dest="scale",
-        metavar="scale",
+        metavar='"scale"',
         type=float,
         default=1,
         help="This will affect the scale of the visual buffer. Essentially the zoom function",
