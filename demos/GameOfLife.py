@@ -61,7 +61,7 @@ def main():
     while game.window.is_open():
         if "s" in game.window.eventq:
             start = True
- 
+
         if not start:
             if game.window.events["mouse"]:
                 pos = game.window.get_mouse_pos()
@@ -69,6 +69,7 @@ def main():
         else:
             game.step()
             time.sleep(0.5)
+
 
 if __name__ == "__main__":
     main()
