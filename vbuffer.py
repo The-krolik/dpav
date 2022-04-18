@@ -47,6 +47,7 @@ class VBuffer:
             arg1 if type(arg1) is np.ndarray else np.zeros(dimensions, dtype=int)
         )
         self.debug_flag = False
+        self._dimensions = dimensions
 
     def __getitem__(self, idx):
         return self.buffer[idx]
@@ -56,6 +57,14 @@ class VBuffer:
 
     def __len__(self):
         return len(self.buffer)
+
+    @property
+    def dimensions(self):
+        return self._dimensions
+
+    @dimensions.setter
+    def dimensions(self, val):
+        raise AttributeError("Cannot reshape visual buffer by setting dimensions")
 
     def _check_numpy_arr(self, arg1, arg_name, method_name):
         """
