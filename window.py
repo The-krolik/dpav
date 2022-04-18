@@ -190,6 +190,7 @@ class Window:
         Raises:
             Runtime Error: No active pygame window
         """
+        self._write_to_screen()
         if self.open_flag == False:
             if self.debug_flag:
                 util._debugOut("No window currently open")
