@@ -4,6 +4,7 @@ import numpy as np
 import parser
 import math
 from math import sin, cos,tan
+import argparse
 class dppgraph:
     def __init__(self,dimensions,bounds=((-10,10), (-10,10))):
        
@@ -12,14 +13,14 @@ class dppgraph:
         self.bounds=bounds
         self.dimensions=dimensions
 
-        self.linecolor=None
-        self.gridcolor=None
-        self.bgcolor=None
+        self.linecolor=0xFF0000
+        self.gridcolor=0x000000
+        self.bgcolor=0xFFFFFF
         self.window=dp.Window(self.bg)
         self.windowopen=False
 
     def draw(self, graphee, bounds):
-        self.bg.fill(0xFFFFFF)
+        self.bg.fill(self.bgcolor)
         self.drawGrid(self.bg)
         self.drawFunc(self.bg , graphee)
         if(self.windowopen):
@@ -44,8 +45,8 @@ class dppgraph:
         #to get pixel representation: divide Y-lowerbound by unitrate
         for i,each in enumerate(evaluated):
             calc_pixel=(each-self.bounds[1][0])//unitrate
-            if(calc_pixel<=self.dimensions[1]):
-                vb.write_pixel([i,self.dimensions[1]-int(round(calc_pixel))], 0xFF0000) 
+            if(calc_pixel<=self.dimensions[1] and calc_pixel>0):
+                vb.write_pixel([i,self.dimensions[1]-int(round(calc_pixel))], self.linecolor) 
 
             
     def drawGrid(self, vb):
@@ -58,28 +59,17 @@ class dppgraph:
         
 
         for i in range(x0,self.dimensions[0], self.dimensions[0]//vlinecount):
-            utility.draw_line(vb, [i,y0],[i,y1], 0x000000) # Vertical
+            utility.draw_line(vb, [i,y0],[i,y1], self.gridcolor) # Vertical
  
         for i in range(y0,self.dimensions[1], self.dimensions[1]//hlinecount):
-            utility.draw_line(vb, [x0,i], [x1,i],0x000000) # horizontal
+            utility.draw_line(vb, [x0,i], [x1,i],self.gridcolor) # horizontal
         
          
         
         # y=0,x=0
-        utility.draw_line(vb, [xhalf,y0],[xhalf,y1], 0x000000) # Vertical
-        utility.draw_line(vb, [x0,yhalf], [x1,yhalf],0x000000) # horizontal
+        utility.draw_line(vb, [xhalf,y0],[xhalf,y1], self.gridcolor) # Vertical
+        utility.draw_line(vb, [x0,yhalf], [x1,yhalf],self.gridcolor) # horizontal
 
-class dppgraphmenu:
-    def __init__(self, dppgraph):
-        print("Welcome to the Direct Python Platform Graphing Calculator")
-        print("Use these options to navigate: (q) to quit, (f) to enter a function, (o) for color options")
-
-    def print_menu(self):
-        print("Welcome to the Direct Python Platform Graphing Calculator")
-        print("Use these options to navigate: (q) to quit, (f) to enter a function, (o) for color options")
-
-    def change_color(self,dppgraph):
-        pass
 
 class dppgraphee:
     def __init__(self, function):
@@ -92,19 +82,37 @@ class dppgraphee:
 
 
 def main():
-    dimensions = (600, 600)
-    calc = dppgraph(dimensions)
-    graphed=dppgraphee("sin(x**2) -1")
+    parser=argparse.ArgumentParser(description='Direct Python Platform graphing utility')
+    parser.add_argument('--function=', dest= 'func', metavar='func', type=str, help='Python parseable expression in terms of x. Supports sin, cos, and tan')
+    parser.add_argument('--bounds=', dest='bounds',metavar='x0 x1 y0 y1', type=str,help='Mathematical bounds for the graph')
+    parser.add_argument('--graph=', dest='go', metavar= 'graph', action='store_const',const=True, help='Graph the given function within --function')
+    parser.add_argument('--dimensions=', dest='dims', metavar='l by w', type=str, help='Dimensions for specifiying the window in terms of pixels.')
+    parser.add_argument('--darkmode=', dest='darkmode', metavar='Darkmode', action='store_const', const=True, help='In dark mode, graphed function is green, background is black, and grid is white')
+    args=parser.parse_args()
+    if(args.go):
+        graph(args)
 
-    menu=dppgraphmenu(calc)
-    calc.draw(graphed, calc.bounds)
+
+
+def graph(args):
+    if(len(args.dims.split())>2): return
+    else:
+        dimensions = [int(each) for each in args.dims.split()]
     
-    while calc.window.isOpen:
-        print(calc.eventq)
-        print("test")
-        if 'q' in calc.eventq:
-            calc.window.close()
-        calc.window.update()
+    calc = dppgraph(dimensions)
+    graphed=dppgraphee(args.func)
+    calc.bounds=[int(each) for each in args.bounds.split()]
+    calc.bounds= (calc.bounds[0:2], calc.bounds[2:4])
 
-if __name__ == "__main__":
+    print(calc.bounds)
+    if(args.darkmode):
+        calc.linecolor=0x00FF00
+        calc.bgcolor=0x000000
+        calc.gridcolor=0x4F4F4F
+
+    calc.draw(graphed, calc.bounds)
+    while calc.window.is_open():
+        if 'q' in calc.window.eventq:
+            calc.window.close()
+if __name__=='__main__':
     main()
