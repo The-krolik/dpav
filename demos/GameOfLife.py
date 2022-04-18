@@ -47,9 +47,17 @@ class GameOfLife:
                     self.next_gen[i][j] = self.alive
                 elif (self.cells[i][j] == self.dead) and (sum == 3):
                     self.next_gen[i][j] = self.alive
+<<<<<<< HEAD
         self.window.set_vbuffer(self.next_gen)
         self.window.write_to_screen()
         self.cells, self.next_gen = self.next_gen, self.cells
+=======
+        self.cells, self.next_gen = self.next_gen, self.cells
+
+
+    def stop():
+        self.window.close()
+>>>>>>> 91b2893cf7e3e5f32368121f1ce02ce4867f4a8b
 
 
 def main():
@@ -57,9 +65,28 @@ def main():
     game = GameOfLife(dimensions, 7)
     initial_points = [(49,50), (50,50), (51,50)]
     game.start(initial_points)
+<<<<<<< HEAD
     while game.window.is_open:
         game.window.update()
         game.step()
+=======
+    
+    
+    start = False
+    while game.window.is_open():
+        
+        if 'a' in game.window.eventq:
+            start = True
+        
+        if not start:
+            if game.window.events['mouse']:
+                pos = game.window.get_mouse_pos()
+                game.window.vbuffer.write_pixel(pos,game.alive)
+        else:
+            game.step()
+            time.sleep(1)
+            
+>>>>>>> 91b2893cf7e3e5f32368121f1ce02ce4867f4a8b
 
 if __name__ == "__main__":
     main()

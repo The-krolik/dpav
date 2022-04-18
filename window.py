@@ -20,13 +20,14 @@ class Window:
 
         Misc Methods:
             open()
+            is_open()
             close()
             update()
-            write_to_screen()
 
         Private Methods:
             _update_events(pygame.event)
             _build_events_dict()
+            _write_to_screen()
 
     Members:
         Public:
@@ -35,7 +36,7 @@ class Window:
             events         -- {string:bool}    -- dictionary of string:bool event pairs
             eventq         -- [event]          -- queue of events since last update cycle
             debugflag      -- Boolean          -- debug logging on/off
-            is_open        -- Boolean          -- flag for if the window is active
+            open_flag      -- Boolean          -- flag for if the window is active
 
         Private:
             _keydict       -- {int:string}     -- Mapping of pygame int event idenitifiers to strings
@@ -74,7 +75,7 @@ class Window:
         self.events = {}
         self.eventq = []
         self.debug_flag = False
-        self.is_open = False
+        self.open_flag = False
 
         ### Private Members ###
         self._surfaces = {
@@ -91,7 +92,7 @@ class Window:
         Raises:
             Runtime Error: no active pygame window instances exists
         """
-        if self.is_open == False:
+        if self.open_flag == False:
             if self.debug_flag:
                 util._debugOut("No window currently open")
             raise RuntimeError("No window currently open")
@@ -134,7 +135,7 @@ class Window:
         self._screen = pygame.display.set_mode((newx, newy))
 
         pygame.display.init()
-        self.is_open = True
+        self.open_flag = True
         self._build_events_dict()
 
     def close(self) -> None:
@@ -145,15 +146,15 @@ class Window:
             RuntimeError: no active pygame window instances exists
         """
 
-        if not self.is_open:
+        if not self.open_flag:
             if self.debug_flag:
                 util._debugOut("No window currently open")
             raise RuntimeError("No window currently open")
 
-        self.is_open, self._screen = False, None
+        self.open_flag, self._screen = False, None
         pygame.quit()
 
-    def write_to_screen(self) -> None:
+    def _write_to_screen(self) -> None:
         """
         Updates the screen with changes from stored vbuffer object
         """
@@ -166,13 +167,21 @@ class Window:
 
         pygame.surfarray.blit_array(self._surfaces["active"], self.vbuffer.buffer)
 
-        if self._screen != None and self.is_open:
+        if self._screen != None and self.open_flag:
             x = self.vbuffer.get_dimensions()[0] * self.scale
             y = self.vbuffer.get_dimensions()[1] * self.scale
             scaled = pygame.transform.scale(self._surfaces["active"], (x, y))
 
             self._screen.blit(scaled, (0, 0))
             pygame.display.flip()
+
+    def is_open(self) -> bool:
+        """
+        Updates events on every call & returns window open status
+        """
+
+        self.update()
+        return self.open_flag
 
     def update(self) -> None:
         """
@@ -181,7 +190,8 @@ class Window:
         Raises:
             Runtime Error: No active pygame window
         """
-        if self.is_open == False:
+        self._write_to_screen()
+        if self.open_flag == False:
             if self.debug_flag:
                 util._debugOut("No window currently open")
             raise RuntimeError("No window currently open")
