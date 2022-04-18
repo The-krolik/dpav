@@ -190,6 +190,7 @@ class Window:
         Raises:
             Runtime Error: No active pygame window
         """
+        self._write_to_screen()
         if self.open_flag == False:
             if self.debug_flag:
                 util._debugOut("No window currently open")
@@ -249,7 +250,7 @@ class Window:
             pygame.K_F12: "f12",
             pygame.MOUSEBUTTONDOWN: "mouse",
             pygame.MOUSEBUTTONUP: "mouse",
-            pygame.K_PAUSE: "space",
+            pygame.K_SPACE: "space",
             1073742049: "l_shift",
             1073742053: "r_shift",
             1073742048: "l_ctrl",
