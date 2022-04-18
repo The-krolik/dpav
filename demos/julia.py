@@ -7,24 +7,31 @@ def coord_in_julia(julia_starter, coord_to_check):
 
     for i in range(20):
         try:
-            z = z**2 + c
+            if abs(z) < 1000:
+                z = z**2 + c
+            else:
+                return min(0x0000ff, 0x000011 * i)
+                
         except OverflowError:
-            return False
+            return 0x0000ff
 
     try:
         if abs(z) < 2:
-            return True
+            return 0
         else:
-            return False
+            return 0x000011
     except OverflowError:
-        return False
+        return 0x0000ff
 
 def transform_position(two_tuple, original_dim):
-    factor = (2.5/original_dim)
+    new_dim = 3.0
+    factor = (new_dim/original_dim)
     d1 = two_tuple[0] * factor
     d2 = two_tuple[1] * factor
-    d1 -= 2.5 / 2
-    d2 -= 2.5 / 2
+    d1 -= new_dim / 2
+    d2 -= new_dim / 2
+
+    d2 *= -1
     return (d1, d2)
 
 def out_of_bounds(c, lim):
@@ -57,9 +64,7 @@ if __name__ == "__main__":
         for y in range(nextb.get_dimensions()[0]):
             for x in range(nextb.get_dimensions()[1]):
                 cur_pos = transform_position((x, y), DIM)
-                if coord_in_julia(julia_starter, cur_pos):
-                    nextb.write_pixel((x, y), 0)
-                else:
-                    nextb.write_pixel((x, y), 0xffffff)
+                color = coord_in_julia(julia_starter, cur_pos)
+                nextb.write_pixel((x, y), color)
         window.set_vbuffer(nextb)
         window.update()
