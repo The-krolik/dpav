@@ -143,16 +143,26 @@ def flip_vertically(vb: VBuffer) -> VBuffer:
     return flipped_vb
 
 
+def translate(vb:VBuffer, x_translation: int, y_translation: int) -> (VBuffer):
+    trans_vb = VBuffer(vb.dimensions)
+    for x in range(len(trans_vb)):
+        for y in range(len(trans_vb[x])):
+            if (0 <= x + x_translation < len(trans_vb)) and (0 <= y + y_translation < len(trans_vb[x])):
+                trans_vb[x + x_translation, y + y_translation] = vb[x, y]
+    return trans_vb
+
+
 """
-def rotate(vb: VBuffer, degrees: int, point: tuple, color: int):
+def rotate(vb: VBuffer, degrees: int, point: tuple) -> (VBuffer):
+    rot_vb = VBuffer(vb.dimensions)
     angle = degrees * (pi / 180.0)
-    for x in range(len(vb)):
-        for y in range(len(vb[x])):
+    for x in range(len(rot_vb)):
+        for y in range(len(rot_vb[x])):
             xp = int((x - point[0]) * cos(angle) - (y - point[1]) * sin(angle) + point[0])
             yp = int((x - point[0]) * sin(angle) + (y - point[1]) * cos(angle) + point[1])
-            if (0 <= xp < len(vb)) and (0 <= yp < len(vb[x])):
-                vb[x, y] = vb[xp, yp]
-                #vb[xp, yp] = color
+            if (0 <= xp < len(rot_vb)) and (0 <= yp < len(rot_vb[x])):
+                rot_vb[xp, yp] = vb[x, y]
+    return rot_vb
 """
 
 
