@@ -47,6 +47,7 @@ class VBuffer:
             arg1 if type(arg1) is np.ndarray else np.zeros(dimensions, dtype=int)
         )
         self.debug_flag = False
+        self.dimensions = dimensions
 
     def __getitem__(self, idx):
         return self.buffer[idx]

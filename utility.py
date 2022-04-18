@@ -1,5 +1,6 @@
 from datetime import datetime
 from vbuffer import VBuffer
+from math import sin, cos, pi
 import numpy as np
 import pygame
 
@@ -124,6 +125,37 @@ def replace_color(vb: VBuffer, replaced_color: int, new_color: int):
     vb.buffer = np.where(vb.buffer == replaced_color, new_color, vb.buffer)
 
 
+def flip_horizontally(vb: VBuffer) -> VBuffer:
+    flipped_vb = VBuffer(vb.dimensions)
+    for x in range(len(flipped_vb)):
+        for y in range(len(flipped_vb[x])):
+            xp = len(vb) - x - 1
+            flipped_vb[x, y] = vb[xp, y]
+    return flipped_vb
+
+
+def flip_vertically(vb: VBuffer) -> VBuffer:
+    flipped_vb = VBuffer(vb.dimensions)
+    for x in range(len(flipped_vb)):
+        for y in range(len(flipped_vb[x])):
+            yp = len(vb[x]) - y - 1
+            flipped_vb[x, y] = vb[x, yp]
+    return flipped_vb
+
+
+"""
+def rotate(vb: VBuffer, degrees: int, point: tuple, color: int):
+    angle = degrees * (pi / 180.0)
+    for x in range(len(vb)):
+        for y in range(len(vb[x])):
+            xp = int((x - point[0]) * cos(angle) - (y - point[1]) * sin(angle) + point[0])
+            yp = int((x - point[0]) * sin(angle) + (y - point[1]) * cos(angle) + point[1])
+            if (0 <= xp < len(vb)) and (0 <= yp < len(vb[x])):
+                vb[x, y] = vb[xp, yp]
+                #vb[xp, yp] = color
+"""
+
+
 def draw_line(vb: VBuffer, p0: list, p1: list, color: int):
     """
     Draws a line on a visual buffer from p0 to p1 using Bresenham's algorithm
@@ -201,3 +233,39 @@ def draw_circle(vb: VBuffer, center: list, r: float, color: int):
         vb.buffer[center_x - y][center_y + x] = color
         vb.buffer[center_x + y][center_y - x] = color
         vb.buffer[center_x - y][center_y - x] = color
+
+
+def fill(vb: VBuffer, color: int, vertices):
+    """
+    Fills a polygon defined by a set of vertices with a color.
+    """
+    (dimx, dimy) = vb.get_dimensions()
+    for i in range(dimx):
+        for j in range(dimy):
+            if point_in_polygon(i, j, vertices):
+                vb.buffer[i][j] = color
+
+
+def point_in_polygon(x: int, y: int, vertices) -> bool:
+    """
+    Uses the Even-Odd Rule to determine whether or not the pixel at coordinate
+    (x,y) is inside the polygon defined by a set of vertices.
+    """
+    num = len(vertices)
+    j = num - 1
+    c = False
+    for i in range(num):
+        if (x == vertices[i][0]) and (y == vertices[i][1]):
+            return True
+        if ((vertices[i][1] > y) != (vertices[j][1] > y)):
+            slope = ((x - vertices[i][0]) 
+                * (vertices[j][1] - vertices[i][1]) 
+                - (vertices[j][0] - vertices[i][0]) 
+                * (y-vertices[i][1])
+            )
+            if slope == 0:
+                return True
+            if (slope < 0) != (vertices[j][1] < vertices[i][1]):
+                c = not c
+        j = i
+    return c
