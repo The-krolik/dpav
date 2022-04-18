@@ -47,6 +47,7 @@ class VBuffer:
             arg1 if type(arg1) is np.ndarray else np.zeros(dimensions, dtype=int)
         )
         self.debug_flag = False
+        self.dimensions = dimensions
 
     def __getitem__(self, idx):
         return self.buffer[idx]
@@ -151,3 +152,9 @@ class VBuffer:
 
     def clear(self):
         self.buffer[:] = 0
+
+    def save_buffer_to_file(self, filename):
+        np.save(filename, self.buffer)
+
+    def load_buffer_from_file(self, filename):
+        self.buffer = np.load(filename + ".npy")
