@@ -151,3 +151,9 @@ class VBuffer:
 
     def clear(self):
         self.buffer[:] = 0
+
+    def save_buffer_to_file(self, filename):
+        np.save(filename, self.buffer)
+
+    def load_buffer_from_file(self, filename):
+        self.buffer = np.load(filename + ".npy")
