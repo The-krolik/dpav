@@ -1,5 +1,4 @@
 import directpythonplatform as dp
-import utility
 import numpy as np
 import math
 from math import sin, cos, tan, e, pi, log
@@ -27,12 +26,9 @@ class dppgraph:
         self.bg.fill(self.bgcolor)
         self.drawGrid(self.bg)
         self.drawFunc(self.bg, graphee)
-        if self.windowopen:
-            self.window.write_to_screen()
-        else:
-            self.window.open()
-            self.windowopen = True
-        pass
+
+        self.window.open()
+        self.windowopen = True
 
     def drawFunc(self, vb, graphed):
         xpts = np.linspace(self.bounds[0][0], self.bounds[0][1], self.dimensions[1])
@@ -95,7 +91,7 @@ class dppgraphee:
         self.func = function
         self.xtble = None
         self.ytble = None
-        pass
+
 
 
 def main():
@@ -119,7 +115,7 @@ def main():
         help="Mathematical [inclusive] range for the graph, needs to be ints",
     )
     parser.add_argument(
-        "--graph=",
+        "--graph",
         dest="go",
         metavar="graph",
         action="store_const",
@@ -167,7 +163,8 @@ def main():
     args = parser.parse_args()
     if args.go:
         graph(args)
-
+    if len(sys.argv)==1:
+        print(parser.print_help())
 
 def graph(args):
     if len(args.dims.split()) > 2:
