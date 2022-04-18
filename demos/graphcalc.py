@@ -6,6 +6,7 @@ from math import sin, cos, tan, e, pi, log
 import argparse
 from directpythonplatform import draw_line
 
+
 class dppgraph:
     def __init__(self, dimensions, bounds=((-10, 10), (-10, 10))):
 
@@ -94,7 +95,6 @@ class dppgraphee:
         self.ytble = None
 
 
-
 def main():
     parser = argparse.ArgumentParser(
         description="Direct Python Platform graphing  Graphs a given function specified from command line arguments"
@@ -164,8 +164,9 @@ def main():
     args = parser.parse_args()
     if args.go:
         graph(args)
-    if len(sys.argv)==1:
+    if len(sys.argv) == 1:
         print(parser.print_help())
+
 
 def graph(args):
     if len(args.dims.split()) > 2:
