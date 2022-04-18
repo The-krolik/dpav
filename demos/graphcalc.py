@@ -4,7 +4,7 @@ import math
 import sys
 from math import sin, cos, tan, e, pi, log
 import argparse
-
+from directpythonplatform import draw_line
 
 class dppgraph:
     def __init__(self, dimensions, bounds=((-10, 10), (-10, 10))):
@@ -55,7 +55,7 @@ class dppgraph:
             if calc_pixel <= self.dimensions[1] and calc_pixel > 0:
                 if self.cont:
                     try:
-                        utility.draw_line(
+                        draw_line(
                             vb,
                             [i, self.dimensions[1] - int(round(calc_pixel))],
                             [i - 1, self.dimensions[1] - int(round(calc_pixel_bef))],
@@ -77,14 +77,14 @@ class dppgraph:
         hlinecount = self.bounds[1][1] - self.bounds[1][0]
 
         for i in range(x0, self.dimensions[0], self.dimensions[0] // vlinecount):
-            utility.draw_line(vb, [i, y0], [i, y1], self.gridcolor)  # Vertical
+            draw_line(vb, [i, y0], [i, y1], self.gridcolor)  # Vertical
 
         for i in range(y0, self.dimensions[1], self.dimensions[1] // hlinecount):
-            utility.draw_line(vb, [x0, i], [x1, i], self.gridcolor)  # horizontal
+            draw_line(vb, [x0, i], [x1, i], self.gridcolor)  # horizontal
 
         # y=0,x=0
-        utility.draw_line(vb, [xhalf, y0], [xhalf, y1], self.gridcolor)  # Vertical
-        utility.draw_line(vb, [x0, yhalf], [x1, yhalf], self.gridcolor)  # horizontal
+        draw_line(vb, [xhalf, y0], [xhalf, y1], self.gridcolor)  # Vertical
+        draw_line(vb, [x0, yhalf], [x1, yhalf], self.gridcolor)  # horizontal
 
 
 class dppgraphee:
@@ -97,7 +97,7 @@ class dppgraphee:
 
 def main():
     parser = argparse.ArgumentParser(
-        description="Direct Python Platform graphing utility. Graphs a given function specified from command line arguments"
+        description="Direct Python Platform graphing  Graphs a given function specified from command line arguments"
     )
     parser.add_argument(
         "--function=",
