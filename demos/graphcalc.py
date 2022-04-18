@@ -15,14 +15,14 @@ class dppgraph:
         self.bounds = bounds
         self.dimensions = dimensions
 
-        self.linecolor = 0xFF0000 #red
-        self.gridcolor = 0x111111 #lighter black
-        self.bgcolor = 0xFFFFFF # white
+        self.linecolor = 0xFF0000  # red
+        self.gridcolor = 0x111111  # lighter black
+        self.bgcolor = 0xFFFFFF  # white
         self.window = dp.Window(self.bg)
         self.windowopen = False
         self.cont = True
 
-    def draw(self, graphee, bounds): 
+    def draw(self, graphee, bounds):
         # draws all of the elements of the program: the back ground, the grid, and the function
         self.bg.fill(self.bgcolor)
         self.drawGrid(self.bg)
