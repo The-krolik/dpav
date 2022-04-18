@@ -143,11 +143,13 @@ def flip_vertically(vb: VBuffer) -> VBuffer:
     return flipped_vb
 
 
-def translate(vb:VBuffer, x_translation: int, y_translation: int) -> (VBuffer):
+def translate(vb: VBuffer, x_translation: int, y_translation: int) -> (VBuffer):
     trans_vb = VBuffer(vb.dimensions)
     for x in range(len(trans_vb)):
         for y in range(len(trans_vb[x])):
-            if (0 <= x + x_translation < len(trans_vb)) and (0 <= y + y_translation < len(trans_vb[x])):
+            if (0 <= x + x_translation < len(trans_vb)) and (
+                0 <= y + y_translation < len(trans_vb[x])
+            ):
                 trans_vb[x + x_translation, y + y_translation] = vb[x, y]
     return trans_vb
 
@@ -267,12 +269,10 @@ def point_in_polygon(x: int, y: int, vertices) -> bool:
     for i in range(num):
         if (x == vertices[i][0]) and (y == vertices[i][1]):
             return True
-        if ((vertices[i][1] > y) != (vertices[j][1] > y)):
-            slope = ((x - vertices[i][0]) 
-                * (vertices[j][1] - vertices[i][1]) 
-                - (vertices[j][0] - vertices[i][0]) 
-                * (y-vertices[i][1])
-            )
+        if (vertices[i][1] > y) != (vertices[j][1] > y):
+            slope = (x - vertices[i][0]) * (vertices[j][1] - vertices[i][1]) - (
+                vertices[j][0] - vertices[i][0]
+            ) * (y - vertices[i][1])
             if slope == 0:
                 return True
             if (slope < 0) != (vertices[j][1] < vertices[i][1]):
