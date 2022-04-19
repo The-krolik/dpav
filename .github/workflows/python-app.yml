@@ -10,16 +10,16 @@ on:
     branches: [ main ]
 
 jobs:
-  build:
-
+  build_and_test:
     runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v3
-    - uses: psf/black@stable
-      with:
-        options: "--check --diff"
-        src: "./"
+#    - uses: psf/black@stable
+#      with:
+#        options: "--check --diff"
+#        src: "./"
+#        version: "22.3.0"
 
     - name: Set up Python 3.10
       uses: actions/setup-python@v3
@@ -29,7 +29,7 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install flake8 pytest black
+        pip install flake8 pytest
         pip install numpy
         pip install pygame
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
@@ -43,3 +43,13 @@ jobs:
 
     - name: Tests
       run: pytest tests.py
+      
+  check_style:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - uses: psf/black@stable
+      with:
+        options: "--check --diff"
+        src: "./"
+        version: "22.3.0"
