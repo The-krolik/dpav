@@ -22,7 +22,7 @@ def coord_in_set(c_arg, start_z, itr=50):
         else:
             return 0x0000FF
     except OverflowError:
-        return 0x0000FF
+        return 0x000011
 
 
 def transform_position(two_tuple):
