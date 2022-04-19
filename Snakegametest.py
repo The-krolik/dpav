@@ -44,6 +44,7 @@ while window.is_open():
     if 'q' in window.eventq:
         game_over = True
         game_close = False
+        quit()
     elif 'w' in window.eventq: #up
         x1_change = 0
         y1_change = -snake_block
@@ -60,6 +61,7 @@ while window.is_open():
     x1 += x1_change
     y1 += y1_change
     
+    window.vbuffer[:] = black
     foodx = round(random.randrange(0, x_dim - snake_block) / 10.0) * 10.0
     foody = round(random.randrange(0, y_dim - snake_block) / 10.0) * 10.0
     pt1 = (int(foodx),int(foody))
@@ -67,14 +69,10 @@ while window.is_open():
     draw_rectangle(window.vbuffer,red,pt1,pt2)
 
 
-    window.vbuffer[:] = black
+    
     snake_Head = [x1, y1]
     snake_List.append(snake_Head)
     
-    if x1 == foodx and y1 == foody:
-        foodx = round(random.randrange(0, x_dim - snake_block) / 10.0) * 10.0
-        foody = round(random.randrange(0, y_dim - snake_block) / 10.0) * 10.0
-        Length_of_snake += 1
 
     if len(snake_List) > Length_of_snake:
         del snake_List[0]
@@ -86,3 +84,8 @@ while window.is_open():
     our_snake(snake_block,snake_List)
     
     clock.tick(snake_speed)
+
+    if x1 == foodx and y1 == foody:
+        foodx = round(random.randrange(0, x_dim - snake_block) / 10.0) * 10.0
+        foody = round(random.randrange(0, y_dim - snake_block) / 10.0) * 10.0
+        Length_of_snake += 1
