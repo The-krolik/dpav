@@ -24,9 +24,11 @@ while window.is_open():
         color = 0x8F00FF
     elif "0" in window.eventq:
         color = 0x000000
-    elif "1" in window.eventq:
+    elif "-" in window.eventq:
+        vb.clear()
+    elif "," in window.eventq:
         vb.save_buffer_to_file("pic")
-    elif "2" in window.eventq:
+    elif "." in window.eventq:
         vb.load_buffer_from_file("pic")
 
     if window.events["mouse"]:
