@@ -1,10 +1,11 @@
 import directpythonplatform as dpp
 
 vb = dpp.VBuffer([50, 50])
+vb[:] = 0xFFFFFF
 window = dpp.Window(vb, 12)
 
 window.open()
-color = 0xFFFFFF
+color = 0x000000
 while window.is_open():
     if "w" in window.eventq:
         color = 0xFFFFFF
@@ -16,6 +17,8 @@ while window.is_open():
         color = 0xFFFF00
     elif "g" in window.eventq:
         color = 0x00FF00
+    elif "f" in window.eventq:
+        vb[:] = color
     elif "b" in window.eventq:
         color = 0x0000FF
     elif "i" in window.eventq:
