@@ -1,7 +1,7 @@
 import directpythonplatform as dpp
 
 vb = dpp.VBuffer([50, 50])
-vb[:] = 0xffffff
+vb[:] = 0xFFFFFF
 window = dpp.Window(vb, 12)
 
 window.open()
