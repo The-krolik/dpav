@@ -87,123 +87,77 @@ def drawBlackKeys(buf, numWKeys, wkeySize, wkeySpacing):
     return bKeys
 
 
-def getWhiteNotes():
-    return [
-        "C",
-        "D",
-        "E",
-        "F",
-        "G",
-        "A",
-        "B",
-        "C",
-        "D",
-        "E",
-        "F",
-        "G",
-        "A",
-        "B",
-        "C",
-        "D",
-        "E",
-        "F",
-        "G",
-        "A",
-        "B",
-        "C",
-    ]
+def getKeyNoteDict():
+    white = {
+        "1": "C",
+        "2": "D",
+        "3": "E",
+        "4": "F",
+        "5": "G",
+        "6": "A",
+        "7": "B",
+        "8": "C",
+        "9": "D",
+        "0": "E",
+        "-": "F",
+        "=": "G",
+        "q": "A",
+        "w": "B",
+        "e": "C",
+        "r": "D",
+        "t": "E",
+        "y": "F",
+        "u": "G",
+        "i": "A",
+        "o": "B",
+        "p": "C",
+    }
+    black = {
+        "a": "C#",
+        "s": "D#",
+        "d": "F#",
+        "f": "G#",
+        "g": "A#",
+        "h": "C#",
+        "j": "D#",
+        "k": "F#",
+        "l": "G#",
+        "z": "A#",
+        "x": "C#",
+        "c": "D#",
+        "v": "F#",
+        "b": "G#",
+        "n": "A#",
+    }
 
-
-def getBlackNotes():
-    return [
-        "C#",
-        "D#",
-        "F#",
-        "G#",
-        "A#",
-        "C#",
-        "D#",
-        "F#",
-        "G#",
-        "A#",
-        "C#",
-        "D#",
-        "F#",
-        "G#",
-        "A#",
-    ]
+    return white, black
 
 
 if __name__ == "__main__":
 
-    white_keys = 22
+    wevents, bevents = getKeyNoteDict()
+
+    num_wkeys = 22
     wkey_size = 35
     wkey_spacing = 3
 
-    windowx = (wkey_size * white_keys) + ((white_keys - 1) * wkey_spacing)
+    windowx = (wkey_size * num_wkeys) + ((num_wkeys - 1) * wkey_spacing)
     buf = VBuffer((windowx, 300))
+    wKeys = drawWhiteKeys(buf, num_wkeys, wkey_size, wkey_spacing)
+    bKeys = drawBlackKeys(buf, num_wkeys, wkey_size, wkey_spacing)
 
-    wKeys = drawWhiteKeys(buf, white_keys, wkey_size, wkey_spacing)
-    bKeys = drawBlackKeys(buf, white_keys, wkey_size, wkey_spacing)
-
-    wNotes = getWhiteNotes()
-    bNotes = getBlackNotes()
-
-    for i in range(len(wNotes)):
-        wKeys[i].note = wNotes[i]
-    for i in range(len(bNotes)):
-        bKeys[i].note = bNotes[i]
-    for i in range(len(wNotes)):
-        wKeys[i].octave = math.ceil((i + 3) / 7 + 2)
-    for i in range(len(bNotes)):
-        bKeys[i].octave = math.ceil((i + 2) / 5 + 2)
-
-    wevents = [
-        "1",
-        "2",
-        "3",
-        "4",
-        "5",
-        "6",
-        "7",
-        "8",
-        "9",
-        "0",
-        "-",
-        "=",
-        "q",
-        "w",
-        "e",
-        "r",
-        "t",
-        "y",
-        "u",
-        "i",
-        "o",
-        "p",
-    ]
-    bevents = [
-        "a",
-        "s",
-        "d",
-        "f",
-        "g",
-        "h",
-        "j",
-        "k",
-        "l",
-        "z",
-        "x",
-        "c",
-        "v",
-        "b",
-        "n",
-    ]
+    for ind, v in enumerate(wevents.values()):
+        wKeys[ind].note = v
+    for ind, v in enumerate(bevents.values()):
+        bKeys[ind].note = v
+    for ind, v in enumerate(bevents.values()):
+        wKeys[ind].octave = math.ceil((ind + 3) / 7 + 2)
+    for ind, v in enumerate(bevents.values()):
+        bKeys[ind].octave = math.ceil((ind + 2) / 5 + 2)
 
     window = Window(buf)
     window.open()
     mySound = Audio()
-
     while window.is_open():
         for i, event in enumerate(wevents):
             if event in window.eventq:
