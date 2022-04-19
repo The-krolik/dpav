@@ -1,7 +1,8 @@
 import numpy as np
 import directpythonplatform as dpp
 
-DIM = 500 # Const
+DIM = 500  # Const
+
 
 def coord_in_set(c_arg, start_z, itr=50):
     """Return color based on coordinates and iterative equation z = z^2 + c.
@@ -15,19 +16,20 @@ def coord_in_set(c_arg, start_z, itr=50):
             if abs(z) < 1000:
                 z = z**2 + c
             else:
-                return min(0x0000ff, 0x000011 * i)
+                return min(0x0000FF, 0x000011 * i)
         if abs(z) < 2:
             return 0
         else:
-            return 0x0000ff
+            return 0x0000FF
     except OverflowError:
-        return 0x0000ff
+        return 0x0000FF
+
 
 def transform_position(two_tuple):
     """Translate and scale discreet pixel coords to
     continous cartesian plane coords"""
     new_dim = 4.5
-    factor = (new_dim/DIM)
+    factor = new_dim / DIM
     d1 = two_tuple[0] * factor
     d2 = two_tuple[1] * factor
     d1 -= new_dim / 2
@@ -35,6 +37,7 @@ def transform_position(two_tuple):
 
     d2 *= -1
     return (d1, d2)
+
 
 def out_of_bounds(c):
     """Check if pixel coordinate is within buffer range."""
@@ -48,6 +51,7 @@ def out_of_bounds(c):
         return True
     return False
 
+
 def get_current_c(window):
     """Get mouse position and return it as certesian coordinates, to be used
     as c in z = z^2 + c."""
@@ -55,6 +59,7 @@ def get_current_c(window):
     while out_of_bounds(raw_position):
         raw_position = window.get_mouse_pos()
     return transform_position(raw_position)
+
 
 def calculate_pixel_colors(c):
     """Construct buffer with pixels colored based on fractal formula
@@ -72,6 +77,7 @@ def calculate_pixel_colors(c):
             nextb.write_pixel((x, y), color)
     return nextb
 
+
 def fractal_loop(mode):
     """Draw and display julia set or mandelbrot set."""
     startb = dpp.VBuffer((DIM, DIM))
@@ -83,14 +89,14 @@ def fractal_loop(mode):
     while window.is_open():
         if mandelbrot_constructed and mode == "mandelbrot":
             continue
-        
+
         if mode == "julia":
             c = get_current_c(window)
         else:
             c = None
-            
+
         nextbuf = calculate_pixel_colors(c)
-        
+
         window.set_vbuffer(nextbuf)
         mandelbrot_constructed = True
     
@@ -101,9 +107,9 @@ def main():
         print("Do you want a julia set or a mandelbrot set?")
         x = input("1: Julia set\n2: Mandelbrot set\nAnything Else: Quit\n==> ")
         if x == "1":
-            fractal_loop('julia')
+            fractal_loop("julia")
         elif x == "2":
-            fractal_loop('mandelbrot')
+            fractal_loop("mandelbrot")
         else:
             break
 
