@@ -69,7 +69,7 @@ def main():
                 pos = game.window.get_mouse_pos()
                 game.cells[pos] = game.alive
             elif "0" in game.window.eventq:
-               game.cells.clear() 
+                game.cells.clear() 
         else:
             game.step()
             time.sleep(0.5)
