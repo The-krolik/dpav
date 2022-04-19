@@ -81,7 +81,6 @@ def calculate_pixel_colors(c):
 def fractal_loop(mode):
     """Draw and display julia set or mandelbrot set."""
     startb = dpp.VBuffer((DIM, DIM))
-
     window = dpp.Window(startb)
 
     window.open()
