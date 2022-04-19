@@ -3,7 +3,7 @@ import directpythonplatform as dpp
 
 DIM = 500 # Const
 
-def coord_in_set(c_arg, start_z, itr=20):
+def coord_in_set(c_arg, start_z, itr=50):
     """Return color based on coordinates and iterative equation z = z^2 + c.
     if complex number z approaches zero as equation is iterated,
     it is in the set, and is colored black. If it grows without limit, color
@@ -19,7 +19,7 @@ def coord_in_set(c_arg, start_z, itr=20):
         if abs(z) < 2:
             return 0
         else:
-            return 0x000011
+            return 0x0000ff
     except OverflowError:
         return 0x0000ff
 
@@ -68,7 +68,7 @@ def calculate_pixel_colors(c):
                 color = coord_in_set(c, cur_pos)
             else:
                 # Calculate mandelbrot set
-                color = coord_in_set(cur_pos, (0, 0), 50)
+                color = coord_in_set(cur_pos, (0, 0))
             nextb.write_pixel((x, y), color)
     return nextb
 
