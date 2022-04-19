@@ -1,5 +1,6 @@
 from directpythonplatform import *
 from utility import draw_rectangle
+import random
 clock = pygame.time.Clock()
 
 
@@ -9,12 +10,11 @@ def our_snake(snake_block, snake_list):
         pt1 = (int(x[0]),int(x[1]))
         pt2 = (int(x[0] + snake_block),int(x[1] + snake_block))
         draw_rectangle(window.vbuffer,white,pt1,pt2)
-        
-
 
 
 white = 0xffffff
 black = 0x000000
+red = 0xFF0000
     
 x_dim = 600
 y_dim = 400
@@ -26,6 +26,7 @@ game_close = False
 x1 = x_dim / 2
 y1 = y_dim / 2
 
+
 x1_change = 0
 y1_change = 0
 
@@ -34,7 +35,6 @@ snake_speed = 15
 
 snake_List = []
 Length_of_snake = 1
-
 
 window.open()
 
@@ -60,11 +60,22 @@ while window.is_open():
     x1 += x1_change
     y1 += y1_change
     
+    foodx = round(random.randrange(0, x_dim - snake_block) / 10.0) * 10.0
+    foody = round(random.randrange(0, y_dim - snake_block) / 10.0) * 10.0
+    pt1 = (int(foodx),int(foody))
+    pt2 = (int(foodx + snake_block),int(foody + snake_block))
+    draw_rectangle(window.vbuffer,red,pt1,pt2)
+
+
     window.vbuffer[:] = black
     snake_Head = [x1, y1]
     snake_List.append(snake_Head)
     
-    
+    if x1 == foodx and y1 == foody:
+        foodx = round(random.randrange(0, x_dim - snake_block) / 10.0) * 10.0
+        foody = round(random.randrange(0, y_dim - snake_block) / 10.0) * 10.0
+        Length_of_snake += 1
+
     if len(snake_List) > Length_of_snake:
         del snake_List[0]
         
