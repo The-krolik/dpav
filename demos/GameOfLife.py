@@ -60,12 +60,16 @@ def main():
     start = False
     while game.window.is_open():
         if "s" in game.window.eventq:
-            start = True
-
+            if start == True:
+                start = False
+            else:
+                start = True
         if not start:
             if game.window.events["mouse"]:
                 pos = game.window.get_mouse_pos()
-                game.window.vbuffer.write_pixel(pos, game.alive)
+                game.cells[pos] = game.alive
+            elif "0" in game.window.eventq:
+                game.cells.clear()
         else:
             game.step()
             time.sleep(0.5)

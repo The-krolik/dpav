@@ -1,12 +1,5 @@
-import os
-import sys
-import numpy as np
 import math
-
-from window import Window
-from vbuffer import VBuffer
-from audio import Audio
-import utility as util
+import directpythonplatform as dpp
 
 
 class Key:
@@ -34,8 +27,8 @@ def playKey(pos, wsize, bKeys, wKeys):
     ):
         key = bKey
 
-    frequency = math.ceil(util.get_note_from_string(key.note, key.octave))
-    mySound = Audio()
+    frequency = math.ceil(dpp.get_note_from_string(key.note, key.octave))
+    mySound = dpp.Audio()
     mySound.play_sound(frequency, 0.25)
 
 
@@ -50,13 +43,13 @@ def drawWhiteKeys(buf, numKeys, keySize, keySpacing):
         if drawkey:
             start = (x, 0)
             end = (x + keySize, dim[1])
-            util.draw_rectangle(buf, 0xFFFFFF, start, end)
+            dpp.draw_rectangle(buf, 0xFFFFFF, start, end)
             wKeys.append(Key([start, end], "white", None, None))
             x += keySize
         else:
             start = (x, 0)
             end = (x + keySpacing, dim[1])
-            util.draw_rectangle(buf, 0x000000, start, end)
+            dpp.draw_rectangle(buf, 0x000000, start, end)
             x += keySpacing
 
         drawkey = True if drawkey == False else False
@@ -77,7 +70,7 @@ def drawBlackKeys(buf, numWKeys, wkeySize, wkeySpacing):
     for i in range(1, round(numWKeys * 5 / 7)):
         start = (x, 0)
         end = (x + bkeySize, round(dim[1] * 2 / 3))
-        util.draw_rectangle(buf, 0x000000, start, end)
+        dpp.draw_rectangle(buf, 0x000000, start, end)
         bKeys.append(Key([start, end], "black", None, None))
 
         x += wkeySize + wkeySpacing
@@ -155,20 +148,22 @@ if __name__ == "__main__":
     for ind, v in enumerate(bevents.values()):
         bKeys[ind].octave = math.ceil((ind + 2) / 5 + 2)
 
-    window = Window(buf)
+    window = dpp.Window(buf)
     window.open()
     mySound = Audio()
+    mySound = dpp.Audio()
+
     while window.is_open():
         for i, event in enumerate(wevents):
             if event in window.eventq:
                 key = wKeys[i]
-                frequency = math.ceil(util.get_note_from_string(key.note, key.octave))
+                frequency = math.ceil(dpp.get_note_from_string(key.note, key.octave))
                 mySound.play_sound(frequency, 0.25)
 
         for i, event in enumerate(bevents):
             if event in window.eventq:
                 key = wKeys[i]
-                frequency = math.ceil(util.get_note_from_string(key.note, key.octave))
+                frequency = math.ceil(dpp.get_note_from_string(key.note, key.octave))
                 mySound.play_sound(frequency, 0.25)
 
         if "mouse" in window.eventq:
