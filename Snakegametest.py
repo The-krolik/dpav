@@ -37,8 +37,6 @@ snake_List = []
 Length_of_snake = 1
 
 window.open()
-gotFood = False
-start = True
 
 window.vbuffer[:] = black
 foodx = round(random.randrange(0, x_dim - snake_block) / 10.0) * 10.0
