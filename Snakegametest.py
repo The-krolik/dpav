@@ -11,6 +11,14 @@ def our_snake(snake_block, snake_list):
         pt2 = (int(x[0] + snake_block),int(x[1] + snake_block))
         draw_rectangle(window.vbuffer,white,pt1,pt2)
 
+def newFood():
+        window.vbuffer[:] = black
+        foodx = round(random.randrange(0, x_dim - snake_block) / 10.0) * 10.0
+        foody = round(random.randrange(0, y_dim - snake_block) / 10.0) * 10.0
+        pt1 = (int(foodx),int(foody))
+        pt2 = (int(foodx + snake_block),int(foody + snake_block))
+        draw_rectangle(window.vbuffer,red,pt1,pt2)
+        
 
 white = 0xffffff
 black = 0x000000
@@ -26,7 +34,7 @@ game_close = False
 x1 = x_dim / 2
 y1 = y_dim / 2
 
-
+count = 1
 x1_change = 0
 y1_change = 0
 
@@ -37,8 +45,16 @@ snake_List = []
 Length_of_snake = 1
 
 window.open()
-
+gotFood = False
 move = True
+
+window.vbuffer[:] = black
+foodx = round(random.randrange(0, x_dim - snake_block) / 10.0) * 10.0
+foody = round(random.randrange(0, y_dim - snake_block) / 10.0) * 10.0
+pt1 = (int(foodx),int(foody))
+pt2 = (int(foodx + snake_block),int(foody + snake_block))
+draw_rectangle(window.vbuffer,red,pt1,pt2)
+
 while window.is_open():
     
     if 'q' in window.eventq:
@@ -61,18 +77,19 @@ while window.is_open():
     x1 += x1_change
     y1 += y1_change
     
-    window.vbuffer[:] = black
-    foodx = round(random.randrange(0, x_dim - snake_block) / 10.0) * 10.0
-    foody = round(random.randrange(0, y_dim - snake_block) / 10.0) * 10.0
-    pt1 = (int(foodx),int(foody))
-    pt2 = (int(foodx + snake_block),int(foody + snake_block))
-    draw_rectangle(window.vbuffer,red,pt1,pt2)
+
+    if gotFood == True:
+        newFood()
+        gotFood = False
 
 
     
     snake_Head = [x1, y1]
     snake_List.append(snake_Head)
     
+    snake_Head = snake_List[0]
+    if snake_Head in snake_List[1:]:
+        quit()
 
     if len(snake_List) > Length_of_snake:
         del snake_List[0]
@@ -86,6 +103,8 @@ while window.is_open():
     clock.tick(snake_speed)
 
     if x1 == foodx and y1 == foody:
+        gotFood = True
         foodx = round(random.randrange(0, x_dim - snake_block) / 10.0) * 10.0
         foody = round(random.randrange(0, y_dim - snake_block) / 10.0) * 10.0
         Length_of_snake += 1
+
