@@ -96,7 +96,6 @@ while window.is_open():
     clock.tick(snake_speed)
 
     if x1 == foodx and y1 == foody:
-        gotFood = True
         foodx = round(random.randrange(0, x_dim - snake_block) / 10.0) * 10.0
         foody = round(random.randrange(0, y_dim - snake_block) / 10.0) * 10.0
         Length_of_snake += 1
