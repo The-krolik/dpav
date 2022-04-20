@@ -37,6 +37,8 @@ snake_List = []
 Length_of_snake = 1
 
 window.open()
+gotFood = False
+start = True
 
 window.vbuffer[:] = black
 foodx = round(random.randrange(0, x_dim - snake_block) / 10.0) * 10.0
@@ -70,7 +72,24 @@ while window.is_open():
 
 
     if x1 > x_dim or x1 < 0 or y1 > y_dim or y1 < 0:
-        window.close()
+        #resets the snake
+        window.vbuffer[:] = black
+        x1_change = 0
+        y1_change = 0
+        x1 = x_dim / 2
+        y1 = y_dim / 2
+        x1 += x1_change
+        y1 += y1_change
+        snake_Head = [x1, y1]
+        Length_of_snake = 1
+        snake_List = []
+        our_snake(snake_block,snake_List)
+        #resets the food
+        foodx = round(random.randrange(0, x_dim - snake_block) / 10.0) * 10.0
+        foody = round(random.randrange(0, y_dim - snake_block) / 10.0) * 10.0
+        pt1 = (int(foodx),int(foody))
+        pt2 = (int(foodx + snake_block),int(foody + snake_block))
+        draw_rectangle(window.vbuffer,red,pt1,pt2)
     
     
     snake_Head = [x1, y1]
@@ -85,7 +104,24 @@ while window.is_open():
     
     if len(snake_List) > 1:
         if snake_Head in snake_List[1:]:
-            window.close()
+            #resets the snake
+            window.vbuffer[:] = black
+            x1_change = 0
+            y1_change = 0
+            x1 = x_dim / 2
+            y1 = y_dim / 2
+            x1 += x1_change
+            y1 += y1_change
+            snake_Head = [x1, y1]
+            Length_of_snake = 1
+            snake_List = []
+            our_snake(snake_block,snake_List)
+            #resets the food
+            foodx = round(random.randrange(0, x_dim - snake_block) / 10.0) * 10.0
+            foody = round(random.randrange(0, y_dim - snake_block) / 10.0) * 10.0
+            pt1 = (int(foodx),int(foody))
+            pt2 = (int(foodx + snake_block),int(foody + snake_block))
+            draw_rectangle(window.vbuffer,red,pt1,pt2)
 
     for x in snake_List[:-1]:
         if x == snake_Head:
@@ -96,7 +132,7 @@ while window.is_open():
     clock.tick(snake_speed)
 
     if x1 == foodx and y1 == foody:
+        gotFood = True
         foodx = round(random.randrange(0, x_dim - snake_block) / 10.0) * 10.0
         foody = round(random.randrange(0, y_dim - snake_block) / 10.0) * 10.0
         Length_of_snake += 1
-
