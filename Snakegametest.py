@@ -88,11 +88,18 @@ while window.is_open():
     snake_List.append(snake_Head)
     
     snake_Head = snake_List[0]
-    if snake_Head in snake_List[1:]:
-        quit()
-
+    
+    
     if len(snake_List) > Length_of_snake:
         del snake_List[0]
+    
+    if len(snake_List) > 1:
+        if snake_Head in snake_List[1:]:
+            print(snake_Head)
+            print(snake_List[0:])
+            quit()
+
+
         
     for x in snake_List[:-1]:
         if x == snake_Head:
