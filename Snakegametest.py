@@ -99,7 +99,8 @@ while window.is_open():
             print(snake_List[0:])
             quit()
 
-
+    if snake_Head[0] == x_dim + 1 or snake_Head[0] == -1 or snake_Head[1] == y_dim + 1 or snake_Head[1] == -1:
+        quit()
         
     for x in snake_List[:-1]:
         if x == snake_Head:
