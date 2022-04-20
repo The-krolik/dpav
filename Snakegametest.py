@@ -77,7 +77,7 @@ while window.is_open():
     x1 += x1_change
     y1 += y1_change
     
-
+    window.vbuffer[:] = black
     if gotFood == True:
         newFood()
         gotFood = False
