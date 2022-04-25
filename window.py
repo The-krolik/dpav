@@ -73,7 +73,7 @@ class Window:
                 default:
                     if none provided, will create blank VBuffer with
                     dimensions: width = 800, height = 600
-            
+
             scale (optional):
                 float/int for scale of window
                 default: 1.0
