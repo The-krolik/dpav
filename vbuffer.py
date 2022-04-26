@@ -18,6 +18,21 @@ class VBuffer:
         dimensions. Defaults to 800x600.
 
         If numpy array, will set buffer to the contents of that array.
+
+    Constructor:
+        __init__(self, dimensions)
+    Setter:
+        write_pixel(self, coords, val)
+        set_buffer(self, buf)
+        clear(self)
+    Getters:
+        get_pixel(self, coords)
+        get_dimensions(self)
+        get_buffer(self)
+    Error Checking:
+        _check_numpy_arr(self,arg1,arg_name,method_name)
+        _check_coord_type(self, coords, arg_name, method_name)
+        _check_coord_vals(self, x, y, method_name)
     """
 
     def __init__(self, arg1=(800, 600)) -> None:
@@ -58,7 +73,7 @@ class VBuffer:
         self.debug_flag = False
         self._dimensions = dimensions
 
-    def __getitem__(self, idx) -> :
+    def __getitem__(self, idx) -> int:
         """Return color value in buffer at selected coordinates.
 
         Parameters
@@ -68,7 +83,7 @@ class VBuffer:
         """
         return self.buffer[idx]
 
-    def __setitem__(self, idx, val):
+    def __setitem__(self, idx, val) -> None:
         """Set color value at selected coordinates.
 
         Parameters
@@ -79,21 +94,21 @@ class VBuffer:
             Hex color code to write"""
         self.buffer[idx] = val
 
-    def __len__(self):
-        """Return the size of the buffer"""
+    def __len__(self) -> int:
+        """Return row-size"""
         return len(self.buffer)
 
     @property
-    def dimensions(self):
+    def dimensions(self) -> (int, int):
         """Return dimensions of buffer."""
         return self.buffer.shape
 
     @dimensions.setter
-    def dimensions(self, val):
+    def dimensions(self, val) -> None:
         """Return error; cannot reshape buffer by setting dimensions."""
         raise AttributeError("Cannot reshape visual buffer by setting dimensions")
 
-    def _check_numpy_arr(self, arg1, arg_name, method_name):
+    def _check_numpy_arr(self, arg1, arg_name, method_name) -> None:
         """Checks if value is a valid numpy array and raises exception if not
 
         Error checks for the following:
