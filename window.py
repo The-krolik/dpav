@@ -2,7 +2,6 @@ import numpy as np
 import pygame
 import utility as util
 from vbuffer import VBuffer
-from typing import Union
 
 
 class Window:
@@ -60,9 +59,7 @@ class Window:
             _screen:     PyGame.display object, used for viewing vbuffer attribute
     """
 
-    def __init__(
-        self, arg1: Union[VBuffer, np.ndarray] = None, scale: Union[float, int] = 1.0
-    ):
+    def __init__(self, arg1: VBuffer = None, scale: float = 1.0):
         """
         Constructor for the Window class.
 
@@ -130,7 +127,7 @@ class Window:
         y = int(pygame.mouse.get_pos()[1] / self.scale)
         return (x, y)
 
-    def set_vbuffer(self, arg1: Union[VBuffer, np.ndarray]) -> None:
+    def set_vbuffer(self, arg1: VBuffer) -> None:
         """
         Sets the vbuffer/nparray object to display on screen
 
@@ -147,7 +144,7 @@ class Window:
 
         self.vbuffer = arg1 if type(self.vbuffer) is VBuffer else VBuffer(arg1)
 
-    def set_scale(self, scale: Union[float, int]) -> None:
+    def set_scale(self, scale: float) -> None:
         """
         Sets the window scale
         """
