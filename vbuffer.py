@@ -4,28 +4,27 @@ import numpy as np
 class VBuffer:
     """
     Visual buffer for the Python Direct Platform
-    Constructor:
-        __init__(self, dimensions)
 
-    Setter:
-        write_pixel(self, coords, val)
-        set_buffer(self, buf)
-        clear(self)
+    Holds a 2D array of hex color values. Each element represents a pixel,
+    whose coordinates are its index. VBuffer can be loaded and displayed by
+    the window class.
 
-    Getters:
-        get_pixel(self, coords)
-        get_dimensions(self)
-        get_buffer(self)
+    Parameters
+    ----------
+    arg1 : {(int, int)|np.ndarray(int, int)}
+        Either array dimensions or a 2-dimensional numpy array of integers
 
-    Error Checking:
-        _check_numpy_arr(self,arg1,arg_name,method_name)
-        _check_coord_type(self, coords, arg_name, method_name)
-        _check_coord_vals(self, x, y, method_name)
+        If dimensions, will create zeroed-out 2D array of the selected
+        dimensions. Defaults to 800x600.
+
+        If numpy array, will set buffer to the contents of that array.
     """
 
-    def __init__(self, arg1=(800, 600)):
+    def __init__(self, arg1=(800, 600)) -> None:
         """
         Constructor for the VBuffer class.
+
+        Loads or creates 2D numpy array, which is the main body of the VBuffer.
 
         ERR CHECK:  if arg1 is not a numpy array; if the dimensions are
         greater than 1920x1080 or negative.
@@ -59,7 +58,7 @@ class VBuffer:
         self.debug_flag = False
         self._dimensions = dimensions
 
-    def __getitem__(self, idx):
+    def __getitem__(self, idx) -> :
         """Return color value in buffer at selected coordinates.
 
         Parameters
@@ -222,7 +221,7 @@ class VBuffer:
         x, y = coords[0], coords[1]
         return self.buffer[x, y]
 
-    def get_dimensions(self) -> "(int, int)":
+    def get_dimensions(self) -> (int, int):
         """Return dimensions of visual buffer array."""
         return self.buffer.shape
 
