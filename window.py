@@ -54,10 +54,10 @@ class Window:
                          variable to map from PyGame's integer:boolean pairs to
                          our string:boolean pairs
 
-            _surfaces    Two PyGame Surfaces for swapping to reflect vbuffer changes and
+            _surfaces:   Two PyGame Surfaces for swapping to reflect vbuffer changes and
                          enable in-place nparray modification
 
-            _screen      PyGame.display object, used for viewing vbuffer attribute
+            _screen:     PyGame.display object, used for viewing vbuffer attribute
     """
 
     def __init__(
