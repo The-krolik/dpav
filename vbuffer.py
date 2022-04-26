@@ -29,12 +29,12 @@ class VBuffer:
 
         ERR CHECK:  if arg1 is not a numpy array; if the dimensions are
         greater than 1920x1080 or negative.
-        
+
         Parameters
         ----------
         arg1 : {(int, int)|np.ndarray(int, int)}
             Either array dimensions or a 2-dimensional numpy array of integers
-            
+
             If dimensions, will create zeroed-out 2D array of the selected
             dimensions. Defaults to 800x600.
 
@@ -133,7 +133,7 @@ class VBuffer:
 
     def _check_coord_type(self, coords, arg_name, method_name) -> None:
         """Type checks coordinates, and raises exception if incorrect type.
-        
+
         Error checks for the following:
             - if the coordinates are not stored in a list or a tuple
             - if the coordinates has more or less than two elements
@@ -222,7 +222,7 @@ class VBuffer:
         x, y = coords[0], coords[1]
         return self.buffer[x, y]
 
-    def get_dimensions(self) -> '(int, int)':
+    def get_dimensions(self) -> "(int, int)":
         """Return dimensions of visual buffer array."""
         return self.buffer.shape
 
