@@ -87,7 +87,8 @@ class Audio(object):
             audioobject.get_bit_number(): returns the bit rate of the audio class
         """
         return self._bit_number
-   def get_sample_rate(self) -> int:
+
+    def get_sample_rate(self) -> int:
         """
         Gets the sample rate of the Audio class.
         Parameters:
