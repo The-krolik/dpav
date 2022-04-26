@@ -23,7 +23,6 @@ class Audio(object):
             play_sample(string_name_of_wav_file)
 
         Setters:
-            set_sample_rate(int)
             set_audio_buffer(numpyarray)
             set_audio_device(int)
             set_waveform(waveform)
@@ -75,23 +74,6 @@ class Audio(object):
 
         self._audio_device = None
 
-    """
-    def set_bit_number(self, bit: int) -> None :
-        Sets the bit rate of the Audio class.
-        Parameters: 
-            bit: int within 1 and 32
-        Returns:
-            None
-        Notes:
-            Bit rate currently locked to 16 bits, so function is commented out
-        Examples:
-            audioobject.set_bit_number(16): would set self._bit_number to 16 
-        if(bit>=1 and bit<=32):
-            self._bit_number = bit
-        else:
-            raise ValueError("Value must be a whole number greater than zero, less than or equal to 32")
-    """
-
     def get_bit_number(self) -> int:
         """
         Gets the bit rate of the Audio class
@@ -105,27 +87,7 @@ class Audio(object):
             audioobject.get_bit_number(): returns the bit rate of the audio class
         """
         return self._bit_number
-
-    """
-    Locked to 44100
-    # sample rate
-    def set_sample_rate(self, sample: int) -> None:
-        Sets the sample rate of the Audio class.
-        Parameters:
-            sample: int value
-        Returns:
-            None
-        Notes:
-            Sample rate is currently locked to 44100, so function is commented out
-        Examples:
-            audioobject.set_sample_rate(44100): sets the sample rate of the Audio class to 44100
-        if(sample>0):
-            self._sample_rate = sample
-        else:
-            raise ValueError("Sample rate has to be an integer greater than zero.")
-    """
-
-    def get_sample_rate(self) -> int:
+   def get_sample_rate(self) -> int:
         """
         Gets the sample rate of the Audio class.
         Parameters:
