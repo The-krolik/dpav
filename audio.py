@@ -10,8 +10,8 @@ from time import sleep
 
 
 class Audio(object):
-    """
-    Handles Audio capabilities of Python Direct Platform.
+    """Handles Audio capabilities of Python Direct Platform.
+
     Here are the functions:
         Constructor:
             __init__()
@@ -26,23 +26,27 @@ class Audio(object):
             set_audio_buffer(numpyarray)
             set_audio_device(int)
             set_waveform(waveform)
+
         Getters:
             get_bit_number()->int
             get_sample_rate()->int
             get_audio_buffer()
             get_audio_device()->Returns int corresponding to audio device
+
         Misc:
             list_audio_devices()
             wait_for_sound_end()
+
     """
 
     def __init__(
         self,
     ):
-        """
-        Constructor for the Audio class.
+        """Constructor for the Audio class.
+
         Parameters:
             None
+
         Members:
             Private:
                 _bit_number         int (locked)    --Bit rate of audio
@@ -50,8 +54,6 @@ class Audio(object):
                 _audio_buffer       numpy array     --Audio buffer array of data
                 self._audio_device  int             --Array index of list of audio_devices (see set_audio_devices)
                                                         where playback will occur
-
-
             Public:
                 self.volume_level   float (<=1)     --Volume level for playback
                 self.waves          wave_table      --Built in wave forms: sin, square, saw, noise, triangle
@@ -75,41 +77,50 @@ class Audio(object):
         self._audio_device = None
 
     def get_bit_number(self) -> int:
-        """
-        Gets the bit rate of the Audio class
+        """Gets the bit rate of the Audio class
+
         Parameters:
             None
+
         Returns:
             self._bit_number: The bit rate of the Audio class - int value
+
         Notes:
             Bit rate currently locked to 16 bits
+
         Examples:
             audioobject.get_bit_number(): returns the bit rate of the audio class
         """
         return self._bit_number
 
     def get_sample_rate(self) -> int:
-        """
-        Gets the sample rate of the Audio class.
+        """Gets the sample rate of the Audio class.
+
         Parameters:
             None
+
         Returns:
             self._sample_rate: The sample rate of the audioClass - int value
+
         Notes:
             Sample rate is currently locked to 44100
+
         Examples:
             audioobject.get_sample_rate(): Gets the sample rate of the Audio class
+
         """
         return self._sample_rate
 
     # audio buffer
     def set_audio_buffer(self, ab) -> None:
-        """
-        Sets the audio buffer of the Audio Class.
+        """Sets the audio buffer of the Audio Class.
+
         Parameters:
             ab: numpy array of shape(samples, channels) e.g. ab[44100][2]
+
         Returns:
             None
+
         Notes:
             The audio buffer needs to have two rows so that way stereo works as intended.
             You can set the audio buffer to wav file data by fetching numpy arrays using wav or scipy,
@@ -132,14 +143,17 @@ class Audio(object):
         self._audio_buffer = ab
 
     def get_audio_buffer(self):  # TODO: need audio buffer type for return annotation
-        """
-        Returns the audio buffer of the Audio class
+        """Returns the audio buffer of the Audio class
+
         Parameters:
             None
+
         Returns:
             self._audio_buffer: numpy array
+
         Notes:
             This will return none if the audio buffer has not been set by the set_audio_buffer method.
+
         Examples:
             audioobject.get_audio_buffer()
 
@@ -148,14 +162,17 @@ class Audio(object):
 
     # audio device
     def list_audio_devices(self) -> None:
-        """
-        Lists the output devices on your device and adds to list self._devices
+        """Lists the output devices on your device and adds to list self._devices
+
         Parameters:
             None
+
         Returns:
             None
+
         Notes:
             Run this function before using set_audio_device() to add devices to the list devices
+
         Examples:
             audioobject.list_audio_devices()
             0 Speakers (Realtek(R) Audio)
@@ -171,20 +188,24 @@ class Audio(object):
         pygame.mixer.quit()
 
     def set_audio_device(self, device: int) -> int:
-        """
-        Sets the current audio device of the Audio class.
+        """Sets the current audio device of the Audio class.
+
         Parameters:
             device: int value - see all int values for each device by running list_audio_devices()
+
         Returns:
             None
+
         Notes:
             This can only be set ONCE per instance. To change devices, del the current instance
             set the new device, and continue
             This needs to be run after list_audio_device() in order to see list of audio devices
             If not run the device will default to the current device being used by the machine
+
         Examples:
             audioobject.set_audio_device(2)
             Based on example in list_audio_devices() this would change the device to Speakers (HyperX Cloud II Wireless)
+
         """
         try:
             pygame.mixer.init()
@@ -201,28 +222,34 @@ class Audio(object):
         pygame.mixer.quit()
 
     def get_audio_device(self) -> int:
-        """
-        Gets the current audio device number of the Audio Class
+        """Gets the current audio device number of the Audio Class
+
         Parameters:
             None
+
         Returns
             self._audio_device: int value
+
         Notes:
             Returns the integer value of the device not the device name
+
         Examples:
             audioobject.get_audio_device() would return 2 based on example in set_audio_device(2)
         """
         return self._audio_device
 
     def set_waveform(self, wave) -> None:
-        """
-        Sets the expression governing the wave form playing
+        """Sets the expression governing the wave form playing
+
         Parameters:
             Wave: takes a mathematical expression function 'pointer' in the form of f(inputfreq, timestep)
+
         Returns:
             None
+
         Notes:
             Uses this in buffer generation
+
         Examples:
             audioobject.set_waveform(object.wave_table.sin)
             This would change to the waveform sin contained in the wave_table class
@@ -233,13 +260,15 @@ class Audio(object):
         pass
 
     def play_sound(self, input_frequency=0, input_duration=0) -> None:
-        """
-        Primary sound playing method of the audio class.
+        """Primary sound playing method of the audio class.
+
         Parameters:
             input_frequency: int value - input frequency in Hz
             input_duration: int value - duration in seconds
+
         Returns:
             None
+
         Notes:
             Plays the sound directly from this function
             Need to run set_audio_device() or will default to the default audio device
@@ -247,6 +276,7 @@ class Audio(object):
             play_sound is somewhat overloaded to where if you have an audioBuffer set using set_audio_buffer, you can call play_sound()
                                                                             and it will play whatever that audio_buffer is e.g. wav files
                                                                             Example in examples/custombuffer.py
+
         Examples:
             play_sound(440, 1) would play an A note for one second with the sin waveform set.
 
@@ -300,13 +330,14 @@ class Audio(object):
             print("Out of Channels")
 
     def wait_for_sound_end(self):
-        """
-        Function call that is placed at the end of scripts to keep processes going
-        so that way sounds play to their full duration without a pygame window instance
+        """Function call that is placed at the end of scripts without a pygame window instance so sounds play to their full duration without a
+
         Parameters:
             None
+
         Returns:
             None
+
         Notes:
 
         Examples:
@@ -318,12 +349,14 @@ class Audio(object):
 
     # pitch is semitones to transpose
     def play_sample(self, sample_name: str) -> None:
-        """
-        Plays sounds that are wav, ogg or mp3 files.
+        """Plays sounds that are wav, ogg or mp3 files.
+
         Parameters:
             sample_name: String path or name of sound
+
         Returns:
             None
+
         Notes:
 
         Examples:
@@ -356,13 +389,30 @@ class Audio(object):
 
 
 class wave_table:
+    """This is a class holding waveforms for usage with the play_sound method.
+
+    There are 5 waveforms:
+        sin
+        saw
+        square
+        noise
+        triangle
+
+    Example:
+        waves = wave_table()
+        sinefunc = waves.sin
+
+    """
+
     def __init__(self):
-        """
-        Constructor for the wave_table class
+        """Constructor for the wave_table class
+
         Parameters:
             None
+
         Returns:
             None
+
         Notes:
 
         Examples:
@@ -371,13 +421,15 @@ class wave_table:
         pass
 
     def sin(self, input_frequency, t):
-        """
+        """Sin wave form, default for libary
 
         Parameters:
             input_frequency:
             t:
+
         Returns:
             math.sin(2 * math.pi * input_frequency * t):
+
         Notes:
 
         Examples:
@@ -386,13 +438,15 @@ class wave_table:
         return math.sin(2 * math.pi * input_frequency * t)
 
     def square(self, input_frequency, t):
-        """
+        """Square wave form
 
         Parameters:
             input_frequency:
             t:
+
         Returns:
             round(math.sin(2 * math.pi * input_frequency * t)):
+
         Notes:
 
         Examples:
@@ -401,13 +455,15 @@ class wave_table:
         return round(math.sin(2 * math.pi * input_frequency * t))
 
     def noise(self, input_frequency, t):
-        """
+        """Random white noise
 
         Parameters:
             input_frequency:
             t:
+
         Returns:
             random.random() * input_frequency * t:
+
         Notes:
             VERY LOUD...be careful.
         Examples:
@@ -416,13 +472,15 @@ class wave_table:
         return random.random() * input_frequency * t
 
     def saw(self, input_frequency, t):
-        """
+        """Saw wave
 
         Parameters:
             input_frequency:
             t:
+
         Returns:
             t * input_frequency - math.floor(t * input_frequency):
+
         Notes:
 
         Examples:
@@ -431,13 +489,15 @@ class wave_table:
         return t * input_frequency - math.floor(t * input_frequency)
 
     def triangle(self, input_frequency, t):
-        """
+        """Triangle wave, similar in sound to saw + sin together
 
         Parameters:
             input_frequency:
             t:
+
         Returns:
             2 * abs((t * input_frequency) / 1 - math.floor(((t * input_frequency) / 1) + 0.5)):
+
         Notes:
 
         Examples:
