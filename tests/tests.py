@@ -1,10 +1,10 @@
 import pytest
-import directpythonplatform as dpp
+import dypi as dp
 from typing import Type
 
 
 def test_audio():
-    a = dpp.Audio()
+    a = dp.Audio()
 
     assert a.get_bit_number() == 16
     assert a.get_sample_rate() == 44100
@@ -19,7 +19,7 @@ def test_audio():
 
 
 def test_vbuffer():
-    vb = dpp.VBuffer()
+    vb = dp.VBuffer()
     x, y = vb.get_dimensions()
     assert x > 0
     assert y > 0
@@ -27,41 +27,41 @@ def test_vbuffer():
     assert type(y) is int
 
     with pytest.raises(ValueError) as e_info:
-        vb = dpp.VBuffer([0, 0])
+        vb = dp.VBuffer([0, 0])
 
     with pytest.raises(ValueError) as e_info:
-        vb = dpp.VBuffer([0, 600])
+        vb = dp.VBuffer([0, 600])
 
     with pytest.raises(ValueError) as e_info:
-        vb = dpp.VBuffer([800, 0])
+        vb = dp.VBuffer([800, 0])
 
     with pytest.raises(ValueError) as e_info:
-        vb = dpp.VBuffer([9999, 9999])
+        vb = dp.VBuffer([9999, 9999])
 
     with pytest.raises(ValueError) as e_info:
-        vb = dpp.VBuffer([-100, -100])
+        vb = dp.VBuffer([-100, -100])
 
     with pytest.raises(TypeError) as e_info:
-        vb = dpp.VBuffer([100.9, 200])
+        vb = dp.VBuffer([100.9, 200])
 
     with pytest.raises(TypeError) as e_info:
-        vb = dpp.VBuffer([200, 200.5])
+        vb = dp.VBuffer([200, 200.5])
 
-    vb = dpp.VBuffer([1920, 1080])
+    vb = dp.VBuffer([1920, 1080])
     x, y = vb.get_dimensions()
     assert type(x) is int
     assert type(y) is int
     assert x == 1920
     assert y == 1080
 
-    vb = dpp.VBuffer()
+    vb = dp.VBuffer()
     x, y = vb.get_dimensions()
     assert type(x) is int
     assert type(y) is int
     assert x == 800
     assert y == 600
 
-    vb = dpp.VBuffer([800, 600])
+    vb = dp.VBuffer([800, 600])
     assert vb.get_pixel([400, 300]) == 0
 
     with pytest.raises(ValueError) as e_info:
