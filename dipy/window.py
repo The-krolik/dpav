@@ -1,7 +1,6 @@
 import numpy as np
 import pygame
-import utility as util
-from vbuffer import VBuffer
+from dipy import VBuffer, utility as util
 
 
 class Window:

@@ -1,5 +1,5 @@
 from datetime import datetime
-from vbuffer import VBuffer
+from dipy import VBuffer
 from math import sin, cos, pi
 import numpy as np
 import pygame

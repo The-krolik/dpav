@@ -1,8 +1,8 @@
-import directpythonplatform as dpp
+import dypi
 
-vb = dpp.VBuffer([50, 50])
+vb = dypi.VBuffer([50, 50])
 vb[:] = 0xFFFFFF
-window = dpp.Window(vb, 12)
+window = dypi.Window(vb, 12)
 
 window.open()
 color = 0x000000

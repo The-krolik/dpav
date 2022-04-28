@@ -4,4 +4,4 @@ from .audio import Audio
 from .utility import *
 
 
-__all__=["vbuffer.VBuffer", "window", "audio", "utility"]
+__all__=["vbuffer", "window", "audio", "utility"]

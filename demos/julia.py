@@ -1,5 +1,5 @@
 import numpy as np
-import directpythonplatform as dpp
+import dypi
 
 DIM = 500  # Const
 
@@ -64,7 +64,7 @@ def get_current_c(window):
 def calculate_pixel_colors(c):
     """Construct buffer with pixels colored based on fractal formula
     z = z^2 + c."""
-    nextb = dpp.VBuffer((DIM, DIM))
+    nextb = dypi.VBuffer((DIM, DIM))
     for y in range(nextb.get_dimensions()[0]):
         for x in range(nextb.get_dimensions()[1]):
             cur_pos = transform_position((x, y))
@@ -80,8 +80,8 @@ def calculate_pixel_colors(c):
 
 def fractal_loop(mode):
     """Draw and display julia set or mandelbrot set."""
-    startb = dpp.VBuffer((DIM, DIM))
-    window = dpp.Window(startb)
+    startb = dypi.VBuffer((DIM, DIM))
+    window = dypi.Window(startb)
 
     window.open()
     mandelbrot_constructed = False

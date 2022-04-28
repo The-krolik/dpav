@@ -1,4 +1,4 @@
-import directpythonplatform as dpp
+import dypi
 import time
 
 
@@ -7,10 +7,10 @@ class GameOfLife:
         self.alive = alive
         self.dead = dead
         self.scale = scale
-        self.cells = dpp.VBuffer(dimensions)
+        self.cells = dypi.VBuffer(dimensions)
         self.cells.fill(dead)
-        self.next_gen = dpp.VBuffer(dimensions)
-        self.window = dpp.Window(self.cells, scale)
+        self.next_gen = dypi.VBuffer(dimensions)
+        self.window = dypi.Window(self.cells, scale)
 
     def start(self, points=[]):
         for (x, y) in points:

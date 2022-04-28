@@ -1,10 +1,10 @@
-import directpythonplatform as dpp
+import dypi
 
-white = dpp.VBuffer([1920, 1080])
+white = dypi.VBuffer([1920, 1080])
 white.buffer.fill(0xFFFFFF)
-black = dpp.VBuffer([1920, 1080])
-win = dpp.Window(white)
-a = dpp.Audio()
+black = dypi.VBuffer([1920, 1080])
+win = dypi.Window(white)
+a = dypi.Audio()
 a.volumeLevel = 1.0
 
 a.playSound(5587, 11)

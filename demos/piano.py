@@ -1,5 +1,5 @@
 import math
-import directpythonplatform as dpp
+import dypi
 
 
 class Key:
@@ -27,8 +27,8 @@ def playKey(pos, wsize, bKeys, wKeys):
     ):
         key = bKey
 
-    frequency = math.ceil(dpp.get_note_from_string(key.note, key.octave))
-    mySound = dpp.Audio()
+    frequency = math.ceil(dypi.get_note_from_string(key.note, key.octave))
+    mySound = dypi.Audio()
     mySound.play_sound(frequency, 0.25)
 
 
@@ -43,13 +43,13 @@ def drawWhiteKeys(buf, numKeys, keySize, keySpacing):
         if drawkey:
             start = (x, 0)
             end = (x + keySize, dim[1])
-            dpp.draw_rectangle(buf, 0xFFFFFF, start, end)
+            dypi.draw_rectangle(buf, 0xFFFFFF, start, end)
             wKeys.append(Key([start, end], "white", None, None))
             x += keySize
         else:
             start = (x, 0)
             end = (x + keySpacing, dim[1])
-            dpp.draw_rectangle(buf, 0x000000, start, end)
+            dypi.draw_rectangle(buf, 0x000000, start, end)
             x += keySpacing
 
         drawkey = True if drawkey == False else False
@@ -70,7 +70,7 @@ def drawBlackKeys(buf, numWKeys, wkeySize, wkeySpacing):
     for i in range(1, round(numWKeys * 5 / 7)):
         start = (x, 0)
         end = (x + bkeySize, round(dim[1] * 2 / 3))
-        dpp.draw_rectangle(buf, 0x000000, start, end)
+        dypi.draw_rectangle(buf, 0x000000, start, end)
         bKeys.append(Key([start, end], "black", None, None))
 
         x += wkeySize + wkeySpacing
@@ -135,7 +135,7 @@ if __name__ == "__main__":
     wkey_spacing = 3
 
     windowx = (wkey_size * num_wkeys) + ((num_wkeys - 1) * wkey_spacing)
-    buf = dpp.VBuffer((windowx, 300))
+    buf = dypi.VBuffer((windowx, 300))
     wKeys = drawWhiteKeys(buf, num_wkeys, wkey_size, wkey_spacing)
     bKeys = drawBlackKeys(buf, num_wkeys, wkey_size, wkey_spacing)
 
@@ -148,21 +148,21 @@ if __name__ == "__main__":
     for ind, v in enumerate(bevents.values()):
         bKeys[ind].octave = math.ceil((ind + 2) / 5 + 2)
 
-    window = dpp.Window(buf)
+    window = dypi.Window(buf)
     window.open()
-    mySound = dpp.Audio()
+    mySound = dypi.Audio()
 
     while window.is_open():
         for i, event in enumerate(wevents):
             if event in window.eventq:
                 key = wKeys[i]
-                frequency = math.ceil(dpp.get_note_from_string(key.note, key.octave))
+                frequency = math.ceil(dypi.get_note_from_string(key.note, key.octave))
                 mySound.play_sound(frequency, 0.25)
 
         for i, event in enumerate(bevents):
             if event in window.eventq:
                 key = wKeys[i]
-                frequency = math.ceil(dpp.get_note_from_string(key.note, key.octave))
+                frequency = math.ceil(dypi.get_note_from_string(key.note, key.octave))
                 mySound.play_sound(frequency, 0.25)
 
         if "mouse" in window.eventq:
