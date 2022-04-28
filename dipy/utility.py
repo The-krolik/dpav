@@ -108,8 +108,8 @@ def get_note_from_string(string, octave):
     return hz
 
 
-# Please fucking god find a better name
-def sixteenWavtoRawData(wavefile):
+
+def convert_wav_to_nparr(wavefile):
     """
     takes in a string path/name of a wav file, converts it to numpy array
     """
