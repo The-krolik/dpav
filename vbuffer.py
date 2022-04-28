@@ -20,19 +20,31 @@ class VBuffer:
         If numpy array, will set buffer to the contents of that array.
 
     Constructor:
-        __init__(self, dimensions)
+        __init__(self, arg1=(800, 600)) -> None
+    Overloads:
+        __getitem__(self, idx) -> int
+        __setitem__(self, idx, val) -> None
+        __len__(self) -> int
+    properties:
+        getter:
+            dimensions(self) -> (int, int)
+        setter:
+            dimensions(self, val) -> None
     Setter:
-        write_pixel(self, coords, val)
-        set_buffer(self, buf)
-        clear(self)
+        write_pixel(self, coords, val) -> None
+        set_buffer(self, buf) -> None
+        clear(self) -> None
+        fill(self, color: int) -> None
     Getters:
-        get_pixel(self, coords)
-        get_dimensions(self)
-        get_buffer(self)
+        get_pixel(self, coords) -> int
+        get_dimensions(self) -> (int, int)
+    File I/O:
+        save_buffer_to_file(self, filename) -> None
+        load_buffer_from_file(self, filename) -> None
     Error Checking:
-        _check_numpy_arr(self,arg1,arg_name,method_name)
-        _check_coord_type(self, coords, arg_name, method_name)
-        _check_coord_vals(self, x, y, method_name)
+        _check_numpy_arr(self,arg1,arg_name,method_name) -> None
+        _check_coord_type(self, coords, arg_name, method_name) -> None
+        _check_coord_vals(self, x, y, method_name) -> None
     """
 
     def __init__(self, arg1=(800, 600)) -> None:
@@ -109,25 +121,7 @@ class VBuffer:
         raise AttributeError("Cannot reshape visual buffer by setting dimensions")
 
     def _check_numpy_arr(self, arg1, arg_name, method_name) -> None:
-        """Checks if value is a valid numpy array and raises exception if not
-
-        Error checks for the following:
-            - if arg1 is not a numpy array or a 2-element list/tuple
-            - if arg1 doesn't fall within the range of 0-2^24
-            - if arg1 isn't 2-dimensional
-            - if arg1 tries to support resolutions higher than 1920x1080
-
-        Parameters
-        ----------
-        arg1 : np.ndarray(int)
-            Value to test.
-        arg_name : string
-            The name of the variable that is passed to this method as arg1.
-            Will be used in error message for debugging purposes.
-        method_name : string
-            The name of the method in which this method is called.
-            Will be used in error message for debugging purposes.
-        """
+        """Checks if value is a valid numpy array and raises exception if not."""
         if not np.issubdtype(arg1.dtype, int) and not np.issubdtype(arg1.dtype, float):
             raise TypeError(
                 f"{arg_name} argument to VBuffer. {method_name} must be of type numpy.ndarray dtype=int, or a 2 element dimension list/tuple!"
@@ -146,24 +140,7 @@ class VBuffer:
             )
 
     def _check_coord_type(self, coords, arg_name, method_name) -> None:
-        """Type checks coordinates, and raises exception if incorrect type.
-
-        Error checks for the following:
-            - if the coordinates are not stored in a list or a tuple
-            - if the coordinates has more or less than two elements
-            - if the values of the coordinates are not integer values
-
-        Parameters
-        ----------
-        coords : (int, int)
-            Value to test.
-        arg_name : string
-            The name of the variable that is passed to this method as coords.
-            Will be used in error message for debugging purposes.
-        method_name : string
-            The name of the method in which this method is called.
-            Will be used in error message for debugging purposes.
-        """
+        """Type checks coordinates, and raises exception if incorrect type."""
         if type(coords) is not list and type(coords) is not tuple:
             raise TypeError(
                 f"{arg_name} argument to VBuffer. {method_name} should be a list or a tuple!"
@@ -178,20 +155,7 @@ class VBuffer:
             )
 
     def _check_coord_val(self, coords, method_name) -> None:
-        """Checks if supplied coordinates are valid. Raise exception if not.
-
-        Error checks for the following:
-            - if the X or Y coordinates are less than zero (0)
-            - if the X or Y coordinates are out of bounds
-
-        Parameters
-        ----------
-        coords : (int, int)
-            Value to test.
-        method_name : string
-            The name of the method in which this method is called.
-            Will be used in error message for debugging purposes.
-        """
+        """Checks if supplied coordinates are valid. Raise exception if not."""
         x, y = coords[0], coords[1]
         if x < 0 or y < 0:
             raise ValueError(
@@ -263,7 +227,7 @@ class VBuffer:
 
     def clear(self) -> None:
         """Set every pixel in buffer to 0 (hex value for black)."""
-        self.buffer[:] = 0
+        self.fill(0)
 
     def save_buffer_to_file(self, filename) -> None:
         """Save contents of buffer to a binary file.
