@@ -2,8 +2,7 @@ import numpy as np
 
 
 class VBuffer:
-    """
-    Visual buffer for the Python Direct Platform
+    """Visual buffer for the Python Direct Platform
 
     Holds a 2D array of hex color values. Each element represents a pixel,
     whose coordinates are its index. VBuffer can be loaded and displayed by
@@ -19,6 +18,7 @@ class VBuffer:
 
         If numpy array, will set buffer to the contents of that array.
 
+    
     Methods
     -------
     Constructor:
@@ -49,24 +49,28 @@ class VBuffer:
         _check_coord_vals(self, x, y, method_name) -> None
     """
 
-    def __init__(self, arg1=(800, 600)) -> None:
-        """
-        Constructor for the VBuffer class.
+    def __init__(self, arg1: list | tuple | np.ndarray = (800, 600)) -> None:
+        """Constructor for the VBuffer class.
 
         Loads or creates 2D numpy array, which is the main body of the VBuffer.
 
-        ERR CHECK:  if arg1 is not a numpy array; if the dimensions are
-        greater than 1920x1080 or negative.
-
         Parameters
         ----------
-        arg1 : {(int, int)|np.ndarray(int, int)}
-            Either array dimensions or a 2-dimensional numpy array of integers
-
+        arg1:
             If dimensions, will create zeroed-out 2D array of the selected
             dimensions. Defaults to 800x600.
 
             If numpy array, will set buffer to the contents of that array.
+
+        Raises
+        ------
+        TypeError :
+            If following conditions not met:
+                arg1 either list, tuple, or ndarray
+                if list or tuple, must be of length 2, and contain only ints.
+        ValueError :
+            If arg1 is list or tuple, and one or both dimensions negative,
+            or outside of bounds (1920, 1080)
         """
         if type(arg1) is np.ndarray:
             dimensions = arg1.shape
@@ -87,25 +91,22 @@ class VBuffer:
         self.debug_flag = False
         self._dimensions = dimensions
 
-    def __getitem__(self, idx) -> int:
+    def __getitem__(self, idx: list | tuple) -> int:
         """Return color value in buffer at selected coordinates.
 
         Parameters
         ----------
-        idx : (int, int)
-            Coordinates to retrieve color value from.
+        idx : Coordinates to retrieve color value from.
         """
         return self.buffer[idx]
 
-    def __setitem__(self, idx, val) -> None:
+    def __setitem__(self, idx: list | tuple, val: int) -> None:
         """Set color value at selected coordinates.
 
         Parameters
         ----------
-        idx : (int, int)
-            Coordinates to write to
-        val : int
-            Hex color code to write"""
+        idx : Coordinates to write to
+        val : Hex color code to write"""
         self.buffer[idx] = val
 
     def __len__(self) -> int:
@@ -113,16 +114,25 @@ class VBuffer:
         return len(self.buffer)
 
     @property
-    def dimensions(self) -> (int, int):
+    def dimensions(self) -> list | tuple:
         """Return dimensions of buffer."""
         return self.buffer.shape
 
     @dimensions.setter
-    def dimensions(self, val) -> None:
-        """Return error; cannot reshape buffer by setting dimensions."""
+    def dimensions(self, _) -> None:
+        """Restricts user from manually changing dimensions.
+
+        Parameters
+        ----------
+        _ : Ignored
+
+        Raises
+        ------
+        AttributeError : Always raises when setter is called.
+        """
         raise AttributeError("Cannot reshape visual buffer by setting dimensions")
 
-    def _check_numpy_arr(self, arg1, arg_name, method_name) -> None:
+    def _check_numpy_arr(self, arg1: np.ndarray, arg_name: str, method_name: str) -> None:
         """Checks if value is a valid numpy array and raises exception if not."""
         if not np.issubdtype(arg1.dtype, int) and not np.issubdtype(arg1.dtype, float):
             raise TypeError(
@@ -141,7 +151,7 @@ class VBuffer:
                 f"{arg_name} argument to VBuffer. {method_name} np.ndarray is of size: {arg1.shape} highest supported resolution is (1920,1080)"
             )
 
-    def _check_coord_type(self, coords, arg_name, method_name) -> None:
+    def _check_coord_type(self, coords: list | tuple, arg_name: str, method_name: str) -> None:
         """Type checks coordinates, and raises exception if incorrect type."""
         if type(coords) is not list and type(coords) is not tuple:
             raise TypeError(
@@ -156,7 +166,7 @@ class VBuffer:
                 f"{arg_name} argument to VBuffer. {method_name} can only have integer values!"
             )
 
-    def _check_coord_val(self, coords, method_name) -> None:
+    def _check_coord_val(self, coords: list | tuple, method_name: str) -> None:
         """Checks if supplied coordinates are valid. Raise exception if not."""
         x, y = coords[0], coords[1]
         if x < 0 or y < 0:
@@ -168,20 +178,22 @@ class VBuffer:
                 f"Coordinate args to VBuffer.{method_name} are out of bounds."
             )
 
-    def write_pixel(self, coords, val) -> None:
+    def write_pixel(self, coords: list | tuple, val: int) -> None:
         """Sets pixel at specified coordinates to specified color.
 
         Sets pixel at coordinates coords in buffer to hex value val
-        ERR CHECK: if the color value is an integer; if the color value falls within the range of 0-2^24
 
         Parameters
         ----------
-        coords : (int, int)
-            Pixel coordinates (an X and a Y)
-        val : int
-            The hex value of the desired color to change the pixel with
+        coords : Pixel coordinates (an X and a Y)
+        val : The hex value of the desired color to change the pixel with
+
+        Raises
+        ------
+        TypeError : val is not type(int)
+        ValueError : val is negative or greater than max color value (0xFFFFFF)
         """
-        self._check_coord_type(coords, "coods", "writePixel")
+        self._check_coord_type(coords, "coords", "writePixel")
         self._check_coord_val(coords, "writePixel")
         if type(val) is not int:
             raise TypeError("Color value must be an integer value!")
@@ -191,28 +203,26 @@ class VBuffer:
         x, y = coords[0], coords[1]
         self.buffer[x, y] = val
 
-    def get_pixel(self, coords) -> int:
+    def get_pixel(self, coords: list | tuple) -> int:
         """Return color value of chosen pixel.
 
         Parameters
         ----------
-        coords : (int, int)
-            2-tuple or list containing first and second index of pixel
+        coords : 2-tuple or list containing first and second index of pixel
         """
         x, y = coords[0], coords[1]
         return self.buffer[x, y]
 
-    def get_dimensions(self) -> (int, int):
+    def get_dimensions(self) -> list | tuple:
         """Return dimensions of visual buffer array."""
         return self.buffer.shape
 
-    def set_buffer(self, buf) -> None:
+    def set_buffer(self, buf: np.ndarray) -> None:
         """Set the visual buffer to equal a provided 2D array of pixels.
 
         Parameters
         ----------
-        buf : np.ndarray(int, int)
-            A 2-dimensional numpy array of integer color values
+        buf : A 2-dimensional numpy array of integer color values
         """
         self._check_numpy_arr(buf, "buf", "set_buffer")
         self.buffer = buf
@@ -222,8 +232,7 @@ class VBuffer:
 
         Parameters
         ----------
-        color : int
-            Hex color code
+        color : Hex color code
         """
         self.buffer[:] = color
 
@@ -231,22 +240,20 @@ class VBuffer:
         """Set every pixel in buffer to 0 (hex value for black)."""
         self.fill(0)
 
-    def save_buffer_to_file(self, filename) -> None:
+    def save_buffer_to_file(self, filename: str) -> None:
         """Save contents of buffer to a binary file.
 
         Parameters
         ----------
-        filename : file path
-            The path and name of the file to write to
+        filename : The path and name of the file to write to
         """
         np.save(filename, self.buffer)
 
-    def load_buffer_from_file(self, filename) -> None:
+    def load_buffer_from_file(self, filename: str) -> None:
         """Load binary file storing buffer contents, and write it to buffer.
 
         Parameters
         ----------
-        filename : file path
-            Path to a binary file containing numpy array data
+        filename : Path to a binary file containing numpy array data
         """
         self.buffer = np.load(filename + ".npy")
