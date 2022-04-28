@@ -19,6 +19,8 @@ class VBuffer:
 
         If numpy array, will set buffer to the contents of that array.
 
+    Methods
+    -------
     Constructor:
         __init__(self, arg1=(800, 600)) -> None
     Overloads:
