@@ -3,6 +3,7 @@ import pygame
 
 clock = pygame.time.Clock()
 
+
 def main():
     dimensions = (320, 240)
     buffer = dpp.VBuffer(dimensions)
@@ -10,17 +11,17 @@ def main():
 
     window.open()
 
-    CGAscrollTextCurrentX = 0
-    CGAstringToScroll = "Looky moving text...  Watch it go..."
-    CGAspillOverString = False
+    cga_scroll_text_x = 0
+    cga_scroll_string = "Looky moving text...  Watch it go..."
+    cga_scroll_spill = False
 
-    VGAscrollTextCurrentX = 0
-    VGAstringToScroll = "Big VGA letters!  The fidelity..."
-    VGAspillOverString = False
-
+    vga_scroll_text_x = 0
+    vga_scroll_string = "Big VGA letters!  The fidelity..."
+    vga_scroll_spill = False
 
     while window.is_open():
-        #Clear the buffer
+
+        # Clear the buffer
         buffer.clear()
 
         # Draw some text
@@ -35,7 +36,6 @@ def main():
         dpp.draw_8x16_string(buffer, "G", 160, 150, 0xDDDDDD, 0x336611, dpp.CHARACTER_ROM_VGA_8x16)
         dpp.draw_8x16_string(buffer, "A", 168, 150, 0xDDDDDD, 0x661133, dpp.CHARACTER_ROM_VGA_8x16)
 
-
         # Draw corner partial drawing characters for testing
         dpp.draw_8x8_string(buffer, "X", -4, -4, 0xEE0000, 0x222222, dpp.CHARACTER_ROM_CGA_8x8)
         dpp.draw_8x8_string(buffer, "X", 316, -4, 0xEE0000, 0x222222, dpp.CHARACTER_ROM_CGA_8x8)
@@ -47,48 +47,69 @@ def main():
 
         # Scrolling Test String
 
-
         #
         # CGA Scrolling Text
         #
         # Check to see if the scrolling test has completely looped around
-        if CGAscrollTextCurrentX >= buffer.get_dimensions()[0]:
-            CGAspillOverString = False
-            CGAscrollTextCurrentX = 0
+        if cga_scroll_text_x >= buffer.get_dimensions()[0]:
+            cga_scroll_spill = False
+            cga_scroll_text_x = 0
 
-        if (CGAscrollTextCurrentX + len(CGAstringToScroll)* 8) >= buffer.get_dimensions()[0]:
-            CGAspillOverString = True
+        if (cga_scroll_text_x + len(cga_scroll_string) * 8) >= buffer.get_dimensions()[0]:
+            cga_scroll_spill = True
 
         # Draw the primary string
-        dpp.draw_8x8_string(buffer, CGAstringToScroll, 0 + CGAscrollTextCurrentX, 10, 0x008844, 0x002200, dpp.CHARACTER_ROM_CGA_8x8)
+        dpp.draw_8x8_string(buffer,
+                            cga_scroll_string,
+                            0 + cga_scroll_text_x,
+                            10,
+                            0x008844,
+                            0x002200,
+                            dpp.CHARACTER_ROM_CGA_8x8)
 
         # Draw the spill over string
-        if (CGAspillOverString):
-            dpp.draw_8x8_string(buffer, CGAstringToScroll, 0 + CGAscrollTextCurrentX - buffer.get_dimensions()[0], 10, 0x008844, 0x002200, dpp.CHARACTER_ROM_CGA_8x8)
+        if cga_scroll_spill:
+            dpp.draw_8x8_string(buffer,
+                                cga_scroll_string,
+                                0 + cga_scroll_text_x - buffer.get_dimensions()[0],
+                                10,
+                                0x008844,
+                                0x002200,
+                                dpp.CHARACTER_ROM_CGA_8x8)
 
-        CGAscrollTextCurrentX += 1
-
+        cga_scroll_text_x += 1
 
         #
         #  VGA Scrolling Text
         #
         # Check to see if the scrolling test has completely looped around
-        if VGAscrollTextCurrentX >= buffer.get_dimensions()[0]:
-            VGAspillOverString = False
-            VGAscrollTextCurrentX = 0
+        if vga_scroll_text_x >= buffer.get_dimensions()[0]:
+            vga_scroll_spill = False
+            vga_scroll_text_x = 0
 
-        if (VGAscrollTextCurrentX + len(VGAstringToScroll) * 8) >= buffer.get_dimensions()[0]:
-            VGAspillOverString = True
+        if (vga_scroll_text_x + len(vga_scroll_string) * 8) >= buffer.get_dimensions()[0]:
+            vga_scroll_spill = True
 
         # Draw the primary string
-        dpp.draw_8x16_string(buffer, VGAstringToScroll, 0 + VGAscrollTextCurrentX, 200, 0x008844, 0x002200, dpp.CHARACTER_ROM_VGA_8x16)
+        dpp.draw_8x16_string(buffer,
+                             vga_scroll_string,
+                             0 + vga_scroll_text_x,
+                             200,
+                             0x008844,
+                             0x002200,
+                             dpp.CHARACTER_ROM_VGA_8x16)
 
         # Draw the spill over string
-        if (VGAspillOverString):
-            dpp.draw_8x16_string(buffer, VGAstringToScroll, 0 + VGAscrollTextCurrentX - buffer.get_dimensions()[0], 200, 0x008844, 0x002200, dpp.CHARACTER_ROM_VGA_8x16)
+        if vga_scroll_spill:
+            dpp.draw_8x16_string(buffer,
+                                 vga_scroll_string,
+                                 0 + vga_scroll_text_x - buffer.get_dimensions()[0],
+                                 200,
+                                 0x008844,
+                                 0x002200,
+                                 dpp.CHARACTER_ROM_VGA_8x16)
 
-        VGAscrollTextCurrentX += 1
-
+        vga_scroll_text_x += 1
 
         #
         #  ASCII Box Draw
@@ -105,18 +126,15 @@ def main():
         # Draw extended ASCII character ╝
         dpp.draw_8x8_character(buffer, dpp.CHARACTER_ROM_CGA_8x8[0xBC], 200, 80, 0x1155EE, 0x102200)
 
-        for x in range(58,200,8):
+        for x in range(58, 200, 8):
             # Draw extended ASCII character ═
             dpp.draw_8x8_character(buffer, dpp.CHARACTER_ROM_CGA_8x8[0xCD], x, 50, 0x1155EE, 0x102200)
             dpp.draw_8x8_character(buffer, dpp.CHARACTER_ROM_CGA_8x8[0xCD], x, 80, 0x1155EE, 0x102200)
 
-        for y in range(58,80,8):
+        for y in range(58, 80, 8):
             # Draw extended ASCII character ═
             dpp.draw_8x8_character(buffer, dpp.CHARACTER_ROM_CGA_8x8[0xBA], 50, y, 0x1155EE, 0x102200)
             dpp.draw_8x8_character(buffer, dpp.CHARACTER_ROM_CGA_8x8[0xBA], 200, y, 0x1155EE, 0x102200)
-
-
-
 
         # Update the window with the buffer
         window.update()
@@ -126,5 +144,3 @@ def main():
 
 
 main()
-
-
