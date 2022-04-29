@@ -1,6 +1,3 @@
-import sys
-import os
-sys.path.append(os.path.abspath("../dpav"))
 import pytest
 import dpav as dp
 from typing import Type
