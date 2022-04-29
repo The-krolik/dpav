@@ -7,10 +7,13 @@ win = dp.Window(white)
 a = dp.Audio()
 a.volumeLevel = 1.0
 
-a.playSound(5587, 11)
+a.play_sound(5587, 11)
+is_white = True
 win.open()
-while win.isOpen:
-    win.setVBuffer(black)
-    win.update()
-    win.setVBuffer(white)
-    win.update()
+while win.is_open():
+    if is_white:
+        win.set_vbuffer(black)
+        is_white = False
+    else:
+        win.set_vbuffer(white)
+        is_white = True
