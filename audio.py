@@ -71,7 +71,7 @@ class Audio(object):
         self.waves = wave_table()
 
         self._audio_buffer = None
-        self.waveform = self.waves.sin  
+        self.waveform = self.waves.sin
         self.name = 0
 
         self._audio_device = None
@@ -134,14 +134,14 @@ class Audio(object):
         """
         self._audio_buffer = ab
 
-    def get_audio_buffer(self): 
+    def get_audio_buffer(self):
         """Returns the audio buffer of the Audio class
 
         Description:
             This will return none if the audio buffer has not been set by the set_audio_buffer method.
 
-            audioobject.get_audio_buffer()           
-        
+            audioobject.get_audio_buffer()
+
         Args:
             None
 
@@ -178,7 +178,7 @@ class Audio(object):
 
     def set_audio_device(self, device: int) -> int:
         """Sets the current audio device of the Audio class.
-        
+
         Description:
             This can only be set ONCE per instance. To change devices, del the current instance
             set the new device, and continue
@@ -215,7 +215,7 @@ class Audio(object):
         Description:
             Assuming audioobject.set_audio_device(2) is called,
             audioobject.get_audio_device() would return 2 [index of audio device in audioobject.list_audio_devices()]
-            
+
         Args:
             None
 
@@ -230,7 +230,7 @@ class Audio(object):
 
     def set_waveform(self, wave) -> None:
         """Sets the expression governing the wave form playing
-        
+
         Description:
             play_audio uses this in buffer generation
 
@@ -251,7 +251,7 @@ class Audio(object):
 
     def play_sound(self, input_frequency=0, input_duration=0) -> None:
         """Primary sound playing method of the audio class.
-        
+
         Description:
             Play sounds directly from this function
             Need to run set_audio_device() or will default to the default audio device
@@ -434,7 +434,7 @@ class wave_table:
 
     def noise(self, input_frequency, t):
         """Random white noise
-        
+
         Description:
             Warning: VERY LOUD
 
