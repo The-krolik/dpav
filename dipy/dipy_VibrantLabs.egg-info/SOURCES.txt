@@ -1,8 +1,0 @@
-LICENSE
-README.md
-pyproject.toml
-setup.cfg
-dipy/dipy_VibrantLabs.egg-info/PKG-INFO
-dipy/dipy_VibrantLabs.egg-info/SOURCES.txt
-dipy/dipy_VibrantLabs.egg-info/dependency_links.txt
-dipy/dipy_VibrantLabs.egg-info/top_level.txt
