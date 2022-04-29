@@ -42,7 +42,7 @@ jobs:
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
 
     - name: Tests
-      run: pytest tests.py
+      run: pytest tests/tests.py
       
   check_style:
     runs-on: ubuntu-latest

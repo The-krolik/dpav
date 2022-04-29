@@ -1,5 +1,5 @@
 import pytest
-import dypi as dp
+import dpav as dp
 from typing import Type
 
 
