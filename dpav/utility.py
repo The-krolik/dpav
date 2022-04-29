@@ -280,6 +280,7 @@ def point_in_polygon(x: int, y: int, vertices) -> bool:
         j = i
     return c
 
+
 # 8x8 Character ROM based on the IBM PC CGA Font
 # Uses 64-bit integer to encode a 8x8 binary array
 # See Code Page 437
@@ -1064,7 +1065,13 @@ CHARACTER_MAP_437 = {
 
 CHARACTER_ROM_TYPES = ("8x8", "8x16")
 
-def draw_8x8_character(vb: VBuffer, encoded_character: int, x: int, y: int, fore_color: int, back_color: int) -> bool:
+
+def draw_8x8_character(vb: VBuffer,
+                       encoded_character: int,
+                       x: int,
+                       y: int,
+                       fore_color: int,
+                       back_color: int) -> bool:
 
     # Check to see if we are drawing well out the range, that no partial drawing is possible
     if x <= -8 or y <= -8 or x >= vb.dimensions[0] or y >= vb.dimensions[1]:
@@ -1130,7 +1137,13 @@ def draw_8x8_character(vb: VBuffer, encoded_character: int, x: int, y: int, fore
 
     return True
 
-def draw_8x16_character(vb: VBuffer, encoded_characters: (int, int), x: int, y: int, fore_color: int, back_color: int) -> bool:
+
+def draw_8x16_character(vb: VBuffer,
+                        encoded_characters: (int, int),
+                        x: int,
+                        y: int,
+                        fore_color: int,
+                        back_color: int) -> bool:
     # Draw the upper 8x8 character
     draw_8x8_character(vb, encoded_characters[0], x, y, fore_color, back_color)
 
@@ -1139,29 +1152,43 @@ def draw_8x16_character(vb: VBuffer, encoded_characters: (int, int), x: int, y: 
 
     return True
 
+
 class FontRenderer:
     # Set defaults
     character_rom = CHARACTER_ROM_CGA_8x8
     character_map = CHARACTER_MAP_437
     character_type = CHARACTER_ROM_TYPES[0]
 
-
     def draw_character(self, vb: VBuffer, encoded_character, x: int, y: int, fore_color: int, back_color: int) -> bool:
         if self.character_type == "8x8":
-            draw_8x8_character(vb, encoded_character, x, y, fore_color, back_color)
+            draw_8x8_character(vb,
+                               encoded_character,
+                               x,
+                               y,
+                               fore_color,
+                               back_color)
         elif self.character_type == "8x16":
-            draw_8x16_character(vb, encoded_character, x, y, fore_color, back_color)
+            draw_8x16_character(vb,
+                                encoded_character,
+                                x,
+                                y,
+                                fore_color,
+                                back_color)
         else:
             return False
 
         return True
 
-
     def draw_string(self, vb: VBuffer, string: str, x: int, y: int, fore_color: int, back_color: int) -> bool:
         current_character_x = 0
 
         for character in string:
-            self.draw_character(vb, self.character_rom[self.character_map[character]], x + current_character_x, y, fore_color, back_color)
+            self.draw_character(vb,
+                                self.character_rom[self.character_map[character]],
+                                x + current_character_x,
+                                y,
+                                fore_color,
+                                back_color)
             current_character_x += 8
 
         return True
