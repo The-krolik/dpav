@@ -284,7 +284,6 @@ def point_in_polygon(x: int, y: int, vertices) -> bool:
 # Uses 64-bit integer to encode a 8x8 binary array
 # See Code Page 437
 
-
 CHARACTER_ROM_CGA_8x8 = [
     0x0000000000000000,  # 0x00 NUL
     0x7e8199bd81a5817e,  # 0x01 ☺
@@ -580,7 +579,7 @@ CHARACTER_ROM_VGA_8x16 = [
     (0x7f36140000000000, 0x0000000000001436),  # 0x1D ↔
     (0x3e1c1c0800000000, 0x00000000007f7f3e),  # 0x1E ▲
     (0x3e3e7f7f00000000, 0x0000000000081c1c),  # 0x1F ▼
-    (0x0000000000000000, 0x0000000000000000),  # 0x20 Spac
+    (0x0000000000000000, 0x0000000000000000),  # 0x20 Space
     (0x18183c3c3c180000, 0x0000000018180018),  # 0x21 !
     (0x0000002466666600, 0x0000000000000000),  # 0x22 "
     (0x36367f3636000000, 0x0000000036367f36),  # 0x23 #
@@ -611,7 +610,7 @@ CHARACTER_ROM_VGA_8x16 = [
     (0x060c183060000000, 0x000000006030180c),  # 0x3C <
     (0x00007e0000000000, 0x000000000000007e),  # 0x3D =
     (0x6030180c06000000, 0x00000000060c1830),  # 0x3E >
-    (0x18183063633e0000, 0x0000000018180018),  # 0x3F >
+    (0x18183063633e0000, 0x0000000018180018),  # 0x3F ?
     (0x7b7b63633e000000, 0x000000003e033b7b),  # 0x40 @
     (0x7f6363361c080000, 0x0000000063636363),  # 0x41 A
     (0x663e6666663f0000, 0x000000003f666666),  # 0x42 B
@@ -805,6 +804,265 @@ CHARACTER_ROM_VGA_8x16 = [
     (0x3e3e3e3e00000000, 0x00000000003e3e3e),  # 0xFE ■
     (0x0000000000000000, 0x0000000000000000)]  # 0xFF NBSP
 
+CHARACTER_MAP_437 = {
+    "\u0000": 0x00,
+    "☺": 0x01,
+    "☻": 0x02,
+    "♥": 0x03,
+    "♦": 0x04,
+    "♣": 0x05,
+    "♠": 0x06,
+    "•": 0x07,
+    "◘": 0x08,
+    "○": 0x09,
+    "◙": 0x0A,
+    "♂": 0x0B,
+    "♀": 0x0C,
+    "♪": 0x0D,
+    "♫": 0x0E,
+    "☼": 0x0F,
+    "►": 0x10,
+    "◄": 0x11,
+    "↕": 0x12,
+    "‼": 0x13,
+    "¶": 0x14,
+    "§": 0x15,
+    "▬": 0x16,
+    "↨": 0x17,
+    "↑": 0x18,
+    "↓": 0x19,
+    "→": 0x1A,
+    "←": 0x1B,
+    "∟": 0x1C,
+    "↔": 0x1D,
+    "▲": 0x1E,
+    "▼": 0x1F,
+    " ": 0x20,
+    "!": 0x21,
+    "\"": 0x22,
+    "#": 0x23,
+    "$": 0x24,
+    "%": 0x25,
+    "&": 0x26,
+    "'": 0x27,
+    "(": 0x28,
+    ")": 0x29,
+    "*": 0x2A,
+    "+": 0x2B,
+    ",": 0x2C,
+    "-": 0x2D,
+    ".": 0x2E,
+    "/": 0x2F,
+    "0": 0x30,
+    "1": 0x31,
+    "2": 0x32,
+    "3": 0x33,
+    "4": 0x34,
+    "5": 0x35,
+    "6": 0x36,
+    "7": 0x37,
+    "8": 0x38,
+    "9": 0x39,
+    ":": 0x3A,
+    ";": 0x3B,
+    "<": 0x3C,
+    "=": 0x3D,
+    ">": 0x3E,
+    "?": 0x3F,
+    "@": 0x40,
+    "A": 0x41,
+    "B": 0x42,
+    "C": 0x43,
+    "D": 0x44,
+    "E": 0x45,
+    "F": 0x46,
+    "G": 0x47,
+    "H": 0x48,
+    "I": 0x49,
+    "J": 0x4A,
+    "K": 0x4B,
+    "L": 0x4C,
+    "M": 0x4D,
+    "N": 0x4E,
+    "O": 0x4F,
+    "P": 0x50,
+    "Q": 0x51,
+    "R": 0x52,
+    "S": 0x53,
+    "T": 0x54,
+    "U": 0x55,
+    "V": 0x56,
+    "W": 0x57,
+    "X": 0x58,
+    "Y": 0x59,
+    "Z": 0x5A,
+    "[": 0x5B,
+    "\\": 0x5C,
+    "]": 0x5D,
+    "^": 0x5E,
+    "_": 0x5F,
+    "`": 0x60,
+    "a": 0x61,
+    "b": 0x62,
+    "c": 0x63,
+    "d": 0x64,
+    "e": 0x65,
+    "f": 0x66,
+    "g": 0x67,
+    "h": 0x68,
+    "i": 0x69,
+    "j": 0x6A,
+    "k": 0x6B,
+    "l": 0x6C,
+    "m": 0x6D,
+    "n": 0x6E,
+    "o": 0x6F,
+    "p": 0x70,
+    "q": 0x71,
+    "r": 0x72,
+    "s": 0x73,
+    "t": 0x74,
+    "u": 0x75,
+    "v": 0x76,
+    "w": 0x77,
+    "x": 0x78,
+    "y": 0x79,
+    "z": 0x7A,
+    "{": 0x7B,
+    "|": 0x7C,
+    "}": 0x7D,
+    "~": 0x7E,
+    "⌂": 0x7F,
+    "Ç": 0x80,
+    "ü": 0x81,
+    "é": 0x82,
+    "â": 0x83,
+    "ä": 0x84,
+    "à": 0x85,
+    "å": 0x86,
+    "ç": 0x87,
+    "ê": 0x88,
+    "ë": 0x89,
+    "è": 0x8A,
+    "ï": 0x8B,
+    "î": 0x8C,
+    "ì": 0x8D,
+    "Ä": 0x8E,
+    "Å": 0x8F,
+    "É": 0x90,
+    "æ": 0x91,
+    "Æ": 0x92,
+    "ô": 0x93,
+    "ö": 0x94,
+    "ò": 0x95,
+    "û": 0x96,
+    "ù": 0x97,
+    "ÿ": 0x98,
+    "Ö": 0x99,
+    "Ü": 0x9A,
+    "¢": 0x9B,
+    "£": 0x9C,
+    "¥": 0x9D,
+    "₧": 0x9E,
+    "ƒ": 0x9F,
+    "á": 0xA0,
+    "í": 0xA1,
+    "ó": 0xA2,
+    "ú": 0xA3,
+    "ñ": 0xA4,
+    "Ñ": 0xA5,
+    "ª": 0xA6,
+    "º": 0xA7,
+    "¿": 0xA8,
+    "⌐": 0xA9,
+    "¬": 0xAA,
+    "½": 0xAB,
+    "¼": 0xAC,
+    "¡": 0xAD,
+    "«": 0xAE,
+    "»": 0xAF,
+    "░": 0xB0,
+    "▒": 0xB1,
+    "▓": 0xB2,
+    "│": 0xB3,
+    "┤": 0xB4,
+    "╡": 0xB5,
+    "╢": 0xB6,
+    "╖": 0xB7,
+    "╕": 0xB8,
+    "╣": 0xB9,
+    "║": 0xBA,
+    "╗": 0xBB,
+    "╝": 0xBC,
+    "╜": 0xBD,
+    "╛": 0xBE,
+    "┐": 0xBF,
+    "└": 0xC0,
+    "┴": 0xC1,
+    "┬": 0xC2,
+    "├": 0xC3,
+    "─": 0xC4,
+    "┼": 0xC5,
+    "╞": 0xC6,
+    "╟": 0xC7,
+    "╚": 0xC8,
+    "╔": 0xC9,
+    "╩": 0xCA,
+    "╦": 0xCB,
+    "╠": 0xCC,
+    "═": 0xCD,
+    "╬": 0xCE,
+    "╧": 0xCF,
+    "╨": 0xD0,
+    "╤": 0xD1,
+    "╥": 0xD2,
+    "╙": 0xD3,
+    "╘": 0xD4,
+    "╒": 0xD5,
+    "╓": 0xD6,
+    "╫": 0xD7,
+    "╪": 0xD8,
+    "┘": 0xD9,
+    "┌": 0xDA,
+    "█": 0xDB,
+    "▄": 0xDC,
+    "▌": 0xDD,
+    "▐": 0xDE,
+    "▀": 0xDF,
+    "α": 0xE0,
+    "ß": 0xE1,
+    "Γ": 0xE2,
+    "π": 0xE3,
+    "Σ": 0xE4,
+    "σ": 0xE5,
+    "µ": 0xE6,
+    "τ": 0xE7,
+    "Φ": 0xE8,
+    "Θ": 0xE9,
+    "Ω": 0xEA,
+    "δ": 0xEB,
+    "∞": 0xEC,
+    "φ": 0xED,
+    "ε": 0xEE,
+    "∩": 0xEF,
+    "≡": 0xF0,
+    "±": 0xF1,
+    "≥": 0xF2,
+    "≤": 0xF3,
+    "⌠": 0xF4,
+    "⌡": 0xF5,
+    "÷": 0xF6,
+    "≈": 0xF7,
+    "°": 0xF8,
+    "∙": 0xF9,
+    "·": 0xFA,
+    "√": 0xFB,
+    "ⁿ": 0xFC,
+    "²": 0xFD,
+    "■": 0xFE,
+    "\u00a0": 0xFF}
+
+CHARACTER_ROM_TYPES = ("8x8", "8x16")
 
 def draw_8x8_character(vb: VBuffer, encoded_character: int, x: int, y: int, fore_color: int, back_color: int) -> bool:
 
@@ -872,7 +1130,6 @@ def draw_8x8_character(vb: VBuffer, encoded_character: int, x: int, y: int, fore
 
     return True
 
-
 def draw_8x16_character(vb: VBuffer, encoded_characters: (int, int), x: int, y: int, fore_color: int, back_color: int) -> bool:
     # Draw the upper 8x8 character
     draw_8x8_character(vb, encoded_characters[0], x, y, fore_color, back_color)
@@ -882,23 +1139,33 @@ def draw_8x16_character(vb: VBuffer, encoded_characters: (int, int), x: int, y: 
 
     return True
 
-
-def draw_8x8_string(vb: VBuffer, string: str, x: int, y: int, fore_color: int, back_color: int, font_rom: list[int]) -> bool:
-    current_character_x = 0
-
-    for character in string:
-        draw_8x8_character(vb, font_rom[ord(character)], x + current_character_x, y, fore_color, back_color)
-        current_character_x += 8
-
-    return True
+class FontRenderer:
+    # Set defaults
+    character_rom = CHARACTER_ROM_CGA_8x8
+    character_map = CHARACTER_MAP_437
+    character_type = CHARACTER_ROM_TYPES[0]
 
 
-def draw_8x16_string(vb: VBuffer, string: str, x: int, y: int, fore_color: int, back_color: int, font_rom: list[int]) -> bool:
-    current_character_x = 0
+    def draw_character(self, vb: VBuffer, encoded_character, x: int, y: int, fore_color: int, back_color: int) -> bool:
+        if self.character_type == "8x8":
+            draw_8x8_character(vb, encoded_character, x, y, fore_color, back_color)
+        elif self.character_type == "8x16":
+            draw_8x16_character(vb, encoded_character, x, y, fore_color, back_color)
+        else:
+            return False
 
-    for character in string:
-        draw_8x16_character(vb, font_rom[ord(character)], x + current_character_x, y, fore_color, back_color)
-        current_character_x += 8
+        return True
 
-    return True
+
+    def draw_string(self, vb: VBuffer, string: str, x: int, y: int, fore_color: int, back_color: int) -> bool:
+        current_character_x = 0
+
+        for character in string:
+            self.draw_character(vb, self.character_rom[self.character_map[character]], x + current_character_x, y, fore_color, back_color)
+            current_character_x += 8
+
+        return True
+
+
+
 

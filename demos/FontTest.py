@@ -24,26 +24,33 @@ def main():
         # Clear the buffer
         buffer.clear()
 
+        # Create a font renderers
+        cga_font = dpav.FontRenderer()
+        vga_font = dpav.FontRenderer()
+
+        vga_font.character_type = dpav.CHARACTER_ROM_TYPES[1]
+        vga_font.character_rom = dpav.CHARACTER_ROM_VGA_8x16
+
         # Draw some text
 
         # Draw individual CGA characters
-        dpav.draw_8x8_string(buffer, "C", 152, 120, 0xDDDDDD, 0x112255, dpav.CHARACTER_ROM_CGA_8x8)
-        dpav.draw_8x8_string(buffer, "G", 160, 120, 0xDDDDDD, 0x225511, dpav.CHARACTER_ROM_CGA_8x8)
-        dpav.draw_8x8_string(buffer, "A", 168, 120, 0xDDDDDD, 0x551122, dpav.CHARACTER_ROM_CGA_8x8)
+        cga_font.draw_string(buffer, "C", 152, 120, 0xDDDDDD, 0x112255)
+        cga_font.draw_string(buffer, "G", 160, 120, 0xDDDDDD, 0x225511)
+        cga_font.draw_string(buffer, "A", 168, 120, 0xDDDDDD, 0x551122)
 
         # Draw individual VGA characters
-        dpav.draw_8x16_string(buffer, "V", 152, 150, 0xDDDDDD, 0x113366, dpav.CHARACTER_ROM_VGA_8x16)
-        dpav.draw_8x16_string(buffer, "G", 160, 150, 0xDDDDDD, 0x336611, dpav.CHARACTER_ROM_VGA_8x16)
-        dpav.draw_8x16_string(buffer, "A", 168, 150, 0xDDDDDD, 0x661133, dpav.CHARACTER_ROM_VGA_8x16)
+        vga_font.draw_string(buffer, "V", 152, 150, 0xDDDDDD, 0x113366)
+        vga_font.draw_string(buffer, "G", 160, 150, 0xDDDDDD, 0x336611)
+        vga_font.draw_string(buffer, "A", 168, 150, 0xDDDDDD, 0x661133)
 
         # Draw corner partial drawing characters for testing
-        dpav.draw_8x8_string(buffer, "X", -4, -4, 0xEE0000, 0x222222, dpav.CHARACTER_ROM_CGA_8x8)
-        dpav.draw_8x8_string(buffer, "X", 316, -4, 0xEE0000, 0x222222, dpav.CHARACTER_ROM_CGA_8x8)
-        dpav.draw_8x8_string(buffer, "X", -4, 236, 0xEE0000, 0x222222, dpav.CHARACTER_ROM_CGA_8x8)
-        dpav.draw_8x8_string(buffer, "X", 316, 236, 0xEE0000, 0x222222, dpav.CHARACTER_ROM_CGA_8x8)
+        cga_font.draw_string(buffer, "X", -4, -4, 0xEE0000, 0x222222)
+        cga_font.draw_string(buffer, "X", 316, -4, 0xEE0000, 0x222222)
+        cga_font.draw_string(buffer, "X", -4, 236, 0xEE0000, 0x222222)
+        cga_font.draw_string(buffer, "X", 316, 236, 0xEE0000, 0x222222)
 
         # Static Test String
-        dpav.draw_8x8_string(buffer, "Static Test String?!", 90, 100, 0x00EE00, 0x104410, dpav.CHARACTER_ROM_CGA_8x8)
+        cga_font.draw_string(buffer, "Static Test String?!", 90, 100, 0x00EE00, 0x104410)
 
         # Scrolling Test String
 
@@ -59,23 +66,21 @@ def main():
             cga_scroll_spill = True
 
         # Draw the primary string
-        dpav.draw_8x8_string(buffer,
+        cga_font.draw_string(buffer,
                              cga_scroll_string,
                              0 + cga_scroll_text_x,
                              10,
                              0x008844,
-                             0x002200,
-                             dpav.CHARACTER_ROM_CGA_8x8)
+                             0x002200)
 
         # Draw the spill over string
         if cga_scroll_spill:
-            dpav.draw_8x8_string(buffer,
+            cga_font.draw_string(buffer,
                                  cga_scroll_string,
                                  0 + cga_scroll_text_x - buffer.get_dimensions()[0],
                                  10,
                                  0x008844,
-                                 0x002200,
-                                 dpav.CHARACTER_ROM_CGA_8x8)
+                                 0x002200)
 
         cga_scroll_text_x += 1
 
@@ -91,23 +96,21 @@ def main():
             vga_scroll_spill = True
 
         # Draw the primary string
-        dpav.draw_8x16_string(buffer,
+        vga_font.draw_string(buffer,
                               vga_scroll_string,
                               0 + vga_scroll_text_x,
                               200,
                               0x008844,
-                              0x002200,
-                              dpav.CHARACTER_ROM_VGA_8x16)
+                              0x002200)
 
         # Draw the spill over string
         if vga_scroll_spill:
-            dpav.draw_8x16_string(buffer,
+            vga_font.draw_string(buffer,
                                   vga_scroll_string,
                                   0 + vga_scroll_text_x - buffer.get_dimensions()[0],
                                   200,
                                   0x008844,
-                                  0x002200,
-                                  dpav.CHARACTER_ROM_VGA_8x16)
+                                  0x002200)
 
         vga_scroll_text_x += 1
 
@@ -115,16 +118,16 @@ def main():
         #  ASCII Box Draw
         #
         # Draw extended ASCII character ╔
-        dpav.draw_8x8_character(buffer, dpav.CHARACTER_ROM_CGA_8x8[0xC9], 50, 50, 0x1155EE, 0x102200)
+        cga_font.draw_string(buffer, "╔", 50, 50, 0x1155EE, 0x102200)
 
         # Draw extended ASCII character ╚
-        dpav.draw_8x8_character(buffer, dpav.CHARACTER_ROM_CGA_8x8[0xC8], 50, 80, 0x1155EE, 0x102200)
+        cga_font.draw_string(buffer, "╚", 50, 80, 0x1155EE, 0x102200)
 
         # Draw extended ASCII character ╗
-        dpav.draw_8x8_character(buffer, dpav.CHARACTER_ROM_CGA_8x8[0xBB], 200, 50, 0x1155EE, 0x102200)
+        cga_font.draw_string(buffer, "╗", 200, 50, 0x1155EE, 0x102200)
 
         # Draw extended ASCII character ╝
-        dpav.draw_8x8_character(buffer, dpav.CHARACTER_ROM_CGA_8x8[0xBC], 200, 80, 0x1155EE, 0x102200)
+        cga_font.draw_string(buffer, "╝", 200, 80, 0x1155EE, 0x102200)
 
         for x in range(58, 200, 8):
             # Draw extended ASCII character ═
