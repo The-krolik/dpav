@@ -1,0 +1,20 @@
+Metadata-Version: 2.1
+Name: dipy-VibrantLabs
+Version: 1.0
+Summary: A library that gives users direct access to audio/video io.
+Home-page: https://github.com/The-krolik/dipy
+Author: Vibrant Labs
+Author-email: clh9i@mtmail.mtsu.edu
+License: UNKNOWN
+Project-URL: Bug Tracker, https://github.com/The-krolik/dipy/issues
+Platform: UNKNOWN
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+License-File: LICENSE
+
+# DirectPythonPlatform
+
+
