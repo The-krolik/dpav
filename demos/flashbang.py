@@ -1,10 +1,10 @@
-import dypi
+import dpav as dp
 
-white = dypi.VBuffer([1920, 1080])
+white = dp.VBuffer([1920, 1080])
 white.buffer.fill(0xFFFFFF)
-black = dypi.VBuffer([1920, 1080])
-win = dypi.Window(white)
-a = dypi.Audio()
+black = dp.VBuffer([1920, 1080])
+win = dp.Window(white)
+a = dp.Audio()
 a.volumeLevel = 1.0
 
 a.playSound(5587, 11)

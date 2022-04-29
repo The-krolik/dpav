@@ -1,8 +1,8 @@
-import dypi
+import dpav as dp
 
-vb = dypi.VBuffer([50, 50])
+vb = dp.VBuffer([50, 50])
 vb[:] = 0xFFFFFF
-window = dypi.Window(vb, 12)
+window = dp.Window(vb, 12)
 
 window.open()
 color = 0x000000
