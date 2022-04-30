@@ -1,5 +1,7 @@
 from .vbuffer import VBuffer
 from datetime import datetime
+from enum import Enum
+from enum import IntEnum
 from math import sin, cos, pi
 import numpy as np
 import pygame
@@ -1066,12 +1068,44 @@ CHARACTER_MAP_437 = {
 CHARACTER_ROM_TYPES = ("8x8", "8x16")
 
 
+class ClassicColors16(IntEnum):
+
+    # Regular 8 Colors
+    BLACK       = 0x000000
+    RED         = 0xBB0000
+    GREEN       = 0x00BB00
+    YELLOW      = 0xBBBB00
+    BLUE        = 0x0000BB
+    MAGENTA     = 0xBB00BB
+    CYAN        = 0x00BBBB
+    WHITE       = 0xBBBBBB
+
+    # Bright 8 Colors
+    BR_BLACK    = 0x555555
+    BR_RED      = 0xFF5555
+    BR_GREEN    = 0x55FF55
+    BR_YELLOW   = 0xFFFF55
+    BR_BLUE     = 0x5555FF
+    BR_MAGENTA  = 0xFF55FF
+    BR_CYAN     = 0x55FFFF
+    BR_WHITE    = 0xFFFFFF
+
+
 def draw_8x8_character(vb: VBuffer,
                        encoded_character: int,
                        x: int,
                        y: int,
-                       fore_color: int,
-                       back_color: int) -> bool:
+                       fore_color,
+                       back_color) -> bool:
+
+    # Check for valid color arguments
+    # Check for fore color
+    if not isinstance(fore_color, (int, bool, list)):
+        raise NameError("fore_color: Has to be an int, bool, list")
+
+    # Check for fore color
+    if not isinstance(back_color, (int, bool, list)):
+        raise NameError("back_color:  Has to be an int, bool, list")
 
     # Check to see if we are drawing well out the range, that no partial drawing is possible
     if x <= -8 or y <= -8 or x >= vb.dimensions[0] or y >= vb.dimensions[1]:
@@ -1129,9 +1163,17 @@ def draw_8x8_character(vb: VBuffer,
         current_x = 0
         for bit in row_bool[start_x_offset: end_x]:
             if bit:
-                vb[x + start_x_offset + current_x][y + start_y_offset + current_y] = fore_color
+                if isinstance(fore_color, int):
+                    vb[x + start_x_offset + current_x][y + start_y_offset + current_y] = fore_color
+                elif isinstance(fore_color, list):
+                    vb[x + start_x_offset + current_x][y + start_y_offset + current_y] = fore_color[(start_x_offset + current_x + 8 * (start_y_offset + current_y)) % len(fore_color)]
             else:
-                vb[x + start_x_offset + current_x][y + start_y_offset + current_y] = back_color
+                if isinstance(back_color, int):
+                    vb[x + start_x_offset + current_x][y + start_y_offset + current_y] = back_color
+
+                elif isinstance(back_color, list):
+                    vb[x + start_x_offset + current_x][y + start_y_offset + current_y] = back_color[(start_x_offset + current_x + 8 * (start_y_offset + current_y)) % len(back_color)]
+
             current_x += 1
         current_y += 1
 

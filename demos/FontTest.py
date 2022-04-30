@@ -19,6 +19,9 @@ def main():
     vga_scroll_string = "Big VGA letters!  The fidelity..."
     vga_scroll_spill = False
 
+    rainbow_colors = [0xFF0000, 0xFF8800, 0x888800, 0x00FF00, 0x00FF88, 0x008888, 0x0088FF, 0x0000FF, 0x880088]
+
+
     while window.is_open():
 
         # Clear the buffer
@@ -33,15 +36,19 @@ def main():
 
         # Draw some text
 
+        # Rainbow colors
+
+
+
         # Draw individual CGA characters
-        cga_font.draw_string(buffer, "C", 152, 120, 0xDDDDDD, 0x112255)
-        cga_font.draw_string(buffer, "G", 160, 120, 0xDDDDDD, 0x225511)
-        cga_font.draw_string(buffer, "A", 168, 120, 0xDDDDDD, 0x551122)
+        cga_font.draw_string(buffer, "C", 152, 128, rainbow_colors, 0x112255)
+        cga_font.draw_string(buffer, "G", 160, 128, rainbow_colors, 0x225511)
+        cga_font.draw_string(buffer, "A", 168, 128, rainbow_colors, 0x551122)
 
         # Draw individual VGA characters
-        vga_font.draw_string(buffer, "V", 152, 150, 0xDDDDDD, 0x113366)
-        vga_font.draw_string(buffer, "G", 160, 150, 0xDDDDDD, 0x336611)
-        vga_font.draw_string(buffer, "A", 168, 150, 0xDDDDDD, 0x661133)
+        vga_font.draw_string(buffer, "V", 152, 150, rainbow_colors, 0x113366)
+        vga_font.draw_string(buffer, "G", 160, 150, rainbow_colors, 0x336611)
+        vga_font.draw_string(buffer, "A", 168, 150, rainbow_colors, 0x661133)
 
         # Draw corner partial drawing characters for testing
         cga_font.draw_string(buffer, "X", -4, -4, 0xEE0000, 0x222222)
@@ -51,6 +58,26 @@ def main():
 
         # Static Test String
         cga_font.draw_string(buffer, "Static Test String?!", 90, 100, 0x00EE00, 0x104410)
+        cga_font.draw_string(buffer, "Static Test String?!", 90, 108, 0x00EE00, False)
+        cga_font.draw_string(buffer, "Static Test String?!", 90, 116, False, 0x104410)
+
+        # Draw Color Test Block
+        cga_font.draw_string(buffer, "█", 20, 180, dpav.ClassicColors16.BLACK, False)
+        cga_font.draw_string(buffer, "█", 28, 180, dpav.ClassicColors16.RED, False)
+        cga_font.draw_string(buffer, "█", 36, 180, dpav.ClassicColors16.GREEN, False)
+        cga_font.draw_string(buffer, "█", 44, 180, dpav.ClassicColors16.YELLOW, False)
+        cga_font.draw_string(buffer, "█", 52, 180, dpav.ClassicColors16.BLUE, False)
+        cga_font.draw_string(buffer, "█", 60, 180, dpav.ClassicColors16.MAGENTA, False)
+        cga_font.draw_string(buffer, "█", 68, 180, dpav.ClassicColors16.CYAN, False)
+        cga_font.draw_string(buffer, "█", 76, 180, dpav.ClassicColors16.WHITE, False)
+        cga_font.draw_string(buffer, "█", 84, 180, dpav.ClassicColors16.BR_BLACK, False)
+        cga_font.draw_string(buffer, "█", 92, 180, dpav.ClassicColors16.BR_RED, False)
+        cga_font.draw_string(buffer, "█", 100, 180, dpav.ClassicColors16.BR_GREEN, False)
+        cga_font.draw_string(buffer, "█", 108, 180, dpav.ClassicColors16.BR_YELLOW, False)
+        cga_font.draw_string(buffer, "█", 116, 180, dpav.ClassicColors16.BR_BLUE, False)
+        cga_font.draw_string(buffer, "█", 124, 180, dpav.ClassicColors16.BR_MAGENTA, False)
+        cga_font.draw_string(buffer, "█", 130, 180, dpav.ClassicColors16.BR_CYAN, False)
+        cga_font.draw_string(buffer, "█", 138, 180, dpav.ClassicColors16.BR_WHITE, False)
 
         # Scrolling Test String
 
@@ -118,26 +145,29 @@ def main():
         #  ASCII Box Draw
         #
         # Draw extended ASCII character ╔
-        cga_font.draw_string(buffer, "╔", 50, 50, 0x1155EE, 0x102200)
+        cga_font.draw_string(buffer, "╔", 50, 50, 0x1155EE, rainbow_colors)
 
         # Draw extended ASCII character ╚
-        cga_font.draw_string(buffer, "╚", 50, 80, 0x1155EE, 0x102200)
+        cga_font.draw_string(buffer, "╚", 50, 80, 0x1155EE, rainbow_colors)
 
         # Draw extended ASCII character ╗
-        cga_font.draw_string(buffer, "╗", 200, 50, 0x1155EE, 0x102200)
+        cga_font.draw_string(buffer, "╗", 200, 50, 0x1155EE, rainbow_colors)
 
         # Draw extended ASCII character ╝
-        cga_font.draw_string(buffer, "╝", 200, 80, 0x1155EE, 0x102200)
+        cga_font.draw_string(buffer, "╝", 200, 80, 0x1155EE, rainbow_colors)
 
         for x in range(58, 200, 8):
             # Draw extended ASCII character ═
-            dpav.draw_8x8_character(buffer, dpav.CHARACTER_ROM_CGA_8x8[0xCD], x, 50, 0x1155EE, 0x102200)
-            dpav.draw_8x8_character(buffer, dpav.CHARACTER_ROM_CGA_8x8[0xCD], x, 80, 0x1155EE, 0x102200)
+            dpav.draw_8x8_character(buffer, dpav.CHARACTER_ROM_CGA_8x8[0xCD], x, 50, 0x1155EE, rainbow_colors)
+            dpav.draw_8x8_character(buffer, dpav.CHARACTER_ROM_CGA_8x8[0xCD], x, 80, 0x1155EE, rainbow_colors)
 
         for y in range(58, 80, 8):
             # Draw extended ASCII character ═
-            dpav.draw_8x8_character(buffer, dpav.CHARACTER_ROM_CGA_8x8[0xBA], 50, y, 0x1155EE, 0x102200)
-            dpav.draw_8x8_character(buffer, dpav.CHARACTER_ROM_CGA_8x8[0xBA], 200, y, 0x1155EE, 0x102200)
+            dpav.draw_8x8_character(buffer, dpav.CHARACTER_ROM_CGA_8x8[0xBA], 50, y, 0x1155EE, rainbow_colors)
+            dpav.draw_8x8_character(buffer, dpav.CHARACTER_ROM_CGA_8x8[0xBA], 200, y, 0x1155EE, rainbow_colors)
+
+        # Rotate the rainbow
+        rainbow_colors.append(rainbow_colors.pop(0))
 
         # Update the window with the buffer
         window.update()
