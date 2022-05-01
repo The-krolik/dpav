@@ -1,8 +1,9 @@
+import math
+
 import dpav
 import pygame
 
 clock = pygame.time.Clock()
-
 
 def main():
     dimensions = (320, 240)
@@ -21,6 +22,24 @@ def main():
 
     rainbow_colors = [0xFF0000, 0xFF8800, 0x888800, 0x00FF00, 0x00FF88, 0x008888, 0x0088FF, 0x0000FF, 0x880088]
 
+    sine_scroll_progress = 0
+    sine_scroll_x_offset = 0
+    sine_scroll_message = "Sine scroller!  Whee!"
+    sine_scroll_height = 60
+    sine_scroll_curve = .05
+
+    ClassicRainbow8 = [
+        dpav.ClassicColors16.BLACK,
+        dpav.ClassicColors16.RED,
+        dpav.ClassicColors16.YELLOW,
+        dpav.ClassicColors16.GREEN,
+        dpav.ClassicColors16.BLUE,
+        dpav.ClassicColors16.CYAN,
+        dpav.ClassicColors16.MAGENTA,
+        dpav.ClassicColors16.WHITE
+    ]
+
+
 
     while window.is_open():
 
@@ -36,7 +55,23 @@ def main():
 
         # Draw some text
 
-        # Rainbow colors
+        # Sine scroller!
+        # Draw the letters
+
+        sine_scroll_message_index = 0
+        for letter in sine_scroll_message:
+            dpav.draw_8x8_character(buffer,
+                                    dpav.CHARACTER_ROM_CGA_8x8[dpav.CHARACTER_MAP_437[letter]],
+                                    (10 + sine_scroll_x_offset + sine_scroll_message_index * 8) % buffer.dimensions[0],
+                                    (120 + int(sine_scroll_height * math.sin(sine_scroll_curve * (sine_scroll_message_index * 8 + sine_scroll_progress)))) % buffer.dimensions[1],
+                                    ClassicRainbow8[(sine_scroll_message_index + sine_scroll_progress)% 8],
+                                    False
+                                    )
+            sine_scroll_message_index += 1
+
+        sine_scroll_progress += 1
+        sine_scroll_x_offset += 1
+
 
 
 

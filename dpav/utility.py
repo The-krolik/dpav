@@ -253,9 +253,9 @@ def fill(vb: VBuffer, color: int, vertices):
     """
     Fills a polygon defined by a set of vertices with a color.
     """
-    (dimx, dimy) = vb.get_dimensions()
-    for i in range(dimx):
-        for j in range(dimy):
+    (dim_x, dim_y) = vb.get_dimensions()
+    for i in range(dim_x):
+        for j in range(dim_y):
             if point_in_polygon(i, j, vertices):
                 vb.buffer[i][j] = color
 
@@ -1071,24 +1071,24 @@ CHARACTER_ROM_TYPES = ("8x8", "8x16")
 class ClassicColors16(IntEnum):
 
     # Regular 8 Colors
-    BLACK       = 0x000000
-    RED         = 0xBB0000
-    GREEN       = 0x00BB00
-    YELLOW      = 0xBBBB00
-    BLUE        = 0x0000BB
-    MAGENTA     = 0xBB00BB
-    CYAN        = 0x00BBBB
-    WHITE       = 0xBBBBBB
+    BLACK = 0x000000
+    RED = 0xBB0000
+    GREEN = 0x00BB00
+    YELLOW = 0xBBBB00
+    BLUE = 0x0000BB
+    MAGENTA = 0xBB00BB
+    CYAN = 0x00BBBB
+    WHITE = 0xBBBBBB
 
     # Bright 8 Colors
-    BR_BLACK    = 0x555555
-    BR_RED      = 0xFF5555
-    BR_GREEN    = 0x55FF55
-    BR_YELLOW   = 0xFFFF55
-    BR_BLUE     = 0x5555FF
-    BR_MAGENTA  = 0xFF55FF
-    BR_CYAN     = 0x55FFFF
-    BR_WHITE    = 0xFFFFFF
+    BR_BLACK = 0x555555
+    BR_RED = 0xFF5555
+    BR_GREEN = 0x55FF55
+    BR_YELLOW = 0xFFFF55
+    BR_BLUE = 0x5555FF
+    BR_MAGENTA = 0xFF55FF
+    BR_CYAN = 0x55FFFF
+    BR_WHITE = 0xFFFFFF
 
 
 def draw_8x8_character(vb: VBuffer,
@@ -1163,14 +1163,17 @@ def draw_8x8_character(vb: VBuffer,
         current_x = 0
         for bit in row_bool[start_x_offset: end_x]:
             if bit:
-                if isinstance(fore_color, int):
+                if isinstance(fore_color, bool):
+                    pass
+                elif isinstance(fore_color, int):
                     vb[x + start_x_offset + current_x][y + start_y_offset + current_y] = fore_color
                 elif isinstance(fore_color, list):
                     vb[x + start_x_offset + current_x][y + start_y_offset + current_y] = fore_color[(start_x_offset + current_x + 8 * (start_y_offset + current_y)) % len(fore_color)]
             else:
-                if isinstance(back_color, int):
+                if isinstance(back_color, bool):
+                    pass
+                elif isinstance(back_color, int):
                     vb[x + start_x_offset + current_x][y + start_y_offset + current_y] = back_color
-
                 elif isinstance(back_color, list):
                     vb[x + start_x_offset + current_x][y + start_y_offset + current_y] = back_color[(start_x_offset + current_x + 8 * (start_y_offset + current_y)) % len(back_color)]
 
@@ -1234,7 +1237,3 @@ class FontRenderer:
             current_character_x += 8
 
         return True
-
-
-
-
