@@ -61,7 +61,7 @@
 
 
 \title{Direct Python Audio/Video}
-\date{May 01, 2022}
+\date{May 02, 2022}
 \release{0.0.1}
 \author{Vibrant Labs}
 \newcommand{\sphinxlogo}{\vbox{}}
@@ -76,6 +76,8 @@
 \pagestyle{normal}
 \phantomsection\label{\detokenize{index::doc}}
 
+
+\sphinxstepscope
 
 
 \chapter{What is Direct Python Audio/Video?}
@@ -342,6 +344,8 @@ Obtaining the current position of the mouse is done by calling the get\_mouse\_p
      \PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+sa}{f}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{Color at }\PYG{l+s+si}{\PYGZob{}}\PYG{n}{pos}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s2}{ changed to Red}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{)}
 \end{sphinxVerbatim}
 
+\sphinxstepscope
+
 
 \chapter{Source Documentation}
 \label{\detokenize{dpav:source-documentation}}\label{\detokenize{dpav::doc}}
@@ -350,79 +354,28 @@ Obtaining the current position of the mouse is done by calling the get\_mouse\_p
 \label{\detokenize{dpav:audio}}
 
 \begin{fulllineitems}
-\pysigline{\sphinxbfcode{\sphinxupquote{class }}\sphinxcode{\sphinxupquote{dpav.audio.}}\sphinxbfcode{\sphinxupquote{Audio}}}
+
+\pysigstartsignatures
+\pysigline{\sphinxbfcode{\sphinxupquote{class\DUrole{w}{  }}}\sphinxcode{\sphinxupquote{dpav.audio.}}\sphinxbfcode{\sphinxupquote{Audio}}}
+\pysigstopsignatures
 \sphinxAtStartPar
 Bases: \sphinxcode{\sphinxupquote{object}}
 
 \sphinxAtStartPar
-Handles Audio capabilities of Python Direct Platform.
-\begin{description}
-\item[{Functions:}] \leavevmode\begin{description}
-\item[{Constructor:}] \leavevmode
-\sphinxAtStartPar
-\_\_init\_\_()
-
-\item[{Functions:}] \leavevmode\begin{description}
-\item[{play\_sound(Hz, length)}] \leavevmode\begin{description}
-\item[{If audio buffer is set:}] \leavevmode
-\sphinxAtStartPar
-play\_sound()
-
-\end{description}
-
-\end{description}
-
-\sphinxAtStartPar
-play\_sample(string\_name\_of\_wav\_file)
-
-\item[{Setters:}] \leavevmode
-\sphinxAtStartPar
-set\_audio\_buffer(numpyarray)
-set\_audio\_device(int)
-set\_waveform(waveform)
-
-\item[{Getters:}] \leavevmode
-\sphinxAtStartPar
-get\_bit\_number()\sphinxhyphen{}\textgreater{}int
-get\_sample\_rate()\sphinxhyphen{}\textgreater{}int
-get\_audio\_buffer()
-get\_audio\_device()\sphinxhyphen{}\textgreater{}Returns int corresponding to audio device
-
-\item[{Misc:}] \leavevmode
-\sphinxAtStartPar
-list\_audio\_devices()
-wait\_for\_sound\_end()
-
-\end{description}
-
-\end{description}
+Handles Audio capabilities of Direct Python Audio/Video.
 
 
 \begin{fulllineitems}
-\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{get\_audio\_buffer}}}{}{}
-\sphinxAtStartPar
-Returns the audio buffer of the Audio class
-\begin{description}
-\item[{Description:}] \leavevmode
-\sphinxAtStartPar
-This will return none if the audio buffer has not been set by the set\_audio\_buffer method.
 
+\pysigstartsignatures
+\pysigline{\sphinxbfcode{\sphinxupquote{\_bit\_number}}}
+\pysigstopsignatures
 \sphinxAtStartPar
-audioobject.get\_audio\_buffer()
-
-\end{description}
+The bit rate of the audio buffer (locked at 16).
 \begin{quote}\begin{description}
-\item[{Parameters}] \leavevmode
+\item[{Type}] \leavevmode
 \sphinxAtStartPar
-\sphinxstyleliteralstrong{\sphinxupquote{None}} \textendash{} 
-
-\item[{Returns}] \leavevmode
-\sphinxAtStartPar
-numpy array
-
-\item[{Return type}] \leavevmode
-\sphinxAtStartPar
-self.\_audio\_buffer
+int
 
 \end{description}\end{quote}
 
@@ -431,59 +384,135 @@ self.\_audio\_buffer
 
 
 \begin{fulllineitems}
+
+\pysigstartsignatures
+\pysigline{\sphinxbfcode{\sphinxupquote{\_sample\_rate}}}
+\pysigstopsignatures
+\sphinxAtStartPar
+The sample rate of the audio buffer (locked at 44100).
+\begin{quote}\begin{description}
+\item[{Type}] \leavevmode
+\sphinxAtStartPar
+int
+
+\end{description}\end{quote}
+
+\end{fulllineitems}
+
+
+
+\begin{fulllineitems}
+
+\pysigstartsignatures
+\pysigline{\sphinxbfcode{\sphinxupquote{\_audio\_buffer}}}
+\pysigstopsignatures
+\sphinxAtStartPar
+An array holding sounds to be played.
+\begin{quote}\begin{description}
+\item[{Type}] \leavevmode
+\sphinxAtStartPar
+\sphinxcode{\sphinxupquote{numpy.ndarray}}
+
+\end{description}\end{quote}
+
+\end{fulllineitems}
+
+
+
+\begin{fulllineitems}
+
+\pysigstartsignatures
+\pysigline{\sphinxbfcode{\sphinxupquote{\_audio\_device}}}
+\pysigstopsignatures
+\sphinxAtStartPar
+The array index of list of audio\_devices (see set\_audio\_devices).
+\begin{quote}\begin{description}
+\item[{Type}] \leavevmode
+\sphinxAtStartPar
+int
+
+\end{description}\end{quote}
+
+\end{fulllineitems}
+
+
+
+\begin{fulllineitems}
+
+\pysigstartsignatures
+\pysigline{\sphinxbfcode{\sphinxupquote{volume\_level}}}
+\pysigstopsignatures
+\sphinxAtStartPar
+A number between 0 and 1 for the volume.
+\begin{quote}\begin{description}
+\item[{Type}] \leavevmode
+\sphinxAtStartPar
+float
+
+\end{description}\end{quote}
+
+\end{fulllineitems}
+
+
+
+\begin{fulllineitems}
+
+\pysigstartsignatures
+\pysigline{\sphinxbfcode{\sphinxupquote{waves}}}
+\pysigstopsignatures
+\sphinxAtStartPar
+A table of built in waveforms.
+\begin{quote}\begin{description}
+\item[{Type}] \leavevmode
+\sphinxAtStartPar
+\sphinxcode{\sphinxupquote{wave\_table}}
+
+\end{description}\end{quote}
+
+\end{fulllineitems}
+
+
+
+\begin{fulllineitems}
+
+\pysigstartsignatures
+\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{get\_audio\_buffer}}}{}{{ $\rightarrow$ numpy.ndarray\DUrole{w}{  }\DUrole{p}{|}\DUrole{w}{  }None}}
+\pysigstopsignatures
+\sphinxAtStartPar
+Returns the audio buffer of the Audio class.
+
+\end{fulllineitems}
+
+
+
+\begin{fulllineitems}
+
+\pysigstartsignatures
 \pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{get\_audio\_device}}}{}{{ $\rightarrow$ int}}
+\pysigstopsignatures
 \sphinxAtStartPar
-Gets the current audio device number of the Audio Class
-\begin{description}
-\item[{Description:}] \leavevmode
-\sphinxAtStartPar
-Assuming audioobject.set\_audio\_device(2) is called,
-audioobject.get\_audio\_device() would return 2 {[}index of audio device in audioobject.list\_audio\_devices(){]}
-
-\end{description}
-\begin{quote}\begin{description}
-\item[{Parameters}] \leavevmode
-\sphinxAtStartPar
-\sphinxstyleliteralstrong{\sphinxupquote{None}} \textendash{} 
-
-\end{description}\end{quote}
-\begin{description}
-\item[{Returns}] \leavevmode
-\sphinxAtStartPar
-self.\_audio\_device: int value
-
-\end{description}
-\subsubsection*{Notes}
-
-\sphinxAtStartPar
-Returns the integer value of the device not the device name
+Gets the current audio device number of the Audio Class.
 
 \end{fulllineitems}
 
 
 
 \begin{fulllineitems}
+
+\pysigstartsignatures
 \pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{get\_bit\_number}}}{}{{ $\rightarrow$ int}}
+\pysigstopsignatures
 \sphinxAtStartPar
 Gets the bit rate of the Audio class
-\begin{description}
-\item[{Description:}] \leavevmode
-\sphinxAtStartPar
-Bit rate currently locked to 16 bits
 
-\end{description}
+\begin{sphinxadmonition}{note}{Note:}
+\sphinxAtStartPar
+The bit rate is currently locked to 16 bits.
+\end{sphinxadmonition}
 \begin{quote}\begin{description}
-\item[{Parameters}] \leavevmode
-\sphinxAtStartPar
-\sphinxstyleliteralstrong{\sphinxupquote{None}} \textendash{} 
-
 \item[{Returns}] \leavevmode
 \sphinxAtStartPar
-The bit rate of the Audio class \sphinxhyphen{} int value
-
-\item[{Return type}] \leavevmode
-\sphinxAtStartPar
-self.\_bit\_number
+The bit rate of the Audio class.
 
 \end{description}\end{quote}
 
@@ -492,20 +521,18 @@ self.\_bit\_number
 
 
 \begin{fulllineitems}
+
+\pysigstartsignatures
 \pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{get\_sample\_rate}}}{}{{ $\rightarrow$ int}}
+\pysigstopsignatures
 \sphinxAtStartPar
 Gets the sample rate of the Audio class.
-\begin{description}
-\item[{Description:}] \leavevmode
-\sphinxAtStartPar
-Sample rate is currently locked to 44100
 
-\end{description}
+\begin{sphinxadmonition}{note}{Note:}
+\sphinxAtStartPar
+The sample rate is currently locked to 44100.
+\end{sphinxadmonition}
 \begin{quote}\begin{description}
-\item[{Parameters}] \leavevmode
-\sphinxAtStartPar
-\sphinxstyleliteralstrong{\sphinxupquote{None}} \textendash{} 
-
 \item[{Returns}] \leavevmode
 \sphinxAtStartPar
 The sample rate of the audioClass \sphinxhyphen{} int value
@@ -521,13 +548,16 @@ self.\_sample\_rate
 
 
 \begin{fulllineitems}
+
+\pysigstartsignatures
 \pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{list\_audio\_devices}}}{}{{ $\rightarrow$ None}}
+\pysigstopsignatures
 \sphinxAtStartPar
-Lists the output devices on your system and adds to list self.\_devices
-\begin{description}
-\item[{Description:}] \leavevmode
+Lists the output devices on your system and adds to list self.\_devices.
+
 \sphinxAtStartPar
-Run this function before using set\_audio\_device() to add devices to the list devices
+Run this function before using set\_audio\_device() to add devices to the list devices.
+\subsubsection*{Example}
 
 \sphinxAtStartPar
 audioobject.list\_audio\_devices()
@@ -535,88 +565,76 @@ audioobject.list\_audio\_devices()
 1 VGA248 (2\sphinxhyphen{}NVIDIA High Def Audio)
 2 Speakers (HyperX Cloud II Wireless)
 
-\end{description}
-\begin{quote}\begin{description}
-\item[{Parameters}] \leavevmode
-\sphinxAtStartPar
-\sphinxstyleliteralstrong{\sphinxupquote{None}} \textendash{} 
-
-\item[{Returns}] \leavevmode
-\sphinxAtStartPar
-None
-
-\end{description}\end{quote}
-
 \end{fulllineitems}
 
 
 
 \begin{fulllineitems}
-\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{play\_sample}}}{\emph{\DUrole{n}{sample\_name}\DUrole{p}{:} \DUrole{n}{str}}}{{ $\rightarrow$ None}}
+
+\pysigstartsignatures
+\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{play\_sample}}}{\emph{\DUrole{n}{sample\_name}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{str}}}{{ $\rightarrow$ None}}
+\pysigstopsignatures
 \sphinxAtStartPar
 Plays sounds that are wav, ogg or mp3 files.
-\begin{description}
-\item[{Description:}] \leavevmode
-\sphinxAtStartPar
-audioobject.play\_sample(mypath.mp3) would play sounds from the file mypath.mp3
-
-\end{description}
 \begin{quote}\begin{description}
 \item[{Parameters}] \leavevmode
 \sphinxAtStartPar
 \sphinxstyleliteralstrong{\sphinxupquote{sample\_name}} \textendash{} String path or name of sound
 
-\item[{Returns}] \leavevmode
-\sphinxAtStartPar
-None
-
 \end{description}\end{quote}
+\subsubsection*{Example}
+
+\sphinxAtStartPar
+audioobject.play\_sample(mypath.mp3) would play sounds from the file mypath.mp3
 
 \end{fulllineitems}
 
 
 
 \begin{fulllineitems}
+
+\pysigstartsignatures
 \pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{play\_sound}}}{\emph{\DUrole{n}{input\_frequency}\DUrole{o}{=}\DUrole{default_value}{0}}, \emph{\DUrole{n}{input\_duration}\DUrole{o}{=}\DUrole{default_value}{0}}}{{ $\rightarrow$ None}}
+\pysigstopsignatures
 \sphinxAtStartPar
 Primary sound playing method of the audio class.
-\begin{description}
-\item[{Description:}] \leavevmode
+\begin{itemize}
+\item {} 
 \sphinxAtStartPar
-Play sounds directly from this function
-Need to run set\_audio\_device() or will default to the default audio device
+Play sounds directly from this function.
+
+\item {} 
+\sphinxAtStartPar
+Need to run set\_audio\_device() or will default to the default audio device.
+
+\item {} 
+\sphinxAtStartPar
 You can use set\_waveform to change the type.
-play\_sound is somewhat overloaded to where if you have an audioBuffer set using set\_audio\_buffer, you can call play\_sound()
-\begin{quote}
 
+\item {} \begin{description}
+\item[{play\_sound is somewhat overloaded to where if you have an audioBuffer set using set\_audio\_buffer, you can call play\_sound().}] \leavevmode
 \sphinxAtStartPar
-and it will play whatever that audio\_buffer is e.g. wav files
-Example in examples/custombuffer.py
-\end{quote}
-
-\sphinxAtStartPar
+and it will play whatever that audio\_buffer is e.g. wav files (Example in examples/custombuffer.py).
 play\_sound(440, 1) would play an A note for one second with the sin waveform set.
 
 \end{description}
+
+\end{itemize}
 \begin{quote}\begin{description}
 \item[{Parameters}] \leavevmode\begin{itemize}
 \item {} 
 \sphinxAtStartPar
-\sphinxstyleliteralstrong{\sphinxupquote{input\_frequency}} \textendash{} int value \sphinxhyphen{} input frequency in Hz
+\sphinxstyleliteralstrong{\sphinxupquote{input\_frequency}} \textendash{} Input frequency in Hz.
 
 \item {} 
 \sphinxAtStartPar
-\sphinxstyleliteralstrong{\sphinxupquote{input\_duration}} \textendash{} int value \sphinxhyphen{} duration in seconds
+\sphinxstyleliteralstrong{\sphinxupquote{input\_duration}} \textendash{} Duration in seconds.
 
 \end{itemize}
 
 \item[{Raises}] \leavevmode
 \sphinxAtStartPar
-\sphinxstyleliteralstrong{\sphinxupquote{TypeError}} \textendash{} If input\_duration not a number, or \textless{} 0
-
-\item[{Returns}] \leavevmode
-\sphinxAtStartPar
-None
+\sphinxstyleliteralstrong{\sphinxupquote{TypeError}} \textendash{} If input\_duration not a number, or \textless{} 0.
 
 \end{description}\end{quote}
 
@@ -625,18 +643,26 @@ None
 
 
 \begin{fulllineitems}
-\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{set\_audio\_buffer}}}{\emph{\DUrole{n}{ab}}}{{ $\rightarrow$ None}}
+
+\pysigstartsignatures
+\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{set\_audio\_buffer}}}{\emph{\DUrole{n}{ab}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{numpy.ndarray}}}{{ $\rightarrow$ None}}
+\pysigstopsignatures
 \sphinxAtStartPar
 Sets the audio buffer of the Audio Class.
-\begin{description}
-\item[{Description:}] \leavevmode
+
 \sphinxAtStartPar
 The audio buffer needs to have two rows so that way stereo works as intended.
 You can set the audio buffer to wav file data by fetching numpy arrays using wav or scipy,
 however only 16 bit waves are supported. This process can be seen in custom\_buffer.py w/ the
 utility function sixteenWavtoRawData
-\begin{description}
-\item[{Examples:}] \leavevmode
+\begin{quote}\begin{description}
+\item[{Parameters}] \leavevmode
+\sphinxAtStartPar
+\sphinxstyleliteralstrong{\sphinxupquote{ab}} \textendash{} An array of shape(samples, channels) e.g. ab{[}44100{]}{[}2{]}
+
+\end{description}\end{quote}
+\subsubsection*{Examples}
+
 \sphinxAtStartPar
 \# 44100 = sample rate
 \# 32767 is 2 \textasciicircum{} (our bit depth \sphinxhyphen{}1)\sphinxhyphen{}1 and is essentially the number of samples per time stamp
@@ -655,64 +681,56 @@ data{[}s{]}{[}1{]} = int(round(32767 * math.sin(2 * math.pi * 290 * t)))
 \sphinxAtStartPar
 audioobject.set\_audio\_buffer(data)
 
-\end{description}
-
-\end{description}
-\begin{quote}\begin{description}
-\item[{Parameters}] \leavevmode
-\sphinxAtStartPar
-\sphinxstyleliteralstrong{\sphinxupquote{ab}} \textendash{} numpy array of shape(samples, channels) e.g. ab{[}44100{]}{[}2{]}
-
-\item[{Returns}] \leavevmode
-\sphinxAtStartPar
-None
-
-\end{description}\end{quote}
-
 \end{fulllineitems}
 
 
 
 \begin{fulllineitems}
-\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{set\_audio\_device}}}{\emph{\DUrole{n}{device}\DUrole{p}{:} \DUrole{n}{int}}}{{ $\rightarrow$ int}}
+
+\pysigstartsignatures
+\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{set\_audio\_device}}}{\emph{\DUrole{n}{device}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{int}}}{{ $\rightarrow$ None}}
+\pysigstopsignatures
 \sphinxAtStartPar
 Sets the current audio device of the Audio class.
-\begin{description}
-\item[{Description:}] \leavevmode
+
 \sphinxAtStartPar
 This can only be set ONCE per instance. To change devices, del the current instance
 set the new device, and continue
 This needs to be run after list\_audio\_device() in order to see list of audio devices
 If not run the device will default to the current device being used by the machine
+\begin{quote}\begin{description}
+\item[{Parameters}] \leavevmode
+\sphinxAtStartPar
+\sphinxstyleliteralstrong{\sphinxupquote{device}} \textendash{} The array index for the selected audio device.
+
+\end{description}\end{quote}
+\subsubsection*{Example}
 
 \sphinxAtStartPar
 audioobject.set\_audio\_device(2)
 Based on example in list\_audio\_devices() this would change the device to Speakers (HyperX Cloud II Wireless)
-
-\end{description}
-\begin{quote}\begin{description}
-\item[{Parameters}] \leavevmode
-\sphinxAtStartPar
-\sphinxstyleliteralstrong{\sphinxupquote{device}} \textendash{} int value \sphinxhyphen{} see all int values for each device by running list\_audio\_devices()
-
-\item[{Returns}] \leavevmode
-\sphinxAtStartPar
-None
-
-\end{description}\end{quote}
 
 \end{fulllineitems}
 
 
 
 \begin{fulllineitems}
+
+\pysigstartsignatures
 \pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{set\_waveform}}}{\emph{\DUrole{n}{wave}}}{{ $\rightarrow$ None}}
+\pysigstopsignatures
 \sphinxAtStartPar
-Sets the expression governing the wave form playing
-\begin{description}
-\item[{Description:}] \leavevmode
+Sets the waveform to be used for audio playback.
+
 \sphinxAtStartPar
-play\_audio uses this in buffer generation
+play\_audio uses this in buffer generation.
+\begin{quote}\begin{description}
+\item[{Parameters}] \leavevmode
+\sphinxAtStartPar
+\sphinxstyleliteralstrong{\sphinxupquote{Wave}} \textendash{} takes a mathematical expression function ‘pointer’ in the form of f(inputfreq, timestep).
+
+\end{description}\end{quote}
+\subsubsection*{Example}
 
 \sphinxAtStartPar
 audioobject.set\_waveform(object.wave\_table.sin)
@@ -720,53 +738,23 @@ This would change to the waveform sin contained in the wave\_table class
 The wave functions need to take in a input frequency as well as a timestep parameter
 to solve for a particular frequency at a given time step. See wave\_table for an example of this.
 
-\end{description}
-\begin{quote}\begin{description}
-\item[{Parameters}] \leavevmode
-\sphinxAtStartPar
-\sphinxstyleliteralstrong{\sphinxupquote{Wave}} \textendash{} takes a mathematical expression function ‘pointer’ in the form of f(inputfreq, timestep)
-
-\item[{Returns}] \leavevmode
-\sphinxAtStartPar
-None
-
-\end{description}\end{quote}
-
 \end{fulllineitems}
 
 
 
 \begin{fulllineitems}
+
+\pysigstartsignatures
 \pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{wait\_for\_sound\_end}}}{}{}
+\pysigstopsignatures
 \sphinxAtStartPar
-Function call that is placed at the end of scripts without a pygame window instance so sounds play to their full duration without a
-\begin{description}
-\item[{Description:}] \leavevmode
-\sphinxAtStartPar
-Placed at the end of python files that do not have loops. Otherwise, sounds would be cut off prematurely.
-\begin{description}
-\item[{Example:}] \leavevmode
+Function call that is placed at the end of scripts without a pygame window instance so sounds play to their full duration.
+\subsubsection*{Example}
+
 \sphinxAtStartPar
 play\_sound(440, 10)
 wait\_for\_sound\_end() \# This prevents the process from closing out before the sound ends.
 
-\end{description}
-
-\end{description}
-\begin{quote}\begin{description}
-\item[{Parameters}] \leavevmode
-\sphinxAtStartPar
-\sphinxstyleliteralstrong{\sphinxupquote{None}} \textendash{} 
-
-\item[{Returns}] \leavevmode
-\sphinxAtStartPar
-None
-
-\end{description}\end{quote}
-
-\sphinxAtStartPar
-Notes:
-
 \end{fulllineitems}
 
 
@@ -775,22 +763,15 @@ Notes:
 
 
 \begin{fulllineitems}
-\pysigline{\sphinxbfcode{\sphinxupquote{class }}\sphinxcode{\sphinxupquote{dpav.audio.}}\sphinxbfcode{\sphinxupquote{wave\_table}}}
+
+\pysigstartsignatures
+\pysigline{\sphinxbfcode{\sphinxupquote{class\DUrole{w}{  }}}\sphinxcode{\sphinxupquote{dpav.audio.}}\sphinxbfcode{\sphinxupquote{wave\_table}}}
+\pysigstopsignatures
 \sphinxAtStartPar
 Bases: \sphinxcode{\sphinxupquote{object}}
 
 \sphinxAtStartPar
 This is a class holding waveforms for usage with the play\_sound method.
-\begin{description}
-\item[{There are 5 waveforms:}] \leavevmode
-\sphinxAtStartPar
-sin
-saw
-square
-noise
-triangle
-
-\end{description}
 \subsubsection*{Example}
 
 \sphinxAtStartPar
@@ -799,156 +780,69 @@ sinefunc = waves.sin
 
 
 \begin{fulllineitems}
-\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{noise}}}{\emph{\DUrole{n}{input\_frequency}}, \emph{\DUrole{n}{t}}}{}
+
+\pysigstartsignatures
+\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{noise}}}{\emph{\DUrole{n}{input\_frequency}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{float}}, \emph{\DUrole{n}{t}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{float}}}{{ $\rightarrow$ float}}
+\pysigstopsignatures
 \sphinxAtStartPar
-Random white noise
-\begin{description}
-\item[{Description:}] \leavevmode
+Random white noise.
+
 \sphinxAtStartPar
-Warning: VERY LOUD
-
-\end{description}
-\begin{quote}\begin{description}
-\item[{Parameters}] \leavevmode\begin{itemize}
-\item {} 
-\sphinxAtStartPar
-\sphinxstyleliteralstrong{\sphinxupquote{input\_frequency}} \textendash{} value in Hz at timestep t
-
-\item {} 
-\sphinxAtStartPar
-\sphinxstyleliteralstrong{\sphinxupquote{t}} \textendash{} timestep
-
-\end{itemize}
-
-\item[{Returns}] \leavevmode
-\sphinxAtStartPar
-
-
-\item[{Return type}] \leavevmode
-\sphinxAtStartPar
-random.random() * input\_frequency * t
-
-\end{description}\end{quote}
+This waveform is quite loud.
 
 \end{fulllineitems}
 
 
 
 \begin{fulllineitems}
-\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{saw}}}{\emph{\DUrole{n}{input\_frequency}}, \emph{\DUrole{n}{t}}}{}
+
+\pysigstartsignatures
+\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{saw}}}{\emph{\DUrole{n}{input\_frequency}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{float}}, \emph{\DUrole{n}{t}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{float}}}{{ $\rightarrow$ float}}
+\pysigstopsignatures
 \sphinxAtStartPar
-Saw wave
-\begin{quote}\begin{description}
-\item[{Parameters}] \leavevmode\begin{itemize}
-\item {} 
-\sphinxAtStartPar
-\sphinxstyleliteralstrong{\sphinxupquote{input\_frequency}} \textendash{} value in Hz at timestep t
-
-\item {} 
-\sphinxAtStartPar
-\sphinxstyleliteralstrong{\sphinxupquote{t}} \textendash{} timestep
-
-\end{itemize}
-
-\item[{Returns}] \leavevmode
-\sphinxAtStartPar
-
-
-\item[{Return type}] \leavevmode
-\sphinxAtStartPar
-t * input\_frequency \sphinxhyphen{} math.floor(t * input\_frequency)
-
-\end{description}\end{quote}
+Returns the value of a saw wave of a given frequency at a given time.
 
 \end{fulllineitems}
 
 
 
 \begin{fulllineitems}
-\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{sin}}}{\emph{\DUrole{n}{input\_frequency}}, \emph{\DUrole{n}{t}}}{}
+
+\pysigstartsignatures
+\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{sin}}}{\emph{\DUrole{n}{input\_frequency}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{float}}, \emph{\DUrole{n}{t}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{float}}}{{ $\rightarrow$ float}}
+\pysigstopsignatures
 \sphinxAtStartPar
-Sin wave form, default for libary
-\begin{quote}\begin{description}
-\item[{Parameters}] \leavevmode\begin{itemize}
-\item {} 
+Returns the value of a sine wave of a given frequency at a given time.
+
 \sphinxAtStartPar
-\sphinxstyleliteralstrong{\sphinxupquote{input\_frequency}} \textendash{} value in Hz at timestep t
-
-\item {} 
-\sphinxAtStartPar
-\sphinxstyleliteralstrong{\sphinxupquote{t}} \textendash{} timestep
-
-\end{itemize}
-
-\item[{Returns}] \leavevmode
-\sphinxAtStartPar
-
-
-\item[{Return type}] \leavevmode
-\sphinxAtStartPar
-math.sin(2 * math.pi * input\_frequency * t)
-
-\end{description}\end{quote}
+This is the default waveform for the library.
 
 \end{fulllineitems}
 
 
 
 \begin{fulllineitems}
-\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{square}}}{\emph{\DUrole{n}{input\_frequency}}, \emph{\DUrole{n}{t}}}{}
+
+\pysigstartsignatures
+\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{square}}}{\emph{\DUrole{n}{input\_frequency}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{float}}, \emph{\DUrole{n}{t}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{float}}}{{ $\rightarrow$ float}}
+\pysigstopsignatures
 \sphinxAtStartPar
-Square wave form
-\begin{quote}\begin{description}
-\item[{Parameters}] \leavevmode\begin{itemize}
-\item {} 
-\sphinxAtStartPar
-\sphinxstyleliteralstrong{\sphinxupquote{input\_frequency}} \textendash{} value in Hz at timestep t
-
-\item {} 
-\sphinxAtStartPar
-\sphinxstyleliteralstrong{\sphinxupquote{t}} \textendash{} timestep
-
-\end{itemize}
-
-\item[{Returns}] \leavevmode
-\sphinxAtStartPar
-
-
-\item[{Return type}] \leavevmode
-\sphinxAtStartPar
-round(math.sin(2 * math.pi * input\_frequency * t))
-
-\end{description}\end{quote}
+Returns the value of a square wave of a given frequency at a given time.
 
 \end{fulllineitems}
 
 
 
 \begin{fulllineitems}
-\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{triangle}}}{\emph{\DUrole{n}{input\_frequency}}, \emph{\DUrole{n}{t}}}{}
+
+\pysigstartsignatures
+\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{triangle}}}{\emph{\DUrole{n}{input\_frequency}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{float}}, \emph{\DUrole{n}{t}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{float}}}{{ $\rightarrow$ float}}
+\pysigstopsignatures
 \sphinxAtStartPar
-Triangle wave, similar in sound to saw + sin together
-\begin{quote}\begin{description}
-\item[{Parameters}] \leavevmode\begin{itemize}
-\item {} 
+Returns the value of a triangle wave of a given frequency at a given time.
+
 \sphinxAtStartPar
-\sphinxstyleliteralstrong{\sphinxupquote{input\_frequency}} \textendash{} value in Hz at timestep t
-
-\item {} 
-\sphinxAtStartPar
-\sphinxstyleliteralstrong{\sphinxupquote{t}} \textendash{} timestep
-
-\end{itemize}
-
-\item[{Returns}] \leavevmode
-\sphinxAtStartPar
-
-
-\item[{Return type}] \leavevmode
-\sphinxAtStartPar
-2 * abs((t * input\_frequency) / 1 \sphinxhyphen{} math.floor(((t * input\_frequency) / 1) + 0.5))
-
-\end{description}\end{quote}
+This wave is similar in sound to a saw and sine wave together.
 
 \end{fulllineitems}
 
@@ -961,7 +855,10 @@ Triangle wave, similar in sound to saw + sin together
 \label{\detokenize{dpav:vbuffer}}
 
 \begin{fulllineitems}
-\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{class }}\sphinxcode{\sphinxupquote{dpav.vbuffer.}}\sphinxbfcode{\sphinxupquote{VBuffer}}}{\emph{\DUrole{n}{arg1}\DUrole{p}{:} \DUrole{n}{tuple} \DUrole{o}{=} \DUrole{default_value}{(800, 600)}}}{}
+
+\pysigstartsignatures
+\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{class\DUrole{w}{  }}}\sphinxcode{\sphinxupquote{dpav.vbuffer.}}\sphinxbfcode{\sphinxupquote{VBuffer}}}{\emph{\DUrole{n}{arg1}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{tuple}\DUrole{w}{  }\DUrole{o}{=}\DUrole{w}{  }\DUrole{default_value}{(800, 600)}}}{}
+\pysigstopsignatures
 \sphinxAtStartPar
 Bases: \sphinxcode{\sphinxupquote{object}}
 
@@ -972,168 +869,79 @@ Visual buffer for the Python Direct Platform
 Holds a 2D array of hex color values. Each element represents a pixel,
 whose coordinates are its index. VBuffer can be loaded and displayed by
 the window class.
-\begin{quote}\begin{description}
-\item[{Parameters}] \leavevmode
-\sphinxAtStartPar
-\sphinxstyleliteralstrong{\sphinxupquote{arg1}} (\sphinxstyleliteralemphasis{\sphinxupquote{\{}}\sphinxstyleliteralemphasis{\sphinxupquote{(}}\sphinxstyleliteralemphasis{\sphinxupquote{int}}\sphinxstyleliteralemphasis{\sphinxupquote{, }}\sphinxstyleliteralemphasis{\sphinxupquote{int}}\sphinxstyleliteralemphasis{\sphinxupquote{)}}\sphinxstyleliteralemphasis{\sphinxupquote{|}}\sphinxstyleliteralemphasis{\sphinxupquote{np.ndarray}}\sphinxstyleliteralemphasis{\sphinxupquote{(}}\sphinxstyleliteralemphasis{\sphinxupquote{int}}\sphinxstyleliteralemphasis{\sphinxupquote{, }}\sphinxstyleliteralemphasis{\sphinxupquote{int}}\sphinxstyleliteralemphasis{\sphinxupquote{)}}\sphinxstyleliteralemphasis{\sphinxupquote{\}}}) \textendash{} 
-\sphinxAtStartPar
-Either array dimensions or a 2\sphinxhyphen{}dimensional numpy array of integers
-
-\sphinxAtStartPar
-If dimensions, will create zeroed\sphinxhyphen{}out 2D array of the selected
-dimensions. Defaults to 800x600.
-
-\sphinxAtStartPar
-If numpy array, will set buffer to the contents of that array.
-
-
-\end{description}\end{quote}
 
 
 \begin{fulllineitems}
-\pysigline{\sphinxbfcode{\sphinxupquote{Constructor:}}}
-\sphinxAtStartPar
-\_\_init\_\_(self, arg1=(800, 600)) \sphinxhyphen{}\textgreater{} None
 
-\end{fulllineitems}
-
-
-
-\begin{fulllineitems}
-\pysigline{\sphinxbfcode{\sphinxupquote{Overloads:}}}
-\sphinxAtStartPar
-\_\_getitem\_\_(self, idx) \sphinxhyphen{}\textgreater{} int
-\_\_setitem\_\_(self, idx, val) \sphinxhyphen{}\textgreater{} None
-\_\_len\_\_(self) \sphinxhyphen{}\textgreater{} int
-
-\end{fulllineitems}
-
-
-
-\begin{fulllineitems}
-\pysigline{\sphinxbfcode{\sphinxupquote{properties:}}}~\begin{description}
-\item[{getter:}] \leavevmode
-\sphinxAtStartPar
-dimensions(self) \sphinxhyphen{}\textgreater{} (int, int)
-
-\item[{setter:}] \leavevmode
-\sphinxAtStartPar
-dimensions(self, val) \sphinxhyphen{}\textgreater{} None
-
-\end{description}
-
-\end{fulllineitems}
-
-
-
-\begin{fulllineitems}
-\pysigline{\sphinxbfcode{\sphinxupquote{Setter:}}}
-\sphinxAtStartPar
-write\_pixel(self, coords, val) \sphinxhyphen{}\textgreater{} None
-set\_buffer(self, buf) \sphinxhyphen{}\textgreater{} None
-clear(self) \sphinxhyphen{}\textgreater{} None
-fill(self, color: int) \sphinxhyphen{}\textgreater{} None
-
-\end{fulllineitems}
-
-
-
-\begin{fulllineitems}
-\pysigline{\sphinxbfcode{\sphinxupquote{Getters:}}}
-\sphinxAtStartPar
-get\_pixel(self, coords) \sphinxhyphen{}\textgreater{} int
-get\_dimensions(self) \sphinxhyphen{}\textgreater{} (int, int)
-
-\end{fulllineitems}
-
-
-
-\begin{fulllineitems}
-\pysigline{\sphinxbfcode{\sphinxupquote{File~I/O:}}}
-\sphinxAtStartPar
-save\_buffer\_to\_file(self, filename) \sphinxhyphen{}\textgreater{} None
-load\_buffer\_from\_file(self, filename) \sphinxhyphen{}\textgreater{} None
-
-\end{fulllineitems}
-
-
-
-\begin{fulllineitems}
-\pysigline{\sphinxbfcode{\sphinxupquote{Error~Checking:}}}
-\sphinxAtStartPar
-\_check\_numpy\_arr(self,arg1,arg\_name,method\_name) \sphinxhyphen{}\textgreater{} None
-\_check\_coord\_type(self, coords, arg\_name, method\_name) \sphinxhyphen{}\textgreater{} None
-\_check\_coord\_vals(self, x, y, method\_name) \sphinxhyphen{}\textgreater{} None
-
-\end{fulllineitems}
-
-
-
-\begin{fulllineitems}
+\pysigstartsignatures
 \pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{clear}}}{}{{ $\rightarrow$ None}}
+\pysigstopsignatures
 \sphinxAtStartPar
-Set every pixel in buffer to 0 (hex value for black).
+Set every pixel in the buffer to 0 (hex value for black).
 
 \end{fulllineitems}
 
 
 
 \begin{fulllineitems}
-\pysigline{\sphinxbfcode{\sphinxupquote{property }}\sphinxbfcode{\sphinxupquote{dimensions}}\sphinxbfcode{\sphinxupquote{: tuple}}}
+
+\pysigstartsignatures
+\pysigline{\sphinxbfcode{\sphinxupquote{property\DUrole{w}{  }}}\sphinxbfcode{\sphinxupquote{dimensions}}\sphinxbfcode{\sphinxupquote{\DUrole{p}{:}\DUrole{w}{  }tuple}}}
+\pysigstopsignatures
 \sphinxAtStartPar
-Return dimensions of buffer.
+Returns the dimensions of the buffer.
 
 \end{fulllineitems}
 
 
 
 \begin{fulllineitems}
-\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{fill}}}{\emph{\DUrole{n}{color}\DUrole{p}{:} \DUrole{n}{int}}}{{ $\rightarrow$ None}}
-\sphinxAtStartPar
-Set every pixel in the buffer to a given color.
-\begin{quote}\begin{description}
-\item[{Parameters}] \leavevmode
-\sphinxAtStartPar
-\sphinxstyleliteralstrong{\sphinxupquote{color}} (\sphinxstyleliteralemphasis{\sphinxupquote{Hex color code}}) \textendash{} 
 
-\end{description}\end{quote}
+\pysigstartsignatures
+\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{fill}}}{\emph{\DUrole{n}{color}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{int}}}{{ $\rightarrow$ None}}
+\pysigstopsignatures
+\sphinxAtStartPar
+Sets every pixel in the buffer to a given hex color value.
 
 \end{fulllineitems}
 
 
 
 \begin{fulllineitems}
+
+\pysigstartsignatures
 \pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{get\_dimensions}}}{}{{ $\rightarrow$ tuple}}
+\pysigstopsignatures
 \sphinxAtStartPar
-Return dimensions of visual buffer array.
+Returns the dimensions of the visual buffer
 
 \end{fulllineitems}
 
 
 
 \begin{fulllineitems}
-\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{get\_pixel}}}{\emph{\DUrole{n}{coords}\DUrole{p}{:} \DUrole{n}{tuple}}}{{ $\rightarrow$ int}}
-\sphinxAtStartPar
-Return color value of chosen pixel.
-\begin{quote}\begin{description}
-\item[{Parameters}] \leavevmode
-\sphinxAtStartPar
-\sphinxstyleliteralstrong{\sphinxupquote{coords}} (\sphinxstyleliteralemphasis{\sphinxupquote{2\sphinxhyphen{}tuple}}\sphinxstyleliteralemphasis{\sphinxupquote{ or }}\sphinxstyleliteralemphasis{\sphinxupquote{list containing first and second index of pixel}}) \textendash{} 
 
-\end{description}\end{quote}
+\pysigstartsignatures
+\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{get\_pixel}}}{\emph{\DUrole{n}{coords}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{tuple}}}{{ $\rightarrow$ int}}
+\pysigstopsignatures
+\sphinxAtStartPar
+Returns the color value of chosen pixel.
 
 \end{fulllineitems}
 
 
 
 \begin{fulllineitems}
-\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{load\_buffer\_from\_file}}}{\emph{\DUrole{n}{filename}\DUrole{p}{:} \DUrole{n}{str}}}{{ $\rightarrow$ None}}
+
+\pysigstartsignatures
+\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{load\_buffer\_from\_file}}}{\emph{\DUrole{n}{filename}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{str}}}{{ $\rightarrow$ None}}
+\pysigstopsignatures
 \sphinxAtStartPar
 Load binary file storing buffer contents, and write it to buffer.
 \begin{quote}\begin{description}
 \item[{Parameters}] \leavevmode
 \sphinxAtStartPar
-\sphinxstyleliteralstrong{\sphinxupquote{filename}} (\sphinxstyleliteralemphasis{\sphinxupquote{Path to a binary file containing numpy array data}}) \textendash{} 
+\sphinxstyleliteralstrong{\sphinxupquote{filename}} \textendash{} The path to a binary file containing numpy array data.
 
 \end{description}\end{quote}
 
@@ -1142,13 +950,16 @@ Load binary file storing buffer contents, and write it to buffer.
 
 
 \begin{fulllineitems}
-\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{save\_buffer\_to\_file}}}{\emph{\DUrole{n}{filename}\DUrole{p}{:} \DUrole{n}{str}}}{{ $\rightarrow$ None}}
+
+\pysigstartsignatures
+\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{save\_buffer\_to\_file}}}{\emph{\DUrole{n}{filename}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{str}}}{{ $\rightarrow$ None}}
+\pysigstopsignatures
 \sphinxAtStartPar
 Save contents of buffer to a binary file.
 \begin{quote}\begin{description}
 \item[{Parameters}] \leavevmode
 \sphinxAtStartPar
-\sphinxstyleliteralstrong{\sphinxupquote{filename}} (\sphinxstyleliteralemphasis{\sphinxupquote{The path and name of the file to write to}}) \textendash{} 
+\sphinxstyleliteralstrong{\sphinxupquote{filename}} \textendash{} The path and name of the file to write.
 
 \end{description}\end{quote}
 
@@ -1157,13 +968,16 @@ Save contents of buffer to a binary file.
 
 
 \begin{fulllineitems}
-\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{set\_buffer}}}{\emph{\DUrole{n}{buf}\DUrole{p}{:} \DUrole{n}{numpy.ndarray}}}{{ $\rightarrow$ None}}
+
+\pysigstartsignatures
+\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{set\_buffer}}}{\emph{\DUrole{n}{buf}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{numpy.ndarray}}}{{ $\rightarrow$ None}}
+\pysigstopsignatures
 \sphinxAtStartPar
-Set the visual buffer to equal a provided 2D array of pixels.
+Set the contents of a visual buffer to match those of a given array.
 \begin{quote}\begin{description}
 \item[{Parameters}] \leavevmode
 \sphinxAtStartPar
-\sphinxstyleliteralstrong{\sphinxupquote{buf}} (\sphinxstyleliteralemphasis{\sphinxupquote{A 2\sphinxhyphen{}dimensional numpy array of integer color values}}) \textendash{} 
+\sphinxstyleliteralstrong{\sphinxupquote{buf}} \textendash{} An array of hex color values.
 
 \end{description}\end{quote}
 
@@ -1172,29 +986,37 @@ Set the visual buffer to equal a provided 2D array of pixels.
 
 
 \begin{fulllineitems}
-\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{write\_pixel}}}{\emph{\DUrole{n}{coords}\DUrole{p}{:} \DUrole{n}{tuple}}, \emph{\DUrole{n}{val}\DUrole{p}{:} \DUrole{n}{int}}}{{ $\rightarrow$ None}}
-\sphinxAtStartPar
-Sets pixel at specified coordinates to specified color.
 
+\pysigstartsignatures
+\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{write\_pixel}}}{\emph{\DUrole{n}{coords}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{tuple}}, \emph{\DUrole{n}{val}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{int}}}{{ $\rightarrow$ None}}
+\pysigstopsignatures
 \sphinxAtStartPar
-Sets pixel at coordinates coords in buffer to hex value val
+Sets pixel at the specified coordinates to a specified color.
 \begin{quote}\begin{description}
 \item[{Parameters}] \leavevmode\begin{itemize}
 \item {} 
 \sphinxAtStartPar
-\sphinxstyleliteralstrong{\sphinxupquote{coords}} (\sphinxstyleliteralemphasis{\sphinxupquote{Pixel coordinates}}\sphinxstyleliteralemphasis{\sphinxupquote{ (}}\sphinxstyleliteralemphasis{\sphinxupquote{an X and a Y}}\sphinxstyleliteralemphasis{\sphinxupquote{)}}) \textendash{} 
+\sphinxstyleliteralstrong{\sphinxupquote{coords}} \textendash{} Pixel coordinates (x, y).
 
 \item {} 
 \sphinxAtStartPar
-\sphinxstyleliteralstrong{\sphinxupquote{val}} (\sphinxstyleliteralemphasis{\sphinxupquote{The hex value of the desired color to change the pixel with}}) \textendash{} 
+\sphinxstyleliteralstrong{\sphinxupquote{val}} \textendash{} The hex value of the desired color.
+
+\end{itemize}
+
+\item[{Raises}] \leavevmode\begin{itemize}
+\item {} 
+\sphinxAtStartPar
+\sphinxstyleliteralstrong{\sphinxupquote{TypeError}} \textendash{} If val is not an int.
+
+\item {} 
+\sphinxAtStartPar
+\sphinxstyleliteralstrong{\sphinxupquote{ValueError}} \textendash{} If val is negative or greater than the max color
+    value (0xFFFFFF).
 
 \end{itemize}
 
 \end{description}\end{quote}
-
-\sphinxAtStartPar
-:raises TypeError : val is not type(int):
-:raises ValueError : val is negative or greater than max color value (0xFFFFFF):
 
 \end{fulllineitems}
 
@@ -1207,110 +1029,176 @@ Sets pixel at coordinates coords in buffer to hex value val
 \label{\detokenize{dpav:window}}
 
 \begin{fulllineitems}
-\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{class }}\sphinxcode{\sphinxupquote{dpav.window.}}\sphinxbfcode{\sphinxupquote{Window}}}{\emph{\DUrole{n}{arg1}\DUrole{p}{:} \DUrole{n}{Optional\DUrole{p}{{[}}dpav.vbuffer.VBuffer\DUrole{p}{{]}}} \DUrole{o}{=} \DUrole{default_value}{None}}, \emph{\DUrole{n}{scale}\DUrole{p}{:} \DUrole{n}{float} \DUrole{o}{=} \DUrole{default_value}{1.0}}}{}
+
+\pysigstartsignatures
+\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{class\DUrole{w}{  }}}\sphinxcode{\sphinxupquote{dpav.window.}}\sphinxbfcode{\sphinxupquote{Window}}}{\emph{\DUrole{n}{arg1}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{Optional\DUrole{p}{{[}}dpav.vbuffer.VBuffer\DUrole{p}{{]}}}\DUrole{w}{  }\DUrole{o}{=}\DUrole{w}{  }\DUrole{default_value}{None}}, \emph{\DUrole{n}{scale}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{float}\DUrole{w}{  }\DUrole{o}{=}\DUrole{w}{  }\DUrole{default_value}{1.0}}}{}
+\pysigstopsignatures
 \sphinxAtStartPar
 Bases: \sphinxcode{\sphinxupquote{object}}
 
 \sphinxAtStartPar
-Handles Window capabilites of Python Direct Platform
-Functions:
-\begin{quote}
-\begin{description}
-\item[{Constructor:}] \leavevmode
-\sphinxAtStartPar
-\_\_init\_\_()
-
-\item[{Setters:}] \leavevmode
-\sphinxAtStartPar
-set\_scale(int/float)
-set\_vbuffer(VBuffer/np.ndarray,optional:int)
-
-\item[{Getters:}] \leavevmode
-\sphinxAtStartPar
-get\_mouse\_pos()
-
-\item[{Misc Methods:}] \leavevmode
-\sphinxAtStartPar
-open()
-is\_open()
-close()
-update()
-
-\item[{Private Methods:}] \leavevmode
-\sphinxAtStartPar
-\_update\_events(pygame.event)
-\_build\_events\_dict()
-\_write\_to\_screen()
-
-\end{description}
-\end{quote}
+Handles Window capabilites of Direct Python Audio/Video.
 
 
 \begin{fulllineitems}
-\pysigline{\sphinxbfcode{\sphinxupquote{Public}}}
+
+\pysigstartsignatures
+\pysigline{\sphinxbfcode{\sphinxupquote{vbuffer}}}
+\pysigstopsignatures
 \sphinxAtStartPar
-vbuffer:     active VBuffer object
-scale:       number that scales up/down the size of the screen
-\begin{quote}
-
+The currently active visual buffer.
+\begin{quote}\begin{description}
+\item[{Type}] \leavevmode
 \sphinxAtStartPar
-(1.0 is unscaled)
-\end{quote}
-\begin{description}
-\item[{events:      dictionary of string:bool event pairs,}] \leavevmode\begin{description}
-\item[{example:}] \leavevmode
-\sphinxAtStartPar
-“l\_shift”: True  \textendash{} left shift is pressed down
-“l\_shift”: False \textendash{} left shift is not pressed
+\sphinxcode{\sphinxupquote{VBuffer}}
 
-\end{description}
-
-\item[{eventq:      list of active events that occured since last update cycle}] \leavevmode\begin{description}
-\item[{example:}] \leavevmode
-\sphinxAtStartPar
-{[}‘l\_shift’, ‘mouse’, ‘a’, ‘q’{]}
-
-\end{description}
-
-\end{description}
-
-\sphinxAtStartPar
-debug\_flag:  boolean flag if window object should output debug info to log
-open\_flag:   boolean flag for if the window is active
+\end{description}\end{quote}
 
 \end{fulllineitems}
 
 
 
 \begin{fulllineitems}
-\pysigline{\sphinxbfcode{\sphinxupquote{Private}}}~\begin{description}
-\item[{\_keydict:    int:string PyGame event mapping. PyGame events identifiers are}] \leavevmode
+
+\pysigstartsignatures
+\pysigline{\sphinxbfcode{\sphinxupquote{scale}}}
+\pysigstopsignatures
 \sphinxAtStartPar
+A number that scales up/down the size of the screen (1.0 is unscaled).
+\begin{quote}\begin{description}
+\item[{Type}] \leavevmode
+\sphinxAtStartPar
+float
+
+\end{description}\end{quote}
+
+\end{fulllineitems}
+
+
+
+\begin{fulllineitems}
+
+\pysigstartsignatures
+\pysigline{\sphinxbfcode{\sphinxupquote{events}}}
+\pysigstopsignatures
+\sphinxAtStartPar
+A dictionary of string:bool event pairs.
+
+\end{fulllineitems}
+
+
+
+\begin{fulllineitems}
+
+\pysigstartsignatures
+\pysigline{\sphinxbfcode{\sphinxupquote{eventq}}}
+\pysigstopsignatures
+\sphinxAtStartPar
+The active events that occured since last update cycle.
+\begin{quote}\begin{description}
+\item[{Type}] \leavevmode
+\sphinxAtStartPar
+list
+
+\end{description}\end{quote}
+
+\end{fulllineitems}
+
+
+
+\begin{fulllineitems}
+
+\pysigstartsignatures
+\pysigline{\sphinxbfcode{\sphinxupquote{debug\_flag}}}
+\pysigstopsignatures
+\sphinxAtStartPar
+A flag for whether or not the window object should output debug info to log
+\begin{quote}\begin{description}
+\item[{Type}] \leavevmode
+\sphinxAtStartPar
+bool
+
+\end{description}\end{quote}
+
+\end{fulllineitems}
+
+
+
+\begin{fulllineitems}
+
+\pysigstartsignatures
+\pysigline{\sphinxbfcode{\sphinxupquote{open\_flag}}}
+\pysigstopsignatures
+\sphinxAtStartPar
+A flag for whether or not the window is active.
+\begin{quote}\begin{description}
+\item[{Type}] \leavevmode
+\sphinxAtStartPar
+bool
+
+\end{description}\end{quote}
+
+\end{fulllineitems}
+
+
+
+\begin{fulllineitems}
+
+\pysigstartsignatures
+\pysigline{\sphinxbfcode{\sphinxupquote{\_keydict}}}
+\pysigstopsignatures
+\sphinxAtStartPar
+int:string PyGame event mapping. PyGame events identifiers are
 stored as ints. This attribute is used by the public events
 variable to map from PyGame’s integer:boolean pairs to
-our string:boolean pairs
-
-\item[{\_surfaces:   Two PyGame Surfaces for swapping to reflect vbuffer changes and}] \leavevmode
-\sphinxAtStartPar
-enable in\sphinxhyphen{}place nparray modification
-
-\end{description}
-
-\sphinxAtStartPar
-\_screen:     PyGame.display object, used for viewing vbuffer attribute
+our string:boolean pairs.
 
 \end{fulllineitems}
 
 
 
 \begin{fulllineitems}
+
+\pysigstartsignatures
+\pysigline{\sphinxbfcode{\sphinxupquote{\_surfaces}}}
+\pysigstopsignatures
+\sphinxAtStartPar
+Two PyGame Surfaces for swapping to reflect vbuffer changes and
+to enable in\sphinxhyphen{}place nparray modification.
+\begin{quote}\begin{description}
+\item[{Type}] \leavevmode
+\sphinxAtStartPar
+list
+
+\end{description}\end{quote}
+
+\end{fulllineitems}
+
+
+
+\begin{fulllineitems}
+
+\pysigstartsignatures
+\pysigline{\sphinxbfcode{\sphinxupquote{\_screen}}}
+\pysigstopsignatures
+\sphinxAtStartPar
+A PyGame.display object, used for viewing vbuffer attribute.
+
+\end{fulllineitems}
+
+
+
+\begin{fulllineitems}
+
+\pysigstartsignatures
 \pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{close}}}{}{{ $\rightarrow$ None}}
+\pysigstopsignatures
 \sphinxAtStartPar
-Closes the active instance of a pygame window
+Closes the active instance of a pygame window.
 \begin{quote}\begin{description}
 \item[{Raises}] \leavevmode
 \sphinxAtStartPar
-\sphinxstyleliteralstrong{\sphinxupquote{RuntimeError}} \textendash{} no active pygame window instances exists
+\sphinxstyleliteralstrong{\sphinxupquote{RuntimeError}} \textendash{} If no active pygame window exists.
 
 \end{description}\end{quote}
 
@@ -1319,13 +1207,20 @@ Closes the active instance of a pygame window
 
 
 \begin{fulllineitems}
-\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{get\_mouse\_pos}}}{\emph{) \sphinxhyphen{}\textgreater{} (\textless{}class \textquotesingle{}int\textquotesingle{}\textgreater{}}, \emph{\textless{}class \textquotesingle{}int\textquotesingle{}\textgreater{}}}{}
+
+\pysigstartsignatures
+\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{get\_mouse\_pos}}}{\emph{\DUrole{n}{) \sphinxhyphen{}\textgreater{} (\textless{}class \textquotesingle{}int\textquotesingle{}\textgreater{}}}, \emph{\DUrole{n}{\textless{}class \textquotesingle{}int\textquotesingle{}\textgreater{}}}}{}
+\pysigstopsignatures
 \sphinxAtStartPar
-Returns the current mouse location with respect to the pygame window instance
+Returns the current mouse location.
 \begin{quote}\begin{description}
+\item[{Returns}] \leavevmode
+\sphinxAtStartPar
+A tuple containing the coordinates of the current mouse location in the window.
+
 \item[{Raises}] \leavevmode
 \sphinxAtStartPar
-\sphinxstyleliteralstrong{\sphinxupquote{Runtime Error}} \textendash{} no active pygame window instances exists
+\sphinxstyleliteralstrong{\sphinxupquote{Runtime Error}} \textendash{} If no active pygame window instances exists.
 
 \end{description}\end{quote}
 
@@ -1334,10 +1229,16 @@ Returns the current mouse location with respect to the pygame window instance
 
 
 \begin{fulllineitems}
+
+\pysigstartsignatures
 \pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{is\_open}}}{}{{ $\rightarrow$ bool}}
+\pysigstopsignatures
 \sphinxAtStartPar
-Updates events on every call, used to abstract out PyGame
-display calls and event loop
+Method that the user can check in a while loop to maintain a window.
+
+\sphinxAtStartPar
+This call updates events on every call and is used to abstract out PyGame
+display calls as well as the event loop.
 \subsubsection*{Example}
 \begin{description}
 \item[{if window.is\_open():}] \leavevmode
@@ -1348,7 +1249,7 @@ display calls and event loop
 \begin{quote}\begin{description}
 \item[{Returns}] \leavevmode
 \sphinxAtStartPar
-boolean denoting if the window is currently open
+A boolean value denoting whether or not the window is currently open.
 
 \end{description}\end{quote}
 
@@ -1357,40 +1258,49 @@ boolean denoting if the window is currently open
 
 
 \begin{fulllineitems}
+
+\pysigstartsignatures
 \pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{open}}}{}{{ $\rightarrow$ None}}
+\pysigstopsignatures
 \sphinxAtStartPar
-Creates and runs pygame window in a new thread
+Creates and runs pygame window.
 
 \end{fulllineitems}
 
 
 
 \begin{fulllineitems}
-\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{set\_scale}}}{\emph{\DUrole{n}{scale}\DUrole{p}{:} \DUrole{n}{float}}}{{ $\rightarrow$ None}}
+
+\pysigstartsignatures
+\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{set\_scale}}}{\emph{\DUrole{n}{scale}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{float}}}{{ $\rightarrow$ None}}
+\pysigstopsignatures
 \sphinxAtStartPar
-Sets the window scale
+Sets the window scale.
 
 \end{fulllineitems}
 
 
 
 \begin{fulllineitems}
-\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{set\_vbuffer}}}{\emph{\DUrole{n}{arg1}\DUrole{p}{:} \DUrole{n}{dpav.vbuffer.VBuffer}}}{{ $\rightarrow$ None}}
+
+\pysigstartsignatures
+\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{set\_vbuffer}}}{\emph{\DUrole{n}{arg1}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{dpav.vbuffer.VBuffer}}}{{ $\rightarrow$ None}}
+\pysigstopsignatures
 \sphinxAtStartPar
-Sets the vbuffer/nparray object to display on screen
+Sets the visual buffer object to display on screen.
 \begin{quote}\begin{description}
 \item[{Parameters}] \leavevmode
 \sphinxAtStartPar
-\sphinxstyleliteralstrong{\sphinxupquote{arg1}} \textendash{} VBuffer/np.ndarray
+\sphinxstyleliteralstrong{\sphinxupquote{arg1}} \textendash{} The visual buffer to display.
 
 \item[{Raises}] \leavevmode\begin{itemize}
 \item {} 
 \sphinxAtStartPar
-\sphinxstyleliteralstrong{\sphinxupquote{TypeError}} \textendash{} arg1 VBuffer/np.ndarray type check
+\sphinxstyleliteralstrong{\sphinxupquote{TypeError}} \textendash{} If arg1 is not either a VBuffer or a np.ndarray.
 
 \item {} 
 \sphinxAtStartPar
-\sphinxstyleliteralstrong{\sphinxupquote{TypeError}} \textendash{} scale int/float type check
+\sphinxstyleliteralstrong{\sphinxupquote{TypeError}} \textendash{} If the scale is not a float.
 
 \end{itemize}
 
@@ -1401,14 +1311,21 @@ Sets the vbuffer/nparray object to display on screen
 
 
 \begin{fulllineitems}
+
+\pysigstartsignatures
 \pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{update}}}{}{{ $\rightarrow$ None}}
+\pysigstopsignatures
 \sphinxAtStartPar
-Pygame event abstraction, called at end of pygame loop.
-Optional function if is\_open() is used
+Updates the Pygame window to display changes made to the visual buffer.
+
+\begin{sphinxadmonition}{note}{Note:}
+\sphinxAtStartPar
+This function’s use is optional if is\_open() is used.
+\end{sphinxadmonition}
 \begin{quote}\begin{description}
 \item[{Raises}] \leavevmode
 \sphinxAtStartPar
-\sphinxstyleliteralstrong{\sphinxupquote{Runtime Error}} \textendash{} No active pygame window
+\sphinxstyleliteralstrong{\sphinxupquote{Runtime Error}} \textendash{} If there is no active pygame window.
 
 \end{description}\end{quote}
 
@@ -1434,7 +1351,10 @@ transformations, image parsing, and note conversions.
 
 
 \begin{fulllineitems}
-\pysiglinewithargsret{\sphinxcode{\sphinxupquote{dpav.utility.}}\sphinxbfcode{\sphinxupquote{convert\_wav\_to\_nparr}}}{\emph{\DUrole{n}{wavefile}\DUrole{p}{:} \DUrole{n}{str}}}{{ $\rightarrow$ numpy.ndarray}}
+
+\pysigstartsignatures
+\pysiglinewithargsret{\sphinxcode{\sphinxupquote{dpav.utility.}}\sphinxbfcode{\sphinxupquote{convert\_wav\_to\_nparr}}}{\emph{\DUrole{n}{wavefile}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{str}}}{{ $\rightarrow$ numpy.ndarray}}
+\pysigstopsignatures
 \sphinxAtStartPar
 Takes a string filepath of a wav file and converts it to a numpy array.
 
@@ -1443,7 +1363,10 @@ Takes a string filepath of a wav file and converts it to a numpy array.
 
 
 \begin{fulllineitems}
-\pysiglinewithargsret{\sphinxcode{\sphinxupquote{dpav.utility.}}\sphinxbfcode{\sphinxupquote{draw\_circle}}}{\emph{\DUrole{n}{vb}\DUrole{p}{:} \DUrole{n}{dpav.vbuffer.VBuffer}}, \emph{\DUrole{n}{center}\DUrole{p}{:} \DUrole{n}{list}}, \emph{\DUrole{n}{r}\DUrole{p}{:} \DUrole{n}{float}}, \emph{\DUrole{n}{color}\DUrole{p}{:} \DUrole{n}{int}}}{}
+
+\pysigstartsignatures
+\pysiglinewithargsret{\sphinxcode{\sphinxupquote{dpav.utility.}}\sphinxbfcode{\sphinxupquote{draw\_circle}}}{\emph{\DUrole{n}{vb}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{dpav.vbuffer.VBuffer}}, \emph{\DUrole{n}{center}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{list}}, \emph{\DUrole{n}{r}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{float}}, \emph{\DUrole{n}{color}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{int}}}{}
+\pysigstopsignatures
 \sphinxAtStartPar
 Draws a circle onto a visual buffer of a specified color and radius
 around a given center point using Bresenham’s algorithm.
@@ -1453,7 +1376,10 @@ around a given center point using Bresenham’s algorithm.
 
 
 \begin{fulllineitems}
-\pysiglinewithargsret{\sphinxcode{\sphinxupquote{dpav.utility.}}\sphinxbfcode{\sphinxupquote{draw\_line}}}{\emph{\DUrole{n}{vb}\DUrole{p}{:} \DUrole{n}{dpav.vbuffer.VBuffer}}, \emph{\DUrole{n}{p0}\DUrole{p}{:} \DUrole{n}{list}}, \emph{\DUrole{n}{p1}\DUrole{p}{:} \DUrole{n}{list}}, \emph{\DUrole{n}{color}\DUrole{p}{:} \DUrole{n}{int}}}{}
+
+\pysigstartsignatures
+\pysiglinewithargsret{\sphinxcode{\sphinxupquote{dpav.utility.}}\sphinxbfcode{\sphinxupquote{draw\_line}}}{\emph{\DUrole{n}{vb}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{dpav.vbuffer.VBuffer}}, \emph{\DUrole{n}{p0}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{list}}, \emph{\DUrole{n}{p1}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{list}}, \emph{\DUrole{n}{color}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{int}}}{}
+\pysigstopsignatures
 \sphinxAtStartPar
 Draws a line of a given color on a visual buffer from p0 to p1 using
 Bresenham’s algorithm.
@@ -1463,7 +1389,10 @@ Bresenham’s algorithm.
 
 
 \begin{fulllineitems}
-\pysiglinewithargsret{\sphinxcode{\sphinxupquote{dpav.utility.}}\sphinxbfcode{\sphinxupquote{draw\_polygon}}}{\emph{\DUrole{n}{vb}\DUrole{p}{:} \DUrole{n}{dpav.vbuffer.VBuffer}}, \emph{\DUrole{n}{vertices}\DUrole{p}{:} \DUrole{n}{list}}, \emph{\DUrole{n}{color}\DUrole{p}{:} \DUrole{n}{int}}}{}
+
+\pysigstartsignatures
+\pysiglinewithargsret{\sphinxcode{\sphinxupquote{dpav.utility.}}\sphinxbfcode{\sphinxupquote{draw\_polygon}}}{\emph{\DUrole{n}{vb}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{dpav.vbuffer.VBuffer}}, \emph{\DUrole{n}{vertices}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{list}}, \emph{\DUrole{n}{color}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{int}}}{}
+\pysigstopsignatures
 \sphinxAtStartPar
 Draws lines of a given color connecting a list of given points in the
 order they are listed
@@ -1473,7 +1402,10 @@ order they are listed
 
 
 \begin{fulllineitems}
-\pysiglinewithargsret{\sphinxcode{\sphinxupquote{dpav.utility.}}\sphinxbfcode{\sphinxupquote{draw\_rectangle}}}{\emph{\DUrole{n}{vbuffer}\DUrole{p}{:} \DUrole{n}{dpav.vbuffer.VBuffer}}, \emph{\DUrole{n}{color}\DUrole{p}{:} \DUrole{n}{int}}, \emph{\DUrole{n}{pt1}\DUrole{p}{:} \DUrole{n}{tuple\DUrole{p}{{[}}int\DUrole{p}{, }int\DUrole{p}{{]}}}}, \emph{\DUrole{n}{pt2}\DUrole{p}{:} \DUrole{n}{tuple\DUrole{p}{{[}}int\DUrole{p}{, }int\DUrole{p}{{]}}}}}{}
+
+\pysigstartsignatures
+\pysiglinewithargsret{\sphinxcode{\sphinxupquote{dpav.utility.}}\sphinxbfcode{\sphinxupquote{draw\_rectangle}}}{\emph{\DUrole{n}{vbuffer}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{dpav.vbuffer.VBuffer}}, \emph{\DUrole{n}{color}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{int}}, \emph{\DUrole{n}{pt1}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{tuple\DUrole{p}{{[}}int\DUrole{p}{,}\DUrole{w}{  }int\DUrole{p}{{]}}}}, \emph{\DUrole{n}{pt2}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{tuple\DUrole{p}{{[}}int\DUrole{p}{,}\DUrole{w}{  }int\DUrole{p}{{]}}}}}{}
+\pysigstopsignatures
 \sphinxAtStartPar
 Draws a rectangle into a visual buffer.
 \begin{quote}\begin{description}
@@ -1507,7 +1439,10 @@ utility.draw\_rectangle(vb, 0xFFFFFF, (3, 3), (5, 5))
 
 
 \begin{fulllineitems}
-\pysiglinewithargsret{\sphinxcode{\sphinxupquote{dpav.utility.}}\sphinxbfcode{\sphinxupquote{fill}}}{\emph{\DUrole{n}{vb}\DUrole{p}{:} \DUrole{n}{dpav.vbuffer.VBuffer}}, \emph{\DUrole{n}{color}\DUrole{p}{:} \DUrole{n}{int}}, \emph{\DUrole{n}{vertices}}}{}
+
+\pysigstartsignatures
+\pysiglinewithargsret{\sphinxcode{\sphinxupquote{dpav.utility.}}\sphinxbfcode{\sphinxupquote{fill}}}{\emph{\DUrole{n}{vb}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{dpav.vbuffer.VBuffer}}, \emph{\DUrole{n}{color}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{int}}, \emph{\DUrole{n}{vertices}}}{}
+\pysigstopsignatures
 \sphinxAtStartPar
 Fills a polygon defined by a set of vertices with a color.
 
@@ -1516,7 +1451,10 @@ Fills a polygon defined by a set of vertices with a color.
 
 
 \begin{fulllineitems}
-\pysiglinewithargsret{\sphinxcode{\sphinxupquote{dpav.utility.}}\sphinxbfcode{\sphinxupquote{flip\_horizontally}}}{\emph{\DUrole{n}{vb}\DUrole{p}{:} \DUrole{n}{dpav.vbuffer.VBuffer}}}{{ $\rightarrow$ dpav.vbuffer.VBuffer}}
+
+\pysigstartsignatures
+\pysiglinewithargsret{\sphinxcode{\sphinxupquote{dpav.utility.}}\sphinxbfcode{\sphinxupquote{flip\_horizontally}}}{\emph{\DUrole{n}{vb}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{dpav.vbuffer.VBuffer}}}{{ $\rightarrow$ dpav.vbuffer.VBuffer}}
+\pysigstopsignatures
 \sphinxAtStartPar
 Takes a visual buffer, flips it horizontally about the center, and
 returns the new visual buffer.
@@ -1526,7 +1464,10 @@ returns the new visual buffer.
 
 
 \begin{fulllineitems}
-\pysiglinewithargsret{\sphinxcode{\sphinxupquote{dpav.utility.}}\sphinxbfcode{\sphinxupquote{flip\_vertically}}}{\emph{\DUrole{n}{vb}\DUrole{p}{:} \DUrole{n}{dpav.vbuffer.VBuffer}}}{{ $\rightarrow$ dpav.vbuffer.VBuffer}}
+
+\pysigstartsignatures
+\pysiglinewithargsret{\sphinxcode{\sphinxupquote{dpav.utility.}}\sphinxbfcode{\sphinxupquote{flip\_vertically}}}{\emph{\DUrole{n}{vb}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{dpav.vbuffer.VBuffer}}}{{ $\rightarrow$ dpav.vbuffer.VBuffer}}
+\pysigstopsignatures
 \sphinxAtStartPar
 Takes a visual buffer, flips it vertically about the center, and returns
 the new visual buffer.
@@ -1536,7 +1477,10 @@ the new visual buffer.
 
 
 \begin{fulllineitems}
-\pysiglinewithargsret{\sphinxcode{\sphinxupquote{dpav.utility.}}\sphinxbfcode{\sphinxupquote{get\_note\_from\_string}}}{\emph{\DUrole{n}{note}\DUrole{p}{:} \DUrole{n}{str}}, \emph{\DUrole{n}{octave}\DUrole{p}{:} \DUrole{n}{int}}}{{ $\rightarrow$ int}}
+
+\pysigstartsignatures
+\pysiglinewithargsret{\sphinxcode{\sphinxupquote{dpav.utility.}}\sphinxbfcode{\sphinxupquote{get\_note\_from\_string}}}{\emph{\DUrole{n}{note}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{str}}, \emph{\DUrole{n}{octave}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{int}}}{{ $\rightarrow$ int}}
+\pysigstopsignatures
 \sphinxAtStartPar
 Converts a string denoting a note and an octave into a frequency.
 \begin{quote}\begin{description}
@@ -1556,7 +1500,10 @@ A frequency in hertz.
 
 
 \begin{fulllineitems}
-\pysiglinewithargsret{\sphinxcode{\sphinxupquote{dpav.utility.}}\sphinxbfcode{\sphinxupquote{load\_image}}}{\emph{\DUrole{n}{filepath}\DUrole{p}{:} \DUrole{n}{str}}}{{ $\rightarrow$ numpy.ndarray}}
+
+\pysigstartsignatures
+\pysiglinewithargsret{\sphinxcode{\sphinxupquote{dpav.utility.}}\sphinxbfcode{\sphinxupquote{load\_image}}}{\emph{\DUrole{n}{filepath}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{str}}}{{ $\rightarrow$ numpy.ndarray}}
+\pysigstopsignatures
 \sphinxAtStartPar
 Converts an image and returns a numpy array representation of
 that image in hex.
@@ -1576,7 +1523,10 @@ A numpy array filled with the hex color data of the image
 
 
 \begin{fulllineitems}
-\pysiglinewithargsret{\sphinxcode{\sphinxupquote{dpav.utility.}}\sphinxbfcode{\sphinxupquote{point\_in\_polygon}}}{\emph{\DUrole{n}{x}\DUrole{p}{:} \DUrole{n}{int}}, \emph{\DUrole{n}{y}\DUrole{p}{:} \DUrole{n}{int}}, \emph{\DUrole{n}{vertices}}}{{ $\rightarrow$ bool}}
+
+\pysigstartsignatures
+\pysiglinewithargsret{\sphinxcode{\sphinxupquote{dpav.utility.}}\sphinxbfcode{\sphinxupquote{point\_in\_polygon}}}{\emph{\DUrole{n}{x}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{int}}, \emph{\DUrole{n}{y}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{int}}, \emph{\DUrole{n}{vertices}}}{{ $\rightarrow$ bool}}
+\pysigstopsignatures
 \sphinxAtStartPar
 Uses the Even\sphinxhyphen{}Odd Rule to determien whether or not a given pixel is inside
 a given set of vertices.
@@ -1603,7 +1553,10 @@ True if the pixel is within the polygon, False otherwise.
 
 
 \begin{fulllineitems}
-\pysiglinewithargsret{\sphinxcode{\sphinxupquote{dpav.utility.}}\sphinxbfcode{\sphinxupquote{replace\_color}}}{\emph{\DUrole{n}{vb}\DUrole{p}{:} \DUrole{n}{dpav.vbuffer.VBuffer}}, \emph{\DUrole{n}{replaced\_color}\DUrole{p}{:} \DUrole{n}{int}}, \emph{\DUrole{n}{new\_color}\DUrole{p}{:} \DUrole{n}{int}}}{}
+
+\pysigstartsignatures
+\pysiglinewithargsret{\sphinxcode{\sphinxupquote{dpav.utility.}}\sphinxbfcode{\sphinxupquote{replace\_color}}}{\emph{\DUrole{n}{vb}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{dpav.vbuffer.VBuffer}}, \emph{\DUrole{n}{replaced\_color}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{int}}, \emph{\DUrole{n}{new\_color}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{int}}}{}
+\pysigstopsignatures
 \sphinxAtStartPar
 Replaces all pixels in a visual buffer of a chosen color with a new
 color.
@@ -1613,7 +1566,10 @@ color.
 
 
 \begin{fulllineitems}
-\pysiglinewithargsret{\sphinxcode{\sphinxupquote{dpav.utility.}}\sphinxbfcode{\sphinxupquote{rgb\_to\_hex}}}{\emph{\DUrole{n}{arr}\DUrole{p}{:} \DUrole{n}{numpy.ndarray}}}{{ $\rightarrow$ numpy.ndarray}}
+
+\pysigstartsignatures
+\pysiglinewithargsret{\sphinxcode{\sphinxupquote{dpav.utility.}}\sphinxbfcode{\sphinxupquote{rgb\_to\_hex}}}{\emph{\DUrole{n}{arr}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{numpy.ndarray}}}{{ $\rightarrow$ numpy.ndarray}}
+\pysigstopsignatures
 \sphinxAtStartPar
 Converts a numpy array with (r, g, b) values into a numpy array with
 hex color values.
@@ -1623,7 +1579,10 @@ hex color values.
 
 
 \begin{fulllineitems}
-\pysiglinewithargsret{\sphinxcode{\sphinxupquote{dpav.utility.}}\sphinxbfcode{\sphinxupquote{translate}}}{\emph{\DUrole{n}{vb}\DUrole{p}{:} \DUrole{n}{dpav.vbuffer.VBuffer}}, \emph{\DUrole{n}{x\_translation}\DUrole{p}{:} \DUrole{n}{int}}, \emph{\DUrole{n}{y\_translation}\DUrole{p}{:} \DUrole{n}{int}}}{{ $\rightarrow$ dpav.vbuffer.VBuffer}}
+
+\pysigstartsignatures
+\pysiglinewithargsret{\sphinxcode{\sphinxupquote{dpav.utility.}}\sphinxbfcode{\sphinxupquote{translate}}}{\emph{\DUrole{n}{vb}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{dpav.vbuffer.VBuffer}}, \emph{\DUrole{n}{x\_translation}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{int}}, \emph{\DUrole{n}{y\_translation}\DUrole{p}{:}\DUrole{w}{  }\DUrole{n}{int}}}{{ $\rightarrow$ dpav.vbuffer.VBuffer}}
+\pysigstopsignatures
 \sphinxAtStartPar
 Takes a visual buffer, translates every pixel in it by given values, and
 returns the new visual buffer

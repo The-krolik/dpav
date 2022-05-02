@@ -2,45 +2,30 @@ import numpy as np
 
 
 class VBuffer:
-    """Visual buffer for the Python Direct Platform
+    """
+    Visual buffer for the Python Direct Platform
 
     Holds a 2D array of hex color values. Each element represents a pixel,
     whose coordinates are its index. VBuffer can be loaded and displayed by
     the window class.
-
-    Parameters
-    ----------
-    arg1 : {(int, int)|np.ndarray(int, int)}
-        Either array dimensions or a 2-dimensional numpy array of integers
-
-        If dimensions, will create zeroed-out 2D array of the selected
-        dimensions. Defaults to 800x600.
-
-        If numpy array, will set buffer to the contents of that array.
     """
 
     def __init__(self, arg1: tuple = (800, 600)) -> None:
-        """Constructor for the VBuffer class.
+        """
+        Constructor for the VBuffer class.
 
         Loads or creates 2D numpy array, which is the main body of the VBuffer.
 
-        Parameters
-        ----------
-        arg1:
-            If dimensions, will create zeroed-out 2D array of the selected
-            dimensions. Defaults to 800x600.
+        args:
+            arg1: The desired dimensions of the visual buffer. Default value is
+                (800, 600). May also be a numpy array, in which case it will load
+                the contents of the array as well.
 
-            If numpy array, will set buffer to the contents of that array.
-
-        Raises
-        ------
-        TypeError :
-            If following conditions not met:
-                arg1 either list, tuple, or ndarray
-                if list or tuple, must be of length 2, and contain only ints.
-        ValueError :
-            If arg1 is list or tuple, and one or both dimensions negative,
-            or outside of bounds (1920, 1080)
+        Raises:
+            TypeError: If arg1 is not of a valid type, or if its contents are not of
+                a valid type.
+            ValueError : If arg1 is of a valid type, but either of its values are
+                negative, or greater than (1920, 1080).
         """
         if type(arg1) is np.ndarray:
             dimensions = arg1.shape
@@ -62,43 +47,26 @@ class VBuffer:
         self._dimensions = dimensions
 
     def __getitem__(self, idx: tuple) -> int:
-        """Return color value in buffer at selected coordinates.
-
-        Parameters
-        ----------
-        idx : Coordinates to retrieve color value from.
-        """
         return self.buffer[idx]
 
     def __setitem__(self, idx: tuple, val: int) -> None:
-        """Set color value at selected coordinates.
-
-        Parameters
-        ----------
-        idx : Coordinates to write to
-        val : Hex color code to write"""
         self.buffer[idx] = val
 
     def __len__(self) -> int:
-        """Return row-size"""
         return len(self.buffer)
 
     @property
     def dimensions(self) -> tuple:
-        """Return dimensions of buffer."""
+        """Returns the dimensions of the buffer."""
         return self.buffer.shape
 
     @dimensions.setter
     def dimensions(self, _) -> None:
-        """Restricts user from manually changing dimensions.
+        """
+        Restricts user from manually changing dimensions.
 
-        Parameters
-        ----------
-        _ : Ignored
-
-        Raises
-        ------
-        AttributeError : Always raises when setter is called.
+        Raises:
+            AttributeError: Always raises when setter is called.
         """
         raise AttributeError("Cannot reshape visual buffer by setting dimensions")
 
@@ -151,19 +119,17 @@ class VBuffer:
             )
 
     def write_pixel(self, coords: tuple, val: int) -> None:
-        """Sets pixel at specified coordinates to specified color.
+        """
+        Sets pixel at the specified coordinates to a specified color.
 
-        Sets pixel at coordinates coords in buffer to hex value val
+        Args:
+            coords: Pixel coordinates (x, y).
+            val: The hex value of the desired color.
 
-        Parameters
-        ----------
-        coords : Pixel coordinates (an X and a Y)
-        val : The hex value of the desired color to change the pixel with
-
-        Raises
-        ------
-        TypeError : val is not type(int)
-        ValueError : val is negative or greater than max color value (0xFFFFFF)
+        Raises:
+            TypeError: If val is not an int.
+            ValueError: If val is negative or greater than the max color
+                value (0xFFFFFF).
         """
         self._check_coord_type(coords, "coords", "writePixel")
         self._check_coord_val(coords, "writePixel")
@@ -176,56 +142,46 @@ class VBuffer:
         self.buffer[x, y] = val
 
     def get_pixel(self, coords: tuple) -> int:
-        """Return color value of chosen pixel.
-
-        Parameters
-        ----------
-        coords : 2-tuple or list containing first and second index of pixel
-        """
+        """Returns the color value of chosen pixel."""
         x, y = coords[0], coords[1]
         return self.buffer[x, y]
 
     def get_dimensions(self) -> tuple:
-        """Return dimensions of visual buffer array."""
+        """Returns the dimensions of the visual buffer"""
         return self.buffer.shape
 
     def set_buffer(self, buf: np.ndarray) -> None:
-        """Set the visual buffer to equal a provided 2D array of pixels.
+        """
+        Set the contents of a visual buffer to match those of a given array.
 
-        Parameters
-        ----------
-        buf : A 2-dimensional numpy array of integer color values
+        Args:
+            buf: An array of hex color values.
         """
         self._check_numpy_arr(buf, "buf", "set_buffer")
         self.buffer = buf
 
     def fill(self, color: int) -> None:
-        """Set every pixel in the buffer to a given color.
-
-        Parameters
-        ----------
-        color : Hex color code
-        """
+        """Sets every pixel in the buffer to a given hex color value."""
         self.buffer[:] = color
 
     def clear(self) -> None:
-        """Set every pixel in buffer to 0 (hex value for black)."""
+        """Set every pixel in the buffer to 0 (hex value for black)."""
         self.fill(0)
 
     def save_buffer_to_file(self, filename: str) -> None:
-        """Save contents of buffer to a binary file.
+        """
+        Save contents of buffer to a binary file.
 
-        Parameters
-        ----------
-        filename : The path and name of the file to write to
+        Args:
+            filename: The path and name of the file to write.
         """
         np.save(filename, self.buffer)
 
     def load_buffer_from_file(self, filename: str) -> None:
-        """Load binary file storing buffer contents, and write it to buffer.
+        """
+        Load binary file storing buffer contents, and write it to buffer.
 
-        Parameters
-        ----------
-        filename : Path to a binary file containing numpy array data
+        Args:
+            filename: The path to a binary file containing numpy array data.
         """
         self.buffer = np.load(filename + ".npy")

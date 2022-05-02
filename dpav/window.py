@@ -8,57 +8,35 @@ class Window:
     Handles Window capabilites of Direct Python Audio/Video.
 
     Attributes:
-        Public:
-            vbuffer:     active VBuffer object
-            scale:       number that scales up/down the size of the screen
-                         (1.0 is unscaled)
-
-            events:      dictionary of string:bool event pairs,
-                         example:
-                            "l_shift": True  -- left shift is pressed down
-                            "l_shift": False -- left shift is not pressed
-
-            eventq:      list of active events that occured since last update cycle
-                         example:
-                            ['l_shift', 'mouse', 'a', 'q']
-
-            debug_flag:  boolean flag if window object should output debug info to log
-            open_flag:   boolean flag for if the window is active
-
-        Private:
-            _keydict:    int:string PyGame event mapping. PyGame events identifiers are
-                         stored as ints. This attribute is used by the public events
-                         variable to map from PyGame's integer:boolean pairs to
-                         our string:boolean pairs
-
-            _surfaces:   Two PyGame Surfaces for swapping to reflect vbuffer changes and
-                         enable in-place nparray modification
-
-            _screen:     PyGame.display object, used for viewing vbuffer attribute
+        vbuffer (:obj:`VBuffer`): The currently active visual buffer.
+        scale (float): A number that scales up/down the size of the screen (1.0 is unscaled).
+        events: A dictionary of string:bool event pairs.
+        eventq (list): The active events that occured since last update cycle.
+        debug_flag (bool): A flag for whether or not the window object should output debug info to log
+        open_flag (bool): A flag for whether or not the window is active.
+        _keydict: int:string PyGame event mapping. PyGame events identifiers are
+            stored as ints. This attribute is used by the public events
+            variable to map from PyGame's integer:boolean pairs to
+            our string:boolean pairs.
+        _surfaces (list): Two PyGame Surfaces for swapping to reflect vbuffer changes and
+            to enable in-place nparray modification.
+        _screen: A PyGame.display object, used for viewing vbuffer attribute.
     """
 
     def __init__(self, arg1: VBuffer = None, scale: float = 1.0):
         """
-        Constructor for the Window class.
+        The constructor for the Window class.
 
         Args:
-            arg1 (optional):
-                VBuffer/np.ndarray (default None) to display on screen
+            arg1 (optional): VBuffer/np.ndarray (default None) to display on screen.
 
-                default:
-                    if none provided, will create blank VBuffer with
-                    dimensions: width = 800, height = 600
+                default: Will create blank VBuffer with dimensions: width = 800, height = 600.
 
-            scale (optional):
-                float/int for scale of window
-                default: 1.0
-                example:
-                    scale = 0.5, vbuffer dimensions = (800,600)
-                    display dimensions = (400,300)
+            scale (optional): A float for the scale of window (default is 1.0).
 
         Raises:
-            TypeError:  arg1 VBuffer/np.ndarray type check
-            TypeError:  scale int/float type check
+            TypeError: If arg1 is not either a VBuffer or np.ndarray.
+            TypeError: If the scale is not a float.
         """
 
         if arg1 != None and (
@@ -91,10 +69,13 @@ class Window:
 
     def get_mouse_pos(self) -> (int, int):
         """
-        Returns the current mouse location with respect to the pygame window instance
+        Returns the current mouse location.
+
+        Returns:
+            A tuple containing the coordinates of the current mouse location in the window.
 
         Raises:
-            Runtime Error: no active pygame window instances exists
+            Runtime Error: If no active pygame window instances exists.
         """
         if self.open_flag == False:
             if self.debug_flag:
@@ -107,14 +88,14 @@ class Window:
 
     def set_vbuffer(self, arg1: VBuffer) -> None:
         """
-        Sets the vbuffer/nparray object to display on screen
+        Sets the visual buffer object to display on screen.
 
         Args:
-            arg1:  VBuffer/np.ndarray
+            arg1: The visual buffer to display.
 
         Raises:
-            TypeError: arg1 VBuffer/np.ndarray type check
-            TypeError: scale int/float type check
+            TypeError: If arg1 is not either a VBuffer or a np.ndarray.
+            TypeError: If the scale is not a float.
         """
 
         if arg1 == None or (type(arg1) is not np.ndarray and type(arg1) is not VBuffer):
@@ -123,16 +104,12 @@ class Window:
         self.vbuffer = arg1 if type(self.vbuffer) is VBuffer else VBuffer(arg1)
 
     def set_scale(self, scale: float) -> None:
-        """
-        Sets the window scale
-        """
+        """Sets the window scale."""
 
         self.scale = scale
 
     def open(self) -> None:
-        """
-        Creates and runs pygame window in a new thread
-        """
+        """Creates and runs pygame window."""
         newx = self.vbuffer.get_dimensions()[0] * self.scale
         newy = self.vbuffer.get_dimensions()[1] * self.scale
         self._screen = pygame.display.set_mode((newx, newy))
@@ -143,10 +120,10 @@ class Window:
 
     def close(self) -> None:
         """
-        Closes the active instance of a pygame window
+        Closes the active instance of a pygame window.
 
         Raises:
-            RuntimeError: no active pygame window instances exists
+            RuntimeError: If no active pygame window exists.
         """
 
         if not self.open_flag:
@@ -158,9 +135,7 @@ class Window:
         pygame.quit()
 
     def _write_to_screen(self) -> None:
-        """
-        Updates the screen with changes from stored vbuffer object
-        """
+        """Updates the screen with changes from stored vbuffer object."""
 
         # swap surfaces
         self._surfaces["active"], self._surfaces["inactive"] = (
@@ -180,15 +155,17 @@ class Window:
 
     def is_open(self) -> bool:
         """
-        Updates events on every call, used to abstract out PyGame
-        display calls and event loop
+        Method that the user can check in a while loop to maintain a window.
+
+        This call updates events on every call and is used to abstract out PyGame
+        display calls as well as the event loop.
 
         example:
             if window.is_open():
                # your code here
 
-        Return:
-            boolean denoting if the window is currently open
+        Returns:
+            A boolean value denoting whether or not the window is currently open.
         """
 
         self.update()
@@ -196,11 +173,13 @@ class Window:
 
     def update(self) -> None:
         """
-        Pygame event abstraction, called at end of pygame loop.
-        Optional function if is_open() is used
+        Updates the Pygame window to display changes made to the visual buffer.
+
+        Note:
+            This function's use is optional if is_open() is used.
 
         Raises:
-            Runtime Error: No active pygame window
+            Runtime Error: If there is no active pygame window.
         """
         self._write_to_screen()
         if self.open_flag == False:
@@ -218,12 +197,10 @@ class Window:
     def _update_events(self, event: str) -> None:
         """
         Updates the Window class event dictionary to maintain continuity
-        with pygame events
+        with pygame events.
 
         Args:
-            event: current event (string) to update
-            example:
-                self._update_events('l_shift')
+            event: The current event (string) to update.
         """
 
         strkey = "None"
@@ -246,7 +223,7 @@ class Window:
 
     def _build_events_dict(self) -> None:
         """
-        creates the events dictionary, called once by _start
+        Creates the events dictionary. This function is called once by _start.
         """
 
         # used for mapping of pygame key int identifiers to string identifiers

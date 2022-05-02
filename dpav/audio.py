@@ -13,16 +13,13 @@ class Audio(object):
     """
     Handles Audio capabilities of Direct Python Audio/Video.
 
-    Members:
-        Private:
-            _bit_number: An int for the bit rate (locked at 16).
-            _sample_rate: An int for the sample rate (locked at 44100).
-            _audio_buffer: A numpy array holding sounds to be played.
-            _audio_device: An int for the array index of list of audio_devices (see set_audio_devices).
-
-        Public:
-            volume_level: A float between 0 and 1 for the volume.
-            waves: A table of built in waveforms.
+    Attributes:
+        _bit_number (int): The bit rate of the audio buffer (locked at 16).
+        _sample_rate (int): The sample rate of the audio buffer (locked at 44100).
+        _audio_buffer (:obj:`numpy.ndarray`): An array holding sounds to be played.
+        _audio_device (int): The array index of list of audio_devices (see set_audio_devices).
+        volume_level (float): A number between 0 and 1 for the volume.
+        waves (:obj:`wave_table`): A table of built in waveforms.
     """
 
     def __init__(self):
@@ -47,11 +44,11 @@ class Audio(object):
         """
         Gets the bit rate of the Audio class
 
+        Note:
+            The bit rate is currently locked to 16 bits.
+
         Returns:
             The bit rate of the Audio class.
-
-        Notes:
-            The bit rate is currently locked to 16 bits.
         """
         return self._bit_number
 
@@ -59,11 +56,11 @@ class Audio(object):
         """
         Gets the sample rate of the Audio class.
 
-        Returns:
-            self._sample_rate: The sample rate of the audioClass - int value
-
         Notes:
             The sample rate is currently locked to 44100.
+
+        Returns:
+            self._sample_rate: The sample rate of the audioClass - int value
         """
         return self._sample_rate
 

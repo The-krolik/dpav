@@ -15,6 +15,6 @@
 \contentsline {section}{\numberline {5.6}Mouse Position}{8}{section.5.6}%
 \contentsline {chapter}{\numberline {6}Source Documentation}{9}{chapter.6}%
 \contentsline {section}{\numberline {6.1}Audio}{9}{section.6.1}%
-\contentsline {section}{\numberline {6.2}VBuffer}{13}{section.6.2}%
-\contentsline {section}{\numberline {6.3}Window}{14}{section.6.3}%
-\contentsline {section}{\numberline {6.4}Utility}{16}{section.6.4}%
+\contentsline {section}{\numberline {6.2}VBuffer}{12}{section.6.2}%
+\contentsline {section}{\numberline {6.3}Window}{13}{section.6.3}%
+\contentsline {section}{\numberline {6.4}Utility}{15}{section.6.4}%
