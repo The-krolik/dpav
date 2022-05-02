@@ -49,7 +49,7 @@ class VBuffer:
         _check_coord_vals(self, x, y, method_name) -> None
     """
 
-    def __init__(self, arg1: list | tuple | np.ndarray = (800, 600)) -> None:
+    def __init__(self, arg1: tuple = (800, 600)) -> None:
         """Constructor for the VBuffer class.
 
         Loads or creates 2D numpy array, which is the main body of the VBuffer.
@@ -91,7 +91,7 @@ class VBuffer:
         self.debug_flag = False
         self._dimensions = dimensions
 
-    def __getitem__(self, idx: list | tuple) -> int:
+    def __getitem__(self, idx: tuple) -> int:
         """Return color value in buffer at selected coordinates.
 
         Parameters
@@ -100,7 +100,7 @@ class VBuffer:
         """
         return self.buffer[idx]
 
-    def __setitem__(self, idx: list | tuple, val: int) -> None:
+    def __setitem__(self, idx: tuple, val: int) -> None:
         """Set color value at selected coordinates.
 
         Parameters
@@ -114,7 +114,7 @@ class VBuffer:
         return len(self.buffer)
 
     @property
-    def dimensions(self) -> list | tuple:
+    def dimensions(self) -> tuple:
         """Return dimensions of buffer."""
         return self.buffer.shape
 
@@ -153,9 +153,7 @@ class VBuffer:
                 f"{arg_name} argument to VBuffer. {method_name} np.ndarray is of size: {arg1.shape} highest supported resolution is (1920,1080)"
             )
 
-    def _check_coord_type(
-        self, coords: list | tuple, arg_name: str, method_name: str
-    ) -> None:
+    def _check_coord_type(self, coords: tuple, arg_name: str, method_name: str) -> None:
         """Type checks coordinates, and raises exception if incorrect type."""
         if type(coords) is not list and type(coords) is not tuple:
             raise TypeError(
@@ -170,7 +168,7 @@ class VBuffer:
                 f"{arg_name} argument to VBuffer. {method_name} can only have integer values!"
             )
 
-    def _check_coord_val(self, coords: list | tuple, method_name: str) -> None:
+    def _check_coord_val(self, coords: tuple, method_name: str) -> None:
         """Checks if supplied coordinates are valid. Raise exception if not."""
         x, y = coords[0], coords[1]
         if x < 0 or y < 0:
@@ -182,7 +180,7 @@ class VBuffer:
                 f"Coordinate args to VBuffer.{method_name} are out of bounds."
             )
 
-    def write_pixel(self, coords: list | tuple, val: int) -> None:
+    def write_pixel(self, coords: tuple, val: int) -> None:
         """Sets pixel at specified coordinates to specified color.
 
         Sets pixel at coordinates coords in buffer to hex value val
@@ -207,7 +205,7 @@ class VBuffer:
         x, y = coords[0], coords[1]
         self.buffer[x, y] = val
 
-    def get_pixel(self, coords: list | tuple) -> int:
+    def get_pixel(self, coords: tuple) -> int:
         """Return color value of chosen pixel.
 
         Parameters
@@ -217,7 +215,7 @@ class VBuffer:
         x, y = coords[0], coords[1]
         return self.buffer[x, y]
 
-    def get_dimensions(self) -> list | tuple:
+    def get_dimensions(self) -> tuple:
         """Return dimensions of visual buffer array."""
         return self.buffer.shape
 
