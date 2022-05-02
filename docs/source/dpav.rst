@@ -1,9 +1,6 @@
 dpav package
 ============
 
-Submodules
-----------
-
 dpav.audio module
 -----------------
 
@@ -32,14 +29,6 @@ dpav.window module
 ------------------
 
 .. automodule:: dpav.window
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-Module contents
----------------
-
-.. automodule:: dpav
    :members:
    :undoc-members:
    :show-inheritance:

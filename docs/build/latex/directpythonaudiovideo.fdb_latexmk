@@ -1,10 +1,10 @@
 # Fdb version 3
-["makeindex directpythonaudiovideo.idx"] 1651454286 "directpythonaudiovideo.idx" "directpythonaudiovideo.ind" "directpythonaudiovideo" 1651454288
-  "directpythonaudiovideo.idx" 1651454288 4964 2dd04410b31b9df0596b486fb73b0c0f "pdflatex"
+["makeindex directpythonaudiovideo.idx"] 1651454159 "directpythonaudiovideo.idx" "directpythonaudiovideo.ind" "directpythonaudiovideo" 1651454371
+  "directpythonaudiovideo.idx" 1651454371 4964 2dd04410b31b9df0596b486fb73b0c0f "pdflatex"
   (generated)
   "directpythonaudiovideo.ilg"
   "directpythonaudiovideo.ind"
-["pdflatex"] 1651454287 "directpythonaudiovideo.tex" "directpythonaudiovideo.pdf" "directpythonaudiovideo" 1651454288
+["pdflatex"] 1651454370 "directpythonaudiovideo.tex" "directpythonaudiovideo.pdf" "directpythonaudiovideo" 1651454371
   "/usr/share/texlive/texmf-dist/fonts/enc/dvips/tex-gyre/q-ec.enc" 1529098226 2457 aaabbccba4df2a7f7371410ee4e075a3 ""
   "/usr/share/texlive/texmf-dist/fonts/enc/dvips/tex-gyre/q-ts1.enc" 1529098226 3124 3813fd4c981d99822890a2861b0d274c ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
@@ -139,13 +139,13 @@
   "/usr/share/texlive/texmf-dist/web2c/texmf.cnf" 1642002331 40136 b05acc85e8425979e52682d98a2bcacf ""
   "/usr/share/texlive/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1645152638 5132476 88a7a3ead897d6c2bad24357946d7686 ""
   "/var/home/krolik/.texlive2021/texmf-var/web2c/pdftex/pdflatex.fmt" 1645833149 2727063 e6ffeeb717fde55b1877d23ecf9c4635 ""
-  "directpythonaudiovideo.aux" 1651454288 5466 997b3e07d28a760684a5e48743012e08 "pdflatex"
-  "directpythonaudiovideo.ind" 1651454286 4043 05bb8b1116910498c440f04d15c6e5f2 "makeindex directpythonaudiovideo.idx"
-  "directpythonaudiovideo.out" 1651454288 759 ca998f4734f74fe5b245ce9e91925020 "pdflatex"
-  "directpythonaudiovideo.tex" 1651454147 43070 7e8fec991d8ad4635c742c5650cca41d ""
-  "directpythonaudiovideo.toc" 1651454288 534 ae0bf8531a6c163d29679d87271c0ac5 "pdflatex"
+  "directpythonaudiovideo.aux" 1651454371 5362 585134756aee063a7005e8c5e99a2b46 "pdflatex"
+  "directpythonaudiovideo.ind" 1651454159 4043 05bb8b1116910498c440f04d15c6e5f2 "makeindex directpythonaudiovideo.idx"
+  "directpythonaudiovideo.out" 1651454371 613 e3101616ebe211e1e9ef8201e44e116d "pdflatex"
+  "directpythonaudiovideo.tex" 1651454369 42567 eec14bc2770531a7fc7bee2680f03c7d ""
+  "directpythonaudiovideo.toc" 1651454371 471 2e49bf1673ba101d802e2ae3e60f4acc "pdflatex"
   "sphinx.sty" 1651444874 13276 82c78138249383cc280953c4285ce73f ""
-  "sphinxhighlight.sty" 1651454249 6679 76d10c62e0f0661410b46f5db6118e26 ""
+  "sphinxhighlight.sty" 1651454369 6679 76d10c62e0f0661410b46f5db6118e26 ""
   "sphinxlatexadmonitions.sty" 1651444874 6238 2d867d769abf3f72abc17ef52adff78b ""
   "sphinxlatexcontainers.sty" 1651444874 901 d3a3a1b7b2547f47ade2499350b5c420 ""
   "sphinxlatexgraphics.sty" 1651444874 4840 a9578332b6f3b35e198751fb632c9b79 ""
@@ -160,7 +160,7 @@
   "sphinxlatexstyletext.sty" 1651444874 6177 c18841ce3fafc366cd3b145f8faa4c37 ""
   "sphinxlatextables.sty" 1651444874 21848 2827eb0b11b99b185a8b77317d3e131c ""
   "sphinxmanual.cls" 1651444874 4241 7b0d7a37df7b5715fb0dbd585c52ecdb ""
-  "sphinxmessages.sty" 1651454250 745 3f5fcd6cdd7964ed608767954a8ced6f ""
+  "sphinxmessages.sty" 1651454369 745 3f5fcd6cdd7964ed608767954a8ced6f ""
   "sphinxoptionsgeometry.sty" 1651444874 2061 47bb34b8ed8a78823eb0c886abfb9f4d ""
   "sphinxoptionshyperref.sty" 1651444874 1094 79beb8b8a3f10784f8cce804e0f9d3aa ""
   "sphinxpackagefootnote.sty" 1651444874 13248 e2c77871396275ccf592403f8130f6f2 ""
