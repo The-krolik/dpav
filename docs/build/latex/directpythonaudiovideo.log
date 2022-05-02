@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2022.5.1)  1 MAY 2022 21:45
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2022.5.1)  1 MAY 2022 22:29
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -827,11 +827,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 1119--1122
 aining first and second index of
  []
 
-[14] [15] [16] [17]
-Chapter 7.
-[18
-
-] [19
+[14] [15] [16] [17] [18
 
 
 
@@ -847,29 +843,29 @@ Underfull \hbox (badness 10000) in paragraph at lines 91--92
 uffer.VBuffer
  []
 
-[20
+[19
 
 
 
-] [21
+] [20
 
 ])
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1664.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 1664.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1647.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 1647.
  (./directpythonaudiovideo.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1664.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1664.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1647.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1647.
 
 Package rerunfilecheck Info: File `directpythonaudiovideo.out' has not changed.
 
-(rerunfilecheck)             Checksum: 0BFB3C9B7D2AB2D75F3B91DAE1F162FB;2574.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1664.
+(rerunfilecheck)             Checksum: EA79C8C12C29F20B5AD3C2C309E6949D;2434.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1647.
  ) 
 Here is how much of TeX's memory you used:
- 13964 strings out of 483183
- 199795 string characters out of 5966293
- 481698 words of memory out of 5000000
- 28491 multiletter control sequences out of 15000+600000
+ 13960 strings out of 483183
+ 199742 string characters out of 5966293
+ 481656 words of memory out of 5000000
+ 28489 multiletter control sequences out of 15000+600000
  584024 words of font info for 66 fonts, out of 8000000 for 9000
  15 hyphenation exceptions out of 8191
  38i,12n,51p,780b,671s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -883,10 +879,10 @@ fonts/type1/public/tex-gyre/qtmri.pfb></usr/share/texlive/texmf-dist/fonts/type
 1/public/txfonts/t1xbtt.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/t
 xfonts/t1xtt.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/txfonts/t1xt
 t.pfb>
-Output written on directpythonaudiovideo.pdf (23 pages, 221142 bytes).
+Output written on directpythonaudiovideo.pdf (22 pages, 220136 bytes).
 PDF statistics:
- 450 PDF objects out of 1000 (max. 8388607)
- 405 compressed objects within 5 object streams
- 123 named destinations out of 1000 (max. 500000)
- 197 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 440 PDF objects out of 1000 (max. 8388607)
+ 397 compressed objects within 4 object streams
+ 121 named destinations out of 1000 (max. 500000)
+ 189 words of extra memory for PDF output out of 10000 (max. 10000000)
 

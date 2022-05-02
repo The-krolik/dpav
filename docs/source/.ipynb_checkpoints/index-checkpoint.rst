@@ -12,10 +12,3 @@ Welcome to Direct Python Audio/Video's documentation!
 
    fundamentals
    dpav
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
