@@ -17,36 +17,6 @@ class VBuffer:
         dimensions. Defaults to 800x600.
 
         If numpy array, will set buffer to the contents of that array.
-
-
-    Methods
-    -------
-    Constructor:
-        __init__(self, arg1=(800, 600)) -> None
-    Overloads:
-        __getitem__(self, idx) -> int
-        __setitem__(self, idx, val) -> None
-        __len__(self) -> int
-    properties:
-        getter:
-            dimensions(self) -> (int, int)
-        setter:
-            dimensions(self, val) -> None
-    Setter:
-        write_pixel(self, coords, val) -> None
-        set_buffer(self, buf) -> None
-        clear(self) -> None
-        fill(self, color: int) -> None
-    Getters:
-        get_pixel(self, coords) -> int
-        get_dimensions(self) -> (int, int)
-    File I/O:
-        save_buffer_to_file(self, filename) -> None
-        load_buffer_from_file(self, filename) -> None
-    Error Checking:
-        _check_numpy_arr(self,arg1,arg_name,method_name) -> None
-        _check_coord_type(self, coords, arg_name, method_name) -> None
-        _check_coord_vals(self, x, y, method_name) -> None
     """
 
     def __init__(self, arg1: tuple = (800, 600)) -> None:
