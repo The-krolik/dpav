@@ -1,4 +1,4 @@
-from directpythonplatform import *
+from dpav import *
 from utility import draw_rectangle
 import random
 

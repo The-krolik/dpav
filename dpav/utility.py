@@ -1,8 +1,19 @@
+"""
+The utility.py module defines a variety of utility functions to the dpav library.
+
+This module adds utility functions for line and shape drawing, visual buffer
+transformations, image parsing, and note conversions. 
+
+Examples:
+    $ utility.draw_line(vb, (3, 3), (5, 5), 0x00FF00)
+
+"""
+
 from datetime import datetime
-from vbuffer import VBuffer
 from math import sin, cos, pi
 import numpy as np
 import pygame
+from .vbuffer import VBuffer
 
 try:
     from scipy.io import wavfile
@@ -21,7 +32,22 @@ def _debug_out(msg):
         file.write(msg)
 
 
-def draw_rectangle(vbuffer, color, pt1, pt2):
+def draw_rectangle(
+    vbuffer: VBuffer, color: int, pt1: tuple[int, int], pt2: tuple[int, int]
+):
+    """
+    Draws a rectangle into a visual buffer.
+
+    Args:
+       vbuffer: A visual buffer to write a rectangle into.
+       color: The color the rectangle should be.
+       pt1: One corder of the rectangle.
+       pt2: The opposite corner from pt1 of the rectangle.
+
+    Examples:
+        utility.draw_rectangle(vb, 0xFFFFFF, (3, 3), (5, 5))
+
+    """
     pts = [pt1, pt2]
 
     # error checking
@@ -53,20 +79,27 @@ def draw_rectangle(vbuffer, color, pt1, pt2):
     buf[lowx:highx, lowy:highy] = color
 
 
-def load_image(filepath) -> np.ndarray:
+def load_image(filepath: str) -> np.ndarray:
     """
-    Description:
-        Takes the file path of an image and returns an np.ndarray in hex
+    Converts an image and returns a numpy array representation of
+    that image in hex.
+
+    Args:
+        filepath: The filepath of the image to be loaded
+
+    Returns:
+        A numpy array filled with the hex color data of the image
+
     """
     imagesurf = pygame.image.load(filepath)
     image_array = pygame.surfarray.array3d(imagesurf)
     return rgb_to_hex(image_array)
 
 
-def rgb_to_hex(arr):
-    """
-    Description:
-        Takes an np.ndarray in rgb and returns it in hex
+def rgb_to_hex(arr: np.ndarray) -> np.ndarray:
+    """Converts a numpy array with (r, g, b) values into a numpy array with
+    hex color values.
+
     """
     ret = np.zeros((arr.shape[0], arr.shape[1]))
 
@@ -79,18 +112,24 @@ def rgb_to_hex(arr):
     return ret
 
 
-def get_note_from_string(string, octave):
+def get_note_from_string(note: str, octave: int) -> int:
     """
-    Given a string representing a note, this will return a hz
-    IN: string representing the note e.g. Ab, C, E#
-    OUT: returns hz
+    Converts a string denoting a note and an octave into a frequency.
+
+    Args:
+        note: A musical note denoted with a capital letter and a
+            sharp (#) or a flat (b).
+
+    Returns:
+        A frequency in hertz.
+
     """
     notes = {"A": -3, "B": -1, "C": 0, "D": 2, "E": 4, "F": 5, "G": 7}
     tone = None
-    if len(string) > 0:
-        if string[0].upper() in notes:
-            tone = notes[string[0]]
-        for each in string:
+    if len(note) > 0:
+        if note[0].upper() in notes:
+            tone = notes[note[0]]
+        for each in note:
             if each == "b":
                 tone -= 1
             elif each == "#":
@@ -108,24 +147,25 @@ def get_note_from_string(string, octave):
     return hz
 
 
-# Please fucking god find a better name
-def sixteenWavtoRawData(wavefile):
-    """
-    takes in a string path/name of a wav file, converts it to numpy array
-    """
+def convert_wav_to_nparr(wavefile: str) -> np.ndarray:
+    """Takes a string filepath of a wav file and converts it to a numpy array."""
     samplerate, data = wavfile.read(wavefile)
     return samplerate, data
 
 
 def replace_color(vb: VBuffer, replaced_color: int, new_color: int):
-    """
-    Replace all pixels of value replaced_color with new_color in a visual
-    buffer vb.
+    """Replaces all pixels in a visual buffer of a chosen color with a new
+    color.
+
     """
     vb.buffer = np.where(vb.buffer == replaced_color, new_color, vb.buffer)
 
 
 def flip_horizontally(vb: VBuffer) -> VBuffer:
+    """Takes a visual buffer, flips it horizontally about the center, and
+    returns the new visual buffer.
+
+    """
     flipped_vb = VBuffer(vb.dimensions)
     for x in range(len(flipped_vb)):
         for y in range(len(flipped_vb[x])):
@@ -135,6 +175,10 @@ def flip_horizontally(vb: VBuffer) -> VBuffer:
 
 
 def flip_vertically(vb: VBuffer) -> VBuffer:
+    """Takes a visual buffer, flips it vertically about the center, and returns
+    the new visual buffer.
+
+    """
     flipped_vb = VBuffer(vb.dimensions)
     for x in range(len(flipped_vb)):
         for y in range(len(flipped_vb[x])):
@@ -144,6 +188,10 @@ def flip_vertically(vb: VBuffer) -> VBuffer:
 
 
 def translate(vb: VBuffer, x_translation: int, y_translation: int) -> (VBuffer):
+    """Takes a visual buffer, translates every pixel in it by given values, and
+    returns the new visual buffer
+
+    """
     trans_vb = VBuffer(vb.dimensions)
     for x in range(len(trans_vb)):
         for y in range(len(trans_vb[x])):
@@ -154,23 +202,10 @@ def translate(vb: VBuffer, x_translation: int, y_translation: int) -> (VBuffer):
     return trans_vb
 
 
-"""
-def rotate(vb: VBuffer, degrees: int, point: tuple) -> (VBuffer):
-    rot_vb = VBuffer(vb.dimensions)
-    angle = degrees * (pi / 180.0)
-    for x in range(len(rot_vb)):
-        for y in range(len(rot_vb[x])):
-            xp = int((x - point[0]) * cos(angle) - (y - point[1]) * sin(angle) + point[0])
-            yp = int((x - point[0]) * sin(angle) + (y - point[1]) * cos(angle) + point[1])
-            if (0 <= xp < len(rot_vb)) and (0 <= yp < len(rot_vb[x])):
-                rot_vb[xp, yp] = vb[x, y]
-    return rot_vb
-"""
-
-
 def draw_line(vb: VBuffer, p0: list, p1: list, color: int):
-    """
-    Draws a line on a visual buffer from p0 to p1 using Bresenham's algorithm
+    """Draws a line of a given color on a visual buffer from p0 to p1 using
+    Bresenham's algorithm.
+
     """
     (x0, y0) = p0
     (x1, y1) = p1
@@ -200,9 +235,9 @@ def draw_line(vb: VBuffer, p0: list, p1: list, color: int):
 
 
 def draw_polygon(vb: VBuffer, vertices: list, color: int):
-    """
-    Draws a polygon in a visual buffer with the given vertices utilizing the
-    order in which they are given.
+    """Draws lines of a given color connecting a list of given points in the
+    order they are listed
+
     """
     for i in range(0, len(vertices) - 1):
         draw_line(vb, vertices[i], vertices[i + 1], color)
@@ -210,9 +245,9 @@ def draw_polygon(vb: VBuffer, vertices: list, color: int):
 
 
 def draw_circle(vb: VBuffer, center: list, r: float, color: int):
-    """
-    Draws a circle onto a visual buffer of a specified color and radius
+    """Draws a circle onto a visual buffer of a specified color and radius
     around a given center point using Bresenham's algorithm.
+
     """
     center_x = center[0]
     center_y = center[1]
@@ -248,9 +283,7 @@ def draw_circle(vb: VBuffer, center: list, r: float, color: int):
 
 
 def fill(vb: VBuffer, color: int, vertices):
-    """
-    Fills a polygon defined by a set of vertices with a color.
-    """
+    """Fills a polygon defined by a set of vertices with a color."""
     (dimx, dimy) = vb.get_dimensions()
     for i in range(dimx):
         for j in range(dimy):
@@ -260,8 +293,16 @@ def fill(vb: VBuffer, color: int, vertices):
 
 def point_in_polygon(x: int, y: int, vertices) -> bool:
     """
-    Uses the Even-Odd Rule to determine whether or not the pixel at coordinate
-    (x,y) is inside the polygon defined by a set of vertices.
+    Uses the Even-Odd Rule to determien whether or not a given pixel is inside
+    a given set of vertices.
+
+    Args:
+        x: The x coordinate of the pixel to be checked.
+        y: The y coordinate of the pixel to be checked.
+
+    Returns:
+        True if the pixel is within the polygon, False otherwise.
+
     """
     num = len(vertices)
     j = num - 1

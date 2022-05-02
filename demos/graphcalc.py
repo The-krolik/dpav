@@ -1,10 +1,10 @@
-import directpythonplatform as dp
+import dpav as dp
 import numpy as np
 import math
 import sys
 from math import sin, cos, tan, e, pi, log
 import argparse
-from directpythonplatform import draw_line
+from dpav import draw_line
 
 
 class dppgraph:

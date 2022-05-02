@@ -1,0 +1,1549 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>dpav package &#8212; Direct Python Audio/Video 0.0.1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="dpav" href="modules.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="dpav-package">
+<h1>dpav package<a class="headerlink" href="#dpav-package" title="Permalink to this headline">¶</a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="module-dpav.audio">
+<span id="dpav-audio-module"></span><h2>dpav.audio module<a class="headerlink" href="#module-dpav.audio" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="dpav.audio.Audio">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">dpav.audio.</span></span><span class="sig-name descname"><span class="pre">Audio</span></span><a class="headerlink" href="#dpav.audio.Audio" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Handles Audio capabilities of Python Direct Platform.</p>
+<dl>
+<dt>Functions:</dt><dd><dl>
+<dt>Constructor:</dt><dd><p>__init__()</p>
+</dd>
+<dt>Functions:</dt><dd><dl class="simple">
+<dt>play_sound(Hz, length)</dt><dd><dl class="simple">
+<dt>If audio buffer is set:</dt><dd><p>play_sound()</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p>play_sample(string_name_of_wav_file)</p>
+</dd>
+<dt>Setters:</dt><dd><p>set_audio_buffer(numpyarray)
+set_audio_device(int)
+set_waveform(waveform)</p>
+</dd>
+<dt>Getters:</dt><dd><p>get_bit_number()-&gt;int
+get_sample_rate()-&gt;int
+get_audio_buffer()
+get_audio_device()-&gt;Returns int corresponding to audio device</p>
+</dd>
+<dt>Misc:</dt><dd><p>list_audio_devices()
+wait_for_sound_end()</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="dpav.audio.Audio.get_audio_buffer">
+<span class="sig-name descname"><span class="pre">get_audio_buffer</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#dpav.audio.Audio.get_audio_buffer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the audio buffer of the Audio class</p>
+<dl>
+<dt>Description:</dt><dd><p>This will return none if the audio buffer has not been set by the set_audio_buffer method.</p>
+<p>audioobject.get_audio_buffer()</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>None</strong> – </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>numpy array</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>self._audio_buffer</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dpav.audio.Audio.get_audio_device">
+<span class="sig-name descname"><span class="pre">get_audio_device</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="headerlink" href="#dpav.audio.Audio.get_audio_device" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the current audio device number of the Audio Class</p>
+<dl class="simple">
+<dt>Description:</dt><dd><p>Assuming audioobject.set_audio_device(2) is called,
+audioobject.get_audio_device() would return 2 [index of audio device in audioobject.list_audio_devices()]</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>None</strong> – </p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>Returns</dt><dd><p>self._audio_device: int value</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>Returns the integer value of the device not the device name</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dpav.audio.Audio.get_bit_number">
+<span class="sig-name descname"><span class="pre">get_bit_number</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="headerlink" href="#dpav.audio.Audio.get_bit_number" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the bit rate of the Audio class</p>
+<dl class="simple">
+<dt>Description:</dt><dd><p>Bit rate currently locked to 16 bits</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>None</strong> – </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The bit rate of the Audio class - int value</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>self._bit_number</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dpav.audio.Audio.get_sample_rate">
+<span class="sig-name descname"><span class="pre">get_sample_rate</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="headerlink" href="#dpav.audio.Audio.get_sample_rate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the sample rate of the Audio class.</p>
+<dl class="simple">
+<dt>Description:</dt><dd><p>Sample rate is currently locked to 44100</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>None</strong> – </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The sample rate of the audioClass - int value</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>self._sample_rate</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dpav.audio.Audio.list_audio_devices">
+<span class="sig-name descname"><span class="pre">list_audio_devices</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#dpav.audio.Audio.list_audio_devices" title="Permalink to this definition">¶</a></dt>
+<dd><p>Lists the output devices on your system and adds to list self._devices</p>
+<dl>
+<dt>Description:</dt><dd><p>Run this function before using set_audio_device() to add devices to the list devices</p>
+<p>audioobject.list_audio_devices()
+0 Speakers (Realtek(R) Audio)
+1 VGA248 (2-NVIDIA High Def Audio)
+2 Speakers (HyperX Cloud II Wireless)</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>None</strong> – </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dpav.audio.Audio.play_sample">
+<span class="sig-name descname"><span class="pre">play_sample</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sample_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#dpav.audio.Audio.play_sample" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plays sounds that are wav, ogg or mp3 files.</p>
+<dl class="simple">
+<dt>Description:</dt><dd><p>audioobject.play_sample(mypath.mp3) would play sounds from the file mypath.mp3</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>sample_name</strong> – String path or name of sound</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dpav.audio.Audio.play_sound">
+<span class="sig-name descname"><span class="pre">play_sound</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_frequency</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">input_duration</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#dpav.audio.Audio.play_sound" title="Permalink to this definition">¶</a></dt>
+<dd><p>Primary sound playing method of the audio class.</p>
+<dl>
+<dt>Description:</dt><dd><p>Play sounds directly from this function
+Need to run set_audio_device() or will default to the default audio device
+You can use set_waveform to change the type.
+play_sound is somewhat overloaded to where if you have an audioBuffer set using set_audio_buffer, you can call play_sound()</p>
+<blockquote>
+<div><p>and it will play whatever that audio_buffer is e.g. wav files
+Example in examples/custombuffer.py</p>
+</div></blockquote>
+<p>play_sound(440, 1) would play an A note for one second with the sin waveform set.</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>input_frequency</strong> – int value - input frequency in Hz</p></li>
+<li><p><strong>input_duration</strong> – int value - duration in seconds</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>TypeError</strong> – If input_duration not a number, or &lt; 0</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dpav.audio.Audio.set_audio_buffer">
+<span class="sig-name descname"><span class="pre">set_audio_buffer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ab</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#dpav.audio.Audio.set_audio_buffer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets the audio buffer of the Audio Class.</p>
+<dl>
+<dt>Description:</dt><dd><p>The audio buffer needs to have two rows so that way stereo works as intended.
+You can set the audio buffer to wav file data by fetching numpy arrays using wav or scipy,
+however only 16 bit waves are supported. This process can be seen in custom_buffer.py w/ the
+utility function sixteenWavtoRawData</p>
+<dl>
+<dt>Examples:</dt><dd><p># 44100 = sample rate
+# 32767 is 2 ^ (our bit depth -1)-1 and is essentially the number of samples per time stamp
+# 260 and 290 are our tones in hz
+# Below generates a buffer 1 second long of sin wave data-identical to the method used in house
+data = numpy.zeros((44100, 2), dtype=numpy.int16)
+for s in range(44100):</p>
+<blockquote>
+<div><p>t = float(s) / 44100
+data[s][0] = int(round(32767 * math.sin(2 * math.pi * 260 * t)))
+data[s][1] = int(round(32767 * math.sin(2 * math.pi * 290 * t)))</p>
+</div></blockquote>
+<p>audioobject.set_audio_buffer(data)</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>ab</strong> – numpy array of shape(samples, channels) e.g. ab[44100][2]</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dpav.audio.Audio.set_audio_device">
+<span class="sig-name descname"><span class="pre">set_audio_device</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="headerlink" href="#dpav.audio.Audio.set_audio_device" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets the current audio device of the Audio class.</p>
+<dl>
+<dt>Description:</dt><dd><p>This can only be set ONCE per instance. To change devices, del the current instance
+set the new device, and continue
+This needs to be run after list_audio_device() in order to see list of audio devices
+If not run the device will default to the current device being used by the machine</p>
+<p>audioobject.set_audio_device(2)
+Based on example in list_audio_devices() this would change the device to Speakers (HyperX Cloud II Wireless)</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>device</strong> – int value - see all int values for each device by running list_audio_devices()</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dpav.audio.Audio.set_waveform">
+<span class="sig-name descname"><span class="pre">set_waveform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">wave</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#dpav.audio.Audio.set_waveform" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets the expression governing the wave form playing</p>
+<dl>
+<dt>Description:</dt><dd><p>play_audio uses this in buffer generation</p>
+<p>audioobject.set_waveform(object.wave_table.sin)
+This would change to the waveform sin contained in the wave_table class
+The wave functions need to take in a input frequency as well as a timestep parameter
+to solve for a particular frequency at a given time step. See wave_table for an example of this.</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>Wave</strong> – takes a mathematical expression function ‘pointer’ in the form of f(inputfreq, timestep)</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dpav.audio.Audio.wait_for_sound_end">
+<span class="sig-name descname"><span class="pre">wait_for_sound_end</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#dpav.audio.Audio.wait_for_sound_end" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function call that is placed at the end of scripts without a pygame window instance so sounds play to their full duration without a</p>
+<dl>
+<dt>Description:</dt><dd><p>Placed at the end of python files that do not have loops. Otherwise, sounds would be cut off prematurely.</p>
+<dl class="simple">
+<dt>Example:</dt><dd><p>play_sound(440, 10)
+wait_for_sound_end() # This prevents the process from closing out before the sound ends.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>None</strong> – </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+<p>Notes:</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="dpav.audio.wave_table">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">dpav.audio.</span></span><span class="sig-name descname"><span class="pre">wave_table</span></span><a class="headerlink" href="#dpav.audio.wave_table" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>This is a class holding waveforms for usage with the play_sound method.</p>
+<dl class="simple">
+<dt>There are 5 waveforms:</dt><dd><p>sin
+saw
+square
+noise
+triangle</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<p>waves = wave_table()
+sinefunc = waves.sin</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="dpav.audio.wave_table.noise">
+<span class="sig-name descname"><span class="pre">noise</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_frequency</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dpav.audio.wave_table.noise" title="Permalink to this definition">¶</a></dt>
+<dd><p>Random white noise</p>
+<dl class="simple">
+<dt>Description:</dt><dd><p>Warning: VERY LOUD</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>input_frequency</strong> – </p></li>
+<li><p><strong>t</strong> – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>random.random() * input_frequency * t</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dpav.audio.wave_table.saw">
+<span class="sig-name descname"><span class="pre">saw</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_frequency</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dpav.audio.wave_table.saw" title="Permalink to this definition">¶</a></dt>
+<dd><p>Saw wave</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>input_frequency</strong> – </p></li>
+<li><p><strong>t</strong> – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>t * input_frequency - math.floor(t * input_frequency)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dpav.audio.wave_table.sin">
+<span class="sig-name descname"><span class="pre">sin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_frequency</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dpav.audio.wave_table.sin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sin wave form, default for libary</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>input_frequency</strong> – </p></li>
+<li><p><strong>t</strong> – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>math.sin(2 * math.pi * input_frequency * t)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dpav.audio.wave_table.square">
+<span class="sig-name descname"><span class="pre">square</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_frequency</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dpav.audio.wave_table.square" title="Permalink to this definition">¶</a></dt>
+<dd><p>Square wave form</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>input_frequency</strong> – </p></li>
+<li><p><strong>t</strong> – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>round(math.sin(2 * math.pi * input_frequency * t))</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dpav.audio.wave_table.triangle">
+<span class="sig-name descname"><span class="pre">triangle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_frequency</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dpav.audio.wave_table.triangle" title="Permalink to this definition">¶</a></dt>
+<dd><p>Triangle wave, similar in sound to saw + sin together</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>input_frequency</strong> – </p></li>
+<li><p><strong>t</strong> – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>2 * abs((t * input_frequency) / 1 - math.floor(((t * input_frequency) / 1) + 0.5))</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-dpav.utility">
+<span id="dpav-utility-module"></span><h2>dpav.utility module<a class="headerlink" href="#module-dpav.utility" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="dpav.utility.draw_circle">
+<span class="sig-prename descclassname"><span class="pre">dpav.utility.</span></span><span class="sig-name descname"><span class="pre">draw_circle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">vb</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#dpav.vbuffer.VBuffer" title="dpav.vbuffer.VBuffer"><span class="pre">dpav.vbuffer.VBuffer</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">center</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dpav.utility.draw_circle" title="Permalink to this definition">¶</a></dt>
+<dd><p>Draws a circle onto a visual buffer of a specified color and radius
+around a given center point using Bresenham’s algorithm.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="dpav.utility.draw_line">
+<span class="sig-prename descclassname"><span class="pre">dpav.utility.</span></span><span class="sig-name descname"><span class="pre">draw_line</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">vb</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#dpav.vbuffer.VBuffer" title="dpav.vbuffer.VBuffer"><span class="pre">dpav.vbuffer.VBuffer</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">p0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dpav.utility.draw_line" title="Permalink to this definition">¶</a></dt>
+<dd><p>Draws a line on a visual buffer from p0 to p1 using Bresenham’s algorithm</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="dpav.utility.draw_polygon">
+<span class="sig-prename descclassname"><span class="pre">dpav.utility.</span></span><span class="sig-name descname"><span class="pre">draw_polygon</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">vb</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#dpav.vbuffer.VBuffer" title="dpav.vbuffer.VBuffer"><span class="pre">dpav.vbuffer.VBuffer</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">vertices</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dpav.utility.draw_polygon" title="Permalink to this definition">¶</a></dt>
+<dd><p>Draws a polygon in a visual buffer with the given vertices utilizing the
+order in which they are given.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="dpav.utility.draw_rectangle">
+<span class="sig-prename descclassname"><span class="pre">dpav.utility.</span></span><span class="sig-name descname"><span class="pre">draw_rectangle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">vbuffer</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pt1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pt2</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dpav.utility.draw_rectangle" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="dpav.utility.fill">
+<span class="sig-prename descclassname"><span class="pre">dpav.utility.</span></span><span class="sig-name descname"><span class="pre">fill</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">vb</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#dpav.vbuffer.VBuffer" title="dpav.vbuffer.VBuffer"><span class="pre">dpav.vbuffer.VBuffer</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">color</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vertices</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dpav.utility.fill" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fills a polygon defined by a set of vertices with a color.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="dpav.utility.flip_horizontally">
+<span class="sig-prename descclassname"><span class="pre">dpav.utility.</span></span><span class="sig-name descname"><span class="pre">flip_horizontally</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">vb</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#dpav.vbuffer.VBuffer" title="dpav.vbuffer.VBuffer"><span class="pre">dpav.vbuffer.VBuffer</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#dpav.vbuffer.VBuffer" title="dpav.vbuffer.VBuffer"><span class="pre">dpav.vbuffer.VBuffer</span></a></span></span><a class="headerlink" href="#dpav.utility.flip_horizontally" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="dpav.utility.flip_vertically">
+<span class="sig-prename descclassname"><span class="pre">dpav.utility.</span></span><span class="sig-name descname"><span class="pre">flip_vertically</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">vb</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#dpav.vbuffer.VBuffer" title="dpav.vbuffer.VBuffer"><span class="pre">dpav.vbuffer.VBuffer</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#dpav.vbuffer.VBuffer" title="dpav.vbuffer.VBuffer"><span class="pre">dpav.vbuffer.VBuffer</span></a></span></span><a class="headerlink" href="#dpav.utility.flip_vertically" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="dpav.utility.get_note_from_string">
+<span class="sig-prename descclassname"><span class="pre">dpav.utility.</span></span><span class="sig-name descname"><span class="pre">get_note_from_string</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">string</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">octave</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dpav.utility.get_note_from_string" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a string representing a note, this will return a hz
+IN: string representing the note e.g. Ab, C, E#
+OUT: returns hz</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="dpav.utility.load_image">
+<span class="sig-prename descclassname"><span class="pre">dpav.utility.</span></span><span class="sig-name descname"><span class="pre">load_image</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filepath</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">numpy.ndarray</span></span></span><a class="headerlink" href="#dpav.utility.load_image" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt>Description:</dt><dd><p>Takes the file path of an image and returns an np.ndarray in hex</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="dpav.utility.point_in_polygon">
+<span class="sig-prename descclassname"><span class="pre">dpav.utility.</span></span><span class="sig-name descname"><span class="pre">point_in_polygon</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vertices</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#dpav.utility.point_in_polygon" title="Permalink to this definition">¶</a></dt>
+<dd><p>Uses the Even-Odd Rule to determine whether or not the pixel at coordinate
+(x,y) is inside the polygon defined by a set of vertices.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="dpav.utility.replace_color">
+<span class="sig-prename descclassname"><span class="pre">dpav.utility.</span></span><span class="sig-name descname"><span class="pre">replace_color</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">vb</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#dpav.vbuffer.VBuffer" title="dpav.vbuffer.VBuffer"><span class="pre">dpav.vbuffer.VBuffer</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">replaced_color</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">new_color</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dpav.utility.replace_color" title="Permalink to this definition">¶</a></dt>
+<dd><p>Replace all pixels of value replaced_color with new_color in a visual
+buffer vb.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="dpav.utility.rgb_to_hex">
+<span class="sig-prename descclassname"><span class="pre">dpav.utility.</span></span><span class="sig-name descname"><span class="pre">rgb_to_hex</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arr</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dpav.utility.rgb_to_hex" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt>Description:</dt><dd><p>Takes an np.ndarray in rgb and returns it in hex</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="dpav.utility.sixteenWavtoRawData">
+<span class="sig-prename descclassname"><span class="pre">dpav.utility.</span></span><span class="sig-name descname"><span class="pre">sixteenWavtoRawData</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">wavefile</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dpav.utility.sixteenWavtoRawData" title="Permalink to this definition">¶</a></dt>
+<dd><p>takes in a string path/name of a wav file, converts it to numpy array</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="dpav.utility.translate">
+<span class="sig-prename descclassname"><span class="pre">dpav.utility.</span></span><span class="sig-name descname"><span class="pre">translate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">vb</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#dpav.vbuffer.VBuffer" title="dpav.vbuffer.VBuffer"><span class="pre">dpav.vbuffer.VBuffer</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_translation</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_translation</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#dpav.vbuffer.VBuffer" title="dpav.vbuffer.VBuffer"><span class="pre">dpav.vbuffer.VBuffer</span></a></span></span><a class="headerlink" href="#dpav.utility.translate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</section>
+<section id="module-dpav.vbuffer">
+<span id="dpav-vbuffer-module"></span><h2>dpav.vbuffer module<a class="headerlink" href="#module-dpav.vbuffer" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="dpav.vbuffer.VBuffer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">dpav.vbuffer.</span></span><span class="sig-name descname"><span class="pre">VBuffer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arg1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">tuple</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">(800,</span> <span class="pre">600)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dpav.vbuffer.VBuffer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Visual buffer for the Python Direct Platform</p>
+<p>Holds a 2D array of hex color values. Each element represents a pixel,
+whose coordinates are its index. VBuffer can be loaded and displayed by
+the window class.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>arg1</strong> (<em>{</em><em>(</em><em>int</em><em>, </em><em>int</em><em>)</em><em>|</em><em>np.ndarray</em><em>(</em><em>int</em><em>, </em><em>int</em><em>)</em><em>}</em>) – <p>Either array dimensions or a 2-dimensional numpy array of integers</p>
+<p>If dimensions, will create zeroed-out 2D array of the selected
+dimensions. Defaults to 800x600.</p>
+<p>If numpy array, will set buffer to the contents of that array.</p>
+</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">Constructor:</span></span></dt>
+<dd><p>__init__(self, arg1=(800, 600)) -&gt; None</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">Overloads:</span></span></dt>
+<dd><p>__getitem__(self, idx) -&gt; int
+__setitem__(self, idx, val) -&gt; None
+__len__(self) -&gt; int</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">properties:</span></span></dt>
+<dd><dl class="simple">
+<dt>getter:</dt><dd><p>dimensions(self) -&gt; (int, int)</p>
+</dd>
+<dt>setter:</dt><dd><p>dimensions(self, val) -&gt; None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">Setter:</span></span></dt>
+<dd><p>write_pixel(self, coords, val) -&gt; None
+set_buffer(self, buf) -&gt; None
+clear(self) -&gt; None
+fill(self, color: int) -&gt; None</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">Getters:</span></span></dt>
+<dd><p>get_pixel(self, coords) -&gt; int
+get_dimensions(self) -&gt; (int, int)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">File</span> <span class="pre">I/O:</span></span></dt>
+<dd><p>save_buffer_to_file(self, filename) -&gt; None
+load_buffer_from_file(self, filename) -&gt; None</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">Error</span> <span class="pre">Checking:</span></span></dt>
+<dd><p>_check_numpy_arr(self,arg1,arg_name,method_name) -&gt; None
+_check_coord_type(self, coords, arg_name, method_name) -&gt; None
+_check_coord_vals(self, x, y, method_name) -&gt; None</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dpav.vbuffer.VBuffer.clear">
+<span class="sig-name descname"><span class="pre">clear</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#dpav.vbuffer.VBuffer.clear" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set every pixel in buffer to 0 (hex value for black).</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="dpav.vbuffer.VBuffer.dimensions">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">dimensions</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">list</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">tuple</span></em><a class="headerlink" href="#dpav.vbuffer.VBuffer.dimensions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return dimensions of buffer.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dpav.vbuffer.VBuffer.fill">
+<span class="sig-name descname"><span class="pre">fill</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">color</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#dpav.vbuffer.VBuffer.fill" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set every pixel in the buffer to a given color.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>color</strong> (<em>Hex color code</em>) – </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dpav.vbuffer.VBuffer.get_dimensions">
+<span class="sig-name descname"><span class="pre">get_dimensions</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">tuple</span></span></span><a class="headerlink" href="#dpav.vbuffer.VBuffer.get_dimensions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return dimensions of visual buffer array.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dpav.vbuffer.VBuffer.get_pixel">
+<span class="sig-name descname"><span class="pre">get_pixel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">coords</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">tuple</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="headerlink" href="#dpav.vbuffer.VBuffer.get_pixel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return color value of chosen pixel.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>coords</strong> (<em>2-tuple</em><em> or </em><em>list containing first and second index of pixel</em>) – </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dpav.vbuffer.VBuffer.load_buffer_from_file">
+<span class="sig-name descname"><span class="pre">load_buffer_from_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#dpav.vbuffer.VBuffer.load_buffer_from_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load binary file storing buffer contents, and write it to buffer.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>filename</strong> (<em>Path to a binary file containing numpy array data</em>) – </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dpav.vbuffer.VBuffer.save_buffer_to_file">
+<span class="sig-name descname"><span class="pre">save_buffer_to_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#dpav.vbuffer.VBuffer.save_buffer_to_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Save contents of buffer to a binary file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>filename</strong> (<em>The path and name of the file to write to</em>) – </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dpav.vbuffer.VBuffer.set_buffer">
+<span class="sig-name descname"><span class="pre">set_buffer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">buf</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#dpav.vbuffer.VBuffer.set_buffer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the visual buffer to equal a provided 2D array of pixels.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>buf</strong> (<em>A 2-dimensional numpy array of integer color values</em>) – </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dpav.vbuffer.VBuffer.write_pixel">
+<span class="sig-name descname"><span class="pre">write_pixel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">coords</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">tuple</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">val</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#dpav.vbuffer.VBuffer.write_pixel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets pixel at specified coordinates to specified color.</p>
+<p>Sets pixel at coordinates coords in buffer to hex value val</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>coords</strong> (<em>Pixel coordinates</em><em> (</em><em>an X and a Y</em><em>)</em>) – </p></li>
+<li><p><strong>val</strong> (<em>The hex value of the desired color to change the pixel with</em>) – </p></li>
+</ul>
+</dd>
+</dl>
+<p>:raises TypeError : val is not type(int):
+:raises ValueError : val is negative or greater than max color value (0xFFFFFF):</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-dpav.window">
+<span id="dpav-window-module"></span><h2>dpav.window module<a class="headerlink" href="#module-dpav.window" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="dpav.window.Window">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">dpav.window.</span></span><span class="sig-name descname"><span class="pre">Window</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arg1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#dpav.vbuffer.VBuffer" title="dpav.vbuffer.VBuffer"><span class="pre">dpav.vbuffer.VBuffer</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1.0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dpav.window.Window" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Handles Window capabilites of Python Direct Platform
+Functions:</p>
+<blockquote>
+<div><dl class="simple">
+<dt>Constructor:</dt><dd><p>__init__()</p>
+</dd>
+<dt>Setters:</dt><dd><p>set_scale(int/float)
+set_vbuffer(VBuffer/np.ndarray,optional:int)</p>
+</dd>
+<dt>Getters:</dt><dd><p>get_mouse_pos()</p>
+</dd>
+<dt>Misc Methods:</dt><dd><p>open()
+is_open()
+close()
+update()</p>
+</dd>
+<dt>Private Methods:</dt><dd><p>_update_events(pygame.event)
+_build_events_dict()
+_write_to_screen()</p>
+</dd>
+</dl>
+</div></blockquote>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="dpav.window.Window.Public">
+<span class="sig-name descname"><span class="pre">Public</span></span><a class="headerlink" href="#dpav.window.Window.Public" title="Permalink to this definition">¶</a></dt>
+<dd><p>vbuffer:     active VBuffer object
+scale:       number that scales up/down the size of the screen</p>
+<blockquote>
+<div><p>(1.0 is unscaled)</p>
+</div></blockquote>
+<dl class="simple">
+<dt>events:      dictionary of string:bool event pairs,</dt><dd><dl class="simple">
+<dt>example:</dt><dd><p>“l_shift”: True  – left shift is pressed down
+“l_shift”: False – left shift is not pressed</p>
+</dd>
+</dl>
+</dd>
+<dt>eventq:      list of active events that occured since last update cycle</dt><dd><dl class="simple">
+<dt>example:</dt><dd><p>[‘l_shift’, ‘mouse’, ‘a’, ‘q’]</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p>debug_flag:  boolean flag if window object should output debug info to log
+open_flag:   boolean flag for if the window is active</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="dpav.window.Window.Private">
+<span class="sig-name descname"><span class="pre">Private</span></span><a class="headerlink" href="#dpav.window.Window.Private" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt>_keydict:    int:string PyGame event mapping. PyGame events identifiers are</dt><dd><p>stored as ints. This attribute is used by the public events
+variable to map from PyGame’s integer:boolean pairs to
+our string:boolean pairs</p>
+</dd>
+<dt>_surfaces:   Two PyGame Surfaces for swapping to reflect vbuffer changes and</dt><dd><p>enable in-place nparray modification</p>
+</dd>
+</dl>
+<p>_screen:     PyGame.display object, used for viewing vbuffer attribute</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dpav.window.Window.close">
+<span class="sig-name descname"><span class="pre">close</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#dpav.window.Window.close" title="Permalink to this definition">¶</a></dt>
+<dd><p>Closes the active instance of a pygame window</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><p><strong>RuntimeError</strong> – no active pygame window instances exists</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dpav.window.Window.get_mouse_pos">
+<span class="sig-name descname"><span class="pre">get_mouse_pos</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">)</span> <span class="pre">-&gt;</span> <span class="pre">(&lt;class</span> <span class="pre">'int'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">&lt;class</span> <span class="pre">'int'&gt;</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dpav.window.Window.get_mouse_pos" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the current mouse location with respect to the pygame window instance</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><p><strong>Runtime Error</strong> – no active pygame window instances exists</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dpav.window.Window.is_open">
+<span class="sig-name descname"><span class="pre">is_open</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#dpav.window.Window.is_open" title="Permalink to this definition">¶</a></dt>
+<dd><p>Updates events on every call, used to abstract out PyGame
+display calls and event loop</p>
+<p class="rubric">Example</p>
+<dl class="simple">
+<dt>if window.is_open():</dt><dd><p># your code here</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>boolean denoting if the window is currently open</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dpav.window.Window.open">
+<span class="sig-name descname"><span class="pre">open</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#dpav.window.Window.open" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates and runs pygame window in a new thread</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dpav.window.Window.set_scale">
+<span class="sig-name descname"><span class="pre">set_scale</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scale</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#dpav.window.Window.set_scale" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets the window scale</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dpav.window.Window.set_vbuffer">
+<span class="sig-name descname"><span class="pre">set_vbuffer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arg1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#dpav.vbuffer.VBuffer" title="dpav.vbuffer.VBuffer"><span class="pre">dpav.vbuffer.VBuffer</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#dpav.window.Window.set_vbuffer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets the vbuffer/nparray object to display on screen</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>arg1</strong> – VBuffer/np.ndarray</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>TypeError</strong> – arg1 VBuffer/np.ndarray type check</p></li>
+<li><p><strong>TypeError</strong> – scale int/float type check</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dpav.window.Window.update">
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#dpav.window.Window.update" title="Permalink to this definition">¶</a></dt>
+<dd><p>Pygame event abstraction, called at end of pygame loop.
+Optional function if is_open() is used</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><p><strong>Runtime Error</strong> – No active pygame window</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-dpav">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-dpav" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="dpav.Audio">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">dpav.</span></span><span class="sig-name descname"><span class="pre">Audio</span></span><a class="headerlink" href="#dpav.Audio" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Handles Audio capabilities of Python Direct Platform.</p>
+<dl>
+<dt>Functions:</dt><dd><dl>
+<dt>Constructor:</dt><dd><p>__init__()</p>
+</dd>
+<dt>Functions:</dt><dd><dl class="simple">
+<dt>play_sound(Hz, length)</dt><dd><dl class="simple">
+<dt>If audio buffer is set:</dt><dd><p>play_sound()</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p>play_sample(string_name_of_wav_file)</p>
+</dd>
+<dt>Setters:</dt><dd><p>set_audio_buffer(numpyarray)
+set_audio_device(int)
+set_waveform(waveform)</p>
+</dd>
+<dt>Getters:</dt><dd><p>get_bit_number()-&gt;int
+get_sample_rate()-&gt;int
+get_audio_buffer()
+get_audio_device()-&gt;Returns int corresponding to audio device</p>
+</dd>
+<dt>Misc:</dt><dd><p>list_audio_devices()
+wait_for_sound_end()</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="dpav.Audio.get_audio_buffer">
+<span class="sig-name descname"><span class="pre">get_audio_buffer</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#dpav.Audio.get_audio_buffer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the audio buffer of the Audio class</p>
+<dl>
+<dt>Description:</dt><dd><p>This will return none if the audio buffer has not been set by the set_audio_buffer method.</p>
+<p>audioobject.get_audio_buffer()</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>None</strong> – </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>numpy array</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>self._audio_buffer</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dpav.Audio.get_audio_device">
+<span class="sig-name descname"><span class="pre">get_audio_device</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="headerlink" href="#dpav.Audio.get_audio_device" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the current audio device number of the Audio Class</p>
+<dl class="simple">
+<dt>Description:</dt><dd><p>Assuming audioobject.set_audio_device(2) is called,
+audioobject.get_audio_device() would return 2 [index of audio device in audioobject.list_audio_devices()]</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>None</strong> – </p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>Returns</dt><dd><p>self._audio_device: int value</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>Returns the integer value of the device not the device name</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dpav.Audio.get_bit_number">
+<span class="sig-name descname"><span class="pre">get_bit_number</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="headerlink" href="#dpav.Audio.get_bit_number" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the bit rate of the Audio class</p>
+<dl class="simple">
+<dt>Description:</dt><dd><p>Bit rate currently locked to 16 bits</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>None</strong> – </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The bit rate of the Audio class - int value</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>self._bit_number</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dpav.Audio.get_sample_rate">
+<span class="sig-name descname"><span class="pre">get_sample_rate</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="headerlink" href="#dpav.Audio.get_sample_rate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the sample rate of the Audio class.</p>
+<dl class="simple">
+<dt>Description:</dt><dd><p>Sample rate is currently locked to 44100</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>None</strong> – </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The sample rate of the audioClass - int value</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>self._sample_rate</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dpav.Audio.list_audio_devices">
+<span class="sig-name descname"><span class="pre">list_audio_devices</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#dpav.Audio.list_audio_devices" title="Permalink to this definition">¶</a></dt>
+<dd><p>Lists the output devices on your system and adds to list self._devices</p>
+<dl>
+<dt>Description:</dt><dd><p>Run this function before using set_audio_device() to add devices to the list devices</p>
+<p>audioobject.list_audio_devices()
+0 Speakers (Realtek(R) Audio)
+1 VGA248 (2-NVIDIA High Def Audio)
+2 Speakers (HyperX Cloud II Wireless)</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>None</strong> – </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dpav.Audio.play_sample">
+<span class="sig-name descname"><span class="pre">play_sample</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sample_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#dpav.Audio.play_sample" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plays sounds that are wav, ogg or mp3 files.</p>
+<dl class="simple">
+<dt>Description:</dt><dd><p>audioobject.play_sample(mypath.mp3) would play sounds from the file mypath.mp3</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>sample_name</strong> – String path or name of sound</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dpav.Audio.play_sound">
+<span class="sig-name descname"><span class="pre">play_sound</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_frequency</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">input_duration</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#dpav.Audio.play_sound" title="Permalink to this definition">¶</a></dt>
+<dd><p>Primary sound playing method of the audio class.</p>
+<dl>
+<dt>Description:</dt><dd><p>Play sounds directly from this function
+Need to run set_audio_device() or will default to the default audio device
+You can use set_waveform to change the type.
+play_sound is somewhat overloaded to where if you have an audioBuffer set using set_audio_buffer, you can call play_sound()</p>
+<blockquote>
+<div><p>and it will play whatever that audio_buffer is e.g. wav files
+Example in examples/custombuffer.py</p>
+</div></blockquote>
+<p>play_sound(440, 1) would play an A note for one second with the sin waveform set.</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>input_frequency</strong> – int value - input frequency in Hz</p></li>
+<li><p><strong>input_duration</strong> – int value - duration in seconds</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>TypeError</strong> – If input_duration not a number, or &lt; 0</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dpav.Audio.set_audio_buffer">
+<span class="sig-name descname"><span class="pre">set_audio_buffer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ab</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#dpav.Audio.set_audio_buffer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets the audio buffer of the Audio Class.</p>
+<dl>
+<dt>Description:</dt><dd><p>The audio buffer needs to have two rows so that way stereo works as intended.
+You can set the audio buffer to wav file data by fetching numpy arrays using wav or scipy,
+however only 16 bit waves are supported. This process can be seen in custom_buffer.py w/ the
+utility function sixteenWavtoRawData</p>
+<dl>
+<dt>Examples:</dt><dd><p># 44100 = sample rate
+# 32767 is 2 ^ (our bit depth -1)-1 and is essentially the number of samples per time stamp
+# 260 and 290 are our tones in hz
+# Below generates a buffer 1 second long of sin wave data-identical to the method used in house
+data = numpy.zeros((44100, 2), dtype=numpy.int16)
+for s in range(44100):</p>
+<blockquote>
+<div><p>t = float(s) / 44100
+data[s][0] = int(round(32767 * math.sin(2 * math.pi * 260 * t)))
+data[s][1] = int(round(32767 * math.sin(2 * math.pi * 290 * t)))</p>
+</div></blockquote>
+<p>audioobject.set_audio_buffer(data)</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>ab</strong> – numpy array of shape(samples, channels) e.g. ab[44100][2]</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dpav.Audio.set_audio_device">
+<span class="sig-name descname"><span class="pre">set_audio_device</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="headerlink" href="#dpav.Audio.set_audio_device" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets the current audio device of the Audio class.</p>
+<dl>
+<dt>Description:</dt><dd><p>This can only be set ONCE per instance. To change devices, del the current instance
+set the new device, and continue
+This needs to be run after list_audio_device() in order to see list of audio devices
+If not run the device will default to the current device being used by the machine</p>
+<p>audioobject.set_audio_device(2)
+Based on example in list_audio_devices() this would change the device to Speakers (HyperX Cloud II Wireless)</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>device</strong> – int value - see all int values for each device by running list_audio_devices()</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dpav.Audio.set_waveform">
+<span class="sig-name descname"><span class="pre">set_waveform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">wave</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#dpav.Audio.set_waveform" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets the expression governing the wave form playing</p>
+<dl>
+<dt>Description:</dt><dd><p>play_audio uses this in buffer generation</p>
+<p>audioobject.set_waveform(object.wave_table.sin)
+This would change to the waveform sin contained in the wave_table class
+The wave functions need to take in a input frequency as well as a timestep parameter
+to solve for a particular frequency at a given time step. See wave_table for an example of this.</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>Wave</strong> – takes a mathematical expression function ‘pointer’ in the form of f(inputfreq, timestep)</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dpav.Audio.wait_for_sound_end">
+<span class="sig-name descname"><span class="pre">wait_for_sound_end</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#dpav.Audio.wait_for_sound_end" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function call that is placed at the end of scripts without a pygame window instance so sounds play to their full duration without a</p>
+<dl>
+<dt>Description:</dt><dd><p>Placed at the end of python files that do not have loops. Otherwise, sounds would be cut off prematurely.</p>
+<dl class="simple">
+<dt>Example:</dt><dd><p>play_sound(440, 10)
+wait_for_sound_end() # This prevents the process from closing out before the sound ends.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>None</strong> – </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+<p>Notes:</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="dpav.VBuffer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">dpav.</span></span><span class="sig-name descname"><span class="pre">VBuffer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arg1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">tuple</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">(800,</span> <span class="pre">600)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dpav.VBuffer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Visual buffer for the Python Direct Platform</p>
+<p>Holds a 2D array of hex color values. Each element represents a pixel,
+whose coordinates are its index. VBuffer can be loaded and displayed by
+the window class.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>arg1</strong> (<em>{</em><em>(</em><em>int</em><em>, </em><em>int</em><em>)</em><em>|</em><em>np.ndarray</em><em>(</em><em>int</em><em>, </em><em>int</em><em>)</em><em>}</em>) – <p>Either array dimensions or a 2-dimensional numpy array of integers</p>
+<p>If dimensions, will create zeroed-out 2D array of the selected
+dimensions. Defaults to 800x600.</p>
+<p>If numpy array, will set buffer to the contents of that array.</p>
+</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">Constructor:</span></span></dt>
+<dd><p>__init__(self, arg1=(800, 600)) -&gt; None</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">Overloads:</span></span></dt>
+<dd><p>__getitem__(self, idx) -&gt; int
+__setitem__(self, idx, val) -&gt; None
+__len__(self) -&gt; int</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">properties:</span></span></dt>
+<dd><dl class="simple">
+<dt>getter:</dt><dd><p>dimensions(self) -&gt; (int, int)</p>
+</dd>
+<dt>setter:</dt><dd><p>dimensions(self, val) -&gt; None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">Setter:</span></span></dt>
+<dd><p>write_pixel(self, coords, val) -&gt; None
+set_buffer(self, buf) -&gt; None
+clear(self) -&gt; None
+fill(self, color: int) -&gt; None</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">Getters:</span></span></dt>
+<dd><p>get_pixel(self, coords) -&gt; int
+get_dimensions(self) -&gt; (int, int)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">File</span> <span class="pre">I/O:</span></span></dt>
+<dd><p>save_buffer_to_file(self, filename) -&gt; None
+load_buffer_from_file(self, filename) -&gt; None</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">Error</span> <span class="pre">Checking:</span></span></dt>
+<dd><p>_check_numpy_arr(self,arg1,arg_name,method_name) -&gt; None
+_check_coord_type(self, coords, arg_name, method_name) -&gt; None
+_check_coord_vals(self, x, y, method_name) -&gt; None</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dpav.VBuffer.clear">
+<span class="sig-name descname"><span class="pre">clear</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#dpav.VBuffer.clear" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set every pixel in buffer to 0 (hex value for black).</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="dpav.VBuffer.dimensions">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">dimensions</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">list</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">tuple</span></em><a class="headerlink" href="#dpav.VBuffer.dimensions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return dimensions of buffer.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dpav.VBuffer.fill">
+<span class="sig-name descname"><span class="pre">fill</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">color</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#dpav.VBuffer.fill" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set every pixel in the buffer to a given color.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>color</strong> (<em>Hex color code</em>) – </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dpav.VBuffer.get_dimensions">
+<span class="sig-name descname"><span class="pre">get_dimensions</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">tuple</span></span></span><a class="headerlink" href="#dpav.VBuffer.get_dimensions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return dimensions of visual buffer array.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dpav.VBuffer.get_pixel">
+<span class="sig-name descname"><span class="pre">get_pixel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">coords</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">tuple</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="headerlink" href="#dpav.VBuffer.get_pixel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return color value of chosen pixel.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>coords</strong> (<em>2-tuple</em><em> or </em><em>list containing first and second index of pixel</em>) – </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dpav.VBuffer.load_buffer_from_file">
+<span class="sig-name descname"><span class="pre">load_buffer_from_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#dpav.VBuffer.load_buffer_from_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load binary file storing buffer contents, and write it to buffer.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>filename</strong> (<em>Path to a binary file containing numpy array data</em>) – </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dpav.VBuffer.save_buffer_to_file">
+<span class="sig-name descname"><span class="pre">save_buffer_to_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#dpav.VBuffer.save_buffer_to_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Save contents of buffer to a binary file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>filename</strong> (<em>The path and name of the file to write to</em>) – </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dpav.VBuffer.set_buffer">
+<span class="sig-name descname"><span class="pre">set_buffer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">buf</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#dpav.VBuffer.set_buffer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the visual buffer to equal a provided 2D array of pixels.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>buf</strong> (<em>A 2-dimensional numpy array of integer color values</em>) – </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dpav.VBuffer.write_pixel">
+<span class="sig-name descname"><span class="pre">write_pixel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">coords</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">tuple</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">val</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#dpav.VBuffer.write_pixel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets pixel at specified coordinates to specified color.</p>
+<p>Sets pixel at coordinates coords in buffer to hex value val</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>coords</strong> (<em>Pixel coordinates</em><em> (</em><em>an X and a Y</em><em>)</em>) – </p></li>
+<li><p><strong>val</strong> (<em>The hex value of the desired color to change the pixel with</em>) – </p></li>
+</ul>
+</dd>
+</dl>
+<p>:raises TypeError : val is not type(int):
+:raises ValueError : val is negative or greater than max color value (0xFFFFFF):</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="dpav.Window">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">dpav.</span></span><span class="sig-name descname"><span class="pre">Window</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arg1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#dpav.vbuffer.VBuffer" title="dpav.vbuffer.VBuffer"><span class="pre">dpav.vbuffer.VBuffer</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1.0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dpav.Window" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Handles Window capabilites of Python Direct Platform
+Functions:</p>
+<blockquote>
+<div><dl class="simple">
+<dt>Constructor:</dt><dd><p>__init__()</p>
+</dd>
+<dt>Setters:</dt><dd><p>set_scale(int/float)
+set_vbuffer(VBuffer/np.ndarray,optional:int)</p>
+</dd>
+<dt>Getters:</dt><dd><p>get_mouse_pos()</p>
+</dd>
+<dt>Misc Methods:</dt><dd><p>open()
+is_open()
+close()
+update()</p>
+</dd>
+<dt>Private Methods:</dt><dd><p>_update_events(pygame.event)
+_build_events_dict()
+_write_to_screen()</p>
+</dd>
+</dl>
+</div></blockquote>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="dpav.Window.Public">
+<span class="sig-name descname"><span class="pre">Public</span></span><a class="headerlink" href="#dpav.Window.Public" title="Permalink to this definition">¶</a></dt>
+<dd><p>vbuffer:     active VBuffer object
+scale:       number that scales up/down the size of the screen</p>
+<blockquote>
+<div><p>(1.0 is unscaled)</p>
+</div></blockquote>
+<dl class="simple">
+<dt>events:      dictionary of string:bool event pairs,</dt><dd><dl class="simple">
+<dt>example:</dt><dd><p>“l_shift”: True  – left shift is pressed down
+“l_shift”: False – left shift is not pressed</p>
+</dd>
+</dl>
+</dd>
+<dt>eventq:      list of active events that occured since last update cycle</dt><dd><dl class="simple">
+<dt>example:</dt><dd><p>[‘l_shift’, ‘mouse’, ‘a’, ‘q’]</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p>debug_flag:  boolean flag if window object should output debug info to log
+open_flag:   boolean flag for if the window is active</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="dpav.Window.Private">
+<span class="sig-name descname"><span class="pre">Private</span></span><a class="headerlink" href="#dpav.Window.Private" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt>_keydict:    int:string PyGame event mapping. PyGame events identifiers are</dt><dd><p>stored as ints. This attribute is used by the public events
+variable to map from PyGame’s integer:boolean pairs to
+our string:boolean pairs</p>
+</dd>
+<dt>_surfaces:   Two PyGame Surfaces for swapping to reflect vbuffer changes and</dt><dd><p>enable in-place nparray modification</p>
+</dd>
+</dl>
+<p>_screen:     PyGame.display object, used for viewing vbuffer attribute</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dpav.Window.close">
+<span class="sig-name descname"><span class="pre">close</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#dpav.Window.close" title="Permalink to this definition">¶</a></dt>
+<dd><p>Closes the active instance of a pygame window</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><p><strong>RuntimeError</strong> – no active pygame window instances exists</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dpav.Window.get_mouse_pos">
+<span class="sig-name descname"><span class="pre">get_mouse_pos</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">)</span> <span class="pre">-&gt;</span> <span class="pre">(&lt;class</span> <span class="pre">'int'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">&lt;class</span> <span class="pre">'int'&gt;</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dpav.Window.get_mouse_pos" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the current mouse location with respect to the pygame window instance</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><p><strong>Runtime Error</strong> – no active pygame window instances exists</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dpav.Window.is_open">
+<span class="sig-name descname"><span class="pre">is_open</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#dpav.Window.is_open" title="Permalink to this definition">¶</a></dt>
+<dd><p>Updates events on every call, used to abstract out PyGame
+display calls and event loop</p>
+<p class="rubric">Example</p>
+<dl class="simple">
+<dt>if window.is_open():</dt><dd><p># your code here</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>boolean denoting if the window is currently open</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dpav.Window.open">
+<span class="sig-name descname"><span class="pre">open</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#dpav.Window.open" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates and runs pygame window in a new thread</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dpav.Window.set_scale">
+<span class="sig-name descname"><span class="pre">set_scale</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scale</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#dpav.Window.set_scale" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets the window scale</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dpav.Window.set_vbuffer">
+<span class="sig-name descname"><span class="pre">set_vbuffer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arg1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#dpav.vbuffer.VBuffer" title="dpav.vbuffer.VBuffer"><span class="pre">dpav.vbuffer.VBuffer</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#dpav.Window.set_vbuffer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets the vbuffer/nparray object to display on screen</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>arg1</strong> – VBuffer/np.ndarray</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>TypeError</strong> – arg1 VBuffer/np.ndarray type check</p></li>
+<li><p><strong>TypeError</strong> – scale int/float type check</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dpav.Window.update">
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#dpav.Window.update" title="Permalink to this definition">¶</a></dt>
+<dd><p>Pygame event abstraction, called at end of pygame loop.
+Optional function if is_open() is used</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><p><strong>Runtime Error</strong> – No active pygame window</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">Direct Python Audio/Video</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">dpav</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">dpav package</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  <li><a href="modules.html">dpav</a><ul>
+      <li>Previous: <a href="modules.html" title="previous chapter">dpav</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2022, Vibrant Labs.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.5.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/dpav.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

@@ -1,8 +1,8 @@
-import directpythonplatform as dpp
+import dpav as dp
 
-vb = dpp.VBuffer([50, 50])
+vb = dp.VBuffer([50, 50])
 vb[:] = 0xFFFFFF
-window = dpp.Window(vb, 12)
+window = dp.Window(vb, 12)
 
 window.open()
 color = 0x000000

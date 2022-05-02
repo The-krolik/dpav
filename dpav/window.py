@@ -1,7 +1,6 @@
+from dpav import VBuffer, utility as util
 import numpy as np
 import pygame
-import utility as util
-from vbuffer import VBuffer
 
 
 class Window:
