@@ -1,18 +1,18 @@
-import numpy, random
+import numpy
+import random
 import pygame._sdl2 as sdl2
 
 import pygame
 from pygame.locals import *
 
 import math
-import numpy
 from time import sleep
 
 
 class Audio(object):
     """
     Handles Audio capabilities of Direct Python Audio/Video.
-    
+
     Members:
         Private:
             _bit_number: An int for the bit rate (locked at 16).
@@ -27,7 +27,7 @@ class Audio(object):
 
     def __init__(self):
         """Constructor for the Audio class."""
-        
+
         self._bit_number = 16
         self._sample_rate = 44100
         self._audio_buffer = numpy.zeros((self._sample_rate, 2), dtype=numpy.int32)
@@ -49,7 +49,7 @@ class Audio(object):
 
         Returns:
             The bit rate of the Audio class.
-    
+
         Notes:
             The bit rate is currently locked to 16 bits.
         """
@@ -61,14 +61,14 @@ class Audio(object):
 
         Returns:
             self._sample_rate: The sample rate of the audioClass - int value
-            
+
         Notes:
             The sample rate is currently locked to 44100.
         """
         return self._sample_rate
 
     # audio buffer
-    def set_audio_buffer(self, ab: np.ndarray) -> None:
+    def set_audio_buffer(self, ab: numpy.ndarray) -> None:
         """
         Sets the audio buffer of the Audio Class.
 
@@ -94,7 +94,7 @@ class Audio(object):
         """
         self._audio_buffer = ab
 
-    def get_audio_buffer(self) -> np.ndarray | none:
+    def get_audio_buffer(self) -> numpy.ndarray | none:
         """Returns the audio buffer of the Audio class."""
         return self._audio_buffer
 
