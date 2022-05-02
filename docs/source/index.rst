@@ -11,9 +11,7 @@ Welcome to Direct Python Audio/Video's documentation!
    :caption: Contents:
 
    fundamentals
-   modules
-
-
+   dpav
 
 Indices and tables
 ==================

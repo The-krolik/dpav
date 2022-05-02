@@ -1,7 +1,8 @@
-dpav package
-============
+=================
+Source Documentation
+=================
 
-dpav.audio module
+Audio
 -----------------
 
 .. automodule:: dpav.audio
@@ -9,15 +10,7 @@ dpav.audio module
    :undoc-members:
    :show-inheritance:
 
-dpav.utility module
--------------------
-
-.. automodule:: dpav.utility
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-dpav.vbuffer module
+VBuffer
 -------------------
 
 .. automodule:: dpav.vbuffer
@@ -25,10 +18,18 @@ dpav.vbuffer module
    :undoc-members:
    :show-inheritance:
 
-dpav.window module
+Window
 ------------------
 
 .. automodule:: dpav.window
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Utility
+-------------------
+
+.. automodule:: dpav.utility
    :members:
    :undoc-members:
    :show-inheritance:
