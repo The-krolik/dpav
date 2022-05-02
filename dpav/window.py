@@ -5,28 +5,7 @@ import pygame
 
 class Window:
     """
-    Handles Window capabilites of Python Direct Platform
-    Functions:
-        Constructor:
-            __init__()
-
-        Setters:
-            set_scale(int/float)
-            set_vbuffer(VBuffer/np.ndarray,optional:int)
-
-        Getters:
-            get_mouse_pos()
-
-        Misc Methods:
-            open()
-            is_open()
-            close()
-            update()
-
-        Private Methods:
-            _update_events(pygame.event)
-            _build_events_dict()
-            _write_to_screen()
+    Handles Window capabilites of Direct Python Audio/Video.
 
     Attributes:
         Public:
