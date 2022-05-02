@@ -1,0 +1,12 @@
+\babel@toc {english}{}
+\contentsline {chapter}{\numberline {1}dpav}{1}{chapter.1}%
+\contentsline {section}{\numberline {1.1}dpav package}{1}{section.1.1}%
+\contentsline {subsection}{\numberline {1.1.1}Submodules}{1}{subsection.1.1.1}%
+\contentsline {subsection}{\numberline {1.1.2}dpav.audio module}{1}{subsection.1.1.2}%
+\contentsline {subsection}{\numberline {1.1.3}dpav.utility module}{5}{subsection.1.1.3}%
+\contentsline {subsection}{\numberline {1.1.4}dpav.vbuffer module}{6}{subsection.1.1.4}%
+\contentsline {subsection}{\numberline {1.1.5}dpav.window module}{8}{subsection.1.1.5}%
+\contentsline {subsection}{\numberline {1.1.6}Module contents}{9}{subsection.1.1.6}%
+\contentsline {chapter}{\numberline {2}Indices and tables}{17}{chapter.2}%
+\contentsline {chapter}{Python Module Index}{19}{section*.87}%
+\contentsline {chapter}{Index}{21}{section*.88}%

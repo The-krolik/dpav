@@ -1,0 +1,157 @@
+\begin{sphinxtheindex}
+\let\bigletter\sphinxstyleindexlettergroup
+\let\spxpagem \sphinxstyleindexpagemain
+\let\spxentry \sphinxstyleindexentry
+\let\spxextra \sphinxstyleindexextra
+
+  \bigletter A
+  \item \spxentry{Audio}\spxextra{class in dpav}, \hyperpage{9}
+  \item \spxentry{Audio}\spxextra{class in dpav.audio}, \hyperpage{1}
+
+  \indexspace
+  \bigletter C
+  \item \spxentry{clear()}\spxextra{dpav.VBuffer method}, \hyperpage{13}
+  \item \spxentry{clear()}\spxextra{dpav.vbuffer.VBuffer method}, \hyperpage{7}
+  \item \spxentry{close()}\spxextra{dpav.Window method}, \hyperpage{14}
+  \item \spxentry{close()}\spxextra{dpav.window.Window method}, \hyperpage{8}
+
+  \indexspace
+  \bigletter D
+  \item \spxentry{dimensions}\spxextra{dpav.VBuffer property}, \hyperpage{13}
+  \item \spxentry{dimensions}\spxextra{dpav.vbuffer.VBuffer property}, \hyperpage{7}
+  \item \spxentry{dpav}
+    \subitem \spxentry{module}, \hyperpage{9}
+  \item \spxentry{dpav.audio}
+    \subitem \spxentry{module}, \hyperpage{1}
+  \item \spxentry{dpav.utility}
+    \subitem \spxentry{module}, \hyperpage{5}
+  \item \spxentry{dpav.vbuffer}
+    \subitem \spxentry{module}, \hyperpage{6}
+  \item \spxentry{dpav.window}
+    \subitem \spxentry{module}, \hyperpage{8}
+  \item \spxentry{draw\_circle()}\spxextra{in module dpav.utility}, \hyperpage{5}
+  \item \spxentry{draw\_line()}\spxextra{in module dpav.utility}, \hyperpage{5}
+  \item \spxentry{draw\_polygon()}\spxextra{in module dpav.utility}, \hyperpage{5}
+  \item \spxentry{draw\_rectangle()}\spxextra{in module dpav.utility}, \hyperpage{5}
+
+  \indexspace
+  \bigletter F
+  \item \spxentry{fill()}\spxextra{dpav.VBuffer method}, \hyperpage{13}
+  \item \spxentry{fill()}\spxextra{dpav.vbuffer.VBuffer method}, \hyperpage{7}
+  \item \spxentry{fill()}\spxextra{in module dpav.utility}, \hyperpage{5}
+  \item \spxentry{flip\_horizontally()}\spxextra{in module dpav.utility}, \hyperpage{5}
+  \item \spxentry{flip\_vertically()}\spxextra{in module dpav.utility}, \hyperpage{5}
+
+  \indexspace
+  \bigletter G
+  \item \spxentry{get\_audio\_buffer()}\spxextra{dpav.Audio method}, \hyperpage{9}
+  \item \spxentry{get\_audio\_buffer()}\spxextra{dpav.audio.Audio method}, \hyperpage{1}
+  \item \spxentry{get\_audio\_device()}\spxextra{dpav.Audio method}, \hyperpage{10}
+  \item \spxentry{get\_audio\_device()}\spxextra{dpav.audio.Audio method}, \hyperpage{1}
+  \item \spxentry{get\_bit\_number()}\spxextra{dpav.Audio method}, \hyperpage{10}
+  \item \spxentry{get\_bit\_number()}\spxextra{dpav.audio.Audio method}, \hyperpage{2}
+  \item \spxentry{get\_dimensions()}\spxextra{dpav.VBuffer method}, \hyperpage{13}
+  \item \spxentry{get\_dimensions()}\spxextra{dpav.vbuffer.VBuffer method}, \hyperpage{7}
+  \item \spxentry{get\_mouse\_pos()}\spxextra{dpav.Window method}, \hyperpage{14}
+  \item \spxentry{get\_mouse\_pos()}\spxextra{dpav.window.Window method}, \hyperpage{8}
+  \item \spxentry{get\_note\_from\_string()}\spxextra{in module dpav.utility}, \hyperpage{5}
+  \item \spxentry{get\_pixel()}\spxextra{dpav.VBuffer method}, \hyperpage{13}
+  \item \spxentry{get\_pixel()}\spxextra{dpav.vbuffer.VBuffer method}, \hyperpage{7}
+  \item \spxentry{get\_sample\_rate()}\spxextra{dpav.Audio method}, \hyperpage{10}
+  \item \spxentry{get\_sample\_rate()}\spxextra{dpav.audio.Audio method}, \hyperpage{2}
+
+  \indexspace
+  \bigletter I
+  \item \spxentry{is\_open()}\spxextra{dpav.Window method}, \hyperpage{14}
+  \item \spxentry{is\_open()}\spxextra{dpav.window.Window method}, \hyperpage{8}
+
+  \indexspace
+  \bigletter L
+  \item \spxentry{list\_audio\_devices()}\spxextra{dpav.Audio method}, \hyperpage{10}
+  \item \spxentry{list\_audio\_devices()}\spxextra{dpav.audio.Audio method}, \hyperpage{2}
+  \item \spxentry{load\_buffer\_from\_file()}\spxextra{dpav.VBuffer method}, \hyperpage{13}
+  \item \spxentry{load\_buffer\_from\_file()}\spxextra{dpav.vbuffer.VBuffer method}, \hyperpage{7}
+  \item \spxentry{load\_image()}\spxextra{in module dpav.utility}, \hyperpage{5}
+
+  \indexspace
+  \bigletter M
+  \item \spxentry{module}
+    \subitem \spxentry{dpav}, \hyperpage{9}
+    \subitem \spxentry{dpav.audio}, \hyperpage{1}
+    \subitem \spxentry{dpav.utility}, \hyperpage{5}
+    \subitem \spxentry{dpav.vbuffer}, \hyperpage{6}
+    \subitem \spxentry{dpav.window}, \hyperpage{8}
+
+  \indexspace
+  \bigletter N
+  \item \spxentry{noise()}\spxextra{dpav.audio.wave\_table method}, \hyperpage{4}
+
+  \indexspace
+  \bigletter O
+  \item \spxentry{open()}\spxextra{dpav.Window method}, \hyperpage{15}
+  \item \spxentry{open()}\spxextra{dpav.window.Window method}, \hyperpage{9}
+
+  \indexspace
+  \bigletter P
+  \item \spxentry{play\_sample()}\spxextra{dpav.Audio method}, \hyperpage{10}
+  \item \spxentry{play\_sample()}\spxextra{dpav.audio.Audio method}, \hyperpage{2}
+  \item \spxentry{play\_sound()}\spxextra{dpav.Audio method}, \hyperpage{11}
+  \item \spxentry{play\_sound()}\spxextra{dpav.audio.Audio method}, \hyperpage{2}
+  \item \spxentry{point\_in\_polygon()}\spxextra{in module dpav.utility}, \hyperpage{6}
+  \item \spxentry{Private}\spxextra{dpav.Window attribute}, \hyperpage{14}
+  \item \spxentry{Private}\spxextra{dpav.window.Window attribute}, \hyperpage{8}
+  \item \spxentry{Public}\spxextra{dpav.Window attribute}, \hyperpage{14}
+  \item \spxentry{Public}\spxextra{dpav.window.Window attribute}, \hyperpage{8}
+
+  \indexspace
+  \bigletter R
+  \item \spxentry{replace\_color()}\spxextra{in module dpav.utility}, \hyperpage{6}
+  \item \spxentry{rgb\_to\_hex()}\spxextra{in module dpav.utility}, \hyperpage{6}
+
+  \indexspace
+  \bigletter S
+  \item \spxentry{save\_buffer\_to\_file()}\spxextra{dpav.VBuffer method}, \hyperpage{13}
+  \item \spxentry{save\_buffer\_to\_file()}\spxextra{dpav.vbuffer.VBuffer method}, \hyperpage{7}
+  \item \spxentry{saw()}\spxextra{dpav.audio.wave\_table method}, \hyperpage{4}
+  \item \spxentry{set\_audio\_buffer()}\spxextra{dpav.Audio method}, \hyperpage{11}
+  \item \spxentry{set\_audio\_buffer()}\spxextra{dpav.audio.Audio method}, \hyperpage{3}
+  \item \spxentry{set\_audio\_device()}\spxextra{dpav.Audio method}, \hyperpage{11}
+  \item \spxentry{set\_audio\_device()}\spxextra{dpav.audio.Audio method}, \hyperpage{3}
+  \item \spxentry{set\_buffer()}\spxextra{dpav.VBuffer method}, \hyperpage{13}
+  \item \spxentry{set\_buffer()}\spxextra{dpav.vbuffer.VBuffer method}, \hyperpage{7}
+  \item \spxentry{set\_scale()}\spxextra{dpav.Window method}, \hyperpage{15}
+  \item \spxentry{set\_scale()}\spxextra{dpav.window.Window method}, \hyperpage{9}
+  \item \spxentry{set\_vbuffer()}\spxextra{dpav.Window method}, \hyperpage{15}
+  \item \spxentry{set\_vbuffer()}\spxextra{dpav.window.Window method}, \hyperpage{9}
+  \item \spxentry{set\_waveform()}\spxextra{dpav.Audio method}, \hyperpage{11}
+  \item \spxentry{set\_waveform()}\spxextra{dpav.audio.Audio method}, \hyperpage{3}
+  \item \spxentry{sin()}\spxextra{dpav.audio.wave\_table method}, \hyperpage{5}
+  \item \spxentry{sixteenWavtoRawData()}\spxextra{in module dpav.utility}, \hyperpage{6}
+  \item \spxentry{square()}\spxextra{dpav.audio.wave\_table method}, \hyperpage{5}
+
+  \indexspace
+  \bigletter T
+  \item \spxentry{translate()}\spxextra{in module dpav.utility}, \hyperpage{6}
+  \item \spxentry{triangle()}\spxextra{dpav.audio.wave\_table method}, \hyperpage{5}
+
+  \indexspace
+  \bigletter U
+  \item \spxentry{update()}\spxextra{dpav.Window method}, \hyperpage{15}
+  \item \spxentry{update()}\spxextra{dpav.window.Window method}, \hyperpage{9}
+
+  \indexspace
+  \bigletter V
+  \item \spxentry{VBuffer}\spxextra{class in dpav}, \hyperpage{12}
+  \item \spxentry{VBuffer}\spxextra{class in dpav.vbuffer}, \hyperpage{6}
+
+  \indexspace
+  \bigletter W
+  \item \spxentry{wait\_for\_sound\_end()}\spxextra{dpav.Audio method}, \hyperpage{12}
+  \item \spxentry{wait\_for\_sound\_end()}\spxextra{dpav.audio.Audio method}, \hyperpage{4}
+  \item \spxentry{wave\_table}\spxextra{class in dpav.audio}, \hyperpage{4}
+  \item \spxentry{Window}\spxextra{class in dpav}, \hyperpage{13}
+  \item \spxentry{Window}\spxextra{class in dpav.window}, \hyperpage{8}
+  \item \spxentry{write\_pixel()}\spxextra{dpav.VBuffer method}, \hyperpage{13}
+  \item \spxentry{write\_pixel()}\spxextra{dpav.vbuffer.VBuffer method}, \hyperpage{7}
+
+\end{sphinxtheindex}

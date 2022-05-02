@@ -1,0 +1,94 @@
+\indexentry{module@\spxentry{module}!dpav.audio@\spxentry{dpav.audio}|hyperpage}{1}
+\indexentry{dpav.audio@\spxentry{dpav.audio}!module@\spxentry{module}|hyperpage}{1}
+\indexentry{Audio (class in dpav.audio)@\spxentry{Audio}\spxextra{class in dpav.audio}|hyperpage}{1}
+\indexentry{get\_audio\_buffer() (dpav.audio.Audio method)@\spxentry{get\_audio\_buffer()}\spxextra{dpav.audio.Audio method}|hyperpage}{1}
+\indexentry{get\_audio\_device() (dpav.audio.Audio method)@\spxentry{get\_audio\_device()}\spxextra{dpav.audio.Audio method}|hyperpage}{1}
+\indexentry{get\_bit\_number() (dpav.audio.Audio method)@\spxentry{get\_bit\_number()}\spxextra{dpav.audio.Audio method}|hyperpage}{2}
+\indexentry{get\_sample\_rate() (dpav.audio.Audio method)@\spxentry{get\_sample\_rate()}\spxextra{dpav.audio.Audio method}|hyperpage}{2}
+\indexentry{list\_audio\_devices() (dpav.audio.Audio method)@\spxentry{list\_audio\_devices()}\spxextra{dpav.audio.Audio method}|hyperpage}{2}
+\indexentry{play\_sample() (dpav.audio.Audio method)@\spxentry{play\_sample()}\spxextra{dpav.audio.Audio method}|hyperpage}{2}
+\indexentry{play\_sound() (dpav.audio.Audio method)@\spxentry{play\_sound()}\spxextra{dpav.audio.Audio method}|hyperpage}{2}
+\indexentry{set\_audio\_buffer() (dpav.audio.Audio method)@\spxentry{set\_audio\_buffer()}\spxextra{dpav.audio.Audio method}|hyperpage}{3}
+\indexentry{set\_audio\_device() (dpav.audio.Audio method)@\spxentry{set\_audio\_device()}\spxextra{dpav.audio.Audio method}|hyperpage}{3}
+\indexentry{set\_waveform() (dpav.audio.Audio method)@\spxentry{set\_waveform()}\spxextra{dpav.audio.Audio method}|hyperpage}{3}
+\indexentry{wait\_for\_sound\_end() (dpav.audio.Audio method)@\spxentry{wait\_for\_sound\_end()}\spxextra{dpav.audio.Audio method}|hyperpage}{4}
+\indexentry{wave\_table (class in dpav.audio)@\spxentry{wave\_table}\spxextra{class in dpav.audio}|hyperpage}{4}
+\indexentry{noise() (dpav.audio.wave\_table method)@\spxentry{noise()}\spxextra{dpav.audio.wave\_table method}|hyperpage}{4}
+\indexentry{saw() (dpav.audio.wave\_table method)@\spxentry{saw()}\spxextra{dpav.audio.wave\_table method}|hyperpage}{4}
+\indexentry{sin() (dpav.audio.wave\_table method)@\spxentry{sin()}\spxextra{dpav.audio.wave\_table method}|hyperpage}{5}
+\indexentry{square() (dpav.audio.wave\_table method)@\spxentry{square()}\spxextra{dpav.audio.wave\_table method}|hyperpage}{5}
+\indexentry{triangle() (dpav.audio.wave\_table method)@\spxentry{triangle()}\spxextra{dpav.audio.wave\_table method}|hyperpage}{5}
+\indexentry{module@\spxentry{module}!dpav.utility@\spxentry{dpav.utility}|hyperpage}{5}
+\indexentry{dpav.utility@\spxentry{dpav.utility}!module@\spxentry{module}|hyperpage}{5}
+\indexentry{draw\_circle() (in module dpav.utility)@\spxentry{draw\_circle()}\spxextra{in module dpav.utility}|hyperpage}{5}
+\indexentry{draw\_line() (in module dpav.utility)@\spxentry{draw\_line()}\spxextra{in module dpav.utility}|hyperpage}{5}
+\indexentry{draw\_polygon() (in module dpav.utility)@\spxentry{draw\_polygon()}\spxextra{in module dpav.utility}|hyperpage}{5}
+\indexentry{draw\_rectangle() (in module dpav.utility)@\spxentry{draw\_rectangle()}\spxextra{in module dpav.utility}|hyperpage}{5}
+\indexentry{fill() (in module dpav.utility)@\spxentry{fill()}\spxextra{in module dpav.utility}|hyperpage}{5}
+\indexentry{flip\_horizontally() (in module dpav.utility)@\spxentry{flip\_horizontally()}\spxextra{in module dpav.utility}|hyperpage}{5}
+\indexentry{flip\_vertically() (in module dpav.utility)@\spxentry{flip\_vertically()}\spxextra{in module dpav.utility}|hyperpage}{5}
+\indexentry{get\_note\_from\_string() (in module dpav.utility)@\spxentry{get\_note\_from\_string()}\spxextra{in module dpav.utility}|hyperpage}{5}
+\indexentry{load\_image() (in module dpav.utility)@\spxentry{load\_image()}\spxextra{in module dpav.utility}|hyperpage}{5}
+\indexentry{point\_in\_polygon() (in module dpav.utility)@\spxentry{point\_in\_polygon()}\spxextra{in module dpav.utility}|hyperpage}{6}
+\indexentry{replace\_color() (in module dpav.utility)@\spxentry{replace\_color()}\spxextra{in module dpav.utility}|hyperpage}{6}
+\indexentry{rgb\_to\_hex() (in module dpav.utility)@\spxentry{rgb\_to\_hex()}\spxextra{in module dpav.utility}|hyperpage}{6}
+\indexentry{sixteenWavtoRawData() (in module dpav.utility)@\spxentry{sixteenWavtoRawData()}\spxextra{in module dpav.utility}|hyperpage}{6}
+\indexentry{translate() (in module dpav.utility)@\spxentry{translate()}\spxextra{in module dpav.utility}|hyperpage}{6}
+\indexentry{module@\spxentry{module}!dpav.vbuffer@\spxentry{dpav.vbuffer}|hyperpage}{6}
+\indexentry{dpav.vbuffer@\spxentry{dpav.vbuffer}!module@\spxentry{module}|hyperpage}{6}
+\indexentry{VBuffer (class in dpav.vbuffer)@\spxentry{VBuffer}\spxextra{class in dpav.vbuffer}|hyperpage}{6}
+\indexentry{clear() (dpav.vbuffer.VBuffer method)@\spxentry{clear()}\spxextra{dpav.vbuffer.VBuffer method}|hyperpage}{7}
+\indexentry{dimensions (dpav.vbuffer.VBuffer property)@\spxentry{dimensions}\spxextra{dpav.vbuffer.VBuffer property}|hyperpage}{7}
+\indexentry{fill() (dpav.vbuffer.VBuffer method)@\spxentry{fill()}\spxextra{dpav.vbuffer.VBuffer method}|hyperpage}{7}
+\indexentry{get\_dimensions() (dpav.vbuffer.VBuffer method)@\spxentry{get\_dimensions()}\spxextra{dpav.vbuffer.VBuffer method}|hyperpage}{7}
+\indexentry{get\_pixel() (dpav.vbuffer.VBuffer method)@\spxentry{get\_pixel()}\spxextra{dpav.vbuffer.VBuffer method}|hyperpage}{7}
+\indexentry{load\_buffer\_from\_file() (dpav.vbuffer.VBuffer method)@\spxentry{load\_buffer\_from\_file()}\spxextra{dpav.vbuffer.VBuffer method}|hyperpage}{7}
+\indexentry{save\_buffer\_to\_file() (dpav.vbuffer.VBuffer method)@\spxentry{save\_buffer\_to\_file()}\spxextra{dpav.vbuffer.VBuffer method}|hyperpage}{7}
+\indexentry{set\_buffer() (dpav.vbuffer.VBuffer method)@\spxentry{set\_buffer()}\spxextra{dpav.vbuffer.VBuffer method}|hyperpage}{7}
+\indexentry{write\_pixel() (dpav.vbuffer.VBuffer method)@\spxentry{write\_pixel()}\spxextra{dpav.vbuffer.VBuffer method}|hyperpage}{7}
+\indexentry{module@\spxentry{module}!dpav.window@\spxentry{dpav.window}|hyperpage}{8}
+\indexentry{dpav.window@\spxentry{dpav.window}!module@\spxentry{module}|hyperpage}{8}
+\indexentry{Window (class in dpav.window)@\spxentry{Window}\spxextra{class in dpav.window}|hyperpage}{8}
+\indexentry{Public (dpav.window.Window attribute)@\spxentry{Public}\spxextra{dpav.window.Window attribute}|hyperpage}{8}
+\indexentry{Private (dpav.window.Window attribute)@\spxentry{Private}\spxextra{dpav.window.Window attribute}|hyperpage}{8}
+\indexentry{close() (dpav.window.Window method)@\spxentry{close()}\spxextra{dpav.window.Window method}|hyperpage}{8}
+\indexentry{get\_mouse\_pos() (dpav.window.Window method)@\spxentry{get\_mouse\_pos()}\spxextra{dpav.window.Window method}|hyperpage}{8}
+\indexentry{is\_open() (dpav.window.Window method)@\spxentry{is\_open()}\spxextra{dpav.window.Window method}|hyperpage}{8}
+\indexentry{open() (dpav.window.Window method)@\spxentry{open()}\spxextra{dpav.window.Window method}|hyperpage}{9}
+\indexentry{set\_scale() (dpav.window.Window method)@\spxentry{set\_scale()}\spxextra{dpav.window.Window method}|hyperpage}{9}
+\indexentry{set\_vbuffer() (dpav.window.Window method)@\spxentry{set\_vbuffer()}\spxextra{dpav.window.Window method}|hyperpage}{9}
+\indexentry{update() (dpav.window.Window method)@\spxentry{update()}\spxextra{dpav.window.Window method}|hyperpage}{9}
+\indexentry{module@\spxentry{module}!dpav@\spxentry{dpav}|hyperpage}{9}
+\indexentry{dpav@\spxentry{dpav}!module@\spxentry{module}|hyperpage}{9}
+\indexentry{Audio (class in dpav)@\spxentry{Audio}\spxextra{class in dpav}|hyperpage}{9}
+\indexentry{get\_audio\_buffer() (dpav.Audio method)@\spxentry{get\_audio\_buffer()}\spxextra{dpav.Audio method}|hyperpage}{9}
+\indexentry{get\_audio\_device() (dpav.Audio method)@\spxentry{get\_audio\_device()}\spxextra{dpav.Audio method}|hyperpage}{10}
+\indexentry{get\_bit\_number() (dpav.Audio method)@\spxentry{get\_bit\_number()}\spxextra{dpav.Audio method}|hyperpage}{10}
+\indexentry{get\_sample\_rate() (dpav.Audio method)@\spxentry{get\_sample\_rate()}\spxextra{dpav.Audio method}|hyperpage}{10}
+\indexentry{list\_audio\_devices() (dpav.Audio method)@\spxentry{list\_audio\_devices()}\spxextra{dpav.Audio method}|hyperpage}{10}
+\indexentry{play\_sample() (dpav.Audio method)@\spxentry{play\_sample()}\spxextra{dpav.Audio method}|hyperpage}{10}
+\indexentry{play\_sound() (dpav.Audio method)@\spxentry{play\_sound()}\spxextra{dpav.Audio method}|hyperpage}{11}
+\indexentry{set\_audio\_buffer() (dpav.Audio method)@\spxentry{set\_audio\_buffer()}\spxextra{dpav.Audio method}|hyperpage}{11}
+\indexentry{set\_audio\_device() (dpav.Audio method)@\spxentry{set\_audio\_device()}\spxextra{dpav.Audio method}|hyperpage}{11}
+\indexentry{set\_waveform() (dpav.Audio method)@\spxentry{set\_waveform()}\spxextra{dpav.Audio method}|hyperpage}{11}
+\indexentry{wait\_for\_sound\_end() (dpav.Audio method)@\spxentry{wait\_for\_sound\_end()}\spxextra{dpav.Audio method}|hyperpage}{12}
+\indexentry{VBuffer (class in dpav)@\spxentry{VBuffer}\spxextra{class in dpav}|hyperpage}{12}
+\indexentry{clear() (dpav.VBuffer method)@\spxentry{clear()}\spxextra{dpav.VBuffer method}|hyperpage}{13}
+\indexentry{dimensions (dpav.VBuffer property)@\spxentry{dimensions}\spxextra{dpav.VBuffer property}|hyperpage}{13}
+\indexentry{fill() (dpav.VBuffer method)@\spxentry{fill()}\spxextra{dpav.VBuffer method}|hyperpage}{13}
+\indexentry{get\_dimensions() (dpav.VBuffer method)@\spxentry{get\_dimensions()}\spxextra{dpav.VBuffer method}|hyperpage}{13}
+\indexentry{get\_pixel() (dpav.VBuffer method)@\spxentry{get\_pixel()}\spxextra{dpav.VBuffer method}|hyperpage}{13}
+\indexentry{load\_buffer\_from\_file() (dpav.VBuffer method)@\spxentry{load\_buffer\_from\_file()}\spxextra{dpav.VBuffer method}|hyperpage}{13}
+\indexentry{save\_buffer\_to\_file() (dpav.VBuffer method)@\spxentry{save\_buffer\_to\_file()}\spxextra{dpav.VBuffer method}|hyperpage}{13}
+\indexentry{set\_buffer() (dpav.VBuffer method)@\spxentry{set\_buffer()}\spxextra{dpav.VBuffer method}|hyperpage}{13}
+\indexentry{write\_pixel() (dpav.VBuffer method)@\spxentry{write\_pixel()}\spxextra{dpav.VBuffer method}|hyperpage}{13}
+\indexentry{Window (class in dpav)@\spxentry{Window}\spxextra{class in dpav}|hyperpage}{13}
+\indexentry{Public (dpav.Window attribute)@\spxentry{Public}\spxextra{dpav.Window attribute}|hyperpage}{14}
+\indexentry{Private (dpav.Window attribute)@\spxentry{Private}\spxextra{dpav.Window attribute}|hyperpage}{14}
+\indexentry{close() (dpav.Window method)@\spxentry{close()}\spxextra{dpav.Window method}|hyperpage}{14}
+\indexentry{get\_mouse\_pos() (dpav.Window method)@\spxentry{get\_mouse\_pos()}\spxextra{dpav.Window method}|hyperpage}{14}
+\indexentry{is\_open() (dpav.Window method)@\spxentry{is\_open()}\spxextra{dpav.Window method}|hyperpage}{14}
+\indexentry{open() (dpav.Window method)@\spxentry{open()}\spxextra{dpav.Window method}|hyperpage}{15}
+\indexentry{set\_scale() (dpav.Window method)@\spxentry{set\_scale()}\spxextra{dpav.Window method}|hyperpage}{15}
+\indexentry{set\_vbuffer() (dpav.Window method)@\spxentry{set\_vbuffer()}\spxextra{dpav.Window method}|hyperpage}{15}
+\indexentry{update() (dpav.Window method)@\spxentry{update()}\spxextra{dpav.Window method}|hyperpage}{15}
