@@ -9,6 +9,7 @@ Audio
    :members:
    :undoc-members:
    :show-inheritance:
+   :noindex:
 
 VBuffer
 -------------------
@@ -17,6 +18,7 @@ VBuffer
    :members:
    :undoc-members:
    :show-inheritance:
+   :noindex:
 
 Window
 ------------------
@@ -25,6 +27,7 @@ Window
    :members:
    :undoc-members:
    :show-inheritance:
+   :noindex:
 
 Utility
 -------------------
@@ -33,3 +36,4 @@ Utility
    :members:
    :undoc-members:
    :show-inheritance:
+   :noindex:

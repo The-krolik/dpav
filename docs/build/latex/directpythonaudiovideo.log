@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2022.5.1)  1 MAY 2022 22:29
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2022.5.1)  1 MAY 2022 22:43
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -827,62 +827,41 @@ Underfull \hbox (badness 10000) in paragraph at lines 1119--1122
 aining first and second index of
  []
 
-[14] [15] [16] [17] [18
+[14] [15] [16] (./directpythonaudiovideo.ind)
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1638.
+ [17]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 1638.
 
-
-
-] (./directpythonaudiovideo.ind
-Underfull \hbox (badness 10000) in paragraph at lines 57--58
-[]\T1/txtt/m/n/10 load_buffer_from_file() \T1/qtm/m/n/10 (\T1/qtm/m/it/10 dpav.
-vbuffer.VBuffer
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 91--92
-[]\T1/txtt/m/n/10 save_buffer_to_file() \T1/qtm/m/n/10 (\T1/qtm/m/it/10 dpav.vb
-uffer.VBuffer
- []
-
-[19
-
-
-
-] [20
-
-])
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1647.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 1647.
- (./directpythonaudiovideo.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1647.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1647.
+(./directpythonaudiovideo.aux)
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1638.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1638.
 
 Package rerunfilecheck Info: File `directpythonaudiovideo.out' has not changed.
 
-(rerunfilecheck)             Checksum: EA79C8C12C29F20B5AD3C2C309E6949D;2434.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1647.
+(rerunfilecheck)             Checksum: 934B20D47BABE3077D34B5E90E6C01F7;2216.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1638.
  ) 
 Here is how much of TeX's memory you used:
- 13960 strings out of 483183
- 199742 string characters out of 5966293
- 481656 words of memory out of 5000000
- 28489 multiletter control sequences out of 15000+600000
+ 13843 strings out of 483183
+ 197174 string characters out of 5966293
+ 479879 words of memory out of 5000000
+ 28429 multiletter control sequences out of 15000+600000
  584024 words of font info for 66 fonts, out of 8000000 for 9000
  15 hyphenation exceptions out of 8191
- 38i,12n,51p,780b,671s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/share/texmf/fonts/enc/dvips/tex-gyre/q-ec.enc}{/usr/share/texmf/fonts/e
-nc/dvips/tex-gyre/q-ts1.enc}</usr/share/texlive/texmf-dist/fonts/type1/public/a
+ 38i,11n,51p,780b,612s stack positions out of 5000i,500n,10000p,200000b,80000s
+{/usr/share/texmf/fonts/enc/dvips/tex-gyre/q-ts1.enc}{/usr/share/texmf/fonts/
+enc/dvips/tex-gyre/q-ec.enc}</usr/share/texlive/texmf-dist/fonts/type1/public/a
 msfonts/cm/cmsy10.pfb></usr/share/texmf/fonts/type1/public/tex-gyre/qhvb.pfb></
 usr/share/texmf/fonts/type1/public/tex-gyre/qhvbi.pfb></usr/share/texmf/fonts/t
-ype1/public/tex-gyre/qhvr.pfb></usr/share/texmf/fonts/type1/public/tex-gyre/qtm
-b.pfb></usr/share/texmf/fonts/type1/public/tex-gyre/qtmr.pfb></usr/share/texmf/
-fonts/type1/public/tex-gyre/qtmri.pfb></usr/share/texlive/texmf-dist/fonts/type
-1/public/txfonts/t1xbtt.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/t
-xfonts/t1xtt.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/txfonts/t1xt
-t.pfb>
-Output written on directpythonaudiovideo.pdf (22 pages, 220136 bytes).
+ype1/public/tex-gyre/qtmb.pfb></usr/share/texmf/fonts/type1/public/tex-gyre/qtm
+r.pfb></usr/share/texmf/fonts/type1/public/tex-gyre/qtmri.pfb></usr/share/texli
+ve/texmf-dist/fonts/type1/public/txfonts/t1xbtt.pfb></usr/share/texlive/texmf-d
+ist/fonts/type1/public/txfonts/t1xtt.pfb></usr/share/texlive/texmf-dist/fonts/t
+ype1/public/txfonts/t1xtt.pfb>
+Output written on directpythonaudiovideo.pdf (19 pages, 193925 bytes).
 PDF statistics:
- 440 PDF objects out of 1000 (max. 8388607)
- 397 compressed objects within 4 object streams
- 121 named destinations out of 1000 (max. 500000)
- 189 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 271 PDF objects out of 1000 (max. 8388607)
+ 233 compressed objects within 3 object streams
+ 64 named destinations out of 1000 (max. 500000)
+ 173 words of extra memory for PDF output out of 10000 (max. 10000000)
 

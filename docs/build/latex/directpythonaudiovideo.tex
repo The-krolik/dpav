@@ -347,10 +347,10 @@ Obtaining the current position of the mouse is done by calling the get\_mouse\_p
 \label{\detokenize{dpav:source-documentation}}\label{\detokenize{dpav::doc}}
 
 \section{Audio}
-\label{\detokenize{dpav:module-dpav.audio}}\label{\detokenize{dpav:audio}}\index{module@\spxentry{module}!dpav.audio@\spxentry{dpav.audio}}\index{dpav.audio@\spxentry{dpav.audio}!module@\spxentry{module}}\index{Audio (class in dpav.audio)@\spxentry{Audio}\spxextra{class in dpav.audio}}
+\label{\detokenize{dpav:audio}}
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{dpav:dpav.audio.Audio}}\pysigline{\sphinxbfcode{\sphinxupquote{class }}\sphinxcode{\sphinxupquote{dpav.audio.}}\sphinxbfcode{\sphinxupquote{Audio}}}
+\pysigline{\sphinxbfcode{\sphinxupquote{class }}\sphinxcode{\sphinxupquote{dpav.audio.}}\sphinxbfcode{\sphinxupquote{Audio}}}
 \sphinxAtStartPar
 Bases: \sphinxcode{\sphinxupquote{object}}
 
@@ -396,10 +396,10 @@ wait\_for\_sound\_end()
 \end{description}
 
 \end{description}
-\index{get\_audio\_buffer() (dpav.audio.Audio method)@\spxentry{get\_audio\_buffer()}\spxextra{dpav.audio.Audio method}}
+
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{dpav:dpav.audio.Audio.get_audio_buffer}}\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{get\_audio\_buffer}}}{}{}
+\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{get\_audio\_buffer}}}{}{}
 \sphinxAtStartPar
 Returns the audio buffer of the Audio class
 \begin{description}
@@ -428,10 +428,10 @@ self.\_audio\_buffer
 
 \end{fulllineitems}
 
-\index{get\_audio\_device() (dpav.audio.Audio method)@\spxentry{get\_audio\_device()}\spxextra{dpav.audio.Audio method}}
+
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{dpav:dpav.audio.Audio.get_audio_device}}\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{get\_audio\_device}}}{}{{ $\rightarrow$ int}}
+\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{get\_audio\_device}}}{}{{ $\rightarrow$ int}}
 \sphinxAtStartPar
 Gets the current audio device number of the Audio Class
 \begin{description}
@@ -460,10 +460,10 @@ Returns the integer value of the device not the device name
 
 \end{fulllineitems}
 
-\index{get\_bit\_number() (dpav.audio.Audio method)@\spxentry{get\_bit\_number()}\spxextra{dpav.audio.Audio method}}
+
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{dpav:dpav.audio.Audio.get_bit_number}}\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{get\_bit\_number}}}{}{{ $\rightarrow$ int}}
+\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{get\_bit\_number}}}{}{{ $\rightarrow$ int}}
 \sphinxAtStartPar
 Gets the bit rate of the Audio class
 \begin{description}
@@ -489,10 +489,10 @@ self.\_bit\_number
 
 \end{fulllineitems}
 
-\index{get\_sample\_rate() (dpav.audio.Audio method)@\spxentry{get\_sample\_rate()}\spxextra{dpav.audio.Audio method}}
+
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{dpav:dpav.audio.Audio.get_sample_rate}}\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{get\_sample\_rate}}}{}{{ $\rightarrow$ int}}
+\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{get\_sample\_rate}}}{}{{ $\rightarrow$ int}}
 \sphinxAtStartPar
 Gets the sample rate of the Audio class.
 \begin{description}
@@ -518,10 +518,10 @@ self.\_sample\_rate
 
 \end{fulllineitems}
 
-\index{list\_audio\_devices() (dpav.audio.Audio method)@\spxentry{list\_audio\_devices()}\spxextra{dpav.audio.Audio method}}
+
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{dpav:dpav.audio.Audio.list_audio_devices}}\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{list\_audio\_devices}}}{}{{ $\rightarrow$ None}}
+\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{list\_audio\_devices}}}{}{{ $\rightarrow$ None}}
 \sphinxAtStartPar
 Lists the output devices on your system and adds to list self.\_devices
 \begin{description}
@@ -549,10 +549,10 @@ None
 
 \end{fulllineitems}
 
-\index{play\_sample() (dpav.audio.Audio method)@\spxentry{play\_sample()}\spxextra{dpav.audio.Audio method}}
+
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{dpav:dpav.audio.Audio.play_sample}}\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{play\_sample}}}{\emph{\DUrole{n}{sample\_name}\DUrole{p}{:} \DUrole{n}{str}}}{{ $\rightarrow$ None}}
+\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{play\_sample}}}{\emph{\DUrole{n}{sample\_name}\DUrole{p}{:} \DUrole{n}{str}}}{{ $\rightarrow$ None}}
 \sphinxAtStartPar
 Plays sounds that are wav, ogg or mp3 files.
 \begin{description}
@@ -574,10 +574,10 @@ None
 
 \end{fulllineitems}
 
-\index{play\_sound() (dpav.audio.Audio method)@\spxentry{play\_sound()}\spxextra{dpav.audio.Audio method}}
+
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{dpav:dpav.audio.Audio.play_sound}}\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{play\_sound}}}{\emph{\DUrole{n}{input\_frequency}\DUrole{o}{=}\DUrole{default_value}{0}}, \emph{\DUrole{n}{input\_duration}\DUrole{o}{=}\DUrole{default_value}{0}}}{{ $\rightarrow$ None}}
+\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{play\_sound}}}{\emph{\DUrole{n}{input\_frequency}\DUrole{o}{=}\DUrole{default_value}{0}}, \emph{\DUrole{n}{input\_duration}\DUrole{o}{=}\DUrole{default_value}{0}}}{{ $\rightarrow$ None}}
 \sphinxAtStartPar
 Primary sound playing method of the audio class.
 \begin{description}
@@ -622,10 +622,10 @@ None
 
 \end{fulllineitems}
 
-\index{set\_audio\_buffer() (dpav.audio.Audio method)@\spxentry{set\_audio\_buffer()}\spxextra{dpav.audio.Audio method}}
+
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{dpav:dpav.audio.Audio.set_audio_buffer}}\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{set\_audio\_buffer}}}{\emph{\DUrole{n}{ab}}}{{ $\rightarrow$ None}}
+\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{set\_audio\_buffer}}}{\emph{\DUrole{n}{ab}}}{{ $\rightarrow$ None}}
 \sphinxAtStartPar
 Sets the audio buffer of the Audio Class.
 \begin{description}
@@ -671,10 +671,10 @@ None
 
 \end{fulllineitems}
 
-\index{set\_audio\_device() (dpav.audio.Audio method)@\spxentry{set\_audio\_device()}\spxextra{dpav.audio.Audio method}}
+
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{dpav:dpav.audio.Audio.set_audio_device}}\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{set\_audio\_device}}}{\emph{\DUrole{n}{device}\DUrole{p}{:} \DUrole{n}{int}}}{{ $\rightarrow$ int}}
+\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{set\_audio\_device}}}{\emph{\DUrole{n}{device}\DUrole{p}{:} \DUrole{n}{int}}}{{ $\rightarrow$ int}}
 \sphinxAtStartPar
 Sets the current audio device of the Audio class.
 \begin{description}
@@ -703,10 +703,10 @@ None
 
 \end{fulllineitems}
 
-\index{set\_waveform() (dpav.audio.Audio method)@\spxentry{set\_waveform()}\spxextra{dpav.audio.Audio method}}
+
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{dpav:dpav.audio.Audio.set_waveform}}\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{set\_waveform}}}{\emph{\DUrole{n}{wave}}}{{ $\rightarrow$ None}}
+\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{set\_waveform}}}{\emph{\DUrole{n}{wave}}}{{ $\rightarrow$ None}}
 \sphinxAtStartPar
 Sets the expression governing the wave form playing
 \begin{description}
@@ -734,10 +734,10 @@ None
 
 \end{fulllineitems}
 
-\index{wait\_for\_sound\_end() (dpav.audio.Audio method)@\spxentry{wait\_for\_sound\_end()}\spxextra{dpav.audio.Audio method}}
+
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{dpav:dpav.audio.Audio.wait_for_sound_end}}\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{wait\_for\_sound\_end}}}{}{}
+\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{wait\_for\_sound\_end}}}{}{}
 \sphinxAtStartPar
 Function call that is placed at the end of scripts without a pygame window instance so sounds play to their full duration without a
 \begin{description}
@@ -772,10 +772,10 @@ Notes:
 
 \end{fulllineitems}
 
-\index{wave\_table (class in dpav.audio)@\spxentry{wave\_table}\spxextra{class in dpav.audio}}
+
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{dpav:dpav.audio.wave_table}}\pysigline{\sphinxbfcode{\sphinxupquote{class }}\sphinxcode{\sphinxupquote{dpav.audio.}}\sphinxbfcode{\sphinxupquote{wave\_table}}}
+\pysigline{\sphinxbfcode{\sphinxupquote{class }}\sphinxcode{\sphinxupquote{dpav.audio.}}\sphinxbfcode{\sphinxupquote{wave\_table}}}
 \sphinxAtStartPar
 Bases: \sphinxcode{\sphinxupquote{object}}
 
@@ -796,10 +796,10 @@ triangle
 \sphinxAtStartPar
 waves = wave\_table()
 sinefunc = waves.sin
-\index{noise() (dpav.audio.wave\_table method)@\spxentry{noise()}\spxextra{dpav.audio.wave\_table method}}
+
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{dpav:dpav.audio.wave_table.noise}}\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{noise}}}{\emph{\DUrole{n}{input\_frequency}}, \emph{\DUrole{n}{t}}}{}
+\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{noise}}}{\emph{\DUrole{n}{input\_frequency}}, \emph{\DUrole{n}{t}}}{}
 \sphinxAtStartPar
 Random white noise
 \begin{description}
@@ -832,10 +832,10 @@ random.random() * input\_frequency * t
 
 \end{fulllineitems}
 
-\index{saw() (dpav.audio.wave\_table method)@\spxentry{saw()}\spxextra{dpav.audio.wave\_table method}}
+
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{dpav:dpav.audio.wave_table.saw}}\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{saw}}}{\emph{\DUrole{n}{input\_frequency}}, \emph{\DUrole{n}{t}}}{}
+\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{saw}}}{\emph{\DUrole{n}{input\_frequency}}, \emph{\DUrole{n}{t}}}{}
 \sphinxAtStartPar
 Saw wave
 \begin{quote}\begin{description}
@@ -862,10 +862,10 @@ t * input\_frequency \sphinxhyphen{} math.floor(t * input\_frequency)
 
 \end{fulllineitems}
 
-\index{sin() (dpav.audio.wave\_table method)@\spxentry{sin()}\spxextra{dpav.audio.wave\_table method}}
+
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{dpav:dpav.audio.wave_table.sin}}\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{sin}}}{\emph{\DUrole{n}{input\_frequency}}, \emph{\DUrole{n}{t}}}{}
+\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{sin}}}{\emph{\DUrole{n}{input\_frequency}}, \emph{\DUrole{n}{t}}}{}
 \sphinxAtStartPar
 Sin wave form, default for libary
 \begin{quote}\begin{description}
@@ -892,10 +892,10 @@ math.sin(2 * math.pi * input\_frequency * t)
 
 \end{fulllineitems}
 
-\index{square() (dpav.audio.wave\_table method)@\spxentry{square()}\spxextra{dpav.audio.wave\_table method}}
+
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{dpav:dpav.audio.wave_table.square}}\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{square}}}{\emph{\DUrole{n}{input\_frequency}}, \emph{\DUrole{n}{t}}}{}
+\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{square}}}{\emph{\DUrole{n}{input\_frequency}}, \emph{\DUrole{n}{t}}}{}
 \sphinxAtStartPar
 Square wave form
 \begin{quote}\begin{description}
@@ -922,10 +922,10 @@ round(math.sin(2 * math.pi * input\_frequency * t))
 
 \end{fulllineitems}
 
-\index{triangle() (dpav.audio.wave\_table method)@\spxentry{triangle()}\spxextra{dpav.audio.wave\_table method}}
+
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{dpav:dpav.audio.wave_table.triangle}}\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{triangle}}}{\emph{\DUrole{n}{input\_frequency}}, \emph{\DUrole{n}{t}}}{}
+\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{triangle}}}{\emph{\DUrole{n}{input\_frequency}}, \emph{\DUrole{n}{t}}}{}
 \sphinxAtStartPar
 Triangle wave, similar in sound to saw + sin together
 \begin{quote}\begin{description}
@@ -958,10 +958,10 @@ Triangle wave, similar in sound to saw + sin together
 
 
 \section{VBuffer}
-\label{\detokenize{dpav:module-dpav.vbuffer}}\label{\detokenize{dpav:vbuffer}}\index{module@\spxentry{module}!dpav.vbuffer@\spxentry{dpav.vbuffer}}\index{dpav.vbuffer@\spxentry{dpav.vbuffer}!module@\spxentry{module}}\index{VBuffer (class in dpav.vbuffer)@\spxentry{VBuffer}\spxextra{class in dpav.vbuffer}}
+\label{\detokenize{dpav:vbuffer}}
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{dpav:dpav.vbuffer.VBuffer}}\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{class }}\sphinxcode{\sphinxupquote{dpav.vbuffer.}}\sphinxbfcode{\sphinxupquote{VBuffer}}}{\emph{\DUrole{n}{arg1}\DUrole{p}{:} \DUrole{n}{tuple} \DUrole{o}{=} \DUrole{default_value}{(800, 600)}}}{}
+\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{class }}\sphinxcode{\sphinxupquote{dpav.vbuffer.}}\sphinxbfcode{\sphinxupquote{VBuffer}}}{\emph{\DUrole{n}{arg1}\DUrole{p}{:} \DUrole{n}{tuple} \DUrole{o}{=} \DUrole{default_value}{(800, 600)}}}{}
 \sphinxAtStartPar
 Bases: \sphinxcode{\sphinxupquote{object}}
 
@@ -1067,28 +1067,28 @@ load\_buffer\_from\_file(self, filename) \sphinxhyphen{}\textgreater{} None
 
 \end{fulllineitems}
 
-\index{clear() (dpav.vbuffer.VBuffer method)@\spxentry{clear()}\spxextra{dpav.vbuffer.VBuffer method}}
+
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{dpav:dpav.vbuffer.VBuffer.clear}}\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{clear}}}{}{{ $\rightarrow$ None}}
+\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{clear}}}{}{{ $\rightarrow$ None}}
 \sphinxAtStartPar
 Set every pixel in buffer to 0 (hex value for black).
 
 \end{fulllineitems}
 
-\index{dimensions (dpav.vbuffer.VBuffer property)@\spxentry{dimensions}\spxextra{dpav.vbuffer.VBuffer property}}
+
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{dpav:dpav.vbuffer.VBuffer.dimensions}}\pysigline{\sphinxbfcode{\sphinxupquote{property }}\sphinxbfcode{\sphinxupquote{dimensions}}\sphinxbfcode{\sphinxupquote{: tuple}}}
+\pysigline{\sphinxbfcode{\sphinxupquote{property }}\sphinxbfcode{\sphinxupquote{dimensions}}\sphinxbfcode{\sphinxupquote{: tuple}}}
 \sphinxAtStartPar
 Return dimensions of buffer.
 
 \end{fulllineitems}
 
-\index{fill() (dpav.vbuffer.VBuffer method)@\spxentry{fill()}\spxextra{dpav.vbuffer.VBuffer method}}
+
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{dpav:dpav.vbuffer.VBuffer.fill}}\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{fill}}}{\emph{\DUrole{n}{color}\DUrole{p}{:} \DUrole{n}{int}}}{{ $\rightarrow$ None}}
+\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{fill}}}{\emph{\DUrole{n}{color}\DUrole{p}{:} \DUrole{n}{int}}}{{ $\rightarrow$ None}}
 \sphinxAtStartPar
 Set every pixel in the buffer to a given color.
 \begin{quote}\begin{description}
@@ -1100,19 +1100,19 @@ Set every pixel in the buffer to a given color.
 
 \end{fulllineitems}
 
-\index{get\_dimensions() (dpav.vbuffer.VBuffer method)@\spxentry{get\_dimensions()}\spxextra{dpav.vbuffer.VBuffer method}}
+
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{dpav:dpav.vbuffer.VBuffer.get_dimensions}}\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{get\_dimensions}}}{}{{ $\rightarrow$ tuple}}
+\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{get\_dimensions}}}{}{{ $\rightarrow$ tuple}}
 \sphinxAtStartPar
 Return dimensions of visual buffer array.
 
 \end{fulllineitems}
 
-\index{get\_pixel() (dpav.vbuffer.VBuffer method)@\spxentry{get\_pixel()}\spxextra{dpav.vbuffer.VBuffer method}}
+
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{dpav:dpav.vbuffer.VBuffer.get_pixel}}\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{get\_pixel}}}{\emph{\DUrole{n}{coords}\DUrole{p}{:} \DUrole{n}{tuple}}}{{ $\rightarrow$ int}}
+\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{get\_pixel}}}{\emph{\DUrole{n}{coords}\DUrole{p}{:} \DUrole{n}{tuple}}}{{ $\rightarrow$ int}}
 \sphinxAtStartPar
 Return color value of chosen pixel.
 \begin{quote}\begin{description}
@@ -1124,10 +1124,10 @@ Return color value of chosen pixel.
 
 \end{fulllineitems}
 
-\index{load\_buffer\_from\_file() (dpav.vbuffer.VBuffer method)@\spxentry{load\_buffer\_from\_file()}\spxextra{dpav.vbuffer.VBuffer method}}
+
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{dpav:dpav.vbuffer.VBuffer.load_buffer_from_file}}\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{load\_buffer\_from\_file}}}{\emph{\DUrole{n}{filename}\DUrole{p}{:} \DUrole{n}{str}}}{{ $\rightarrow$ None}}
+\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{load\_buffer\_from\_file}}}{\emph{\DUrole{n}{filename}\DUrole{p}{:} \DUrole{n}{str}}}{{ $\rightarrow$ None}}
 \sphinxAtStartPar
 Load binary file storing buffer contents, and write it to buffer.
 \begin{quote}\begin{description}
@@ -1139,10 +1139,10 @@ Load binary file storing buffer contents, and write it to buffer.
 
 \end{fulllineitems}
 
-\index{save\_buffer\_to\_file() (dpav.vbuffer.VBuffer method)@\spxentry{save\_buffer\_to\_file()}\spxextra{dpav.vbuffer.VBuffer method}}
+
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{dpav:dpav.vbuffer.VBuffer.save_buffer_to_file}}\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{save\_buffer\_to\_file}}}{\emph{\DUrole{n}{filename}\DUrole{p}{:} \DUrole{n}{str}}}{{ $\rightarrow$ None}}
+\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{save\_buffer\_to\_file}}}{\emph{\DUrole{n}{filename}\DUrole{p}{:} \DUrole{n}{str}}}{{ $\rightarrow$ None}}
 \sphinxAtStartPar
 Save contents of buffer to a binary file.
 \begin{quote}\begin{description}
@@ -1154,10 +1154,10 @@ Save contents of buffer to a binary file.
 
 \end{fulllineitems}
 
-\index{set\_buffer() (dpav.vbuffer.VBuffer method)@\spxentry{set\_buffer()}\spxextra{dpav.vbuffer.VBuffer method}}
+
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{dpav:dpav.vbuffer.VBuffer.set_buffer}}\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{set\_buffer}}}{\emph{\DUrole{n}{buf}\DUrole{p}{:} \DUrole{n}{numpy.ndarray}}}{{ $\rightarrow$ None}}
+\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{set\_buffer}}}{\emph{\DUrole{n}{buf}\DUrole{p}{:} \DUrole{n}{numpy.ndarray}}}{{ $\rightarrow$ None}}
 \sphinxAtStartPar
 Set the visual buffer to equal a provided 2D array of pixels.
 \begin{quote}\begin{description}
@@ -1169,10 +1169,10 @@ Set the visual buffer to equal a provided 2D array of pixels.
 
 \end{fulllineitems}
 
-\index{write\_pixel() (dpav.vbuffer.VBuffer method)@\spxentry{write\_pixel()}\spxextra{dpav.vbuffer.VBuffer method}}
+
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{dpav:dpav.vbuffer.VBuffer.write_pixel}}\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{write\_pixel}}}{\emph{\DUrole{n}{coords}\DUrole{p}{:} \DUrole{n}{tuple}}, \emph{\DUrole{n}{val}\DUrole{p}{:} \DUrole{n}{int}}}{{ $\rightarrow$ None}}
+\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{write\_pixel}}}{\emph{\DUrole{n}{coords}\DUrole{p}{:} \DUrole{n}{tuple}}, \emph{\DUrole{n}{val}\DUrole{p}{:} \DUrole{n}{int}}}{{ $\rightarrow$ None}}
 \sphinxAtStartPar
 Sets pixel at specified coordinates to specified color.
 
@@ -1204,10 +1204,10 @@ Sets pixel at coordinates coords in buffer to hex value val
 
 
 \section{Window}
-\label{\detokenize{dpav:module-dpav.window}}\label{\detokenize{dpav:window}}\index{module@\spxentry{module}!dpav.window@\spxentry{dpav.window}}\index{dpav.window@\spxentry{dpav.window}!module@\spxentry{module}}\index{Window (class in dpav.window)@\spxentry{Window}\spxextra{class in dpav.window}}
+\label{\detokenize{dpav:window}}
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{dpav:dpav.window.Window}}\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{class }}\sphinxcode{\sphinxupquote{dpav.window.}}\sphinxbfcode{\sphinxupquote{Window}}}{\emph{\DUrole{n}{arg1}\DUrole{p}{:} \DUrole{n}{Optional\DUrole{p}{{[}}{\hyperref[\detokenize{dpav:dpav.vbuffer.VBuffer}]{\sphinxcrossref{dpav.vbuffer.VBuffer}}}\DUrole{p}{{]}}} \DUrole{o}{=} \DUrole{default_value}{None}}, \emph{\DUrole{n}{scale}\DUrole{p}{:} \DUrole{n}{float} \DUrole{o}{=} \DUrole{default_value}{1.0}}}{}
+\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{class }}\sphinxcode{\sphinxupquote{dpav.window.}}\sphinxbfcode{\sphinxupquote{Window}}}{\emph{\DUrole{n}{arg1}\DUrole{p}{:} \DUrole{n}{Optional\DUrole{p}{{[}}dpav.vbuffer.VBuffer\DUrole{p}{{]}}} \DUrole{o}{=} \DUrole{default_value}{None}}, \emph{\DUrole{n}{scale}\DUrole{p}{:} \DUrole{n}{float} \DUrole{o}{=} \DUrole{default_value}{1.0}}}{}
 \sphinxAtStartPar
 Bases: \sphinxcode{\sphinxupquote{object}}
 
@@ -1244,10 +1244,10 @@ update()
 
 \end{description}
 \end{quote}
-\index{Public (dpav.window.Window attribute)@\spxentry{Public}\spxextra{dpav.window.Window attribute}}
+
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{dpav:dpav.window.Window.Public}}\pysigline{\sphinxbfcode{\sphinxupquote{Public}}}
+\pysigline{\sphinxbfcode{\sphinxupquote{Public}}}
 \sphinxAtStartPar
 vbuffer:     active VBuffer object
 scale:       number that scales up/down the size of the screen
@@ -1280,10 +1280,10 @@ open\_flag:   boolean flag for if the window is active
 
 \end{fulllineitems}
 
-\index{Private (dpav.window.Window attribute)@\spxentry{Private}\spxextra{dpav.window.Window attribute}}
+
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{dpav:dpav.window.Window.Private}}\pysigline{\sphinxbfcode{\sphinxupquote{Private}}}~\begin{description}
+\pysigline{\sphinxbfcode{\sphinxupquote{Private}}}~\begin{description}
 \item[{\_keydict:    int:string PyGame event mapping. PyGame events identifiers are}] \leavevmode
 \sphinxAtStartPar
 stored as ints. This attribute is used by the public events
@@ -1301,10 +1301,10 @@ enable in\sphinxhyphen{}place nparray modification
 
 \end{fulllineitems}
 
-\index{close() (dpav.window.Window method)@\spxentry{close()}\spxextra{dpav.window.Window method}}
+
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{dpav:dpav.window.Window.close}}\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{close}}}{}{{ $\rightarrow$ None}}
+\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{close}}}{}{{ $\rightarrow$ None}}
 \sphinxAtStartPar
 Closes the active instance of a pygame window
 \begin{quote}\begin{description}
@@ -1316,10 +1316,10 @@ Closes the active instance of a pygame window
 
 \end{fulllineitems}
 
-\index{get\_mouse\_pos() (dpav.window.Window method)@\spxentry{get\_mouse\_pos()}\spxextra{dpav.window.Window method}}
+
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{dpav:dpav.window.Window.get_mouse_pos}}\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{get\_mouse\_pos}}}{\emph{) \sphinxhyphen{}\textgreater{} (\textless{}class \textquotesingle{}int\textquotesingle{}\textgreater{}}, \emph{\textless{}class \textquotesingle{}int\textquotesingle{}\textgreater{}}}{}
+\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{get\_mouse\_pos}}}{\emph{) \sphinxhyphen{}\textgreater{} (\textless{}class \textquotesingle{}int\textquotesingle{}\textgreater{}}, \emph{\textless{}class \textquotesingle{}int\textquotesingle{}\textgreater{}}}{}
 \sphinxAtStartPar
 Returns the current mouse location with respect to the pygame window instance
 \begin{quote}\begin{description}
@@ -1331,10 +1331,10 @@ Returns the current mouse location with respect to the pygame window instance
 
 \end{fulllineitems}
 
-\index{is\_open() (dpav.window.Window method)@\spxentry{is\_open()}\spxextra{dpav.window.Window method}}
+
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{dpav:dpav.window.Window.is_open}}\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{is\_open}}}{}{{ $\rightarrow$ bool}}
+\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{is\_open}}}{}{{ $\rightarrow$ bool}}
 \sphinxAtStartPar
 Updates events on every call, used to abstract out PyGame
 display calls and event loop
@@ -1354,28 +1354,28 @@ boolean denoting if the window is currently open
 
 \end{fulllineitems}
 
-\index{open() (dpav.window.Window method)@\spxentry{open()}\spxextra{dpav.window.Window method}}
+
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{dpav:dpav.window.Window.open}}\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{open}}}{}{{ $\rightarrow$ None}}
+\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{open}}}{}{{ $\rightarrow$ None}}
 \sphinxAtStartPar
 Creates and runs pygame window in a new thread
 
 \end{fulllineitems}
 
-\index{set\_scale() (dpav.window.Window method)@\spxentry{set\_scale()}\spxextra{dpav.window.Window method}}
+
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{dpav:dpav.window.Window.set_scale}}\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{set\_scale}}}{\emph{\DUrole{n}{scale}\DUrole{p}{:} \DUrole{n}{float}}}{{ $\rightarrow$ None}}
+\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{set\_scale}}}{\emph{\DUrole{n}{scale}\DUrole{p}{:} \DUrole{n}{float}}}{{ $\rightarrow$ None}}
 \sphinxAtStartPar
 Sets the window scale
 
 \end{fulllineitems}
 
-\index{set\_vbuffer() (dpav.window.Window method)@\spxentry{set\_vbuffer()}\spxextra{dpav.window.Window method}}
+
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{dpav:dpav.window.Window.set_vbuffer}}\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{set\_vbuffer}}}{\emph{\DUrole{n}{arg1}\DUrole{p}{:} \DUrole{n}{{\hyperref[\detokenize{dpav:dpav.vbuffer.VBuffer}]{\sphinxcrossref{dpav.vbuffer.VBuffer}}}}}}{{ $\rightarrow$ None}}
+\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{set\_vbuffer}}}{\emph{\DUrole{n}{arg1}\DUrole{p}{:} \DUrole{n}{dpav.vbuffer.VBuffer}}}{{ $\rightarrow$ None}}
 \sphinxAtStartPar
 Sets the vbuffer/nparray object to display on screen
 \begin{quote}\begin{description}
@@ -1398,10 +1398,10 @@ Sets the vbuffer/nparray object to display on screen
 
 \end{fulllineitems}
 
-\index{update() (dpav.window.Window method)@\spxentry{update()}\spxextra{dpav.window.Window method}}
+
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{dpav:dpav.window.Window.update}}\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{update}}}{}{{ $\rightarrow$ None}}
+\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{update}}}{}{{ $\rightarrow$ None}}
 \sphinxAtStartPar
 Pygame event abstraction, called at end of pygame loop.
 Optional function if is\_open() is used
@@ -1420,7 +1420,7 @@ Optional function if is\_open() is used
 
 
 \section{Utility}
-\label{\detokenize{dpav:module-dpav.utility}}\label{\detokenize{dpav:utility}}\index{module@\spxentry{module}!dpav.utility@\spxentry{dpav.utility}}\index{dpav.utility@\spxentry{dpav.utility}!module@\spxentry{module}}
+\label{\detokenize{dpav:utility}}
 \sphinxAtStartPar
 The utility.py module defines a variety of utility functions to the dpav library.
 
@@ -1431,49 +1431,49 @@ transformations, image parsing, and note conversions.
 
 \sphinxAtStartPar
 \$ utility.draw\_line(vb, (3, 3), (5, 5), 0x00FF00)
-\index{convert\_wav\_to\_nparr() (in module dpav.utility)@\spxentry{convert\_wav\_to\_nparr()}\spxextra{in module dpav.utility}}
+
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{dpav:dpav.utility.convert_wav_to_nparr}}\pysiglinewithargsret{\sphinxcode{\sphinxupquote{dpav.utility.}}\sphinxbfcode{\sphinxupquote{convert\_wav\_to\_nparr}}}{\emph{\DUrole{n}{wavefile}\DUrole{p}{:} \DUrole{n}{str}}}{{ $\rightarrow$ numpy.ndarray}}
+\pysiglinewithargsret{\sphinxcode{\sphinxupquote{dpav.utility.}}\sphinxbfcode{\sphinxupquote{convert\_wav\_to\_nparr}}}{\emph{\DUrole{n}{wavefile}\DUrole{p}{:} \DUrole{n}{str}}}{{ $\rightarrow$ numpy.ndarray}}
 \sphinxAtStartPar
 Takes a string filepath of a wav file and converts it to a numpy array.
 
 \end{fulllineitems}
 
-\index{draw\_circle() (in module dpav.utility)@\spxentry{draw\_circle()}\spxextra{in module dpav.utility}}
+
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{dpav:dpav.utility.draw_circle}}\pysiglinewithargsret{\sphinxcode{\sphinxupquote{dpav.utility.}}\sphinxbfcode{\sphinxupquote{draw\_circle}}}{\emph{\DUrole{n}{vb}\DUrole{p}{:} \DUrole{n}{{\hyperref[\detokenize{dpav:dpav.vbuffer.VBuffer}]{\sphinxcrossref{dpav.vbuffer.VBuffer}}}}}, \emph{\DUrole{n}{center}\DUrole{p}{:} \DUrole{n}{list}}, \emph{\DUrole{n}{r}\DUrole{p}{:} \DUrole{n}{float}}, \emph{\DUrole{n}{color}\DUrole{p}{:} \DUrole{n}{int}}}{}
+\pysiglinewithargsret{\sphinxcode{\sphinxupquote{dpav.utility.}}\sphinxbfcode{\sphinxupquote{draw\_circle}}}{\emph{\DUrole{n}{vb}\DUrole{p}{:} \DUrole{n}{dpav.vbuffer.VBuffer}}, \emph{\DUrole{n}{center}\DUrole{p}{:} \DUrole{n}{list}}, \emph{\DUrole{n}{r}\DUrole{p}{:} \DUrole{n}{float}}, \emph{\DUrole{n}{color}\DUrole{p}{:} \DUrole{n}{int}}}{}
 \sphinxAtStartPar
 Draws a circle onto a visual buffer of a specified color and radius
 around a given center point using Bresenham’s algorithm.
 
 \end{fulllineitems}
 
-\index{draw\_line() (in module dpav.utility)@\spxentry{draw\_line()}\spxextra{in module dpav.utility}}
+
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{dpav:dpav.utility.draw_line}}\pysiglinewithargsret{\sphinxcode{\sphinxupquote{dpav.utility.}}\sphinxbfcode{\sphinxupquote{draw\_line}}}{\emph{\DUrole{n}{vb}\DUrole{p}{:} \DUrole{n}{{\hyperref[\detokenize{dpav:dpav.vbuffer.VBuffer}]{\sphinxcrossref{dpav.vbuffer.VBuffer}}}}}, \emph{\DUrole{n}{p0}\DUrole{p}{:} \DUrole{n}{list}}, \emph{\DUrole{n}{p1}\DUrole{p}{:} \DUrole{n}{list}}, \emph{\DUrole{n}{color}\DUrole{p}{:} \DUrole{n}{int}}}{}
+\pysiglinewithargsret{\sphinxcode{\sphinxupquote{dpav.utility.}}\sphinxbfcode{\sphinxupquote{draw\_line}}}{\emph{\DUrole{n}{vb}\DUrole{p}{:} \DUrole{n}{dpav.vbuffer.VBuffer}}, \emph{\DUrole{n}{p0}\DUrole{p}{:} \DUrole{n}{list}}, \emph{\DUrole{n}{p1}\DUrole{p}{:} \DUrole{n}{list}}, \emph{\DUrole{n}{color}\DUrole{p}{:} \DUrole{n}{int}}}{}
 \sphinxAtStartPar
 Draws a line of a given color on a visual buffer from p0 to p1 using
 Bresenham’s algorithm.
 
 \end{fulllineitems}
 
-\index{draw\_polygon() (in module dpav.utility)@\spxentry{draw\_polygon()}\spxextra{in module dpav.utility}}
+
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{dpav:dpav.utility.draw_polygon}}\pysiglinewithargsret{\sphinxcode{\sphinxupquote{dpav.utility.}}\sphinxbfcode{\sphinxupquote{draw\_polygon}}}{\emph{\DUrole{n}{vb}\DUrole{p}{:} \DUrole{n}{{\hyperref[\detokenize{dpav:dpav.vbuffer.VBuffer}]{\sphinxcrossref{dpav.vbuffer.VBuffer}}}}}, \emph{\DUrole{n}{vertices}\DUrole{p}{:} \DUrole{n}{list}}, \emph{\DUrole{n}{color}\DUrole{p}{:} \DUrole{n}{int}}}{}
+\pysiglinewithargsret{\sphinxcode{\sphinxupquote{dpav.utility.}}\sphinxbfcode{\sphinxupquote{draw\_polygon}}}{\emph{\DUrole{n}{vb}\DUrole{p}{:} \DUrole{n}{dpav.vbuffer.VBuffer}}, \emph{\DUrole{n}{vertices}\DUrole{p}{:} \DUrole{n}{list}}, \emph{\DUrole{n}{color}\DUrole{p}{:} \DUrole{n}{int}}}{}
 \sphinxAtStartPar
 Draws lines of a given color connecting a list of given points in the
 order they are listed
 
 \end{fulllineitems}
 
-\index{draw\_rectangle() (in module dpav.utility)@\spxentry{draw\_rectangle()}\spxextra{in module dpav.utility}}
+
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{dpav:dpav.utility.draw_rectangle}}\pysiglinewithargsret{\sphinxcode{\sphinxupquote{dpav.utility.}}\sphinxbfcode{\sphinxupquote{draw\_rectangle}}}{\emph{\DUrole{n}{vbuffer}\DUrole{p}{:} \DUrole{n}{{\hyperref[\detokenize{dpav:dpav.vbuffer.VBuffer}]{\sphinxcrossref{dpav.vbuffer.VBuffer}}}}}, \emph{\DUrole{n}{color}\DUrole{p}{:} \DUrole{n}{int}}, \emph{\DUrole{n}{pt1}\DUrole{p}{:} \DUrole{n}{tuple\DUrole{p}{{[}}int\DUrole{p}{, }int\DUrole{p}{{]}}}}, \emph{\DUrole{n}{pt2}\DUrole{p}{:} \DUrole{n}{tuple\DUrole{p}{{[}}int\DUrole{p}{, }int\DUrole{p}{{]}}}}}{}
+\pysiglinewithargsret{\sphinxcode{\sphinxupquote{dpav.utility.}}\sphinxbfcode{\sphinxupquote{draw\_rectangle}}}{\emph{\DUrole{n}{vbuffer}\DUrole{p}{:} \DUrole{n}{dpav.vbuffer.VBuffer}}, \emph{\DUrole{n}{color}\DUrole{p}{:} \DUrole{n}{int}}, \emph{\DUrole{n}{pt1}\DUrole{p}{:} \DUrole{n}{tuple\DUrole{p}{{[}}int\DUrole{p}{, }int\DUrole{p}{{]}}}}, \emph{\DUrole{n}{pt2}\DUrole{p}{:} \DUrole{n}{tuple\DUrole{p}{{[}}int\DUrole{p}{, }int\DUrole{p}{{]}}}}}{}
 \sphinxAtStartPar
 Draws a rectangle into a visual buffer.
 \begin{quote}\begin{description}
@@ -1504,39 +1504,39 @@ utility.draw\_rectangle(vb, 0xFFFFFF, (3, 3), (5, 5))
 
 \end{fulllineitems}
 
-\index{fill() (in module dpav.utility)@\spxentry{fill()}\spxextra{in module dpav.utility}}
+
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{dpav:dpav.utility.fill}}\pysiglinewithargsret{\sphinxcode{\sphinxupquote{dpav.utility.}}\sphinxbfcode{\sphinxupquote{fill}}}{\emph{\DUrole{n}{vb}\DUrole{p}{:} \DUrole{n}{{\hyperref[\detokenize{dpav:dpav.vbuffer.VBuffer}]{\sphinxcrossref{dpav.vbuffer.VBuffer}}}}}, \emph{\DUrole{n}{color}\DUrole{p}{:} \DUrole{n}{int}}, \emph{\DUrole{n}{vertices}}}{}
+\pysiglinewithargsret{\sphinxcode{\sphinxupquote{dpav.utility.}}\sphinxbfcode{\sphinxupquote{fill}}}{\emph{\DUrole{n}{vb}\DUrole{p}{:} \DUrole{n}{dpav.vbuffer.VBuffer}}, \emph{\DUrole{n}{color}\DUrole{p}{:} \DUrole{n}{int}}, \emph{\DUrole{n}{vertices}}}{}
 \sphinxAtStartPar
 Fills a polygon defined by a set of vertices with a color.
 
 \end{fulllineitems}
 
-\index{flip\_horizontally() (in module dpav.utility)@\spxentry{flip\_horizontally()}\spxextra{in module dpav.utility}}
+
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{dpav:dpav.utility.flip_horizontally}}\pysiglinewithargsret{\sphinxcode{\sphinxupquote{dpav.utility.}}\sphinxbfcode{\sphinxupquote{flip\_horizontally}}}{\emph{\DUrole{n}{vb}\DUrole{p}{:} \DUrole{n}{{\hyperref[\detokenize{dpav:dpav.vbuffer.VBuffer}]{\sphinxcrossref{dpav.vbuffer.VBuffer}}}}}}{{ $\rightarrow$ {\hyperref[\detokenize{dpav:dpav.vbuffer.VBuffer}]{\sphinxcrossref{dpav.vbuffer.VBuffer}}}}}
+\pysiglinewithargsret{\sphinxcode{\sphinxupquote{dpav.utility.}}\sphinxbfcode{\sphinxupquote{flip\_horizontally}}}{\emph{\DUrole{n}{vb}\DUrole{p}{:} \DUrole{n}{dpav.vbuffer.VBuffer}}}{{ $\rightarrow$ dpav.vbuffer.VBuffer}}
 \sphinxAtStartPar
 Takes a visual buffer, flips it horizontally about the center, and
 returns the new visual buffer.
 
 \end{fulllineitems}
 
-\index{flip\_vertically() (in module dpav.utility)@\spxentry{flip\_vertically()}\spxextra{in module dpav.utility}}
+
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{dpav:dpav.utility.flip_vertically}}\pysiglinewithargsret{\sphinxcode{\sphinxupquote{dpav.utility.}}\sphinxbfcode{\sphinxupquote{flip\_vertically}}}{\emph{\DUrole{n}{vb}\DUrole{p}{:} \DUrole{n}{{\hyperref[\detokenize{dpav:dpav.vbuffer.VBuffer}]{\sphinxcrossref{dpav.vbuffer.VBuffer}}}}}}{{ $\rightarrow$ {\hyperref[\detokenize{dpav:dpav.vbuffer.VBuffer}]{\sphinxcrossref{dpav.vbuffer.VBuffer}}}}}
+\pysiglinewithargsret{\sphinxcode{\sphinxupquote{dpav.utility.}}\sphinxbfcode{\sphinxupquote{flip\_vertically}}}{\emph{\DUrole{n}{vb}\DUrole{p}{:} \DUrole{n}{dpav.vbuffer.VBuffer}}}{{ $\rightarrow$ dpav.vbuffer.VBuffer}}
 \sphinxAtStartPar
 Takes a visual buffer, flips it vertically about the center, and returns
 the new visual buffer.
 
 \end{fulllineitems}
 
-\index{get\_note\_from\_string() (in module dpav.utility)@\spxentry{get\_note\_from\_string()}\spxextra{in module dpav.utility}}
+
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{dpav:dpav.utility.get_note_from_string}}\pysiglinewithargsret{\sphinxcode{\sphinxupquote{dpav.utility.}}\sphinxbfcode{\sphinxupquote{get\_note\_from\_string}}}{\emph{\DUrole{n}{note}\DUrole{p}{:} \DUrole{n}{str}}, \emph{\DUrole{n}{octave}\DUrole{p}{:} \DUrole{n}{int}}}{{ $\rightarrow$ int}}
+\pysiglinewithargsret{\sphinxcode{\sphinxupquote{dpav.utility.}}\sphinxbfcode{\sphinxupquote{get\_note\_from\_string}}}{\emph{\DUrole{n}{note}\DUrole{p}{:} \DUrole{n}{str}}, \emph{\DUrole{n}{octave}\DUrole{p}{:} \DUrole{n}{int}}}{{ $\rightarrow$ int}}
 \sphinxAtStartPar
 Converts a string denoting a note and an octave into a frequency.
 \begin{quote}\begin{description}
@@ -1553,10 +1553,10 @@ A frequency in hertz.
 
 \end{fulllineitems}
 
-\index{load\_image() (in module dpav.utility)@\spxentry{load\_image()}\spxextra{in module dpav.utility}}
+
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{dpav:dpav.utility.load_image}}\pysiglinewithargsret{\sphinxcode{\sphinxupquote{dpav.utility.}}\sphinxbfcode{\sphinxupquote{load\_image}}}{\emph{\DUrole{n}{filepath}\DUrole{p}{:} \DUrole{n}{str}}}{{ $\rightarrow$ numpy.ndarray}}
+\pysiglinewithargsret{\sphinxcode{\sphinxupquote{dpav.utility.}}\sphinxbfcode{\sphinxupquote{load\_image}}}{\emph{\DUrole{n}{filepath}\DUrole{p}{:} \DUrole{n}{str}}}{{ $\rightarrow$ numpy.ndarray}}
 \sphinxAtStartPar
 Converts an image and returns a numpy array representation of
 that image in hex.
@@ -1573,10 +1573,10 @@ A numpy array filled with the hex color data of the image
 
 \end{fulllineitems}
 
-\index{point\_in\_polygon() (in module dpav.utility)@\spxentry{point\_in\_polygon()}\spxextra{in module dpav.utility}}
+
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{dpav:dpav.utility.point_in_polygon}}\pysiglinewithargsret{\sphinxcode{\sphinxupquote{dpav.utility.}}\sphinxbfcode{\sphinxupquote{point\_in\_polygon}}}{\emph{\DUrole{n}{x}\DUrole{p}{:} \DUrole{n}{int}}, \emph{\DUrole{n}{y}\DUrole{p}{:} \DUrole{n}{int}}, \emph{\DUrole{n}{vertices}}}{{ $\rightarrow$ bool}}
+\pysiglinewithargsret{\sphinxcode{\sphinxupquote{dpav.utility.}}\sphinxbfcode{\sphinxupquote{point\_in\_polygon}}}{\emph{\DUrole{n}{x}\DUrole{p}{:} \DUrole{n}{int}}, \emph{\DUrole{n}{y}\DUrole{p}{:} \DUrole{n}{int}}, \emph{\DUrole{n}{vertices}}}{{ $\rightarrow$ bool}}
 \sphinxAtStartPar
 Uses the Even\sphinxhyphen{}Odd Rule to determien whether or not a given pixel is inside
 a given set of vertices.
@@ -1600,30 +1600,30 @@ True if the pixel is within the polygon, False otherwise.
 
 \end{fulllineitems}
 
-\index{replace\_color() (in module dpav.utility)@\spxentry{replace\_color()}\spxextra{in module dpav.utility}}
+
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{dpav:dpav.utility.replace_color}}\pysiglinewithargsret{\sphinxcode{\sphinxupquote{dpav.utility.}}\sphinxbfcode{\sphinxupquote{replace\_color}}}{\emph{\DUrole{n}{vb}\DUrole{p}{:} \DUrole{n}{{\hyperref[\detokenize{dpav:dpav.vbuffer.VBuffer}]{\sphinxcrossref{dpav.vbuffer.VBuffer}}}}}, \emph{\DUrole{n}{replaced\_color}\DUrole{p}{:} \DUrole{n}{int}}, \emph{\DUrole{n}{new\_color}\DUrole{p}{:} \DUrole{n}{int}}}{}
+\pysiglinewithargsret{\sphinxcode{\sphinxupquote{dpav.utility.}}\sphinxbfcode{\sphinxupquote{replace\_color}}}{\emph{\DUrole{n}{vb}\DUrole{p}{:} \DUrole{n}{dpav.vbuffer.VBuffer}}, \emph{\DUrole{n}{replaced\_color}\DUrole{p}{:} \DUrole{n}{int}}, \emph{\DUrole{n}{new\_color}\DUrole{p}{:} \DUrole{n}{int}}}{}
 \sphinxAtStartPar
 Replaces all pixels in a visual buffer of a chosen color with a new
 color.
 
 \end{fulllineitems}
 
-\index{rgb\_to\_hex() (in module dpav.utility)@\spxentry{rgb\_to\_hex()}\spxextra{in module dpav.utility}}
+
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{dpav:dpav.utility.rgb_to_hex}}\pysiglinewithargsret{\sphinxcode{\sphinxupquote{dpav.utility.}}\sphinxbfcode{\sphinxupquote{rgb\_to\_hex}}}{\emph{\DUrole{n}{arr}\DUrole{p}{:} \DUrole{n}{numpy.ndarray}}}{{ $\rightarrow$ numpy.ndarray}}
+\pysiglinewithargsret{\sphinxcode{\sphinxupquote{dpav.utility.}}\sphinxbfcode{\sphinxupquote{rgb\_to\_hex}}}{\emph{\DUrole{n}{arr}\DUrole{p}{:} \DUrole{n}{numpy.ndarray}}}{{ $\rightarrow$ numpy.ndarray}}
 \sphinxAtStartPar
 Converts a numpy array with (r, g, b) values into a numpy array with
 hex color values.
 
 \end{fulllineitems}
 
-\index{translate() (in module dpav.utility)@\spxentry{translate()}\spxextra{in module dpav.utility}}
+
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{dpav:dpav.utility.translate}}\pysiglinewithargsret{\sphinxcode{\sphinxupquote{dpav.utility.}}\sphinxbfcode{\sphinxupquote{translate}}}{\emph{\DUrole{n}{vb}\DUrole{p}{:} \DUrole{n}{{\hyperref[\detokenize{dpav:dpav.vbuffer.VBuffer}]{\sphinxcrossref{dpav.vbuffer.VBuffer}}}}}, \emph{\DUrole{n}{x\_translation}\DUrole{p}{:} \DUrole{n}{int}}, \emph{\DUrole{n}{y\_translation}\DUrole{p}{:} \DUrole{n}{int}}}{{ $\rightarrow$ {\hyperref[\detokenize{dpav:dpav.vbuffer.VBuffer}]{\sphinxcrossref{dpav.vbuffer.VBuffer}}}}}
+\pysiglinewithargsret{\sphinxcode{\sphinxupquote{dpav.utility.}}\sphinxbfcode{\sphinxupquote{translate}}}{\emph{\DUrole{n}{vb}\DUrole{p}{:} \DUrole{n}{dpav.vbuffer.VBuffer}}, \emph{\DUrole{n}{x\_translation}\DUrole{p}{:} \DUrole{n}{int}}, \emph{\DUrole{n}{y\_translation}\DUrole{p}{:} \DUrole{n}{int}}}{{ $\rightarrow$ dpav.vbuffer.VBuffer}}
 \sphinxAtStartPar
 Takes a visual buffer, translates every pixel in it by given values, and
 returns the new visual buffer
@@ -1632,15 +1632,6 @@ returns the new visual buffer
 
 
 
-\renewcommand{\indexname}{Python Module Index}
-\begin{sphinxtheindex}
-\let\bigletter\sphinxstyleindexlettergroup
-\bigletter{d}
-\item\relax\sphinxstyleindexentry{dpav.audio}\sphinxstyleindexpageref{dpav:\detokenize{module-dpav.audio}}
-\item\relax\sphinxstyleindexentry{dpav.utility}\sphinxstyleindexpageref{dpav:\detokenize{module-dpav.utility}}
-\item\relax\sphinxstyleindexentry{dpav.vbuffer}\sphinxstyleindexpageref{dpav:\detokenize{module-dpav.vbuffer}}
-\item\relax\sphinxstyleindexentry{dpav.window}\sphinxstyleindexpageref{dpav:\detokenize{module-dpav.window}}
-\end{sphinxtheindex}
 
 \renewcommand{\indexname}{Index}
 \printindex
