@@ -298,7 +298,7 @@ class wave_table:
         """Constructor for the wave_table class."""
         pass
 
-    def sin(self, input_frequency: double, t: double) -> double:
+    def sin(self, input_frequency: float, t: float) -> float:
         """
         Returns the value of a sine wave of a given frequency at a given time.
 
@@ -306,11 +306,11 @@ class wave_table:
         """
         return math.sin(2 * math.pi * input_frequency * t)
 
-    def square(self, input_frequency: double, t: double) -> double:
+    def square(self, input_frequency: float, t: float) -> float:
         """Returns the value of a square wave of a given frequency at a given time."""
         return round(math.sin(2 * math.pi * input_frequency * t))
 
-    def noise(self, input_frequency: double, t: double) -> double:
+    def noise(self, input_frequency: float, t: float) -> float:
         """
         Random white noise.
 
@@ -318,11 +318,11 @@ class wave_table:
         """
         return random.random() * input_frequency * t
 
-    def saw(self, input_frequency: double, t: double) -> double:
+    def saw(self, input_frequency: float, t: float) -> float:
         """Returns the value of a saw wave of a given frequency at a given time."""
         return t * input_frequency - math.floor(t * input_frequency)
 
-    def triangle(self, input_frequency: double, t: double) -> double:
+    def triangle(self, input_frequency: float, t: float) -> float:
         """
         Returns the value of a triangle wave of a given frequency at a given time.
 
