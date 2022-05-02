@@ -94,7 +94,7 @@ class Audio(object):
         """
         self._audio_buffer = ab
 
-    def get_audio_buffer(self) -> numpy.ndarray | none:
+    def get_audio_buffer(self) -> numpy.ndarray | None:
         """Returns the audio buffer of the Audio class."""
         return self._audio_buffer
 
@@ -118,7 +118,7 @@ class Audio(object):
             print(i, test)
         pygame.mixer.quit()
 
-    def set_audio_device(self, device: int) -> none:
+    def set_audio_device(self, device: int) -> None:
         """
         Sets the current audio device of the Audio class.
 
