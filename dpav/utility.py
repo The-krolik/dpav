@@ -5,7 +5,7 @@ This module adds utility functions for line and shape drawing, visual buffer
 transformations, image parsing, and note conversions. 
 
 Examples:
-    $ utility.draw_line(vb, (3, 3), (5, 5), 0x00FF00)
+    utility.draw_line(vb, (3, 3), (5, 5), 0x00FF00)
 
 """
 
@@ -46,7 +46,6 @@ def draw_rectangle(
 
     Examples:
         utility.draw_rectangle(vb, 0xFFFFFF, (3, 3), (5, 5))
-
     """
     pts = [pt1, pt2]
 
@@ -89,7 +88,6 @@ def load_image(filepath: str) -> np.ndarray:
 
     Returns:
         A numpy array filled with the hex color data of the image
-
     """
     imagesurf = pygame.image.load(filepath)
     image_array = pygame.surfarray.array3d(imagesurf)
@@ -99,7 +97,6 @@ def load_image(filepath: str) -> np.ndarray:
 def rgb_to_hex(arr: np.ndarray) -> np.ndarray:
     """Converts a numpy array with (r, g, b) values into a numpy array with
     hex color values.
-
     """
     ret = np.zeros((arr.shape[0], arr.shape[1]))
 
@@ -122,7 +119,6 @@ def get_note_from_string(note: str, octave: int) -> int:
 
     Returns:
         A frequency in hertz.
-
     """
     notes = {"A": -3, "B": -1, "C": 0, "D": 2, "E": 4, "F": 5, "G": 7}
     tone = None
@@ -156,7 +152,6 @@ def convert_wav_to_nparr(wavefile: str) -> np.ndarray:
 def replace_color(vb: VBuffer, replaced_color: int, new_color: int):
     """Replaces all pixels in a visual buffer of a chosen color with a new
     color.
-
     """
     vb.buffer = np.where(vb.buffer == replaced_color, new_color, vb.buffer)
 
@@ -164,7 +159,6 @@ def replace_color(vb: VBuffer, replaced_color: int, new_color: int):
 def flip_horizontally(vb: VBuffer) -> VBuffer:
     """Takes a visual buffer, flips it horizontally about the center, and
     returns the new visual buffer.
-
     """
     flipped_vb = VBuffer(vb.dimensions)
     for x in range(len(flipped_vb)):
@@ -177,7 +171,6 @@ def flip_horizontally(vb: VBuffer) -> VBuffer:
 def flip_vertically(vb: VBuffer) -> VBuffer:
     """Takes a visual buffer, flips it vertically about the center, and returns
     the new visual buffer.
-
     """
     flipped_vb = VBuffer(vb.dimensions)
     for x in range(len(flipped_vb)):
@@ -190,7 +183,6 @@ def flip_vertically(vb: VBuffer) -> VBuffer:
 def translate(vb: VBuffer, x_translation: int, y_translation: int) -> (VBuffer):
     """Takes a visual buffer, translates every pixel in it by given values, and
     returns the new visual buffer
-
     """
     trans_vb = VBuffer(vb.dimensions)
     for x in range(len(trans_vb)):
@@ -205,7 +197,6 @@ def translate(vb: VBuffer, x_translation: int, y_translation: int) -> (VBuffer):
 def draw_line(vb: VBuffer, p0: list, p1: list, color: int):
     """Draws a line of a given color on a visual buffer from p0 to p1 using
     Bresenham's algorithm.
-
     """
     (x0, y0) = p0
     (x1, y1) = p1
@@ -237,7 +228,6 @@ def draw_line(vb: VBuffer, p0: list, p1: list, color: int):
 def draw_polygon(vb: VBuffer, vertices: list, color: int):
     """Draws lines of a given color connecting a list of given points in the
     order they are listed
-
     """
     for i in range(0, len(vertices) - 1):
         draw_line(vb, vertices[i], vertices[i + 1], color)
@@ -247,7 +237,6 @@ def draw_polygon(vb: VBuffer, vertices: list, color: int):
 def draw_circle(vb: VBuffer, center: list, r: float, color: int):
     """Draws a circle onto a visual buffer of a specified color and radius
     around a given center point using Bresenham's algorithm.
-
     """
     center_x = center[0]
     center_y = center[1]
@@ -302,7 +291,6 @@ def point_in_polygon(x: int, y: int, vertices) -> bool:
 
     Returns:
         True if the pixel is within the polygon, False otherwise.
-
     """
     num = len(vertices)
     j = num - 1
