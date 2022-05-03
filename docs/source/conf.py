@@ -55,3 +55,4 @@ html_theme = "alabaster"
 html_static_path = ["_static"]
 
 latex_elements = {"extraclassoptions": "openany,oneside"}
+latex_logo = "../../dpav/resources/icon.png"
