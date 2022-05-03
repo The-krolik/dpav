@@ -108,7 +108,7 @@ def main():
 
         # Test Y Flipping
         cga_font.y_flip = True
-        cga_font.draw_string(buffer, "Static Test String?!", 90, 92, 0x00EE00, 0x104410)
+        cga_font.draw_string(buffer, "Static Test String?!", 90, 91, 0x00EE00, 0x104410)
         cga_font.y_flip = False
 
         cga_font.draw_string(buffer, "Static Test String?!", 90, 100, 0x00EE00, 0x104410)
