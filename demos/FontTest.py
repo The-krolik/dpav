@@ -15,6 +15,7 @@ def main():
     cga_scroll_text_x = 0
     cga_scroll_string = "Looky moving text...  Watch it go..."
 
+
     vga_scroll_text_x = 0
     vga_scroll_string = "Big VGA letters!  The fidelity..."
 
@@ -25,6 +26,9 @@ def main():
     sine_scroll_message = "Sine scroller!  Whee!"
     sine_scroll_height = 60
     sine_scroll_curve = .05
+
+
+    roll_index = 0
 
     ClassicRainbow8 = [
         dpav.ClassicColors16.BLACK,
@@ -84,6 +88,22 @@ def main():
         cga_font.draw_string(buffer, "G", 160, 128, rainbow_colors, 0x225511)
         cga_font.draw_string(buffer, "A", 168, 128, rainbow_colors, 0x551122)
 
+        cga_font.y_roll = roll_index
+        cga_font.draw_string(buffer, "C", 180, 128, rainbow_colors, 0x112255)
+        cga_font.draw_string(buffer, "G", 188, 128, rainbow_colors, 0x225511)
+        cga_font.draw_string(buffer, "A", 196, 128, rainbow_colors, 0x551122)
+        cga_font.y_roll = 0
+
+        cga_font.x_roll = roll_index
+        cga_font.draw_string(buffer, "C", 120, 128, rainbow_colors, 0x112255)
+        cga_font.draw_string(buffer, "G", 128, 128, rainbow_colors, 0x225511)
+        cga_font.draw_string(buffer, "A", 136, 128, rainbow_colors, 0x551122)
+        cga_font.x_roll = 0
+
+        roll_index += -1
+
+
+
         # Test double flip!
         cga_font.x_flip = True
         cga_font.y_flip = True
@@ -105,6 +125,13 @@ def main():
         cga_font.draw_string(buffer, "X", 316, 236, 0xEE0000, 0x222222)
 
         # Static Test String
+
+        # Test XY Swap
+        cga_font.xy_swap = True
+        cga_font.x_flip = True
+        cga_font.draw_string(buffer, "Static Test String?!", 90, 30, 0x00EE00, 0x104410)
+        cga_font.x_flip = False
+        cga_font.xy_swap = False
 
         # Test Y Flipping
         cga_font.y_flip = True

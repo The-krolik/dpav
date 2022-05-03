@@ -1100,7 +1100,10 @@ def draw_8x8_character(vb: VBuffer,
                        x_wrap_around: bool = False,
                        y_wrap_around: bool = False,
                        x_flip: bool = False,
-                       y_flip: bool  = False) -> bool:
+                       y_flip: bool = False,
+                       x_roll: int = 0,
+                       y_roll: int = 0,
+                       xy_swap: bool = False) -> bool:
 
     # Check for valid color arguments
     # Check for fore color
@@ -1166,6 +1169,13 @@ def draw_8x8_character(vb: VBuffer,
             (0x000000000000FF00 & encoded_character) >> 8,
             (0x00000000000000FF & encoded_character) >> 0]
 
+    # Do some modulus magic to bring the requested y_roll to something same
+    y_roll %= 8
+
+    # If there's any kind of resulting y rolling
+    if y_roll != 0:
+        character_data = character_data[y_roll:] + character_data[:y_roll]
+
     # Set the current Y position
     current_y = 0
 
@@ -1195,6 +1205,13 @@ def draw_8x8_character(vb: VBuffer,
                 bool((0x04 & rowData) >> 2),
                 bool((0x02 & rowData) >> 1),
                 bool((0x01 & rowData) >> 0)]
+
+        # Do some modulus magic to bring the requested y_roll to something same
+        x_roll %= 8
+
+        # If there's any kind of resulting y rolling
+        if x_roll != 0:
+            row_bool = row_bool[x_roll:] + row_bool[:x_roll]
 
         # (Re)Set the current X position
         current_x = 0
@@ -1237,7 +1254,11 @@ def draw_8x8_character(vb: VBuffer,
 
             # If there's a color to write... Write it!
             if color_to_use is not False:
-                vb[(x + start_x_offset + current_x) % vb.dimensions[0]][(y + start_y_offset + current_y) % vb.dimensions[1]] = color_to_use
+                # Check for an x-y swap
+                if not xy_swap:
+                    vb[(x + start_x_offset + current_x) % vb.dimensions[0]][(y + start_y_offset + current_y) % vb.dimensions[1]] = color_to_use
+                else:
+                    vb[(x + start_y_offset + current_y) % vb.dimensions[0]][(y + start_x_offset + current_x) % vb.dimensions[1]] = color_to_use
 
             # Keep track fo the change to the next X coordinate
             current_x += 1
@@ -1257,13 +1278,16 @@ def draw_8x16_character(vb: VBuffer,
                         x_wrap_around: bool = False,
                         y_wrap_around: bool = False,
                         x_flip: bool = False,
-                        y_flip: bool = False) -> bool:
+                        y_flip: bool = False,
+                        x_roll: int = 0,
+                        y_roll: int = 0,
+                        xy_swap: bool = False) -> bool:
 
     # Draw the upper 8x8 character
-    draw_8x8_character(vb, encoded_characters[0], x, y, fore_color, back_color, x_wrap_around, y_wrap_around, x_flip, y_flip)
+    draw_8x8_character(vb, encoded_characters[0], x, y, fore_color, back_color, x_wrap_around, y_wrap_around, x_flip, y_flip, x_roll, y_roll)
 
     # Draw the lower 8x8 character
-    draw_8x8_character(vb, encoded_characters[1], x, y + 8, fore_color, back_color, x_wrap_around, y_wrap_around, x_flip, y_flip)
+    draw_8x8_character(vb, encoded_characters[1], x, y + 8, fore_color, back_color, x_wrap_around, y_wrap_around, x_flip, y_flip, x_roll, y_roll)
 
     return True
 
@@ -1277,6 +1301,9 @@ class FontRenderer:
     y_wrap_around = False
     x_flip = False
     y_flip = False
+    x_roll = 0
+    y_roll = 0
+    xy_swap = False
 
     def draw_character(self,
                        vb: VBuffer, encoded_character,
@@ -1295,7 +1322,11 @@ class FontRenderer:
                                self.x_wrap_around,
                                self.y_wrap_around,
                                self.x_flip,
-                               self.y_flip)
+                               self.y_flip,
+                               self.x_roll,
+                               self.y_roll,
+                               self.xy_swap)
+
         elif self.character_type == "8x16":
             draw_8x16_character(vb,
                                 encoded_character,
@@ -1306,7 +1337,10 @@ class FontRenderer:
                                 self.x_wrap_around,
                                 self.y_wrap_around,
                                 self.x_flip,
-                                self.y_flip)
+                                self.y_flip,
+                                self.x_roll,
+                                self.y_roll,
+                                self.xy_swap)
         else:
             return False
 
