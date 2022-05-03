@@ -14,11 +14,9 @@ def main():
 
     cga_scroll_text_x = 0
     cga_scroll_string = "Looky moving text...  Watch it go..."
-    cga_scroll_spill = False
 
     vga_scroll_text_x = 0
     vga_scroll_string = "Big VGA letters!  The fidelity..."
-    vga_scroll_spill = False
 
     rainbow_colors = [0xFF0000, 0xFF8800, 0x888800, 0x00FF00, 0x00FF88, 0x008888, 0x0088FF, 0x0000FF, 0x880088]
 
@@ -50,6 +48,11 @@ def main():
         cga_font = dpav.FontRenderer()
         vga_font = dpav.FontRenderer()
 
+        cga_font.x_wrap_around = True
+        cga_font.y_wrap_around = True
+        vga_font.x_wrap_around = True
+        vga_font.y_wrap_around = True
+
         vga_font.character_type = dpav.CHARACTER_ROM_TYPES[1]
         vga_font.character_rom = dpav.CHARACTER_ROM_VGA_8x16
 
@@ -65,7 +68,9 @@ def main():
                                     (10 + sine_scroll_x_offset + sine_scroll_message_index * 8) % buffer.dimensions[0],
                                     (120 + int(sine_scroll_height * math.sin(sine_scroll_curve * (sine_scroll_message_index * 8 + sine_scroll_progress)))) % buffer.dimensions[1],
                                     ClassicRainbow8[(sine_scroll_message_index + sine_scroll_progress)% 8],
-                                    False
+                                    False,
+                                    True,
+                                    True
                                     )
             sine_scroll_message_index += 1
 
@@ -74,11 +79,19 @@ def main():
 
 
 
-
         # Draw individual CGA characters
         cga_font.draw_string(buffer, "C", 152, 128, rainbow_colors, 0x112255)
         cga_font.draw_string(buffer, "G", 160, 128, rainbow_colors, 0x225511)
         cga_font.draw_string(buffer, "A", 168, 128, rainbow_colors, 0x551122)
+
+        # Test double flip!
+        cga_font.x_flip = True
+        cga_font.y_flip = True
+        cga_font.draw_string(buffer, "C", 152, 136, rainbow_colors, 0x112255)
+        cga_font.draw_string(buffer, "G", 160, 136, rainbow_colors, 0x225511)
+        cga_font.draw_string(buffer, "A", 168, 136, rainbow_colors, 0x551122)
+        cga_font.x_flip = False
+        cga_font.y_flip = False
 
         # Draw individual VGA characters
         vga_font.draw_string(buffer, "V", 152, 150, rainbow_colors, 0x113366)
@@ -92,9 +105,18 @@ def main():
         cga_font.draw_string(buffer, "X", 316, 236, 0xEE0000, 0x222222)
 
         # Static Test String
+
+        # Test Y Flipping
+        cga_font.y_flip = True
+        cga_font.draw_string(buffer, "Static Test String?!", 90, 92, 0x00EE00, 0x104410)
+        cga_font.y_flip = False
+
         cga_font.draw_string(buffer, "Static Test String?!", 90, 100, 0x00EE00, 0x104410)
         cga_font.draw_string(buffer, "Static Test String?!", 90, 108, 0x00EE00, False)
+
+        cga_font.x_flip = True
         cga_font.draw_string(buffer, "Static Test String?!", 90, 116, False, 0x104410)
+        cga_font.x_flip = False
 
         # Draw Color Test Block
         cga_font.draw_string(buffer, "█", 20, 180, dpav.ClassicColors16.BLACK, False)
@@ -124,9 +146,6 @@ def main():
             cga_scroll_spill = False
             cga_scroll_text_x = 0
 
-        if (cga_scroll_text_x + len(cga_scroll_string) * 8) >= buffer.get_dimensions()[0]:
-            cga_scroll_spill = True
-
         # Draw the primary string
         cga_font.draw_string(buffer,
                              cga_scroll_string,
@@ -134,15 +153,6 @@ def main():
                              10,
                              0x008844,
                              0x002200)
-
-        # Draw the spill over string
-        if cga_scroll_spill:
-            cga_font.draw_string(buffer,
-                                 cga_scroll_string,
-                                 0 + cga_scroll_text_x - buffer.get_dimensions()[0],
-                                 10,
-                                 0x008844,
-                                 0x002200)
 
         cga_scroll_text_x += 1
 
@@ -154,9 +164,6 @@ def main():
             vga_scroll_spill = False
             vga_scroll_text_x = 0
 
-        if (vga_scroll_text_x + len(vga_scroll_string) * 8) >= buffer.get_dimensions()[0]:
-            vga_scroll_spill = True
-
         # Draw the primary string
         vga_font.draw_string(buffer,
                               vga_scroll_string,
@@ -164,15 +171,6 @@ def main():
                               200,
                               0x008844,
                               0x002200)
-
-        # Draw the spill over string
-        if vga_scroll_spill:
-            vga_font.draw_string(buffer,
-                                  vga_scroll_string,
-                                  0 + vga_scroll_text_x - buffer.get_dimensions()[0],
-                                  200,
-                                  0x008844,
-                                  0x002200)
 
         vga_scroll_text_x += 1
 

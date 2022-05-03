@@ -1095,8 +1095,12 @@ def draw_8x8_character(vb: VBuffer,
                        encoded_character: int,
                        x: int,
                        y: int,
-                       fore_color,
-                       back_color) -> bool:
+                       fore_color: (bool, int, list) = False,
+                       back_color: (bool, int, list) = False,
+                       x_wrap_around: bool = False,
+                       y_wrap_around: bool = False,
+                       x_flip: bool = False,
+                       y_flip: bool  = False) -> bool:
 
     # Check for valid color arguments
     # Check for fore color
@@ -1108,7 +1112,12 @@ def draw_8x8_character(vb: VBuffer,
         raise NameError("back_color:  Has to be an int, bool, list")
 
     # Check to see if we are drawing well out the range, that no partial drawing is possible
-    if x <= -8 or y <= -8 or x >= vb.dimensions[0] or y >= vb.dimensions[1]:
+    # If the x is out of range and there's no x wrap around
+    if (x <= -8 or x >= vb.dimensions[0]) and not x_wrap_around:
+        return False
+
+    # if the y is out of range and there's no y wrap around
+    if (y <= -8 or y >= vb.dimensions[1]) and not y_wrap_around:
         return False
 
     # Initialize for regular drawing conditions
@@ -1117,29 +1126,45 @@ def draw_8x8_character(vb: VBuffer,
     end_x: int = 8
     end_y: int = 8
 
-    # Check for partial drawing conditions
-    if x < 0:
-        start_x_offset = abs(x)
+    # Check for partial X drawing conditions, if no wrap around
+    if not x_wrap_around:
+        if x < 0:
+            start_x_offset = abs(x)
 
-    if y < 0:
-        start_y_offset = abs(y)
+        if (x + 8) >= vb.dimensions[0]:
+            end_x = vb.dimensions[0] - x
 
-    if (x + 8) >= vb.dimensions[0]:
-        end_x = vb.dimensions[0] - x
+    # Check for partial Y drawing conditions, if no wrap around
+    if not y_wrap_around:
+        if y < 0:
+            start_y_offset = abs(y)
 
-    if (y + 8) >= vb.dimensions[1]:
-        end_y = vb.dimensions[1] - y
+        if (y + 8) >= vb.dimensions[1]:
+            end_y = vb.dimensions[1] - y
 
     # Parse the character data from the input
-    character_data = [
-        (0x00000000000000FF & encoded_character) >> 0,
-        (0x000000000000FF00 & encoded_character) >> 8,
-        (0x0000000000FF0000 & encoded_character) >> 16,
-        (0x00000000FF000000 & encoded_character) >> 24,
-        (0x000000FF00000000 & encoded_character) >> 32,
-        (0x0000FF0000000000 & encoded_character) >> 40,
-        (0x00FF000000000000 & encoded_character) >> 48,
-        (0xFF00000000000000 & encoded_character) >> 56]
+    # If there's not y flipping, parse it as usual
+    if not y_flip:
+        character_data = [
+            (0x00000000000000FF & encoded_character) >> 0,
+            (0x000000000000FF00 & encoded_character) >> 8,
+            (0x0000000000FF0000 & encoded_character) >> 16,
+            (0x00000000FF000000 & encoded_character) >> 24,
+            (0x000000FF00000000 & encoded_character) >> 32,
+            (0x0000FF0000000000 & encoded_character) >> 40,
+            (0x00FF000000000000 & encoded_character) >> 48,
+            (0xFF00000000000000 & encoded_character) >> 56]
+    # If there's y flipping, reverse the row ordering
+    else:
+        character_data = [
+            (0xFF00000000000000 & encoded_character) >> 56,
+            (0x00FF000000000000 & encoded_character) >> 48,
+            (0x0000FF0000000000 & encoded_character) >> 40,
+            (0x000000FF00000000 & encoded_character) >> 32,
+            (0x00000000FF000000 & encoded_character) >> 24,
+            (0x0000000000FF0000 & encoded_character) >> 16,
+            (0x000000000000FF00 & encoded_character) >> 8,
+            (0x00000000000000FF & encoded_character) >> 0]
 
     # Set the current Y position
     current_y = 0
@@ -1148,36 +1173,76 @@ def draw_8x8_character(vb: VBuffer,
     for rowData in character_data[start_y_offset:end_y]:
 
         # Convert row data to boolean array
-        row_bool = [
-            bool((0x01 & rowData) >> 0),
-            bool((0x02 & rowData) >> 1),
-            bool((0x04 & rowData) >> 2),
-            bool((0x08 & rowData) >> 3),
-            bool((0x10 & rowData) >> 4),
-            bool((0x20 & rowData) >> 5),
-            bool((0x40 & rowData) >> 6),
-            bool((0x80 & rowData) >> 7),
-        ]
+        # If there's no x flipping, processing regularly
+        if not x_flip:
+            row_bool = [
+                bool((0x01 & rowData) >> 0),
+                bool((0x02 & rowData) >> 1),
+                bool((0x04 & rowData) >> 2),
+                bool((0x08 & rowData) >> 3),
+                bool((0x10 & rowData) >> 4),
+                bool((0x20 & rowData) >> 5),
+                bool((0x40 & rowData) >> 6),
+                bool((0x80 & rowData) >> 7)]
+        # If there's x flipping, processing backwards
+        else:
+            row_bool = [
+                bool((0x80 & rowData) >> 7),
+                bool((0x40 & rowData) >> 6),
+                bool((0x20 & rowData) >> 5),
+                bool((0x10 & rowData) >> 4),
+                bool((0x08 & rowData) >> 3),
+                bool((0x04 & rowData) >> 2),
+                bool((0x02 & rowData) >> 1),
+                bool((0x01 & rowData) >> 0)]
 
         # (Re)Set the current X position
         current_x = 0
         for bit in row_bool[start_x_offset: end_x]:
+
+            # Temp variable to hold color to use
+            # False is used a control
+            color_to_use = False
+
+            # If this is a foreground color bit
             if bit:
+                # If a bool was passed in, there's no color to set, and we'll let the default ride.
+                # Doesn't matter if it's False or True.
                 if isinstance(fore_color, bool):
                     pass
+
+                # If it's a regular int, we'll use tha as the numeric color code to use
                 elif isinstance(fore_color, int):
-                    vb[x + start_x_offset + current_x][y + start_y_offset + current_y] = fore_color
+                    color_to_use = fore_color
+
+                # If it's a list of color codes, we'll pick one based on the current position in the character
                 elif isinstance(fore_color, list):
-                    vb[x + start_x_offset + current_x][y + start_y_offset + current_y] = fore_color[(start_x_offset + current_x + 8 * (start_y_offset + current_y)) % len(fore_color)]
+                    color_to_use = fore_color[(start_x_offset + current_x + 8 * (start_y_offset + current_y)) % len(fore_color)]
+
+            # If this is a background color bit
             else:
+                # If a bool was passed in, there's no color to set, and we'll let the default ride.
+                # Doesn't matter if it's False or True.
                 if isinstance(back_color, bool):
                     pass
-                elif isinstance(back_color, int):
-                    vb[x + start_x_offset + current_x][y + start_y_offset + current_y] = back_color
-                elif isinstance(back_color, list):
-                    vb[x + start_x_offset + current_x][y + start_y_offset + current_y] = back_color[(start_x_offset + current_x + 8 * (start_y_offset + current_y)) % len(back_color)]
 
+                # If it's a regular int, we'll use tha as the numeric color code to use
+                elif isinstance(back_color, int):
+                    color_to_use = back_color
+
+                # If it's a list of color codes, we'll pick one based on the current position in the character
+                elif isinstance(back_color, list):
+                    color_to_use = back_color[
+                        (start_x_offset + current_x + 8 * (start_y_offset + current_y)) % len(back_color)]
+
+            # If there's a color to write... Write it!
+            if color_to_use is not False:
+                vb[(x + start_x_offset + current_x) % vb.dimensions[0]][(y + start_y_offset + current_y) % vb.dimensions[1]] = color_to_use
+
+            # Keep track fo the change to the next X coordinate
             current_x += 1
+
+        # Keep track of the change to the next Y coordinate
         current_y += 1
 
     return True
@@ -1187,13 +1252,18 @@ def draw_8x16_character(vb: VBuffer,
                         encoded_characters: (int, int),
                         x: int,
                         y: int,
-                        fore_color: int,
-                        back_color: int) -> bool:
+                        fore_color: (bool, int, list) = False,
+                        back_color: (bool, int, list) = False,
+                        x_wrap_around: bool = False,
+                        y_wrap_around: bool = False,
+                        x_flip: bool = False,
+                        y_flip: bool = False) -> bool:
+
     # Draw the upper 8x8 character
-    draw_8x8_character(vb, encoded_characters[0], x, y, fore_color, back_color)
+    draw_8x8_character(vb, encoded_characters[0], x, y, fore_color, back_color, x_wrap_around, y_wrap_around, x_flip, y_flip)
 
     # Draw the lower 8x8 character
-    draw_8x8_character(vb, encoded_characters[1], x, y + 8, fore_color, back_color)
+    draw_8x8_character(vb, encoded_characters[1], x, y + 8, fore_color, back_color, x_wrap_around, y_wrap_around, x_flip, y_flip)
 
     return True
 
@@ -1203,28 +1273,52 @@ class FontRenderer:
     character_rom = CHARACTER_ROM_CGA_8x8
     character_map = CHARACTER_MAP_437
     character_type = CHARACTER_ROM_TYPES[0]
+    x_wrap_around = False
+    y_wrap_around = False
+    x_flip = False
+    y_flip = False
 
-    def draw_character(self, vb: VBuffer, encoded_character, x: int, y: int, fore_color: int, back_color: int) -> bool:
+    def draw_character(self,
+                       vb: VBuffer, encoded_character,
+                       x: int,
+                       y: int,
+                       fore_color: (bool, int, list),
+                       back_color: (bool, int, list)) -> bool:
+
         if self.character_type == "8x8":
             draw_8x8_character(vb,
                                encoded_character,
                                x,
                                y,
                                fore_color,
-                               back_color)
+                               back_color,
+                               self.x_wrap_around,
+                               self.y_wrap_around,
+                               self.x_flip,
+                               self.y_flip)
         elif self.character_type == "8x16":
             draw_8x16_character(vb,
                                 encoded_character,
                                 x,
                                 y,
                                 fore_color,
-                                back_color)
+                                back_color,
+                                self.x_wrap_around,
+                                self.y_wrap_around,
+                                self.x_flip,
+                                self.y_flip)
         else:
             return False
 
         return True
 
-    def draw_string(self, vb: VBuffer, string: str, x: int, y: int, fore_color: int, back_color: int) -> bool:
+    def draw_string(self,
+                    vb: VBuffer,
+                    string: str,
+                    x: int,
+                    y: int,
+                    fore_color: (bool, int, list),
+                    back_color: (bool, int, list)) -> bool:
         current_character_x = 0
 
         for character in string:
