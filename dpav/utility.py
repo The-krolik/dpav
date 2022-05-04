@@ -1092,11 +1092,11 @@ class ClassicColors16(IntEnum):
 
 
 def draw_8x8_character(vb: VBuffer,
-                       encoded_character: int,
+                       encoded_character: (int, list[int], list[list[bool]]),
                        x: int,
                        y: int,
-                       fore_color: (bool, int, list) = False,
-                       back_color: (bool, int, list) = False,
+                       fore_color: (bool, int, list[int], list[list[int]]) = False,
+                       back_color: (bool, int, list[int], list[list[int]]) = False,
                        x_wrap_around: bool = False,
                        y_wrap_around: bool = False,
                        x_flip: bool = False,
@@ -1105,16 +1105,72 @@ def draw_8x8_character(vb: VBuffer,
                        y_roll: int = 0,
                        xy_swap: bool = False) -> bool:
 
-    # Check for valid color arguments
+    #
+    # Check for valid arguments
+    #
+
+    # Check the encoded character to sse if it's either an int or list of some kind
+    if not isinstance(encoded_character, (int, list)):
+        raise NameError("encoded_character: Has to be an int, list of ints, or list of lists of bools")
+
+    # If the encoded character is a list, check to make sure it is a list of ints or lists
+    if isinstance(encoded_character, list):
+        if not isinstance(encoded_character[0], (int, list)):
+            raise NameError("encoded_character: Has to be an int, list of ints, or list of lists of bools")
+
+        # If the encoded character is a list or lists, check to make sure the lists are bools
+        if isinstance(encoded_character[0], list):
+            if not isinstance(encoded_character[0][0], bool):
+                raise NameError("encoded_character: Has to be an int, list of ints, or list of lists of bools")
+
+    # Check the x coordinate
+    if not isinstance(x, int):
+        raise NameError("x: Has to be an int")
+
+    # Check the y coordinate
+    if not isinstance(x, int):
+        raise NameError("x: Has to be an int")
+
     # Check for fore color
-    if not isinstance(fore_color, (int, bool, list)):
+    if not isinstance(fore_color, (bool, int, list)):
         raise NameError("fore_color: Has to be an int, bool, list")
 
-    # Check for fore color
-    if not isinstance(back_color, (int, bool, list)):
-        raise NameError("back_color:  Has to be an int, bool, list")
+    # Check for back color
+    if not isinstance(back_color, (bool, int, list)):
+        raise NameError("back_color:  Has to be an int, bool, list of ints, or list of lists of ints")
 
+    # Check the x wrap around
+    if not isinstance(x_wrap_around, bool):
+        raise NameError("x_wrap_around: Has to be an bool")
+
+    # Check the y wrap around
+    if not isinstance(y_wrap_around, bool):
+        raise NameError("y_wrap_around: Has to be an bool")
+
+    # Check the x wrap around
+    if not isinstance(x_flip, bool):
+        raise NameError("x_flip: Has to be an bool")
+
+    # Check the y wrap around
+    if not isinstance(y_flip, bool):
+        raise NameError("y_flip: Has to be an bool")
+
+    # Check the x_roll
+    if not isinstance(x_roll, int):
+        raise NameError("x_roll: Has to be an int")
+
+    # Check the y_roll
+    if not isinstance(y_roll, int):
+        raise NameError("y_roll: Has to be an int")
+
+    # Check the y wrap around
+    if not isinstance(xy_swap, bool):
+        raise NameError("xy_swap: Has to be an bool")
+
+    #
     # Check to see if we are drawing well out the range, that no partial drawing is possible
+    #
+
     # If the x is out of range and there's no x wrap around
     if (x <= -8 or x >= vb.dimensions[0]) and not x_wrap_around:
         return False
@@ -1123,11 +1179,17 @@ def draw_8x8_character(vb: VBuffer,
     if (y <= -8 or y >= vb.dimensions[1]) and not y_wrap_around:
         return False
 
+    #
     # Initialize for regular drawing conditions
+    #
     start_x_offset: int = 0
     start_y_offset: int = 0
     end_x: int = 8
     end_y: int = 8
+
+    #
+    # Check for partial drawing conditions
+    #
 
     # Check for partial X drawing conditions, if no wrap around
     if not x_wrap_around:
@@ -1145,9 +1207,17 @@ def draw_8x8_character(vb: VBuffer,
         if (y + 8) >= vb.dimensions[1]:
             end_y = vb.dimensions[1] - y
 
-    # Parse the character data from the input
-    # If there's not y flipping, parse it as usual
-    if not y_flip:
+    #
+    # Parse the input encoded character
+    #
+
+    # Start with a blank list
+    character_data = []
+
+    # Is the encoded character an int?
+    if isinstance(encoded_character, int):
+
+        # If so, parse out the character date from it into a list
         character_data = [
             (0x00000000000000FF & encoded_character) >> 0,
             (0x000000000000FF00 & encoded_character) >> 8,
@@ -1157,18 +1227,22 @@ def draw_8x8_character(vb: VBuffer,
             (0x0000FF0000000000 & encoded_character) >> 40,
             (0x00FF000000000000 & encoded_character) >> 48,
             (0xFF00000000000000 & encoded_character) >> 56]
-    # If there's y flipping, reverse the row ordering
-    else:
-        character_data = [
-            (0xFF00000000000000 & encoded_character) >> 56,
-            (0x00FF000000000000 & encoded_character) >> 48,
-            (0x0000FF0000000000 & encoded_character) >> 40,
-            (0x000000FF00000000 & encoded_character) >> 32,
-            (0x00000000FF000000 & encoded_character) >> 24,
-            (0x0000000000FF0000 & encoded_character) >> 16,
-            (0x000000000000FF00 & encoded_character) >> 8,
-            (0x00000000000000FF & encoded_character) >> 0]
 
+    # Is the encoded character some kind of list?
+    elif isinstance(encoded_character, list):
+
+        # If so, copy it over
+        character_data = encoded_character.copy()
+
+    #
+    # Perform in y flipping
+    #
+    if y_flip:
+        character_data.reverse()
+
+    #
+    # Perform any y rolling
+    #
     # Do some modulus magic to bring the requested y_roll to something same
     y_roll %= 8
 
@@ -1176,53 +1250,61 @@ def draw_8x8_character(vb: VBuffer,
     if y_roll != 0:
         character_data = character_data[y_roll:] + character_data[:y_roll]
 
-    # Set the current Y position
-    current_y = 0
+    #
+    # Parse the row data
+    #
+
+    # Do we have a list of ints?
+    # Assuming character data at this point is a list with at least one element to check
+    if isinstance(character_data[0], int):
+
+        # Then go through convert
+        for row_index, row_data in enumerate(character_data):
+
+            # Create a bit list from the int
+            character_data[row_index] = [
+                bool((0x01 & row_data) >> 0),
+                bool((0x02 & row_data) >> 1),
+                bool((0x04 & row_data) >> 2),
+                bool((0x08 & row_data) >> 3),
+                bool((0x10 & row_data) >> 4),
+                bool((0x20 & row_data) >> 5),
+                bool((0x40 & row_data) >> 6),
+                bool((0x80 & row_data) >> 7)]
+
+    #
+    # If there's an x flip
+    #
+    if x_flip:
+        for row_index, row_data in enumerate(character_data):
+            character_data[row_index].reverse()
+
+    #
+    # IF there's any x rolling to do
+    #
+
+    # Do some modulus magic to bring the requested x_roll to something same
+    x_roll %= 8
+
+    if x_roll != 0:
+        character_data = [row[x_roll:] + row[:x_roll] for row in character_data]
+
+    #
+    #  Start drawing
+    #
 
     # Go through all the rows, starting at an offset and ending if partial drawing
-    for rowData in character_data[start_y_offset:end_y]:
+    for row_index, row_data in enumerate(character_data[start_y_offset:end_y]):
 
-        # Convert row data to boolean array
-        # If there's no x flipping, processing regularly
-        if not x_flip:
-            row_bool = [
-                bool((0x01 & rowData) >> 0),
-                bool((0x02 & rowData) >> 1),
-                bool((0x04 & rowData) >> 2),
-                bool((0x08 & rowData) >> 3),
-                bool((0x10 & rowData) >> 4),
-                bool((0x20 & rowData) >> 5),
-                bool((0x40 & rowData) >> 6),
-                bool((0x80 & rowData) >> 7)]
-        # If there's x flipping, processing backwards
-        else:
-            row_bool = [
-                bool((0x80 & rowData) >> 7),
-                bool((0x40 & rowData) >> 6),
-                bool((0x20 & rowData) >> 5),
-                bool((0x10 & rowData) >> 4),
-                bool((0x08 & rowData) >> 3),
-                bool((0x04 & rowData) >> 2),
-                bool((0x02 & rowData) >> 1),
-                bool((0x01 & rowData) >> 0)]
-
-        # Do some modulus magic to bring the requested y_roll to something same
-        x_roll %= 8
-
-        # If there's any kind of resulting y rolling
-        if x_roll != 0:
-            row_bool = row_bool[x_roll:] + row_bool[:x_roll]
-
-        # (Re)Set the current X position
-        current_x = 0
-        for bit in row_bool[start_x_offset: end_x]:
+        # Go through all the bits that make up the character row, starting and ending at different points for partial drawing
+        for bit_index, bit_data in enumerate(row_data[start_x_offset: end_x]):
 
             # Temp variable to hold color to use
             # False is used a control
             color_to_use = False
 
             # If this is a foreground color bit
-            if bit:
+            if bit_data:
                 # If a bool was passed in, there's no color to set, and we'll let the default ride.
                 # Doesn't matter if it's False or True.
                 if isinstance(fore_color, bool):
@@ -1234,7 +1316,7 @@ def draw_8x8_character(vb: VBuffer,
 
                 # If it's a list of color codes, we'll pick one based on the current position in the character
                 elif isinstance(fore_color, list):
-                    color_to_use = fore_color[(start_x_offset + current_x + 8 * (start_y_offset + current_y)) % len(fore_color)]
+                    color_to_use = fore_color[(start_x_offset + bit_index + 8 * (start_y_offset + row_index)) % len(fore_color)]
 
             # If this is a background color bit
             else:
@@ -1250,21 +1332,15 @@ def draw_8x8_character(vb: VBuffer,
                 # If it's a list of color codes, we'll pick one based on the current position in the character
                 elif isinstance(back_color, list):
                     color_to_use = back_color[
-                        (start_x_offset + current_x + 8 * (start_y_offset + current_y)) % len(back_color)]
+                        (start_x_offset + bit_index + 8 * (start_y_offset + row_index)) % len(back_color)]
 
             # If there's a color to write... Write it!
             if color_to_use is not False:
                 # Check for an x-y swap
                 if not xy_swap:
-                    vb[(x + start_x_offset + current_x) % vb.dimensions[0]][(y + start_y_offset + current_y) % vb.dimensions[1]] = color_to_use
+                    vb[(x + start_x_offset + bit_index) % vb.dimensions[0]][(y + start_y_offset + row_index) % vb.dimensions[1]] = color_to_use
                 else:
-                    vb[(x + start_y_offset + current_y) % vb.dimensions[0]][(y + start_x_offset + current_x) % vb.dimensions[1]] = color_to_use
-
-            # Keep track fo the change to the next X coordinate
-            current_x += 1
-
-        # Keep track of the change to the next Y coordinate
-        current_y += 1
+                    vb[(x + start_y_offset + row_index) % vb.dimensions[0]][(y + start_x_offset + bit_index) % vb.dimensions[1]] = color_to_use
 
     return True
 
@@ -1282,6 +1358,8 @@ def draw_8x16_character(vb: VBuffer,
                         x_roll: int = 0,
                         y_roll: int = 0,
                         xy_swap: bool = False) -> bool:
+
+    # Process rows if there
 
     # Draw the upper 8x8 character
     draw_8x8_character(vb, encoded_characters[0], x, y, fore_color, back_color, x_wrap_around, y_wrap_around, x_flip, y_flip, x_roll, y_roll)
