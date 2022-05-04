@@ -16,10 +16,20 @@ def main():
     cga_scroll_string = "Looky moving text...  Watch it go..."
 
 
+
     vga_scroll_text_x = 0
     vga_scroll_string = "Big VGA letters!  The fidelity..."
 
     rainbow_colors = [0xFF0000, 0xFF8800, 0x888800, 0x00FF00, 0x00FF88, 0x008888, 0x0088FF, 0x0000FF, 0x880088]
+
+    rainbow_colors_64 = [[0xFF0000, 0xFF8800, 0x888800, 0x00FF00, 0x00FF88, 0x008888, 0x0088FF, 0x0000FF, 0x880088],
+                         [0xFF8800, 0x888800, 0x00FF00, 0x00FF88, 0x008888, 0x0088FF, 0x0000FF, 0x880088, 0xFF0000],
+                         [0x888800, 0x00FF00, 0x00FF88, 0x008888, 0x0088FF, 0x0000FF, 0x880088, 0xFF0000, 0xFF8800],
+                         [0x00FF00, 0x00FF88, 0x008888, 0x0088FF, 0x0000FF, 0x880088, 0xFF0000, 0xFF8800, 0x888800],
+                         [0x00FF88, 0x008888, 0x0088FF, 0x0000FF, 0x880088, 0xFF0000, 0xFF8800, 0x888800, 0x00FF00],
+                         [0x00FF88, 0x008888, 0x0088FF, 0x0000FF, 0x880088, 0xFF0000, 0xFF8800, 0x888800, 0x00FF00],
+                         [0x00FF88, 0x008888, 0x0088FF, 0x0000FF, 0x880088, 0xFF0000, 0xFF8800, 0x888800, 0x00FF00],
+                         [0x00FF88, 0x008888, 0x0088FF, 0x0000FF, 0x880088, 0xFF0000, 0xFF8800, 0x888800, 0x00FF00]]
 
     sine_scroll_progress = 0
     sine_scroll_x_offset = 0
@@ -30,6 +40,8 @@ def main():
 
     roll_index = 0
 
+    current_rotation = 0
+
     ClassicRainbow8 = [
         dpav.ClassicColors16.BLACK,
         dpav.ClassicColors16.RED,
@@ -38,8 +50,9 @@ def main():
         dpav.ClassicColors16.BLUE,
         dpav.ClassicColors16.CYAN,
         dpav.ClassicColors16.MAGENTA,
-        dpav.ClassicColors16.WHITE
-    ]
+        dpav.ClassicColors16.WHITE]
+
+
 
 
 
@@ -71,7 +84,7 @@ def main():
                                     dpav.CHARACTER_ROM_CGA_8x8[dpav.CHARACTER_MAP_437[letter]],
                                     (10 + sine_scroll_x_offset + sine_scroll_message_index * 8) % buffer.dimensions[0],
                                     (120 + int(sine_scroll_height * math.sin(sine_scroll_curve * (sine_scroll_message_index * 8 + sine_scroll_progress)))) % buffer.dimensions[1],
-                                    ClassicRainbow8[(sine_scroll_message_index + sine_scroll_progress)% 8],
+                                    ClassicRainbow8[(sine_scroll_message_index + sine_scroll_progress) % 8],
                                     False,
                                     True,
                                     True
@@ -84,9 +97,9 @@ def main():
 
 
         # Draw individual CGA characters
-        cga_font.draw_string(buffer, "C", 152, 128, rainbow_colors, 0x112255)
-        cga_font.draw_string(buffer, "G", 160, 128, rainbow_colors, 0x225511)
-        cga_font.draw_string(buffer, "A", 168, 128, rainbow_colors, 0x551122)
+        cga_font.draw_string(buffer, "C", 152, 128, rainbow_colors_64, 0x112255)
+        cga_font.draw_string(buffer, "G", 160, 128, rainbow_colors_64, 0x225511)
+        cga_font.draw_string(buffer, "A", 168, 128, rainbow_colors_64, 0x551122)
 
         cga_font.y_roll = roll_index
         cga_font.draw_string(buffer, "C", 180, 128, rainbow_colors, 0x112255)
@@ -104,14 +117,14 @@ def main():
 
 
 
-        # Test double flip!
-        cga_font.x_flip = True
-        cga_font.y_flip = True
+        # Test rotation
+
+        cga_font.character_rotation = current_rotation
         cga_font.draw_string(buffer, "C", 152, 136, rainbow_colors, 0x112255)
         cga_font.draw_string(buffer, "G", 160, 136, rainbow_colors, 0x225511)
         cga_font.draw_string(buffer, "A", 168, 136, rainbow_colors, 0x551122)
-        cga_font.x_flip = False
-        cga_font.y_flip = False
+        cga_font.character_rotation = 0
+        current_rotation += 10
 
         # Draw individual VGA characters
         vga_font.draw_string(buffer, "V", 152, 150, rainbow_colors, 0x113366)
@@ -128,9 +141,13 @@ def main():
 
         # Test XY Swap
         cga_font.xy_swap = True
-        cga_font.x_flip = True
-        cga_font.draw_string(buffer, "Static Test String?!", 90, 30, 0x00EE00, 0x104410)
-        cga_font.x_flip = False
+        cga_font.y_flip = True
+        cga_font.horizontal = False
+        cga_font.left_to_right = False
+        cga_font.draw_string(buffer, "Vertical String?!", 90, 30, 0x00EE00, 0x104410)
+        cga_font.left_to_right = True
+        cga_font.horizontal = True
+        cga_font.y_flip = False
         cga_font.xy_swap = False
 
         # Test Y Flipping
@@ -188,7 +205,6 @@ def main():
         #
         # Check to see if the scrolling test has completely looped around
         if vga_scroll_text_x >= buffer.get_dimensions()[0]:
-            vga_scroll_spill = False
             vga_scroll_text_x = 0
 
         # Draw the primary string
@@ -198,6 +214,17 @@ def main():
                               200,
                               0x008844,
                               0x002200)
+
+        vga_font.y_flip = True
+        vga_font.xy_swap = True
+        vga_font.draw_string(buffer,
+                              vga_scroll_string,
+                              0 + vga_scroll_text_x,
+                              180,
+                              0x008844,
+                              0x002200)
+        vga_font.xy_swap = False
+        vga_font.y_flip = False
 
         vga_scroll_text_x += 1
 
