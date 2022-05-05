@@ -1106,102 +1106,166 @@ def draw_8x8_character(vb: VBuffer,
                        xy_swap: bool = False,
                        x_roll: int = 0,
                        y_roll: int = 0) -> bool:
-
+    #
     #
     # Check for valid arguments
     #
+    #
 
-    # Check the encoded character to sse if it's either an int or list of some kind
+    #
+    # Check the encoded character to sse if it's either an int or a list
+    #
     if not isinstance(encoded_character, (int, list)):
         raise NameError("encoded_character: Has to be an int, list[int], or list[list[bool]]")
 
     # If the encoded character is a list, check to make sure it is a list of ints or lists
     if isinstance(encoded_character, list):
+
+        # Check to make sure lists are 8 in size
+        if len(encoded_character) != 8:
+            raise NameError("encoded_character: list[int] or list[list[int]] must be length 8")
+
+        # Check to make sure list elements are either ints or lists
         if not isinstance(encoded_character[0], (int, list)):
             raise NameError("encoded_character: Has to be an int, list[int], or list[list[bool]]")
 
         # If the encoded character is a list or lists, check to make sure the lists are bools
         if isinstance(encoded_character[0], list):
+
+            # Check to make sure the list elements of lists are 8 in size
+            if len(encoded_character[0]) != 8:
+                raise NameError("encoded_character: list[list[int]] must be length 8")
+            # Check to make sure the list elements of lists are bools
             if not isinstance(encoded_character[0][0], bool):
                 raise NameError("encoded_character: Has to be an int, list[int], or list[list[bool]]")
-
+    #
     # Check the x coordinate
     #
     if not isinstance(x, int):
         raise NameError("x: Has to be an int")
 
+    #
     # Check the y coordinate
     #
     if not isinstance(x, int):
         raise NameError("x: Has to be an int")
 
-    # Check for fore color
     #
+    # Check the fore color
+    #
+
+    # Check to make sure we've got a bool, int, or list to work with
     if not isinstance(fore_color, (bool, int, list)):
         raise NameError("fore_color: Has to be an int, bool, list[int], or list[list[int]]")
 
-    # Check that fore color lists
+    # Check that fore color lists are valid
     if isinstance(fore_color, list):
+
+        # CHeck to make sure this isn't a blank list
+        if len(fore_color) == 0:
+            raise NameError("fore_color: lists have to have at least one element")
+
+        # Check to make sure the list elements are either ints or lists
         if not isinstance(fore_color[0], (int, list)):
             raise NameError("fore_color: Has to be an int, bool, list[int], or list[list[int]]")
+
+        # Check to make sure list elements in the list are valid
         if isinstance(fore_color[0], list):
+
+            # Check to make sure this isn't a blank list
+            if len(fore_color) == 0:
+                raise NameError("fore_color: lists have to have at least one element")
+
+            # Check to make sure the list elements of the lists are ints
             if not isinstance(fore_color[0][0], int):
                 raise NameError("fore_color: Has to be an int, bool, list[int], or list[list[int]]")
 
-    # Check for back color
     #
+    # Check the back color
+    #
+
+    # Check to make sure we've got a bool, int, or list to work with
     if not isinstance(back_color, (bool, int, list)):
         raise NameError("back_color: Has to be an int, bool, list[int], or list[list[int]]")
 
-    # Check that fore color lists
+    # Check that back color lists are valid
     if isinstance(back_color, list):
+
+        # Check to make sure this isn't a blank list
+        if len(back_color) == 0:
+            raise NameError("back_color: lists have to have at least one element")
+
+        # Check to make sure the list elements are either ints or lists
         if not isinstance(back_color[0], (int, list)):
             raise NameError("back_color: Has to be an int, bool, list[int], or list[list[int]]")
+
+        # Check to make sure list elements in the list are valid
         if isinstance(back_color[0], list):
+
+            # Check to make sure this isn't a blank list
+            if len(back_color) == 0:
+                raise NameError("back_color: lists have to have at least one element")
+
+            # Check to make sure the list elements of the lists are int
             if not isinstance(back_color[0][0], int):
                 raise NameError("back_color: Has to be an int, bool, list[int], or list[list[int]]")
 
+    #
     # Check the x wrap around
     #
     if not isinstance(x_wrap_around, bool):
         raise NameError("x_wrap_around: Has to be an bool")
 
+    #
     # Check the y wrap around
     #
     if not isinstance(y_wrap_around, bool):
         raise NameError("y_wrap_around: Has to be an bool")
 
+    #
     # Check the rotation
+    #
     if not isinstance(rotation, int):
         raise NameError("rotation: Has to be an int")
 
+    #
     # Check the xy swap
     #
     if not isinstance(xy_swap, bool):
         raise NameError("xy_swap: Has to be an bool")
 
+    #
     # Check the x flip
     #
     if not isinstance(x_flip, bool):
         raise NameError("x_flip: Has to be an bool")
 
+    #
     # Check the y flip
     #
     if not isinstance(y_flip, bool):
         raise NameError("y_flip: Has to be an bool")
 
+    #
     # Check the x_roll
     #
     if not isinstance(x_roll, int):
         raise NameError("x_roll: Has to be an int")
 
+    #
     # Check the y_roll
     #
     if not isinstance(y_roll, int):
         raise NameError("y_roll: Has to be an int")
 
     #
-    # Check to see if we are drawing well out the range, that no partial drawing is possible
+    #
+    # Checking drawing conditions
+    #
+    #
+
+    #
+    # Check for completely out of bounds drawing without proper wrapping
     #
 
     # If the x is out of range and there's no x wrap around
@@ -1215,6 +1279,7 @@ def draw_8x8_character(vb: VBuffer,
     #
     # Initialize for regular drawing conditions
     #
+
     start_x_offset: int = 0
     start_y_offset: int = 0
     end_x: int = 8
@@ -1241,11 +1306,17 @@ def draw_8x8_character(vb: VBuffer,
             end_y = vb.dimensions[1] - y
 
     #
-    # Parse the input encoded character
+    #
+    # Decode the inputed encoded character
+    #
     #
 
     # Start with a blank list
     character_data = []
+
+    #
+    # Decode rows out of the encoded character
+    #
 
     # Is the encoded character an int?
     if isinstance(encoded_character, int):
@@ -1268,17 +1339,16 @@ def draw_8x8_character(vb: VBuffer,
         character_data = encoded_character.copy()
 
     #
-    # Parse the row data
+    # Decode bits from the rows
     #
 
     # Do we have a list of ints?
-    # Assuming character data at this point is a list with at least one element to check
     if isinstance(character_data[0], int):
 
-        # Then go through and parse the row data into bools
+        # Then, go through and parse the row data into bools
         for row_index, row_data in enumerate(character_data):
 
-            # Create a bit list from the int
+            # Create a list of bits from the int
             character_data[row_index] = [
                 bool((0x01 & row_data) >> 0),
                 bool((0x02 & row_data) >> 1),
@@ -1290,25 +1360,32 @@ def draw_8x8_character(vb: VBuffer,
                 bool((0x80 & row_data) >> 7)]
 
     #
+    #
+    # Character row and column bit orientation
+    #
+    #
+
+    #
     # Check the rotation requested, and toggle any flips and swaps accordingly
     #
 
+    # Modulus out excessive rotation numbers
     rotation %= 360
 
     # If rotation is near 90 degrees, XY swap and x_flip
     if 45 <= rotation < 135:
-        y_flip ^= True
-        xy_swap ^= True
+        y_flip ^= True      # Toggle y flip
+        xy_swap ^= True     # Toggle xy swap
 
     # If rotation is near 180 degrees, x and y flip
     elif 135 <= rotation < 225:
-        x_flip ^= True
-        y_flip ^= True
+        x_flip ^= True      # Toggle x flip
+        y_flip ^= True      # Toggle y flip
 
     # if the rotation is near 270 degrees, XY swap and y_flip
     elif 225 <= rotation < 315:
-        x_flip ^= True
-        xy_swap ^= True
+        x_flip ^= True      # Toggle x flip
+        xy_swap ^= True     # Toggle xy swap
 
     #
     # Perform any flips or rolls before possible X-Y swapping
@@ -1317,88 +1394,86 @@ def draw_8x8_character(vb: VBuffer,
     # If there's an x flip
     if x_flip:
         for row_index, row_data in enumerate(character_data):
+
+            # Reverse each row's bit list and effectively flip them
             character_data[row_index].reverse()
 
     # Perform in y flipping
     if y_flip:
+
+        # Reverse the row list and effectively flip it
         character_data.reverse()
 
-    # Perform any y rolling
+    #
+    # Perform any character rolls
+    #
 
-    # Modulus down y roll numbers to something within range
-    y_roll %= 8
-
-    # If there's any kind of resulting y rolling
-    if y_roll != 0:
-        character_data = character_data[y_roll:] + character_data[:y_roll]
-
-    # IF there's any x rolling to do
-
-    # Do some modulus magic to bring the requested x_roll to something same
+    # Modulus out excessive x rolling
     x_roll %= 8
 
+    # If we need to x roll
     if x_roll != 0:
+
+        # Take a split of the row and append it to the end, for each row in the list
         character_data = [row[x_roll:] + row[:x_roll] for row in character_data]
 
+    # Modulus out excessive y rolling
+    y_roll %= 8
+
+    # If we need to y roll
+    if y_roll != 0:
+
+        # Take a split of the row list and append it to the end
+        character_data = character_data[y_roll:] + character_data[:y_roll]
+
     #
-    # Perform possible X,Y swapping here
+    # If we need to swap the x and y
     #
     if xy_swap:
+
+        # Remap the values from x,y to y,x
         character_data = list(map(list, zip(*character_data)))
 
     #
+    #
     #  Start drawing
+    #
     #
 
     # Go through all the rows, starting at an offset and ending if partial drawing
     for row_index, row_data in enumerate(character_data[start_y_offset:end_y]):
 
-        # Go through all the bits that make up the character row, starting and ending at different points for partial drawing
+        # Go through all the bits, starting at an offset and ending at if partial drawing
         for bit_index, bit_data in enumerate(row_data[start_x_offset: end_x]):
 
-            # Temp variable to hold color to use
-            # False is used a control
-            color_to_use = False
+            # Temp variable to hold the color source to use
+            color_source = fore_color if bit_data else back_color
+
+            # Check to see if there's bool for color
+            if isinstance(color_source, bool):
+
+                # Skip this iteration, nothing to write
+                continue
 
             # If this is a foreground color bit
-            if bit_data:
-                # If a bool was passed in, there's no color to set, and we'll let the default ride.
-                # Doesn't matter if it's False or True.
-                if isinstance(fore_color, bool):
-                    pass
 
-                # If it's a regular int, we'll use tha as the numeric color code to use
-                elif isinstance(fore_color, int):
-                    color_to_use = fore_color
+            # If it's a regular int, we'll use that as the color to use
+            if isinstance(color_source, int):
+                color_to_use = color_source
 
-                # If it's a list of color codes, we'll pick one based on the current position in the character
-                elif isinstance(fore_color, list):
-                    if isinstance(fore_color[0], int):
-                        color_to_use = fore_color[(start_x_offset + bit_index + 8 * (start_y_offset + row_index)) % len(fore_color)]
-                    elif isinstance(fore_color[0], list):
-                        color_to_use = fore_color[(start_y_offset + row_index) % len(fore_color)][(start_x_offset + bit_index) % len(fore_color[(start_y_offset + row_index) % len(fore_color)])]
+            # If it's a list of color codes
+            elif isinstance(color_source, list):
 
-            # If this is a background color bit
-            else:
-                # If a bool was passed in, there's no color to set, and we'll let the default ride.
-                # Doesn't matter if it's False or True.
-                if isinstance(back_color, bool):
-                    pass
+                # If it's a list of ints, go through the list grabbing codes in a circular fashion
+                if isinstance(color_source[0], int):
+                    color_to_use = color_source[(start_x_offset + bit_index + 8 * (start_y_offset + row_index)) % len(color_source)]
 
-                # If it's a regular int, we'll use tha as the numeric color code to use
-                elif isinstance(back_color, int):
-                    color_to_use = back_color
+                # If it's a list of lists of ints, go through the codes in circular fashion in both dimensions
+                elif isinstance(color_source[0], list):
+                    color_to_use = color_source[(start_y_offset + row_index) % len(color_source)][(start_x_offset + bit_index) % len(color_source[(start_y_offset + row_index)])]
 
-                # If it's a list of color codes, we'll pick one based on the current position in the character
-                elif isinstance(back_color, list):
-                    if isinstance(back_color[0], int):
-                        color_to_use = back_color[(start_x_offset + bit_index + 8 * (start_y_offset + row_index)) % len(back_color)]
-                    elif isinstance(back_color[0], list):
-                        color_to_use = back_color[(start_y_offset + row_index) % len(back_color)][(start_x_offset + bit_index) % len(back_color[(start_y_offset + row_index) % len(back_color)])]
-
-            # If there's a color to write... Write it!
-            if color_to_use is not False:
-                vb[(x + start_x_offset + bit_index) % vb.dimensions[0]][(y + start_y_offset + row_index) % vb.dimensions[1]] = color_to_use
+            # Write the color to the video buffer
+            vb[(x + start_x_offset + bit_index) % vb.dimensions[0]][(y + start_y_offset + row_index) % vb.dimensions[1]] = color_to_use
 
     return True
 
