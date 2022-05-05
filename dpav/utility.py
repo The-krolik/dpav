@@ -1105,7 +1105,8 @@ def draw_8x8_character(vb: VBuffer,
                        y_flip: bool = False,
                        xy_swap: bool = False,
                        x_roll: int = 0,
-                       y_roll: int = 0) -> bool:
+                       y_roll: int = 0,
+                       iterative_color: bool = False) -> bool:
     #
     #
     # Check for valid arguments
@@ -1307,7 +1308,7 @@ def draw_8x8_character(vb: VBuffer,
 
     #
     #
-    # Decode the inputed encoded character
+    # Decode the inputted encoded character
     #
     #
 
@@ -1436,6 +1437,66 @@ def draw_8x8_character(vb: VBuffer,
 
     #
     #
+    # Render color map
+    #
+    #
+
+    #
+    # Set up color maps for foreground and background
+    #
+
+    character_color_map_fore = None
+    character_color_map_back = None
+
+    #
+    # Fore ground color map
+    #
+
+    # Check to see if there's bool or int for fore color
+    if isinstance(fore_color, (bool, int)):
+
+        # Then write it out for the map
+        character_color_map_fore = [[fore_color] * 8] * 8
+
+    # If it's a list of color codes
+    elif isinstance(fore_color, list):
+        character_color_map_fore = [[None for i in range(8)] for j in range(8)]
+
+        if isinstance(fore_color[0], int):
+            for x_index in range(0, 8):
+                for y_index in range(0, 8):
+                    character_color_map_fore[x_index][y_index] = fore_color[(x_index + 8 * y_index) % len(fore_color)]
+
+        else:
+            for x_index in range(0, 8):
+                for y_index in range(0, 8):
+                    character_color_map_fore[x_index][y_index] = fore_color[x_index % len(fore_color)][y_index % len(fore_color[x_index])]
+
+    #
+    # Back ground color map
+    #
+
+    # Check to see if there's bool or int for back color
+    if isinstance(back_color, (bool, int)):
+        # Then write it out for the map
+        character_color_map_back = [[back_color] * 8] * 8
+
+    # If it's a list of color codes
+    elif isinstance(back_color, list):
+        character_color_map_back = [[None for i in range(8)] for j in range(8)]
+
+        if isinstance(back_color[0], int):
+            for x_index in range(8):
+                for y_index in range(8):
+                    character_color_map_back[x_index][y_index] = back_color[(x_index + 8 * y_index) % len(back_color)]
+
+        else:
+            for x_index in range(8):
+                for y_index in range(8):
+                    character_color_map_back[x_index][y_index] = back_color[x_index % len(back_color)][y_index % len(back_color[x_index])]
+
+    #
+    #
     #  Start drawing
     #
     #
@@ -1447,33 +1508,16 @@ def draw_8x8_character(vb: VBuffer,
         for bit_index, bit_data in enumerate(row_data[start_x_offset: end_x]):
 
             # Temp variable to hold the color source to use
-            color_source = fore_color if bit_data else back_color
+            color_source = character_color_map_fore if bit_data else character_color_map_back
 
             # Check to see if there's bool for color
-            if isinstance(color_source, bool):
+            if not color_source[bit_index + start_x_offset][row_index + start_y_offset]:
 
                 # Skip this iteration, nothing to write
                 continue
 
-            # If this is a foreground color bit
-
-            # If it's a regular int, we'll use that as the color to use
-            if isinstance(color_source, int):
-                color_to_use = color_source
-
-            # If it's a list of color codes
-            elif isinstance(color_source, list):
-
-                # If it's a list of ints, go through the list grabbing codes in a circular fashion
-                if isinstance(color_source[0], int):
-                    color_to_use = color_source[(start_x_offset + bit_index + 8 * (start_y_offset + row_index)) % len(color_source)]
-
-                # If it's a list of lists of ints, go through the codes in circular fashion in both dimensions
-                elif isinstance(color_source[0], list):
-                    color_to_use = color_source[(start_y_offset + row_index) % len(color_source)][(start_x_offset + bit_index) % len(color_source[(start_y_offset + row_index)])]
-
             # Write the color to the video buffer
-            vb[(x + start_x_offset + bit_index) % vb.dimensions[0]][(y + start_y_offset + row_index) % vb.dimensions[1]] = color_to_use
+            vb[(x + start_x_offset + bit_index) % vb.dimensions[0]][(y + start_y_offset + row_index) % vb.dimensions[1]] = color_source[bit_index + start_x_offset][row_index + start_y_offset]
 
     return True
 
