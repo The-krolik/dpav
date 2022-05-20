@@ -1,5 +1,6 @@
 import pytest
 import dpav as dp
+import sdl2
 from typing import Type
 
 
@@ -18,81 +19,58 @@ def test_audio():
     assert a.waveform == a.waves.square
 
 
-def test_vbuffer():
-    vb = dp.VBuffer()
-    x, y = vb.get_dimensions()
-    assert x > 0
-    assert y > 0
-    assert type(x) is int
-    assert type(y) is int
-
+def test_dimensions():
     with pytest.raises(ValueError) as e_info:
-        vb = dp.VBuffer([0, 0])
-
+        vb = dp.VBuffer(0, 0)
     with pytest.raises(ValueError) as e_info:
-        vb = dp.VBuffer([0, 600])
-
+        vb = dp.VBuffer(-1, 0)
     with pytest.raises(ValueError) as e_info:
-        vb = dp.VBuffer([800, 0])
-
+        vb = dp.VBuffer(0, -1)
     with pytest.raises(ValueError) as e_info:
-        vb = dp.VBuffer([9999, 9999])
-
-    with pytest.raises(ValueError) as e_info:
-        vb = dp.VBuffer([-100, -100])
-
-    with pytest.raises(TypeError) as e_info:
-        vb = dp.VBuffer([100.9, 200])
-
-    with pytest.raises(TypeError) as e_info:
-        vb = dp.VBuffer([200, 200.5])
-
-    vb = dp.VBuffer([1920, 1080])
-    x, y = vb.get_dimensions()
-    assert type(x) is int
-    assert type(y) is int
-    assert x == 1920
-    assert y == 1080
+        vb = dp.VBuffer(-1, -1)
 
     vb = dp.VBuffer()
-    x, y = vb.get_dimensions()
-    assert type(x) is int
-    assert type(y) is int
+    x, y = vb.dimensions
     assert x == 800
     assert y == 600
 
-    vb = dp.VBuffer([800, 600])
-    assert vb.get_pixel([400, 300]) == 0
+    vb = dp.VBuffer(1920, 1080)
+    x, y = vb.dimensions
+    assert x == 1920
+    assert y == 1080
 
-    with pytest.raises(ValueError) as e_info:
-        vb.write_pixel([-300, 9], 16777215)
+    with pytest.raises(AttributeError) as e_info:
+        vb.dimensions = (20, 20)
 
-    with pytest.raises(ValueError) as e_info:
-        vb.write_pixel([300, -200], 16777215)
 
-    with pytest.raises(TypeError) as e_info:
-        vb.write_pixel([300.1, 200], 16777215)
+def test_pixel_val_init():
+    vb = dp.VBuffer()
+    assert vb.sum() == 0
 
-    with pytest.raises(TypeError) as e_info:
-        vb.write_pixel([20, 799.5], 16777215)
 
-    with pytest.raises(ValueError) as e_info:
-        vb.write_pixel([399, 299], 16777216)
-    assert vb.get_pixel([399, 299]) == 0
+def test_pixel_access():
+    vb = dp.VBuffer()
 
-    with pytest.raises(ValueError) as e_info:
-        vb.write_pixel([399, 299], -1)
-    assert vb.get_pixel([399, 299]) == 0
+    # what about 0xFF00FFFF?
+    # vb[10, 10] = -5 needs consideration
 
-    with pytest.raises(TypeError) as e_info:
-        vb.write_pixel([399, 299], 100.5)
-    assert vb.get_pixel([399, 299]) == 0
+    vb[400, 300] = 0xFF0000
+    assert vb[400, 300] == 0xFF0000
 
-    vb.write_pixel([0, 0], 16777215)
-    assert vb.get_pixel([0, 0]) == 16777215
+    assert len(vb) = 800
+    assert len(vb[0]) = 600
 
-    vb.write_pixel([799, 599], 0xFFFFFF)
-    assert vb.get_pixel([0, 0]) == 16777215
 
+def test_clear():
+    vb = dp.VBuffer()
+    vb[:] = 0xFF0000
     vb.clear()
-    assert vb.buffer.sum() == 0
+    assert vb.sum() == 0
+
+def test_surface_access():
+    vb = dp.VBuffer()
+    with pytest.raises(AttributeError) as e_info:
+        vb.surface = sdl2.SDL_Surface
+
+# def test_set_buffer():
+# def test_buffer_files():
