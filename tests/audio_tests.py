@@ -1,6 +1,7 @@
 import pytest
 import dpav as dp
 
+
 def test_audio():
     a = dp.Audio()
 

@@ -62,35 +62,6 @@ class VBuffer:
         """
         raise AttributeError("Cannot reshape visual buffer by setting dimensions")
 
-    def set_buffer(self, buf: np.ndarray) -> None:
-        """
-        Set the contents of a visual buffer to match those of a given array.
-
-        Args:
-            buf: An array of hex color values.
-        """
-        # not yet implemented
-        raise Exception("This function is not yet implemented")
-
     def clear(self) -> None:
         """Set every pixel in the buffer to 0 (hex value for black)."""
         self.buffer.fill(0x000000)
-
-    def save_buffer_to_file(self, filename: str) -> None:
-        """
-        Save contents of buffer to a binary file.
-
-        Args:
-            filename: The path and name of the file to write.
-        """
-        np.save(filename, self.buffer)
-
-    def load_buffer_from_file(self, filename: str) -> None:
-        """
-        Load binary file storing buffer contents, and write it to buffer.
-
-        Args:
-            filename: The path to a binary file containing numpy array data.
-        """
-        file_buffer = np.load(filename + ".npy")
-        self.set_buffer(file_buffer)
