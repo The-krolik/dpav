@@ -12,11 +12,23 @@ class VBuffer:
     the window class.
     """
 
-    def __init__(self, xdim=800: int, ydim=600: int) -> None:
-        self.surface = SDL_CreateRGBSurfaceWithFormat(
-            0, xdim, ydim, 24, SDL_PIXELFORMAT_RGB888
-        )
-        self.buffer = sdl2.ext.pixels2d(self.surface, False)
+    def __init__(self, arg=(800, 600)) -> None:
+        if type(arg) is str:
+            # import from file
+            raise Exception("Importing from a file is not yet implemented")
+        elif type(arg) is np.ndarray:
+            xdim, ydim = arg.shape
+            arr = sdl2.ext.create_array(arg)
+            self._surface = SDL_CreateRGBSurfaceWithFormatFrom(
+                arr, xdim, ydim, 24, 3 * ydim, SDL_PIXELFORMAT_RGB888
+            )
+        else:
+            xdim, ydim = arg
+            self._surface = SDL_CreateRGBSurfaceWithFormat(
+                0, xdim, ydim, 24, SDL_PIXELFORMAT_RGB888
+            )
+
+        self.buffer = sdl2.ext.pixels2d(self.surface, True)
 
     def __getitem__(self, idx: tuple) -> int:
         return self.buffer[idx]
@@ -29,11 +41,11 @@ class VBuffer:
 
     @property
     def surface(self) -> SDL_Surface:
-        return self.surface
+        return self._surface
 
     @surface.setter
-    def surface(se.f, _) -> None:
-        raise AttributeError("Cannot manually assign a surface to visual buffers")
+    def surface(self, _) -> None:
+        raise AttributeError("Cannot assign a surface to a visual buffer")
 
     @property
     def dimensions(self) -> tuple:
