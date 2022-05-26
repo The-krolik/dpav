@@ -6,19 +6,15 @@ import dpav as dp
 
 
 def test_arr_init():
-    arr = np.zeros((750, 550))
-    arr[:] = 0x00FF00
-    vb = dp.VBuffer(arr)
+    test_arr = np.full((750, 550), 0x00FF00)
+    vb = dp.VBuffer(test_arr)
     assert vb.dimensions == (750, 550)
-    failed = False
     for i in range(len(vb)):
         for j in range(len(vb[i])):
-            if vb[i, j] != 0x00FF00:
-                failed = True
-    assert failed == False
+            assert vb[i, j] == 0x00FF00
 
 
-def test_dimensions():
+def test_init():
     with pytest.raises(ValueError) as e_info:
         vb = dp.VBuffer((0, 0))
     with pytest.raises(ValueError) as e_info:
@@ -34,6 +30,9 @@ def test_dimensions():
     vb = dp.VBuffer((1920, 1080))
     assert vb.dimensions == (1920, 1080)
 
+
+def test_set_dimensions():
+    vb = dp.VBuffer()
     with pytest.raises(AttributeError) as e_info:
         vb.dimensions = (20, 20)
 

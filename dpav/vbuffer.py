@@ -1,6 +1,8 @@
 import numpy as np
 from sdl2 import *
 import sdl2.ext
+#from ctypes import c_void_p
+import ctypes
 
 
 class VBuffer:
@@ -18,9 +20,10 @@ class VBuffer:
             raise Exception("Importing from a file is not yet implemented")
         elif type(arg) is np.ndarray:
             xdim, ydim = arg.shape
-            arr = sdl2.ext.create_array(arg)
             self._surface = SDL_CreateRGBSurfaceWithFormatFrom(
-                arr, xdim, ydim, 24, 3 * ydim, SDL_PIXELFORMAT_RGB888
+                #arg.ctypes.data_as(c_void_p) , xdim, ydim, 24, 3 * ydim, SDL_PIXELFORMAT_RGB888
+                #arg.ctypes.data_as(ctypes.c_void_p) , xdim, ydim, 24, arg.ctypes.strides[0], SDL_PIXELFORMAT_RGB888
+                arg.ctypes.data_as(ctypes.POINTER(ctypes.c_double)) , xdim, ydim, 24, arg.ctypes.strides[0], SDL_PIXELFORMAT_RGB888
             )
         else:
             xdim, ydim = arg
@@ -28,7 +31,7 @@ class VBuffer:
                 0, xdim, ydim, 24, SDL_PIXELFORMAT_RGB888
             )
 
-        self.buffer = sdl2.ext.pixels2d(self.surface, True)
+        self.buffer = sdl2.ext.pixels2d(self._surface, True)
 
     def __getitem__(self, idx: tuple) -> int:
         return self.buffer[idx]
